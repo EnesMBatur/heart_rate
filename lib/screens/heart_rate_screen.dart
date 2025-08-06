@@ -3,9 +3,11 @@ import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import '../models/heart_rate_measurement.dart';
 import '../services/heart_rate_service.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -19,7 +21,6 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   CameraController? _cameraController;
   bool _isInitialized = false;
   bool _isMeasuring = false;
-  bool _flashOn = false;
 
   final List<double> _heartRateValues = [];
   int _currentHeartRate = 0;
@@ -55,10 +56,16 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   }
 
   Future<void> _requestPermissions() async {
-    final cameraStatus = await Permission.camera.request();
-    if (cameraStatus.isGranted) {
-      await _initializeCamera();
-    } else {
+    try {
+      // Doğrudan camera paketinin kendi izin sistemini kullan
+      final cameras = await availableCameras();
+      if (cameras.isNotEmpty) {
+        await _initializeCamera();
+      } else {
+        _showPermissionDialog();
+      }
+    } catch (e) {
+      debugPrint('Camera permission error: $e');
       _showPermissionDialog();
     }
   }
@@ -67,21 +74,19 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Camera Permission Required'),
-        content: const Text(
-          'This app needs camera access to measure your heart rate. Please grant camera permission in settings.',
-        ),
+        title: Text(LocaleKeys.camera_permission_required.tr()),
+        content: Text(LocaleKeys.camera_permission_description.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(LocaleKeys.cancel.tr()),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               openAppSettings();
             },
-            child: const Text('Settings'),
+            child: Text(LocaleKeys.settings.tr()),
           ),
         ],
       ),
@@ -91,7 +96,10 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   Future<void> _initializeCamera() async {
     try {
       final cameras = await availableCameras();
-      if (cameras.isEmpty) return;
+      if (cameras.isEmpty) {
+        _showPermissionDialog();
+        return;
+      }
 
       // Use back camera for heart rate measurement
       final backCamera = cameras.firstWhere(
@@ -114,6 +122,11 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       }
     } catch (e) {
       debugPrint('Error initializing camera: $e');
+      // Bu hata kamera izni olmadığını gösterebilir
+      if (e.toString().contains('permission') ||
+          e.toString().contains('authorization')) {
+        _showPermissionDialog();
+      }
     }
   }
 
@@ -129,7 +142,6 @@ class _HeartRateScreenState extends State<HeartRateScreen>
 
       setState(() {
         _isMeasuring = true;
-        _flashOn = true;
         _heartRateValues.clear();
         _currentHeartRate = 0;
         _countdown = 30; // 30 second measurement
@@ -231,7 +243,6 @@ class _HeartRateScreenState extends State<HeartRateScreen>
 
       setState(() {
         _isMeasuring = false;
-        _flashOn = false;
       });
 
       // Save measurement if we have a valid heart rate
@@ -301,7 +312,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('Measurement Complete'),
+        title: Text(LocaleKeys.measurement_complete.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -320,19 +331,27 @@ class _HeartRateScreenState extends State<HeartRateScreen>
             ),
             const SizedBox(height: 8),
             Text(
-              'Heart Rate: ${_getHeartRateCategory(_currentHeartRate)}',
+              LocaleKeys.heart_rate_category.tr(
+                args: [_getHeartRateCategory(_currentHeartRate)],
+              ),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildResultItem('Stress', _getStressLevel(_currentHeartRate)),
                 _buildResultItem(
-                  'Tension',
+                  LocaleKeys.stress.tr(),
+                  _getStressLevel(_currentHeartRate),
+                ),
+                _buildResultItem(
+                  LocaleKeys.tension.tr(),
                   _getTensionLevel(_currentHeartRate),
                 ),
-                _buildResultItem('Energy', _getEnergyLevel(_currentHeartRate)),
+                _buildResultItem(
+                  LocaleKeys.energy.tr(),
+                  _getEnergyLevel(_currentHeartRate),
+                ),
               ],
             ),
           ],
@@ -340,7 +359,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(LocaleKeys.ok.tr()),
           ),
         ],
       ),
@@ -360,24 +379,22 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   }
 
   String _getHeartRateCategory(int heartRate) {
-    if (heartRate < 60) return 'Low';
-    if (heartRate <= 100) return 'Normal';
-    if (heartRate <= 120) return 'Elevated';
-    return 'High';
+    if (heartRate < 60) return LocaleKeys.heart_rate_low.tr();
+    if (heartRate <= 100) return LocaleKeys.heart_rate_normal.tr();
+    if (heartRate <= 120) return LocaleKeys.heart_rate_elevated.tr();
+    return LocaleKeys.heart_rate_high.tr();
   }
 
   void _showErrorDialog() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Measurement Failed'),
-        content: const Text(
-          'Unable to get a reliable heart rate reading. Please try again and make sure your finger completely covers the camera and flashlight.',
-        ),
+        title: Text(LocaleKeys.measurement_failed.tr()),
+        content: Text(LocaleKeys.measurement_failed_description.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(LocaleKeys.ok.tr()),
           ),
         ],
       ),
@@ -387,19 +404,22 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Heart Rate Measurement'), elevation: 0),
+      appBar: AppBar(
+        title: Text(LocaleKeys.heart_rate_measurement.tr()),
+        elevation: 0,
+      ),
       body: _isInitialized ? _buildMeasurementBody() : _buildLoadingBody(),
     );
   }
 
   Widget _buildLoadingBody() {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(),
-          SizedBox(height: 16),
-          Text('Initializing camera...'),
+          const CircularProgressIndicator(),
+          const SizedBox(height: 16),
+          Text(LocaleKeys.initializing_camera.tr()),
         ],
       ),
     );
@@ -420,10 +440,10 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                 size: 32,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Place your finger completely over the back camera and flashlight. Hold steady and breathe normally.',
+              Text(
+                LocaleKeys.instruction_place_finger.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -437,10 +457,10 @@ class _HeartRateScreenState extends State<HeartRateScreen>
             color: Colors.black,
             child: _cameraController != null
                 ? CameraPreview(_cameraController!)
-                : const Center(
+                : Center(
                     child: Text(
-                      'Camera not available',
-                      style: TextStyle(color: Colors.white),
+                      LocaleKeys.camera_not_available.tr(),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
           ),
@@ -509,7 +529,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                 // Countdown or status
                 if (_isMeasuring) ...[
                   Text(
-                    'Measuring... $_countdown s',
+                    LocaleKeys.measuring_countdown.tr(args: ['$_countdown']),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
@@ -521,9 +541,9 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                     ),
                   ),
                 ] else ...[
-                  const Text(
-                    'Ready to measure',
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  Text(
+                    LocaleKeys.ready_to_measure.tr(),
+                    style: const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                 ],
 
@@ -543,7 +563,9 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: Text(
-                      _isMeasuring ? 'Stop Measurement' : 'Start Measurement',
+                      _isMeasuring
+                          ? LocaleKeys.stop_measurement.tr()
+                          : LocaleKeys.start_measurement.tr(),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

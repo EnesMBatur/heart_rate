@@ -1,0 +1,22 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created for Heart Rate Monitor
+  Turkish Localization
+*/
+
+/* Camera Usage Description */
+"NSCameraUsageDescription" = "Bu uygulama kalp atış hızınızı ölçmek için kamera erişimi gerektirir. Parmağınızı kameraya yerleştirerek kan akışındaki değişiklikleri algılar.";
+
+/* Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "Bu uygulama fotoğraf galerisine erişim gerektirmez.";
+
+/* Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "Bu uygulama mikrofon erişimi gerektirmez.";
+
+/* App Display Name */
+"CFBundleDisplayName" = "Kalp Atışı";
+
+/* App Name */
+"CFBundleName" = "Kalp Atışı";

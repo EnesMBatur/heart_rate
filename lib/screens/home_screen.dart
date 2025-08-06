@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'heart_rate_screen.dart';
 import 'history_screen.dart';
 import 'tips_screen.dart';
 import '../models/heart_rate_measurement.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -85,16 +87,22 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: LocaleKeys.home.tr(),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.monitor_heart),
-            label: 'Measure',
+            label: LocaleKeys.measure.tr(),
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: LocaleKeys.history.tr(),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.lightbulb_outline),
-            label: 'Tips',
+            label: LocaleKeys.tips.tr(),
           ),
         ],
       ),
@@ -103,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHomePage() {
     return Scaffold(
-      appBar: AppBar(title: const Text('HeartRater'), elevation: 0),
+      appBar: AppBar(title: Text(LocaleKeys.heartRater.tr()), elevation: 0),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -126,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'Welcome to HeartRater',
+                            LocaleKeys.welcome_to_heartRater.tr(),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
@@ -134,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Easily take your heart rate by placing your finger on the camera. This heart health app will educate and inform you on how to keep your heart strong and risk factors minimal.',
+                      LocaleKeys.welcome_description.tr(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -147,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // Last Measurement Card
             if (_lastMeasurement != null) ...[
               Text(
-                'Last Measurement',
+                LocaleKeys.last_measurement.tr(),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12),
@@ -160,9 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _buildMeasurementItem(
-                            'Heart Rate',
+                            LocaleKeys.heart_rate.tr(),
                             '${_lastMeasurement!.heartRate}',
-                            'BPM',
+                            LocaleKeys.bpm.tr(),
                             Icons.monitor_heart,
                             Theme.of(context).primaryColor,
                           ),
@@ -173,21 +181,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _buildMeasurementItem(
-                            'Stress',
+                            LocaleKeys.stress.tr(),
                             '${_lastMeasurement!.stress}',
                             '/5',
                             Icons.psychology,
                             Colors.orange,
                           ),
                           _buildMeasurementItem(
-                            'Tension',
+                            LocaleKeys.tension.tr(),
                             '${_lastMeasurement!.tension}',
                             '/5',
                             Icons.fitness_center,
                             Colors.red,
                           ),
                           _buildMeasurementItem(
-                            'Energy',
+                            LocaleKeys.energy.tr(),
                             '${_lastMeasurement!.energy}',
                             '/5',
                             Icons.battery_charging_full,
@@ -212,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 icon: const Icon(Icons.monitor_heart),
-                label: const Text('Start Heart Rate Measurement'),
+                label: Text(LocaleKeys.start_heart_rate_measurement.tr()),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                 ),
@@ -222,7 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
 
             // Tips Preview
-            Text('Quick Tips', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              LocaleKeys.quick_tips.tr(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 12),
             Card(
               child: Padding(
@@ -230,12 +241,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildTipItem('Always hold your phone steady'),
-                    _buildTipItem('Remain calm and breathe at a regular rate'),
-                    _buildTipItem(
-                      'Cover the entire back camera with your finger',
-                    ),
-                    _buildTipItem('Use a light touch - don\'t press hard'),
+                    _buildTipItem(LocaleKeys.tip_hold_steady.tr()),
+                    _buildTipItem(LocaleKeys.tip_breathe_calm.tr()),
+                    _buildTipItem(LocaleKeys.tip_cover_camera.tr()),
+                    _buildTipItem(LocaleKeys.tip_light_touch.tr()),
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: () {
@@ -243,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           _selectedIndex = 3;
                         });
                       },
-                      child: const Text('View All Tips →'),
+                      child: Text(LocaleKeys.view_all_tips.tr()),
                     ),
                   ],
                 ),

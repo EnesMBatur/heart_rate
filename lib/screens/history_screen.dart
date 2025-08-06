@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart' as ez;
 import '../models/heart_rate_measurement.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -93,19 +95,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear History'),
-        content: const Text(
-          'Are you sure you want to delete all measurement history?',
-        ),
+        title: Text(LocaleKeys.clear_history.tr()),
+        content: Text(LocaleKeys.clear_history_confirmation.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(LocaleKeys.cancel.tr()),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(LocaleKeys.delete.tr()),
           ),
         ],
       ),
@@ -119,9 +119,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('History cleared')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(LocaleKeys.history_cleared.tr())),
+        );
       }
     }
   }
@@ -130,13 +130,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Measurement History'),
+        title: Text(LocaleKeys.measurement_history.tr()),
         actions: [
           if (_measurements.isNotEmpty)
             IconButton(
               onPressed: _clearHistory,
               icon: const Icon(Icons.delete_outline),
-              tooltip: 'Clear History',
+              tooltip: LocaleKeys.clear_history.tr(),
             ),
         ],
       ),
@@ -156,14 +156,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Icon(Icons.history, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            'No measurements yet',
+            LocaleKeys.no_measurements_yet.tr(),
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
           ),
           const SizedBox(height: 8),
           Text(
-            'Take your first heart rate measurement to see it here',
+            LocaleKeys.no_measurements_description.tr(),
             style: Theme.of(
               context,
             ).textTheme.bodyMedium?.copyWith(color: Colors.grey[500]),
@@ -193,7 +193,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
           // History List
           Text(
-            'Recent Measurements',
+            LocaleKeys.recent_measurements.tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 12),
@@ -220,25 +220,28 @@ class _HistoryScreenState extends State<HistoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Statistics', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              LocaleKeys.statistics.tr(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildStatItem(
-                  'Average',
+                  LocaleKeys.average.tr(),
                   avgHeartRate.round(),
                   'BPM',
                   Icons.trending_flat,
                 ),
                 _buildStatItem(
-                  'Lowest',
+                  LocaleKeys.lowest.tr(),
                   minHeartRate,
                   'BPM',
                   Icons.trending_down,
                 ),
                 _buildStatItem(
-                  'Highest',
+                  LocaleKeys.highest.tr(),
                   maxHeartRate,
                   'BPM',
                   Icons.trending_up,
@@ -247,7 +250,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Total measurements: ${_measurements.length}',
+              LocaleKeys.total_measurements.tr(
+                args: ['${_measurements.length}'],
+              ),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -291,7 +296,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Heart Rate Trend',
+              LocaleKeys.heart_rate_trend.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 20),

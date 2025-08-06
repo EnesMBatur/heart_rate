@@ -1,0 +1,22 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created for Heart Rate Monitor
+  English Localization
+*/
+
+/* Camera Usage Description */
+"NSCameraUsageDescription" = "This app requires camera access to measure your heart rate. It detects changes in blood flow by placing your finger on the camera.";
+
+/* Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "This app does not require photo library access.";
+
+/* Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "This app does not require microphone access.";
+
+/* App Display Name */
+"CFBundleDisplayName" = "Heart Rate";
+
+/* App Name */
+"CFBundleName" = "Heart Rate";

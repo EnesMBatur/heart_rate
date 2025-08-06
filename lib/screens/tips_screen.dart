@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 class TipsScreen extends StatelessWidget {
   const TipsScreen({super.key});
@@ -6,7 +8,7 @@ class TipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Heart Health Tips')),
+      appBar: AppBar(title: Text(LocaleKeys.heart_health_tips.tr())),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -15,14 +17,14 @@ class TipsScreen extends StatelessWidget {
             // How to measure section
             _buildSectionCard(
               context,
-              'How to Check Pulse Using Finger',
+              'how_to_check_pulse'.tr(),
               Icons.fingerprint,
               [
-                'First, make sure your fingers aren\'t cold. When checking your pulse, be sure your fingertip completely covers the camera lens and flashlight.',
-                'Press gently with your finger. Pressing too hard may result in reduced blood flow, which will make it more difficult to get an accurate result.',
-                'Always hold your phone steady',
-                'Remain calm and breathe at a regular rate',
-                'Cover the entire back camera with your finger. You do not need to press hard for it to begin measuring. A light touch is all that is needed to begin the reading.',
+                'pulse_tip_1'.tr(),
+                'pulse_tip_2'.tr(),
+                'pulse_tip_3'.tr(),
+                'pulse_tip_4'.tr(),
+                'pulse_tip_5'.tr(),
               ],
             ),
 
@@ -31,17 +33,17 @@ class TipsScreen extends StatelessWidget {
             // Best practices section
             _buildSectionCard(
               context,
-              'Follow These Easy Tips for Best Results',
+              LocaleKeys.best_results_tips.tr(),
               Icons.lightbulb_outline,
               [
-                'Always hold your phone steady',
-                'Remain calm and breathe at a regular rate',
-                'Cover the entire back camera with your finger',
-                'Use a light touch - don\'t press hard',
-                'Ensure good lighting conditions',
-                'Take measurements at the same time of day for consistency',
-                'Avoid caffeine or exercise before measuring',
-                'Sit quietly for a few minutes before measuring',
+                LocaleKeys.best_tip_1.tr(),
+                LocaleKeys.best_tip_2.tr(),
+                LocaleKeys.best_tip_3.tr(),
+                LocaleKeys.best_tip_4.tr(),
+                LocaleKeys.best_tip_5.tr(),
+                LocaleKeys.best_tip_6.tr(),
+                LocaleKeys.best_tip_7.tr(),
+                LocaleKeys.best_tip_8.tr(),
               ],
             ),
 
@@ -55,18 +57,18 @@ class TipsScreen extends StatelessWidget {
             // Health tips section
             _buildSectionCard(
               context,
-              'Keeping Your Heart Strong',
+              'keeping_heart_strong'.tr(),
               Icons.favorite,
               [
-                'Exercise regularly - aim for at least 150 minutes of moderate activity per week',
-                'Maintain a healthy diet rich in fruits, vegetables, and whole grains',
-                'Limit sodium, saturated fats, and added sugars',
-                'Don\'t smoke and limit alcohol consumption',
-                'Manage stress through relaxation techniques',
-                'Get adequate sleep (7-9 hours per night)',
-                'Maintain a healthy weight',
-                'Monitor your blood pressure regularly',
-                'Stay hydrated throughout the day',
+                'health_tip_1'.tr(),
+                'health_tip_2'.tr(),
+                'health_tip_3'.tr(),
+                'health_tip_4'.tr(),
+                'health_tip_5'.tr(),
+                'health_tip_6'.tr(),
+                'health_tip_7'.tr(),
+                'health_tip_8'.tr(),
+                'health_tip_9'.tr(),
               ],
             ),
 
@@ -75,19 +77,19 @@ class TipsScreen extends StatelessWidget {
             // Risk factors section
             _buildSectionCard(
               context,
-              'Minimizing Risk Factors',
+              'minimizing_risk_factors'.tr(),
               Icons.warning_outlined,
               [
-                'Control high blood pressure',
-                'Manage diabetes if you have it',
-                'Maintain healthy cholesterol levels',
-                'Avoid tobacco in all forms',
-                'Limit alcohol consumption',
-                'Manage stress effectively',
-                'Maintain a healthy weight',
-                'Stay physically active',
-                'Get regular health check-ups',
-                'Know your family history',
+                'risk_tip_1'.tr(),
+                'risk_tip_2'.tr(),
+                'risk_tip_3'.tr(),
+                'risk_tip_4'.tr(),
+                'risk_tip_5'.tr(),
+                'risk_tip_6'.tr(),
+                'risk_tip_7'.tr(),
+                'risk_tip_8'.tr(),
+                'risk_tip_9'.tr(),
+                'risk_tip_10'.tr(),
               ],
             ),
 
@@ -99,19 +101,14 @@ class TipsScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Sharing section
-            _buildSectionCard(
-              context,
-              'Share with Friends and Family',
-              Icons.share,
-              [
-                'Heart health is important for everyone',
-                'Share this app with your loved ones',
-                'Encourage regular heart rate monitoring',
-                'Start making a difference in their lives',
-                'Create healthy habits together',
-                'Support each other in maintaining heart health',
-              ],
-            ),
+            _buildSectionCard(context, 'share_with_family'.tr(), Icons.share, [
+              'share_tip_1'.tr(),
+              'share_tip_2'.tr(),
+              'share_tip_3'.tr(),
+              'share_tip_4'.tr(),
+              'share_tip_5'.tr(),
+              'share_tip_6'.tr(),
+            ]),
           ],
         ),
       ),
@@ -182,7 +179,7 @@ class TipsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'Understanding Heart Rate Zones',
+                  'understanding_heart_rate_zones'.tr(),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
@@ -190,30 +187,30 @@ class TipsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildHeartRateZone(
               context,
-              'Resting Heart Rate',
-              '60-100 BPM',
-              'Normal resting heart rate for adults',
+              'resting_heart_rate'.tr(),
+              'resting_range'.tr(),
+              'resting_description'.tr(),
               Colors.green,
             ),
             _buildHeartRateZone(
               context,
-              'Low Heart Rate',
-              'Below 60 BPM',
-              'May indicate excellent fitness or bradycardia',
+              'low_heart_rate'.tr(),
+              'low_range'.tr(),
+              'low_description'.tr(),
               Colors.blue,
             ),
             _buildHeartRateZone(
               context,
-              'Elevated Heart Rate',
-              '100-120 BPM',
-              'May indicate mild stress or physical activity',
+              'elevated_heart_rate'.tr(),
+              'elevated_range'.tr(),
+              'elevated_description'.tr(),
               Colors.orange,
             ),
             _buildHeartRateZone(
               context,
-              'High Heart Rate',
-              'Above 120 BPM',
-              'May indicate stress, anxiety, or tachycardia',
+              'high_heart_rate'.tr(),
+              'high_range'.tr(),
+              'high_description'.tr(),
               Colors.red,
             ),
             const SizedBox(height: 12),
@@ -230,7 +227,7 @@ class TipsScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'These are general guidelines. Individual normal ranges may vary. Consult a healthcare provider for personalized advice.',
+                      'heart_rate_zones_disclaimer'.tr(),
                       style: TextStyle(fontSize: 12, color: Colors.amber[700]),
                     ),
                   ),
@@ -302,7 +299,7 @@ class TipsScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'When to See a Doctor',
+                    'when_to_see_doctor'.tr(),
                     style: Theme.of(
                       context,
                     ).textTheme.titleLarge?.copyWith(color: Colors.red[700]),
@@ -312,21 +309,21 @@ class TipsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Consult a healthcare provider if you experience:',
+              'consult_healthcare_provider'.tr(),
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(color: Colors.red[700]),
             ),
             const SizedBox(height: 8),
             ...[
-              'Chest pain or discomfort',
-              'Shortness of breath',
-              'Dizziness or fainting',
-              'Irregular heartbeat',
-              'Persistent high or low heart rate',
-              'Heart palpitations',
-              'Unusual fatigue',
-              'Swelling in legs, ankles, or feet',
+              'symptom_1'.tr(),
+              'symptom_2'.tr(),
+              'symptom_3'.tr(),
+              'symptom_4'.tr(),
+              'symptom_5'.tr(),
+              'symptom_6'.tr(),
+              'symptom_7'.tr(),
+              'symptom_8'.tr(),
             ].map(
               (symptom) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -361,7 +358,7 @@ class TipsScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'This app is for informational purposes only and should not replace professional medical advice, diagnosis, or treatment.',
+                      'medical_disclaimer'.tr(),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.red[700],
