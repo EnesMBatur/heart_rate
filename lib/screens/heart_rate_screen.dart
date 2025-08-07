@@ -8,6 +8,7 @@ import 'dart:async';
 import '../models/heart_rate_measurement.dart';
 import '../locale/lang/locale_keys.g.dart';
 import '../viewmodels/heart_rate_view_model.dart';
+import '../services/heart_rate_service.dart';
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -133,6 +134,9 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     if (!_isInitialized || _viewModel.isMeasuring) return;
 
     try {
+      // Reset calibration for new measurement
+      HeartRateService.resetCalibration();
+
       // Keep screen on during measurement
       await WakelockPlus.enable();
 
@@ -358,7 +362,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     );
   }
 
-  // Measurement widget separated from loading
+  // Measurement widget with integrated camera preview
   Widget _buildMeasurementBody() {
     return Column(
       children: [
@@ -382,184 +386,245 @@ class _HeartRateScreenState extends State<HeartRateScreen>
             ],
           ),
         ),
-        // Camera preview
+        // Measurement area with integrated camera preview
         Expanded(
-          flex: 1,
-          child: Container(
-            width: double.infinity,
-            color: Colors.black,
-            child: _cameraController != null
-                ? CameraPreview(_cameraController!)
-                : Center(
-                    child: Text(
-                      LocaleKeys.camera_not_available.tr(),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-          ),
-        ),
-        // Measurement area
-        Expanded(
-          flex: 2,
+          flex: 3,
           child: Container(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                // Heart rate display
-                AnimatedBuilder(
-                  animation: _pulseAnimation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _viewModel.isMeasuring
-                          ? _pulseAnimation.value
-                          : 1.0,
-                      child: Container(
-                        width: 150,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).primaryColor.withAlpha(25),
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 3,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.favorite,
-                              color: Theme.of(context).primaryColor,
-                              size: 48,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _viewModel.isMeasuring
-                                  ? '${_viewModel.currentHeartRate}'
-                                  : '--',
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                            const Text(
-                              'BPM',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                // Camera preview as background
+                if (_cameraController != null)
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CameraPreview(_cameraController!),
+                    ),
+                  )
+                else
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          LocaleKeys.camera_not_available.tr(),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                    );
-                  },
+                    ),
+                  ),
+
+                // Semi-transparent overlay
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                 ),
 
-                const SizedBox(height: 24),
-
-                // Countdown or status
-                if (_viewModel.isMeasuring) ...[
-                  // Parmak durumu ve ölçüm bilgisi
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _viewModel.currentHeartRate > 0
-                          ? Colors.green.withAlpha(25)
-                          : Colors.orange.withAlpha(25),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: _viewModel.currentHeartRate > 0
-                            ? Colors.green
-                            : Colors.orange,
-                        width: 1,
+                // Heart rate display with circular progress
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Heart rate display with circular progress
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Circular progress indicator
+                          SizedBox(
+                            width: 180,
+                            height: 180,
+                            child: CircularProgressIndicator(
+                              value: _viewModel.isMeasuring
+                                  ? _viewModel.progress
+                                  : 0.0,
+                              strokeWidth: 8,
+                              backgroundColor: Colors.white.withOpacity(0.3),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                _viewModel.measurementCompleted
+                                    ? Colors.green
+                                    : _viewModel.signalQuality > 0.65
+                                    ? Colors.blue
+                                    : Colors.orange,
+                              ),
+                            ),
+                          ),
+                          // Heart rate circle
+                          AnimatedBuilder(
+                            animation: _pulseAnimation,
+                            builder: (context, child) {
+                              return Transform.scale(
+                                scale: _viewModel.isMeasuring
+                                    ? _pulseAnimation.value
+                                    : 1.0,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white.withOpacity(0.9),
+                                    border: Border.all(
+                                      color: Theme.of(context).primaryColor,
+                                      width: 3,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.favorite,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 48,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        _viewModel.isMeasuring
+                                            ? '${_viewModel.currentHeartRate}'
+                                            : '--',
+                                        style: TextStyle(
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                      const Text(
+                                        'BPM',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          _viewModel.currentHeartRate > 0
-                              ? Icons.check_circle
-                              : Icons.warning,
-                          color: _viewModel.currentHeartRate > 0
-                              ? Colors.green
-                              : Colors.orange,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          _viewModel.currentHeartRate > 0
-                              ? 'Nabız algılandı'
-                              : 'Parmağınızı kameraya yerleştirin',
-                          style: TextStyle(
+
+                      const SizedBox(height: 24),
+
+                      // Status message with better visibility
+                      if (_viewModel.isMeasuring) ...[
+                        // Finger status and measurement info
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
                             color: _viewModel.currentHeartRate > 0
-                                ? Colors.green
-                                : Colors.orange,
-                            fontWeight: FontWeight.w500,
+                                ? Colors.green.withOpacity(0.9)
+                                : Colors.orange.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: _viewModel.currentHeartRate > 0
+                                  ? Colors.green
+                                  : Colors.orange,
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                _viewModel.currentHeartRate > 0
+                                    ? Icons.check_circle
+                                    : Icons.warning,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                _viewModel.currentHeartRate > 0
+                                    ? 'Nabız algılandı'
+                                    : 'Parmağınızı kameraya yerleştirin',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            _viewModel.getStatusMessage(),
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(color: Colors.black87),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ] else ...[
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            LocaleKeys.ready_to_measure.tr(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  Text(
-                    _viewModel.getStatusMessage(),
-                    style: Theme.of(context).textTheme.titleMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  LinearProgressIndicator(
-                    value: _viewModel.progress,
-                    backgroundColor: Colors.grey[300],
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      _viewModel.measurementCompleted
-                          ? Colors.green
-                          : _viewModel.signalQuality > 0.65
-                          ? Colors.blue
-                          : Colors.orange,
-                    ),
-                  ),
-                ] else ...[
-                  Text(
-                    LocaleKeys.ready_to_measure.tr(),
-                    style: const TextStyle(fontSize: 18, color: Colors.grey),
-                  ),
-                ],
-
-                const SizedBox(height: 32),
-
-                // Start/Stop button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _viewModel.isMeasuring
-                        ? _stopMeasurement
-                        : _startMeasurement,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _viewModel.isMeasuring
-                          ? Colors.red
-                          : Theme.of(context).primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      _viewModel.isMeasuring
-                          ? LocaleKeys.stop_measurement.tr()
-                          : LocaleKeys.start_measurement.tr(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+
+        // Start/Stop button moved to bottom
+        Container(
+          padding: const EdgeInsets.all(24),
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _viewModel.isMeasuring
+                  ? _stopMeasurement
+                  : _startMeasurement,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _viewModel.isMeasuring
+                    ? Colors.red
+                    : Theme.of(context).primaryColor,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                _viewModel.isMeasuring
+                    ? LocaleKeys.stop_measurement.tr()
+                    : LocaleKeys.start_measurement.tr(),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),

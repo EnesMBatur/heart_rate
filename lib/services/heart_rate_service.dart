@@ -2,9 +2,149 @@ import 'dart:math';
 import 'package:camera/camera.dart';
 
 class HeartRateService {
+  // --- New Approach: Signal-based finger detection ---
+  static final List<double> _recentSignalValues = [];
+  static final List<double> _signalVariations = [];
+  static bool _fingerPresent = false;
+  static int _stableSignalCounter = 0;
+
   // Constants
-  static const double fingerThreshold = 80.0;
   static const double defaultFrameRate = 25.0;
+  static const int signalBufferSize = 150; // 5-6 seconds of data
+  static const int minimumVariationSamples = 75; // 2-3 seconds
+  static const double heartRateVariationThreshold =
+      0.5; // Minimum variation for finger presence
+
+  /// Reset all data for new measurement session
+  static void resetCalibration() {
+    _recentSignalValues.clear();
+    _signalVariations.clear();
+    _fingerPresent = false;
+    _stableSignalCounter = 0;
+  }
+
+  /// Get finger detection status
+  static bool get fingerPresent => _fingerPresent;
+
+  /// Add intensity sample and detect finger based on signal characteristics
+  static bool detectFingerFromSignal(double intensity) {
+    // Add current sample to signal buffer
+    _recentSignalValues.add(intensity);
+
+    // Keep buffer at manageable size
+    if (_recentSignalValues.length > signalBufferSize) {
+      _recentSignalValues.removeAt(0);
+    }
+
+    // Need enough samples to analyze
+    if (_recentSignalValues.length < minimumVariationSamples) {
+      return false;
+    }
+
+    // Calculate signal variation in recent window
+    final recentWindow = _recentSignalValues.sublist(
+      _recentSignalValues.length - minimumVariationSamples,
+    );
+    final variation = _calculateSignalVariation(recentWindow);
+
+    _signalVariations.add(variation);
+    if (_signalVariations.length > 50) _signalVariations.removeAt(0);
+
+    // Finger is present if we detect heart rate-like variations
+    bool hasHeartRatePattern = variation > heartRateVariationThreshold;
+
+    if (hasHeartRatePattern) {
+      _stableSignalCounter++;
+      if (_stableSignalCounter >= 10) {
+        // Need 10 consecutive good readings
+        _fingerPresent = true;
+      }
+    } else {
+      _stableSignalCounter = 0;
+      if (!hasHeartRatePattern && _signalVariations.length > 20) {
+        // Analyze the signal
+        if (_recentSignalValues.length >= minimumVariationSamples) {
+          final variation = _calculateSignalVariation(_recentSignalValues);
+          _signalVariations.add(variation);
+
+          if (variation > heartRateVariationThreshold) {
+            _stableSignalCounter++;
+            // Reduced threshold for faster detection
+            if (_stableSignalCounter >= 8) {
+              _fingerPresent = true;
+            }
+          } else {
+            _stableSignalCounter = 0;
+
+            // Check if we've had consistently low variation (no finger for a while)
+            if (_signalVariations.length >= 30) {
+              final recentVariations = _signalVariations.sublist(
+                _signalVariations.length - 30,
+              );
+              final avgRecentVariation =
+                  recentVariations.reduce((a, b) => a + b) /
+                  recentVariations.length;
+
+              // If no meaningful signal for extended period, reset buffers for fresh detection
+              if (avgRecentVariation < heartRateVariationThreshold * 0.3) {
+                _fingerPresent = false;
+
+                // Smart reset: Clear old data to allow fresh detection
+                if (_recentSignalValues.length > minimumVariationSamples * 2) {
+                  // Keep only recent samples for quicker re-detection
+                  final samplesToKeep = _recentSignalValues.sublist(
+                    _recentSignalValues.length - minimumVariationSamples,
+                  );
+                  _recentSignalValues.clear();
+                  _recentSignalValues.addAll(samplesToKeep);
+
+                  final variationsToKeep = _signalVariations.sublist(
+                    _signalVariations.length - 15,
+                  );
+                  _signalVariations.clear();
+                  _signalVariations.addAll(variationsToKeep);
+                  print(
+                    '🔄 Signal reset: Cleared old data for fresh finger detection',
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Debug info
+    if (_recentSignalValues.length % 25 == 0) {
+      // Log every ~1 second
+      print(
+        '🫀 Signal Analysis: variation=${variation.toStringAsFixed(3)}, '
+        'stable=$_stableSignalCounter, finger=$_fingerPresent',
+      );
+    }
+
+    return _fingerPresent;
+  }
+
+  /// Calculate how much the signal varies (indicates heart rate)
+  static double _calculateSignalVariation(List<double> window) {
+    if (window.length < 10) return 0.0;
+
+    // Simple peak-to-valley variation detection
+    double min = window.reduce((a, b) => a < b ? a : b);
+    double max = window.reduce((a, b) => a > b ? a : b);
+    double range = max - min;
+
+    // Also check for periodic behavior
+    double mean = window.reduce((a, b) => a + b) / window.length;
+    double variance =
+        window.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
+        window.length;
+    double standardDeviation = sqrt(variance);
+
+    // Combine range and standard deviation for variation score
+    return range * 0.7 + standardDeviation * 0.3;
+  }
 
   /// Calculate average intensity from camera image
   static double calculateAverageIntensity(CameraImage image) {
@@ -20,12 +160,12 @@ class HeartRateService {
     return sum / (bytes.length / 10);
   }
 
-  /// Check if finger is present on camera lens
+  /// New main finger detection method - replaces old intensity-based approach
   static bool isFingerPresent(double intensity) {
-    return intensity < fingerThreshold;
+    return detectFingerFromSignal(intensity);
   }
 
-  /// Perform advanced PPG signal analysis
+  /// Perform advanced PPG signal analysis with enhanced validation
   static Map<String, dynamic>? performAdvancedAnalysis(
     List<double> signal, {
     int initialSampleCount = 900,
@@ -35,35 +175,50 @@ class HeartRateService {
     if (signal.length < initialSampleCount) return null;
 
     try {
-      // 1. Signal quality check
+      // 1. Enhanced signal quality check
       final quality = calculateSignalQuality(signal);
       if (quality < qualityThreshold) return null;
 
-      // 2. Peak detection - reduced minimum peaks requirement
-      final peaks = detectPeaks(signal);
-      if (peaks.length < 3) return null; // Reduced from 5 to 3
+      // 2. Signal variability check - prevent flat/fake signals
+      final signalVariance = calculateVariance(signal);
+      if (signalVariance < 5.0) return null; // Too flat, likely fake
 
-      // 3. Calculate R-R intervals
+      // 3. Peak detection with stricter requirements
+      final peaks = detectPeaks(signal);
+      if (peaks.length < 4) return null; // Increased from 3 to 4
+
+      // 4. Calculate R-R intervals with stricter validation
       final rrIntervals = <double>[];
       for (int i = 1; i < peaks.length; i++) {
         final intervalSamples = peaks[i] - peaks[i - 1];
         final intervalMs = (intervalSamples / frameRate) * 1000;
-        if (intervalMs >= 300 && intervalMs <= 2000) {
+        // Stricter heart rate range: 45-180 BPM
+        if (intervalMs >= 333 && intervalMs <= 1333) {
+          // 45-180 BPM range
           rrIntervals.add(intervalMs);
         }
       }
 
-      if (rrIntervals.length < 2) return null; // Reduced from 3 to 2
+      if (rrIntervals.length < 3) return null; // Increased from 2 to 3
 
-      // 4. Calculate heart rate
-      final avgRR = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
+      // 5. R-R interval consistency check
+      final rrVariance = calculateVariance(rrIntervals);
+      final rrMean = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
+      final rrCv = sqrt(rrVariance) / rrMean; // Coefficient of variation
+      if (rrCv > 0.3) return null; // Too inconsistent, likely noise
+
+      // 6. Calculate heart rate with validation
+      final avgRR = rrMean;
       final heartRate = (60000 / avgRR).round();
-      if (heartRate < 40 || heartRate > 200) return null;
+      if (heartRate < 45 || heartRate > 180) return null; // Stricter range
 
-      // 5. Calculate HRV metrics
+      // 7. Calculate HRV metrics
       final hrv = calculateRMSSD(rrIntervals);
       final sdnn = calculateSDNN(rrIntervals);
       final lfHf = calculateLFHFRatio(rrIntervals);
+
+      // 8. Final validation - HRV should be reasonable
+      if (hrv < 5.0 || hrv > 200.0) return null; // Unrealistic HRV values
 
       return {
         'heartRate': heartRate,
@@ -72,10 +227,20 @@ class HeartRateService {
         'lfHfRatio': lfHf,
         'quality': quality,
         'rrCount': rrIntervals.length,
+        'signalVariance': signalVariance,
+        'rrConsistency': 1.0 - rrCv, // Higher is better
       };
     } catch (e) {
       return null;
     }
+  }
+
+  /// Calculate variance of a signal
+  static double calculateVariance(List<double> values) {
+    if (values.length < 2) return 0.0;
+    final mean = values.reduce((a, b) => a + b) / values.length;
+    return values.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
+        values.length;
   }
 
   /// Calculate signal quality using SNR

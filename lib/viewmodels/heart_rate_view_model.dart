@@ -27,6 +27,7 @@ class HeartRateViewModel extends ChangeNotifier {
   int _currentHeartRate = 0;
   double _signalQuality = 0.0;
   double _currentHRV = 0.0;
+  int _consecutiveNoFingerFrames = 0;
 
   // Getters
   bool get isMeasuring => _isMeasuring;
@@ -36,6 +37,8 @@ class HeartRateViewModel extends ChangeNotifier {
   double get signalQuality => _signalQuality;
   double get currentHRV => _currentHRV;
   int get sampleCount => _heartRateValues.length;
+  bool get isCalibrating =>
+      _isMeasuring && _heartRateValues.length < _minAnalysisSampleCount;
 
   // Callback for measurement completion
   VoidCallback? onMeasurementComplete;
@@ -53,6 +56,7 @@ class HeartRateViewModel extends ChangeNotifier {
     _measurementStartTime = DateTime.now();
     _stableHeartRateStartTime = null;
     _hasFoundHeartRate = false;
+    _consecutiveNoFingerFrames = 0;
     notifyListeners();
   }
 
@@ -73,15 +77,31 @@ class HeartRateViewModel extends ChangeNotifier {
     final isFingerPresent = HeartRateService.isFingerPresent(intensity);
 
     debugPrint(
-      '🔍 Finger detect: intensity=${intensity.toInt()}, threshold=${HeartRateService.fingerThreshold} -> $isFingerPresent',
+      '🔍 Finger detect: intensity=${intensity.toInt()} -> $isFingerPresent',
     );
 
     if (!isFingerPresent) {
+      _consecutiveNoFingerFrames++;
       _currentHeartRate = 0;
       _signalQuality = 0.0;
+
+      // Clear data if finger has been missing for too long (3 seconds)
+      if (_consecutiveNoFingerFrames > 75) {
+        // 3 seconds at 25fps
+        _heartRateValues.clear();
+        _recentHeartRates.clear();
+        _validMeasurements = 0;
+        _hasFoundHeartRate = false;
+        _stableHeartRateStartTime = null;
+        debugPrint('🧹 Parmak uzun süre bulunamadı - veriler temizlendi');
+      }
+
       notifyListeners();
       return;
     }
+
+    // Finger detected - reset counters
+    _consecutiveNoFingerFrames = 0;
 
     // Add intensity data
     _heartRateValues.add(intensity);
@@ -99,20 +119,33 @@ class HeartRateViewModel extends ChangeNotifier {
     }
   }
 
-  /// Perform PPG analysis
+  /// Perform PPG analysis with enhanced validation
   void _performAnalysis() {
     final analysisResult = HeartRateService.performAdvancedAnalysis(
       _heartRateValues,
       initialSampleCount: _minAnalysisSampleCount, // Use minimum sample count
-      qualityThreshold: 0.7, // Slightly lower threshold for faster detection
+      qualityThreshold: 0.75, // Increased threshold for better quality
       frameRate: _frameRate,
     );
 
     if (analysisResult != null) {
+      final heartRate = analysisResult['heartRate'] as int;
+      final quality = analysisResult['quality'] as double;
+      final hrv = analysisResult['hrv'] as double;
+      final rrConsistency = analysisResult['rrConsistency'] as double;
+
+      // Additional validation: Reject unrealistic readings
+      if (!_isRealisticHeartRate(heartRate, quality, hrv, rrConsistency)) {
+        debugPrint(
+          '❌ Sahte sinyal tespit edildi - HR: $heartRate, Q: ${(quality * 100).toInt()}%, HRV: $hrv, Consistency: ${(rrConsistency * 100).toInt()}%',
+        );
+        return;
+      }
+
       _validMeasurements++;
 
       // Add to recent heart rates
-      _recentHeartRates.add(analysisResult['heartRate'] as int);
+      _recentHeartRates.add(heartRate);
       if (_recentHeartRates.length > _maxRecentHrCount) {
         _recentHeartRates.removeAt(0);
       }
@@ -122,8 +155,8 @@ class HeartRateViewModel extends ChangeNotifier {
       final medianRate = sortedRates[sortedRates.length ~/ 2];
 
       _currentHeartRate = medianRate;
-      _currentHRV = analysisResult['hrv'] as double;
-      _signalQuality = analysisResult['quality'] as double;
+      _currentHRV = hrv;
+      _signalQuality = quality;
 
       // İlk kez kalp atışı bulunduğunda zaman takibini başlat
       if (!_hasFoundHeartRate && _currentHeartRate > 0) {
@@ -135,7 +168,7 @@ class HeartRateViewModel extends ChangeNotifier {
       }
 
       debugPrint(
-        '✅ Kaliteli Ölçüm: $_currentHeartRate BPM, HRV: ${_currentHRV.toStringAsFixed(2)}, Kalite: ${(_signalQuality * 100).toInt()}%',
+        '✅ Kaliteli Ölçüm: $_currentHeartRate BPM, HRV: ${_currentHRV.toStringAsFixed(2)}, Kalite: ${(_signalQuality * 100).toInt()}%, Consistency: ${(rrConsistency * 100).toInt()}%',
       );
 
       // Check if measurement should complete
@@ -157,6 +190,36 @@ class HeartRateViewModel extends ChangeNotifier {
         25,
       ); // Remove older samples more frequently
     }
+  }
+
+  /// Validate if heart rate reading is realistic
+  bool _isRealisticHeartRate(
+    int heartRate,
+    double quality,
+    double hrv,
+    double rrConsistency,
+  ) {
+    // Basic range check
+    if (heartRate < 50 || heartRate > 160) return false;
+
+    // Quality threshold
+    if (quality < 0.7) return false;
+
+    // HRV reasonableness
+    if (hrv < 8 || hrv > 150) return false;
+
+    // R-R interval consistency
+    if (rrConsistency < 0.6) return false;
+
+    // Context check: if we have previous readings, new reading shouldn't be too different
+    if (_recentHeartRates.isNotEmpty) {
+      final avgRecent =
+          _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
+      final deviation = (heartRate - avgRecent).abs();
+      if (deviation > 25) return false; // Max 25 BPM sudden change
+    }
+
+    return true;
   }
 
   /// Check if measurement should complete
@@ -217,7 +280,9 @@ class HeartRateViewModel extends ChangeNotifier {
 
   /// Get status message
   String getStatusMessage() {
-    if (_measurementCompleted) {
+    if (isCalibrating) {
+      return 'Sinyal analiz ediliyor... Parmağınızı kameranın üzerine yerleştirin.';
+    } else if (_measurementCompleted) {
       return 'Kaliteli ölçüm tamamlandı!';
     } else if (_validMeasurements > 0) {
       return 'Kaliteli veri: $_validMeasurements/6 | HRV: ${_currentHRV.toStringAsFixed(1)} | Kalite: ${(_signalQuality * 100).toInt()}%';
