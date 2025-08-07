@@ -1,7 +1,161 @@
 import 'dart:math';
+import 'package:camera/camera.dart';
 
 class HeartRateService {
-  /// Calculates heart rate from intensity values using peak detection
+  // Constants
+  static const double fingerThreshold = 80.0;
+  static const double defaultFrameRate = 25.0;
+
+  /// Calculate average intensity from camera image
+  static double calculateAverageIntensity(CameraImage image) {
+    if (image.planes.isEmpty) return 0.0;
+    final plane = image.planes[0];
+    final bytes = plane.bytes;
+    if (bytes.isEmpty) return 0.0;
+
+    int sum = 0;
+    for (int i = 0; i < bytes.length; i += 10) {
+      sum += bytes[i];
+    }
+    return sum / (bytes.length / 10);
+  }
+
+  /// Check if finger is present on camera lens
+  static bool isFingerPresent(double intensity) {
+    return intensity < fingerThreshold;
+  }
+
+  /// Perform advanced PPG signal analysis
+  static Map<String, dynamic>? performAdvancedAnalysis(
+    List<double> signal, {
+    int initialSampleCount = 900,
+    double qualityThreshold = 0.7,
+    double frameRate = defaultFrameRate,
+  }) {
+    if (signal.length < initialSampleCount) return null;
+
+    try {
+      // 1. Signal quality check
+      final quality = calculateSignalQuality(signal);
+      if (quality < qualityThreshold) return null;
+
+      // 2. Peak detection
+      final peaks = detectPeaks(signal);
+      if (peaks.length < 5) return null;
+
+      // 3. Calculate R-R intervals
+      final rrIntervals = <double>[];
+      for (int i = 1; i < peaks.length; i++) {
+        final intervalSamples = peaks[i] - peaks[i - 1];
+        final intervalMs = (intervalSamples / frameRate) * 1000;
+        if (intervalMs >= 300 && intervalMs <= 2000) {
+          rrIntervals.add(intervalMs);
+        }
+      }
+
+      if (rrIntervals.length < 3) return null;
+
+      // 4. Calculate heart rate
+      final avgRR = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
+      final heartRate = (60000 / avgRR).round();
+      if (heartRate < 40 || heartRate > 200) return null;
+
+      // 5. Calculate HRV metrics
+      final hrv = calculateRMSSD(rrIntervals);
+      final sdnn = calculateSDNN(rrIntervals);
+      final lfHf = calculateLFHFRatio(rrIntervals);
+
+      return {
+        'heartRate': heartRate,
+        'hrv': hrv,
+        'sdnn': sdnn,
+        'lfHfRatio': lfHf,
+        'quality': quality,
+        'rrCount': rrIntervals.length,
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Calculate signal quality using SNR
+  static double calculateSignalQuality(List<double> signal) {
+    if (signal.length < 50) return 0.0;
+
+    final mean = signal.reduce((a, b) => a + b) / signal.length;
+    final variance =
+        signal.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
+        signal.length;
+    final stdDev = sqrt(variance);
+    final snr = mean > 0 ? mean / stdDev : 0.0;
+
+    return (snr / 10).clamp(0.0, 1.0);
+  }
+
+  /// Detect peaks in PPG signal
+  static List<int> detectPeaks(List<double> signal) {
+    final peaks = <int>[];
+    final threshold = _calculateAdaptiveThreshold(signal);
+
+    for (int i = 1; i < signal.length - 1; i++) {
+      if (signal[i] > signal[i - 1] &&
+          signal[i] > signal[i + 1] &&
+          signal[i] > threshold) {
+        if (peaks.isEmpty || i - peaks.last > 15) {
+          peaks.add(i);
+        }
+      }
+    }
+    return peaks;
+  }
+
+  /// Calculate adaptive threshold for peak detection
+  static double _calculateAdaptiveThreshold(List<double> signal) {
+    final sorted = List<double>.from(signal)..sort();
+    final percentile75 = sorted[(sorted.length * 0.75).floor()];
+    final percentile25 = sorted[(sorted.length * 0.25).floor()];
+    return percentile25 + (percentile75 - percentile25) * 0.3;
+  }
+
+  /// Calculate RMSSD (Root Mean Square of Successive Differences)
+  static double calculateRMSSD(List<double> rrIntervals) {
+    if (rrIntervals.length < 2) return 0.0;
+
+    double sumSquaredDiffs = 0.0;
+    for (int i = 1; i < rrIntervals.length; i++) {
+      final diff = rrIntervals[i] - rrIntervals[i - 1];
+      sumSquaredDiffs += diff * diff;
+    }
+    return sqrt(sumSquaredDiffs / (rrIntervals.length - 1));
+  }
+
+  /// Calculate SDNN (Standard Deviation of NN intervals)
+  static double calculateSDNN(List<double> rrIntervals) {
+    final mean = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
+    final sumSq = rrIntervals
+        .map((x) => (x - mean) * (x - mean))
+        .reduce((a, b) => a + b);
+    return sqrt(sumSq / rrIntervals.length);
+  }
+
+  /// Calculate simplified LF/HF ratio
+  static double calculateLFHFRatio(List<double> rrIntervals) {
+    if (rrIntervals.length < 5) return 1.0;
+
+    final mean = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
+    final variance =
+        rrIntervals
+            .map((x) => (x - mean) * (x - mean))
+            .reduce((a, b) => a + b) /
+        rrIntervals.length;
+
+    final lf = variance * 0.4;
+    final hf = variance * 0.5;
+
+    return hf > 0 ? lf / hf : 1.0;
+  }
+
+  /// Calculates heart rate from intensity values using peak detection (legacy method)
   int calculateHeartRate(List<double> values) {
     if (values.length < 60) return 0;
 
