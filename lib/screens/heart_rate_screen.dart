@@ -510,26 +510,18 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                   const SizedBox(height: 12),
 
                   Text(
-                    _viewModel.measurementCompleted
-                        ? 'Kaliteli ölçüm tamamlandı!'
-                        : _viewModel.validMeasurements > 0
-                        ? 'Kaliteli veri: ${_viewModel.validMeasurements}/8 | HRV: ${_viewModel.currentHRV.toStringAsFixed(1)} | Kalite: ${(_viewModel.signalQuality * 100).toInt()}%'
-                        : 'Nabız analiz ediliyor...',
+                    _viewModel.getStatusMessage(),
                     style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
                   LinearProgressIndicator(
-                    value: _viewModel.measurementCompleted
-                        ? 1.0
-                        : _viewModel.validMeasurements > 0
-                        ? (_viewModel.validMeasurements / 8).clamp(0.0, 1.0)
-                        : 0.1,
+                    value: _viewModel.progress,
                     backgroundColor: Colors.grey[300],
                     valueColor: AlwaysStoppedAnimation<Color>(
                       _viewModel.measurementCompleted
                           ? Colors.green
-                          : _viewModel.signalQuality > 0.7
+                          : _viewModel.signalQuality > 0.65
                           ? Colors.blue
                           : Colors.orange,
                     ),

@@ -4,14 +4,22 @@ import '../services/heart_rate_service.dart';
 
 class HeartRateViewModel extends ChangeNotifier {
   // Constants
-  static const int _initialSampleCount = 900;
+  static const int _initialSampleCount = 400; // Reduced from 900 to 300
+  static const int _minAnalysisSampleCount = 150; // Minimum for analysis
   static const int _maxRecentHrCount = 16;
   static const double _frameRate = 25.0;
+  static const int _measurementDurationSeconds =
+      30; // 30 seconds measurement duration
+  static const int _minStableHeartRateSeconds =
+      10; // Minimum time with stable heart rate
 
   // Measurement state
   bool _isMeasuring = false;
   bool _measurementCompleted = false;
   int _validMeasurements = 0;
+  DateTime? _measurementStartTime;
+  DateTime? _stableHeartRateStartTime;
+  bool _hasFoundHeartRate = false;
 
   // Heart rate data
   final List<double> _heartRateValues = [];
@@ -42,6 +50,9 @@ class HeartRateViewModel extends ChangeNotifier {
     _currentHeartRate = 0;
     _signalQuality = 0.0;
     _currentHRV = 0.0;
+    _measurementStartTime = DateTime.now();
+    _stableHeartRateStartTime = null;
+    _hasFoundHeartRate = false;
     notifyListeners();
   }
 
@@ -82,8 +93,8 @@ class HeartRateViewModel extends ChangeNotifier {
       );
     }
 
-    // Analyze when we have enough data
-    if (_heartRateValues.length >= _initialSampleCount) {
+    // Start analyzing earlier - when we have at least 150 samples (6 seconds at 25fps)
+    if (_heartRateValues.length >= _minAnalysisSampleCount) {
       _performAnalysis();
     }
   }
@@ -92,8 +103,8 @@ class HeartRateViewModel extends ChangeNotifier {
   void _performAnalysis() {
     final analysisResult = HeartRateService.performAdvancedAnalysis(
       _heartRateValues,
-      initialSampleCount: _initialSampleCount,
-      qualityThreshold: 0.7,
+      initialSampleCount: _minAnalysisSampleCount, // Use minimum sample count
+      qualityThreshold: 0.7, // Slightly lower threshold for faster detection
       frameRate: _frameRate,
     );
 
@@ -114,6 +125,15 @@ class HeartRateViewModel extends ChangeNotifier {
       _currentHRV = analysisResult['hrv'] as double;
       _signalQuality = analysisResult['quality'] as double;
 
+      // İlk kez kalp atışı bulunduğunda zaman takibini başlat
+      if (!_hasFoundHeartRate && _currentHeartRate > 0) {
+        _hasFoundHeartRate = true;
+        _stableHeartRateStartTime = DateTime.now();
+        debugPrint(
+          '🎯 İlk kalp atışı bulundu: $_currentHeartRate BPM - Zaman takibi başlatıldı',
+        );
+      }
+
       debugPrint(
         '✅ Kaliteli Ölçüm: $_currentHeartRate BPM, HRV: ${_currentHRV.toStringAsFixed(2)}, Kalite: ${(_signalQuality * 100).toInt()}%',
       );
@@ -130,18 +150,33 @@ class HeartRateViewModel extends ChangeNotifier {
       debugPrint('❌ Düşük kaliteli sinyal - devam ediliyor');
     }
 
-    // Sliding window: remove oldest samples
+    // Sliding window: remove oldest samples to keep data fresh
     if (_heartRateValues.length > _initialSampleCount) {
-      _heartRateValues.removeRange(0, 30);
+      _heartRateValues.removeRange(
+        0,
+        25,
+      ); // Remove older samples more frequently
     }
   }
 
   /// Check if measurement should complete
   bool _shouldCompleteMeasurement() {
-    // Need at least 8 quality measurements
+    // İlk kalp atışı henüz bulunmadıysa devam et
+    if (!_hasFoundHeartRate || _stableHeartRateStartTime == null) {
+      return false;
+    }
+
+    // Kalp atışı bulunduktan sonra en az minimum süre geçmeli
+    final timeSinceHeartRateFound = DateTime.now().difference(
+      _stableHeartRateStartTime!,
+    );
+    final hasMinimumTime =
+        timeSinceHeartRateFound.inSeconds >= _minStableHeartRateSeconds;
+
+    // En az minimum kaliteli ölçüm sayısı gerekli
     if (_validMeasurements < 8) return false;
 
-    // Check stability of recent measurements
+    // Son ölçümlerin istikrarlı olup olmadığını kontrol et
     if (_recentHeartRates.length >= 4) {
       final avg =
           _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
@@ -149,15 +184,23 @@ class HeartRateViewModel extends ChangeNotifier {
           .map((hr) => (hr - avg).abs())
           .reduce((a, b) => a > b ? a : b);
 
-      final isStable = maxDeviation <= 8.0;
-      final isValidHRV = _currentHRV > 5.0;
-      final isGoodQuality = _signalQuality > 0.8;
+      final isStable = maxDeviation <= 8.0; // Daha sıkı tolerans
+      final isValidHRV = _currentHRV > 5.0; // Daha yüksek HRV gereksinimi
+      final isGoodQuality =
+          _signalQuality > 0.8; // Daha yüksek kalite gereksinimi
+
+      // Toplam ölçüm süresi kontrolü (maksimum 30 saniye)
+      final totalTime = DateTime.now().difference(_measurementStartTime!);
+      final hasReachedMaxTime =
+          totalTime.inSeconds >= _measurementDurationSeconds;
 
       debugPrint(
-        '🎯 Tamamlama Kontrolü: Stable=$isStable (dev=${maxDeviation.toInt()}), HRV=$isValidHRV (${_currentHRV.toInt()}), Quality=$isGoodQuality (${(_signalQuality * 100).toInt()}%)',
+        '🎯 Tamamlama Kontrolü: Time=${timeSinceHeartRateFound.inSeconds}s/${_minStableHeartRateSeconds}s, Stable=$isStable (dev=${maxDeviation.toInt()}), HRV=$isValidHRV (${_currentHRV.toInt()}), Quality=$isGoodQuality (${(_signalQuality * 100).toInt()}%)',
       );
 
-      return isStable && isValidHRV && isGoodQuality;
+      // Ya yeterli zaman geçti ve kaliteli ya da maksimum zamana ulaşıldı
+      return (hasMinimumTime && isStable && isValidHRV && isGoodQuality) ||
+          hasReachedMaxTime;
     }
 
     return false;
@@ -167,7 +210,7 @@ class HeartRateViewModel extends ChangeNotifier {
   double get progress {
     if (_measurementCompleted) return 1.0;
     if (_validMeasurements > 0) {
-      return (_validMeasurements / 8).clamp(0.0, 1.0);
+      return (_validMeasurements / 6).clamp(0.0, 1.0); // Changed from 8 to 6
     }
     return 0.1;
   }
@@ -177,7 +220,7 @@ class HeartRateViewModel extends ChangeNotifier {
     if (_measurementCompleted) {
       return 'Kaliteli ölçüm tamamlandı!';
     } else if (_validMeasurements > 0) {
-      return 'Kaliteli veri: $_validMeasurements/8 | HRV: ${_currentHRV.toStringAsFixed(1)} | Kalite: ${(_signalQuality * 100).toInt()}%';
+      return 'Kaliteli veri: $_validMeasurements/6 | HRV: ${_currentHRV.toStringAsFixed(1)} | Kalite: ${(_signalQuality * 100).toInt()}%';
     } else {
       return 'Nabız analiz ediliyor...';
     }

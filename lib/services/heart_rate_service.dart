@@ -39,9 +39,9 @@ class HeartRateService {
       final quality = calculateSignalQuality(signal);
       if (quality < qualityThreshold) return null;
 
-      // 2. Peak detection
+      // 2. Peak detection - reduced minimum peaks requirement
       final peaks = detectPeaks(signal);
-      if (peaks.length < 5) return null;
+      if (peaks.length < 3) return null; // Reduced from 5 to 3
 
       // 3. Calculate R-R intervals
       final rrIntervals = <double>[];
@@ -53,7 +53,7 @@ class HeartRateService {
         }
       }
 
-      if (rrIntervals.length < 3) return null;
+      if (rrIntervals.length < 2) return null; // Reduced from 3 to 2
 
       // 4. Calculate heart rate
       final avgRR = rrIntervals.reduce((a, b) => a + b) / rrIntervals.length;
