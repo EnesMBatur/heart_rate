@@ -178,9 +178,11 @@ class TipsScreen extends StatelessWidget {
                   size: 28,
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  'understanding_heart_rate_zones'.tr(),
-                  style: Theme.of(context).textTheme.titleLarge,
+                Expanded(
+                  child: Text(
+                    'understanding_heart_rate_zones'.tr(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ],
             ),

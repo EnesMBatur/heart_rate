@@ -161,13 +161,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
               context,
             ).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
           ),
-          const SizedBox(height: 8),
-          Text(
-            LocaleKeys.no_measurements_description.tr(),
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[500]),
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              LocaleKeys.no_measurements_description.tr(),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.grey[500]),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
