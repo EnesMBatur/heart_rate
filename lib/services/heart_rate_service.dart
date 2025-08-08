@@ -1,32 +1,255 @@
 import 'dart:math';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 
 class HeartRateService {
-  // --- New Approach: Signal-based finger detection ---
+  // --- Enhanced Signal Processing with Band-Pass Filtering ---
   static final List<double> _recentSignalValues = [];
   static final List<double> _signalVariations = [];
+  static final List<double> _filteredSignal = [];
   static bool _fingerPresent = false;
   static int _stableSignalCounter = 0;
 
-  // Constants
+  // Enhanced constants for better signal processing
   static const double defaultFrameRate = 25.0;
   static const int signalBufferSize = 150; // 5-6 seconds of data
   static const int minimumVariationSamples = 75; // 2-3 seconds
-  static const double heartRateVariationThreshold =
-      0.5; // Minimum variation for finger presence
+  static const double heartRateVariationThreshold = 0.5;
+
+  // Band-pass filter parameters (0.5-4 Hz for heart rate)
+  static const double lowCutoffHz = 0.5; // 30 BPM
+  static const double highCutoffHz = 4.0; // 240 BPM
+  static const int filterOrder = 2;
+
+  // Dynamic threshold parameters
+  static double _currentNoiseFloor = 0.0;
+  static double _adaptiveThreshold = 0.5;
+  static int _noiseCalibrationFrames = 0;
 
   /// Reset all data for new measurement session
   static void resetCalibration() {
     _recentSignalValues.clear();
     _signalVariations.clear();
+    _filteredSignal.clear();
     _fingerPresent = false;
     _stableSignalCounter = 0;
+    _currentNoiseFloor = 0.0;
+    _adaptiveThreshold = heartRateVariationThreshold;
+    _noiseCalibrationFrames = 0;
   }
 
   /// Get finger detection status
   static bool get fingerPresent => _fingerPresent;
 
-  /// Add intensity sample and detect finger based on signal characteristics
+  /// Apply band-pass filter to isolate heart rate frequencies (0.5-4 Hz)
+  static List<double> _applyBandPassFilter(List<double> signal) {
+    if (signal.length < 10) return signal;
+
+    // Simple butterworth-like filter implementation
+    // High-pass filter (remove DC and very low frequencies < 0.5 Hz)
+    final highPassed = _applyHighPassFilter(
+      signal,
+      lowCutoffHz,
+      defaultFrameRate,
+    );
+
+    // Low-pass filter (remove high frequencies > 4 Hz)
+    final bandPassed = _applyLowPassFilter(
+      highPassed,
+      highCutoffHz,
+      defaultFrameRate,
+    );
+
+    return bandPassed;
+  }
+
+  /// High-pass filter implementation
+  static List<double> _applyHighPassFilter(
+    List<double> signal,
+    double cutoffHz,
+    double sampleRate,
+  ) {
+    if (signal.length < 5) return signal;
+
+    final alpha = _calculateFilterAlpha(cutoffHz, sampleRate);
+    final filtered = <double>[];
+
+    // Initialize
+    filtered.add(signal[0]);
+
+    for (int i = 1; i < signal.length; i++) {
+      final filteredValue =
+          alpha * (filtered[i - 1] + signal[i] - signal[i - 1]);
+      filtered.add(filteredValue);
+    }
+
+    return filtered;
+  }
+
+  /// Low-pass filter implementation
+  static List<double> _applyLowPassFilter(
+    List<double> signal,
+    double cutoffHz,
+    double sampleRate,
+  ) {
+    if (signal.length < 5) return signal;
+
+    final alpha = _calculateFilterAlpha(cutoffHz, sampleRate);
+    final filtered = <double>[];
+
+    // Initialize
+    filtered.add(signal[0]);
+
+    for (int i = 1; i < signal.length; i++) {
+      final filteredValue = alpha * signal[i] + (1.0 - alpha) * filtered[i - 1];
+      filtered.add(filteredValue);
+    }
+
+    return filtered;
+  }
+
+  /// Calculate filter coefficient
+  static double _calculateFilterAlpha(double cutoffHz, double sampleRate) {
+    final omega = 2.0 * pi * cutoffHz / sampleRate;
+    return omega / (omega + 1.0);
+  }
+
+  /// Enhanced finger detection with adaptive thresholding
+  static bool detectFingerFromSignalEnhanced(double intensity) {
+    // Add current sample to signal buffer
+    _recentSignalValues.add(intensity);
+
+    // Keep buffer at manageable size
+    if (_recentSignalValues.length > signalBufferSize) {
+      _recentSignalValues.removeAt(0);
+    }
+
+    // Calibrate noise floor for first few frames (when no finger expected)
+    if (_noiseCalibrationFrames < 50 && _recentSignalValues.length < 25) {
+      _currentNoiseFloor = _calculateSignalVariation(_recentSignalValues);
+      _noiseCalibrationFrames++;
+      // Much lower initial threshold for real-world conditions
+      _adaptiveThreshold = max(0.3, min(1.0, _currentNoiseFloor * 1.2));
+      debugPrint(
+        '🔧 Noise calibration: floor=${_currentNoiseFloor.toStringAsFixed(3)}, threshold=${_adaptiveThreshold.toStringAsFixed(3)}',
+      );
+    }
+
+    // Need enough samples to analyze
+    if (_recentSignalValues.length < minimumVariationSamples) {
+      return false;
+    }
+
+    // Apply band-pass filter to recent signal
+    final filtered = _applyBandPassFilter(_recentSignalValues);
+    _filteredSignal.clear();
+    _filteredSignal.addAll(filtered);
+
+    // Calculate signal variation in filtered signal
+    final recentWindow = filtered.sublist(
+      max(0, filtered.length - minimumVariationSamples),
+    );
+    final variation = _calculateSignalVariation(recentWindow);
+
+    _signalVariations.add(variation);
+    if (_signalVariations.length > 50) _signalVariations.removeAt(0);
+
+    // Much more lenient threshold for real devices
+    final dynamicThreshold = max(
+      0.3,
+      min(_adaptiveThreshold, 2.0),
+    ); // Cap maximum threshold!
+    bool hasHeartRatePattern = variation > dynamicThreshold;
+
+    // Also check for absolute intensity changes (finger presence indicator)
+    final hasIntensityChange = _checkIntensityFingerPresence();
+
+    // Combine both checks for more reliable detection
+    final overallFingerDetected = hasHeartRatePattern || hasIntensityChange;
+
+    if (overallFingerDetected) {
+      _stableSignalCounter++;
+      if (_stableSignalCounter >= 5) {
+        // Reduced from 8 for faster detection
+        _fingerPresent = true;
+      }
+    } else {
+      _stableSignalCounter = max(
+        0,
+        _stableSignalCounter - 1,
+      ); // Gradual decrease instead of reset
+
+      // Check if we've had consistently low variation (no finger for a while)
+      if (_signalVariations.length >= 15) {
+        // Reduced from 20
+        final recentVariations = _signalVariations.sublist(
+          _signalVariations.length - 15,
+        );
+        final avgRecentVariation =
+            recentVariations.reduce((a, b) => a + b) / recentVariations.length;
+
+        // If no meaningful signal for extended period, reset for fresh detection
+        if (avgRecentVariation < dynamicThreshold * 0.3) {
+          _fingerPresent = false;
+
+          // Smart reset: Keep only recent samples for quicker re-detection
+          if (_recentSignalValues.length > minimumVariationSamples * 2) {
+            final samplesToKeep = _recentSignalValues.sublist(
+              _recentSignalValues.length - minimumVariationSamples,
+            );
+            _recentSignalValues.clear();
+            _recentSignalValues.addAll(samplesToKeep);
+
+            final variationsToKeep = _signalVariations.sublist(
+              _signalVariations.length - 10,
+            );
+            _signalVariations.clear();
+            _signalVariations.addAll(variationsToKeep);
+
+            debugPrint(
+              '🔄 Enhanced signal reset: Cleared old data for fresh finger detection',
+            );
+          }
+        }
+      }
+    }
+
+    // Debug info - more detailed
+    if (_recentSignalValues.length % 15 == 0) {
+      // More frequent logging
+      debugPrint(
+        '🫀 Enhanced Analysis: variation=${variation.toStringAsFixed(3)}, '
+        'threshold=${dynamicThreshold.toStringAsFixed(3)}, '
+        'intensity=${intensity.toInt()}, '
+        'stable=$_stableSignalCounter, finger=$_fingerPresent, '
+        'heartPattern=$hasHeartRatePattern, intensityChange=$hasIntensityChange',
+      );
+    }
+
+    return _fingerPresent;
+  }
+
+  /// Check for finger presence based on absolute intensity changes
+  static bool _checkIntensityFingerPresence() {
+    if (_recentSignalValues.length < 20) return false;
+
+    // Check recent intensity values for finger-like characteristics
+    final recent = _recentSignalValues.sublist(_recentSignalValues.length - 20);
+    final avgIntensity = recent.reduce((a, b) => a + b) / recent.length;
+
+    // Finger typically creates lower intensity (darker image) with flash
+    // and shows some variation due to blood flow
+    final isFingerLikeIntensity = avgIntensity < 200; // Not overexposed
+    final hasMinimalVariation =
+        recent
+            .map((v) => (v - avgIntensity).abs())
+            .reduce((a, b) => a > b ? a : b) >
+        0.5;
+
+    return isFingerLikeIntensity && hasMinimalVariation;
+  }
+
+  /// Add intensity sample and detect finger based on signal characteristics (legacy fallback)
   static bool detectFingerFromSignal(double intensity) {
     // Add current sample to signal buffer
     _recentSignalValues.add(intensity);
@@ -160,9 +383,302 @@ class HeartRateService {
     return sum / (bytes.length / 10);
   }
 
-  /// New main finger detection method - replaces old intensity-based approach
+  /// Enhanced main finger detection method - uses filtered signal analysis
   static bool isFingerPresent(double intensity) {
-    return detectFingerFromSignal(intensity);
+    return detectFingerFromSignalEnhanced(intensity);
+  }
+
+  /// Perform ultra-advanced PPG signal analysis with enhanced validation and filtering
+  static Map<String, dynamic>? performUltraAdvancedAnalysis(
+    List<double> signal, {
+    int initialSampleCount = 400, // Reduced from 900 for faster response
+    double qualityThreshold = 0.75, // Increased for better quality
+    double frameRate = defaultFrameRate,
+  }) {
+    if (signal.length < initialSampleCount) return null;
+
+    try {
+      // 1. Apply band-pass filter first to clean the signal
+      final filteredSignal = _applyBandPassFilter(signal);
+
+      // 2. Enhanced signal quality check on filtered signal
+      final quality = calculateEnhancedSignalQuality(filteredSignal);
+      if (quality < qualityThreshold) return null;
+
+      // 3. Signal variability check - prevent flat/fake signals
+      final signalVariance = calculateVariance(filteredSignal);
+      if (signalVariance < 3.0)
+        return null; // Slightly relaxed for filtered signal
+
+      // 4. Enhanced peak detection with adaptive threshold
+      final peaks = detectPeaksAdvanced(filteredSignal);
+      if (peaks.length < 3) return null;
+
+      // 5. Calculate R-R intervals with enhanced validation
+      final rrIntervals = <double>[];
+      for (int i = 1; i < peaks.length; i++) {
+        final intervalSamples = peaks[i] - peaks[i - 1];
+        final intervalMs = (intervalSamples / frameRate) * 1000;
+
+        // Stricter but more realistic heart rate range: 40-200 BPM
+        if (intervalMs >= 300 && intervalMs <= 1500) {
+          // 40-200 BPM range
+          rrIntervals.add(intervalMs);
+        }
+      }
+
+      if (rrIntervals.length < 2) return null;
+
+      // 6. Enhanced R-R interval consistency check with outlier removal
+      final cleanedRRIntervals = _removeOutliers(rrIntervals);
+      if (cleanedRRIntervals.length < 2) return null;
+
+      final rrVariance = calculateVariance(cleanedRRIntervals);
+      final rrMean =
+          cleanedRRIntervals.reduce((a, b) => a + b) /
+          cleanedRRIntervals.length;
+      final rrCv = sqrt(rrVariance) / rrMean; // Coefficient of variation
+
+      // More lenient for filtered signal
+      if (rrCv > 0.35) return null;
+
+      // 7. Calculate heart rate with validation
+      final avgRR = rrMean;
+      final heartRate = (60000 / avgRR).round();
+      if (heartRate < 40 || heartRate > 200) return null;
+
+      // 8. Enhanced HRV metrics calculation
+      final hrv = calculateRMSSD(cleanedRRIntervals);
+      final sdnn = calculateSDNN(cleanedRRIntervals);
+      final lfHf = calculateLFHFRatio(cleanedRRIntervals);
+
+      // 9. Cross-validation with frequency domain analysis
+      final frequencyHR = _calculateFrequencyDomainHR(
+        filteredSignal,
+        frameRate,
+      );
+      final hrDifference = (heartRate - frequencyHR).abs();
+
+      // If time and frequency domain differ too much, signal might be noisy
+      if (hrDifference > 15)
+        return null; // Allow some difference but not too much
+
+      // 10. Final enhanced validation
+      if (hrv < 3.0 || hrv > 250.0) return null; // More realistic HRV range
+
+      return {
+        'heartRate': heartRate,
+        'hrv': hrv,
+        'sdnn': sdnn,
+        'lfHfRatio': lfHf,
+        'quality': quality,
+        'rrCount': cleanedRRIntervals.length,
+        'signalVariance': signalVariance,
+        'rrConsistency': 1.0 - rrCv,
+        'frequencyHR': frequencyHR,
+        'timeDomainAccuracy': 1.0 - (hrDifference / 15.0).clamp(0.0, 1.0),
+        'filteredSignalUsed': true,
+      };
+    } catch (e) {
+      debugPrint('❌ Enhanced analysis error: $e');
+      return null;
+    }
+  }
+
+  /// Remove outliers from R-R intervals using IQR method
+  static List<double> _removeOutliers(List<double> values) {
+    if (values.length < 4) return values;
+
+    final sorted = List<double>.from(values)..sort();
+    final q1Index = (sorted.length * 0.25).floor();
+    final q3Index = (sorted.length * 0.75).floor();
+
+    final q1 = sorted[q1Index];
+    final q3 = sorted[q3Index];
+    final iqr = q3 - q1;
+
+    final lowerBound = q1 - 1.5 * iqr;
+    final upperBound = q3 + 1.5 * iqr;
+
+    return values
+        .where((value) => value >= lowerBound && value <= upperBound)
+        .toList();
+  }
+
+  /// Calculate heart rate using frequency domain analysis (FFT approximation)
+  static int _calculateFrequencyDomainHR(
+    List<double> signal,
+    double frameRate,
+  ) {
+    if (signal.length < 64) return 0;
+
+    // Simple autocorrelation-based frequency detection
+    final autocorrelation = _calculateAutocorrelation(signal);
+
+    // Find the peak in autocorrelation that corresponds to heart rate frequency
+    final minLag = (frameRate * 0.4).round(); // 150 BPM max
+    final maxLag = (frameRate * 1.5).round(); // 40 BPM min
+
+    double maxCorr = 0.0;
+    int bestLag = minLag;
+
+    for (int lag = minLag; lag < min(maxLag, autocorrelation.length); lag++) {
+      if (autocorrelation[lag] > maxCorr) {
+        maxCorr = autocorrelation[lag];
+        bestLag = lag;
+      }
+    }
+
+    // Convert lag to heart rate
+    final heartRate = (60.0 * frameRate / bestLag).round();
+    return heartRate.clamp(40, 200);
+  }
+
+  /// Calculate autocorrelation for frequency analysis
+  static List<double> _calculateAutocorrelation(List<double> signal) {
+    final n = signal.length;
+    final autocorr = List<double>.filled(n ~/ 2, 0.0);
+
+    for (int lag = 0; lag < autocorr.length; lag++) {
+      double sum = 0.0;
+      int count = 0;
+
+      for (int i = 0; i < n - lag; i++) {
+        sum += signal[i] * signal[i + lag];
+        count++;
+      }
+
+      autocorr[lag] = count > 0 ? sum / count : 0.0;
+    }
+
+    return autocorr;
+  }
+
+  /// Enhanced signal quality calculation
+  static double calculateEnhancedSignalQuality(List<double> signal) {
+    if (signal.length < 50) return 0.0;
+
+    // 1. Signal-to-noise ratio
+    final snr = _calculateSNR(signal);
+
+    // 2. Signal consistency (how periodic it is)
+    final periodicity = _calculatePeriodicity(signal);
+
+    // 3. Dynamic range (good PPG should have reasonable amplitude variation)
+    final dynamicRange = _calculateDynamicRange(signal);
+
+    // Combine all quality metrics
+    final snrScore = (snr / 15.0).clamp(0.0, 1.0); // Normalize SNR
+    final periodicityScore = periodicity;
+    final dynamicScore = dynamicRange;
+
+    return (snrScore * 0.4 + periodicityScore * 0.4 + dynamicScore * 0.2).clamp(
+      0.0,
+      1.0,
+    );
+  }
+
+  /// Calculate signal-to-noise ratio
+  static double _calculateSNR(List<double> signal) {
+    final mean = signal.reduce((a, b) => a + b) / signal.length;
+    final variance =
+        signal.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
+        signal.length;
+    final stdDev = sqrt(variance);
+
+    return mean > 0 ? mean / stdDev : 0.0;
+  }
+
+  /// Calculate how periodic the signal is (good for heart rate)
+  static double _calculatePeriodicity(List<double> signal) {
+    if (signal.length < 100) return 0.0;
+
+    final autocorr = _calculateAutocorrelation(
+      signal.sublist(0, min(signal.length, 200)),
+    );
+
+    // Look for periodicity in heart rate range (1-3 second intervals at 25fps)
+    final minLag = 25; // ~1 second
+    final maxLag = min(75, autocorr.length - 1); // ~3 seconds
+
+    double maxPeriodicity = 0.0;
+    for (int lag = minLag; lag <= maxLag; lag++) {
+      maxPeriodicity = max(maxPeriodicity, autocorr[lag]);
+    }
+
+    return (maxPeriodicity / autocorr[0]).clamp(0.0, 1.0);
+  }
+
+  /// Calculate dynamic range of signal
+  static double _calculateDynamicRange(List<double> signal) {
+    final minVal = signal.reduce((a, b) => a < b ? a : b);
+    final maxVal = signal.reduce((a, b) => a > b ? a : b);
+    final range = maxVal - minVal;
+
+    // Normalize based on expected PPG range
+    return (range / 50.0).clamp(0.0, 1.0); // Assuming typical PPG range
+  }
+
+  /// Enhanced peak detection with adaptive thresholding
+  static List<int> detectPeaksAdvanced(List<double> signal) {
+    final peaks = <int>[];
+    if (signal.length < 25) return peaks;
+
+    // Calculate adaptive threshold using sliding window
+    const windowSize = 50;
+    final smoothedSignal = _applyMovingAverageFilter(signal);
+
+    for (int i = windowSize; i < smoothedSignal.length - windowSize; i++) {
+      final window = smoothedSignal.sublist(
+        i - windowSize ~/ 2,
+        i + windowSize ~/ 2,
+      );
+      final localMean = window.reduce((a, b) => a + b) / window.length;
+      final localStd = sqrt(
+        window
+                .map((x) => (x - localMean) * (x - localMean))
+                .reduce((a, b) => a + b) /
+            window.length,
+      );
+      final threshold = localMean + localStd * 0.6; // Adaptive threshold
+
+      // Check for peak
+      if (smoothedSignal[i] > smoothedSignal[i - 1] &&
+          smoothedSignal[i] > smoothedSignal[i + 1] &&
+          smoothedSignal[i] > threshold) {
+        // Ensure minimum distance between peaks (avoid double detection)
+        if (peaks.isEmpty || i - peaks.last > 15) {
+          // ~0.6 seconds at 25fps
+          peaks.add(i);
+        }
+      }
+    }
+
+    return peaks;
+  }
+
+  /// Static version of moving average filter
+  static List<double> _applyMovingAverageFilter(List<double> values) {
+    const windowSize = 5;
+    final smoothed = <double>[];
+
+    for (int i = 0; i < values.length; i++) {
+      double sum = 0;
+      int count = 0;
+
+      for (
+        int j = max(0, i - windowSize ~/ 2);
+        j < min(values.length, i + windowSize ~/ 2 + 1);
+        j++
+      ) {
+        sum += values[j];
+        count++;
+      }
+
+      smoothed.add(sum / count);
+    }
+
+    return smoothed;
   }
 
   /// Perform advanced PPG signal analysis with enhanced validation

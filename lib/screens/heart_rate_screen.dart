@@ -140,6 +140,18 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       // Keep screen on during measurement
       await WakelockPlus.enable();
 
+      // Lock camera exposure and white balance for consistent readings
+      try {
+        await _cameraController!.setExposureMode(ExposureMode.locked);
+        await _cameraController!.setFocusMode(FocusMode.locked);
+        debugPrint(
+          '📷 Camera exposure and focus locked for consistent readings',
+        );
+      } catch (e) {
+        debugPrint('⚠️ Could not lock camera settings: $e');
+        // Continue anyway - not all devices support exposure lock
+      }
+
       // Turn on flash
       await _cameraController!.setFlashMode(FlashMode.torch);
 
@@ -148,8 +160,22 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       // Start pulse animation
       _pulseAnimationController.repeat(reverse: true);
 
+      // Stop any existing stream first to avoid conflicts
+      try {
+        await _cameraController!.stopImageStream();
+        debugPrint('🛑 Stopped existing image stream');
+      } catch (e) {
+        // No existing stream, continue
+        debugPrint('ℹ️ No existing stream to stop: $e');
+      }
+
+      // Wait a moment for camera to stabilize with new settings
+      await Future.delayed(const Duration(milliseconds: 800));
+
       // Start image stream processing
       await _cameraController!.startImageStream(_processImage);
+
+      debugPrint('🫀 Enhanced measurement started with locked camera settings');
     } catch (e) {
       debugPrint('Error starting measurement: $e');
       _stopMeasurement();
@@ -172,6 +198,16 @@ class _HeartRateScreenState extends State<HeartRateScreen>
 
       // Turn off flash
       await _cameraController?.setFlashMode(FlashMode.off);
+
+      // Unlock camera settings
+      try {
+        await _cameraController?.setExposureMode(ExposureMode.auto);
+        await _cameraController?.setFocusMode(FocusMode.auto);
+        debugPrint('📷 Camera settings unlocked');
+      } catch (e) {
+        debugPrint('⚠️ Could not unlock camera settings: $e');
+        // Continue anyway
+      }
 
       // Stop pulse animation
       _pulseAnimationController.stop();
@@ -245,11 +281,37 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   }
 
   void _showResults() {
+    final signalQualityPercent = (_viewModel.signalQuality * 100).round();
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Text(LocaleKeys.measurement_complete.tr()),
+        title: Row(
+          children: [
+            Text(LocaleKeys.measurement_complete.tr()),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: signalQualityPercent >= 80
+                    ? Colors.green
+                    : signalQualityPercent >= 60
+                    ? Colors.orange
+                    : Colors.red,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                'Q: $signalQualityPercent%',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -273,6 +335,25 @@ class _HeartRateScreenState extends State<HeartRateScreen>
               ),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            const SizedBox(height: 12),
+            // HRV Display
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'HRV:',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  Text('${_viewModel.currentHRV.toStringAsFixed(1)} ms'),
+                ],
+              ),
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -291,6 +372,16 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            // Quality indicator
+            Text(
+              'Ölçüm Kalitesi: ${_getQualityDescription(signalQualityPercent)}',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+                fontStyle: FontStyle.italic,
+              ),
+            ),
           ],
         ),
         actions: [
@@ -301,6 +392,14 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         ],
       ),
     );
+  }
+
+  String _getQualityDescription(int qualityPercent) {
+    if (qualityPercent >= 90) return 'Mükemmel';
+    if (qualityPercent >= 80) return 'Çok İyi';
+    if (qualityPercent >= 70) return 'İyi';
+    if (qualityPercent >= 60) return 'Orta';
+    return 'Düşük';
   }
 
   Widget _buildResultItem(String label, int value) {

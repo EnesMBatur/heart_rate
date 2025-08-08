@@ -106,10 +106,11 @@ class HeartRateViewModel extends ChangeNotifier {
     // Add intensity data
     _heartRateValues.add(intensity);
 
-    // Debug logging
-    if (_heartRateValues.length % 30 == 0) {
+    // Debug logging - more frequent for testing
+    if (_heartRateValues.length % 10 == 0) {
+      // Changed from 30 to 10
       debugPrint(
-        '📊 Veri Toplama: ${_heartRateValues.length} örnek, Son değer: ${intensity.toInt()}',
+        '📊 Veri Toplama: ${_heartRateValues.length} örnek, Son değer: ${intensity.toInt()}, Parmak: $isFingerPresent',
       );
     }
 
@@ -121,10 +122,19 @@ class HeartRateViewModel extends ChangeNotifier {
 
   /// Perform PPG analysis with enhanced validation
   void _performAnalysis() {
-    final analysisResult = HeartRateService.performAdvancedAnalysis(
+    // Try ultra-advanced analysis first (with filtering and enhanced validation)
+    var analysisResult = HeartRateService.performUltraAdvancedAnalysis(
       _heartRateValues,
-      initialSampleCount: _minAnalysisSampleCount, // Use minimum sample count
-      qualityThreshold: 0.75, // Increased threshold for better quality
+      initialSampleCount: _minAnalysisSampleCount,
+      qualityThreshold: 0.75, // Higher threshold for better quality
+      frameRate: _frameRate,
+    );
+
+    // Fallback to standard analysis if ultra-advanced fails
+    analysisResult ??= HeartRateService.performAdvancedAnalysis(
+      _heartRateValues,
+      initialSampleCount: _minAnalysisSampleCount,
+      qualityThreshold: 0.7, // Slightly lower fallback threshold
       frameRate: _frameRate,
     );
 
@@ -133,8 +143,9 @@ class HeartRateViewModel extends ChangeNotifier {
       final quality = analysisResult['quality'] as double;
       final hrv = analysisResult['hrv'] as double;
       final rrConsistency = analysisResult['rrConsistency'] as double;
+      final isFiltered = analysisResult['filteredSignalUsed'] as bool? ?? false;
 
-      // Additional validation: Reject unrealistic readings
+      // Enhanced validation: Reject unrealistic readings
       if (!_isRealisticHeartRate(heartRate, quality, hrv, rrConsistency)) {
         debugPrint(
           '❌ Sahte sinyal tespit edildi - HR: $heartRate, Q: ${(quality * 100).toInt()}%, HRV: $hrv, Consistency: ${(rrConsistency * 100).toInt()}%',
@@ -163,12 +174,12 @@ class HeartRateViewModel extends ChangeNotifier {
         _hasFoundHeartRate = true;
         _stableHeartRateStartTime = DateTime.now();
         debugPrint(
-          '🎯 İlk kalp atışı bulundu: $_currentHeartRate BPM - Zaman takibi başlatıldı',
+          '🎯 İlk kalp atışı bulundu: $_currentHeartRate BPM - Zaman takibi başlatıldı${isFiltered ? ' (Filtered)' : ''}',
         );
       }
 
       debugPrint(
-        '✅ Kaliteli Ölçüm: $_currentHeartRate BPM, HRV: ${_currentHRV.toStringAsFixed(2)}, Kalite: ${(_signalQuality * 100).toInt()}%, Consistency: ${(rrConsistency * 100).toInt()}%',
+        '✅ Kaliteli Ölçüm: $_currentHeartRate BPM, HRV: ${_currentHRV.toStringAsFixed(2)}, Kalite: ${(_signalQuality * 100).toInt()}%, Consistency: ${(rrConsistency * 100).toInt()}%${isFiltered ? ' [FILTERED]' : ''}',
       );
 
       // Check if measurement should complete
@@ -192,37 +203,55 @@ class HeartRateViewModel extends ChangeNotifier {
     }
   }
 
-  /// Validate if heart rate reading is realistic
+  /// Enhanced validation for more realistic heart rate readings
   bool _isRealisticHeartRate(
     int heartRate,
     double quality,
     double hrv,
     double rrConsistency,
   ) {
-    // Basic range check
-    if (heartRate < 50 || heartRate > 160) return false;
+    // Basic range check - more lenient range for edge cases
+    if (heartRate < 40 || heartRate > 200) return false;
 
-    // Quality threshold
-    if (quality < 0.7) return false;
+    // Quality threshold - adaptive based on conditions
+    final minQuality = _recentHeartRates.length < 3
+        ? 0.6
+        : 0.7; // More lenient initially
+    if (quality < minQuality) return false;
 
-    // HRV reasonableness
-    if (hrv < 8 || hrv > 150) return false;
+    // HRV reasonableness - more realistic range
+    if (hrv < 3 || hrv > 200) return false;
 
-    // R-R interval consistency
-    if (rrConsistency < 0.6) return false;
+    // R-R interval consistency - adaptive based on measurement phase
+    final minConsistency = _validMeasurements < 3
+        ? 0.5
+        : 0.6; // More lenient initially
+    if (rrConsistency < minConsistency) return false;
 
     // Context check: if we have previous readings, new reading shouldn't be too different
     if (_recentHeartRates.isNotEmpty) {
       final avgRecent =
           _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
       final deviation = (heartRate - avgRecent).abs();
-      if (deviation > 25) return false; // Max 25 BPM sudden change
+
+      // More lenient deviation threshold for natural variations
+      final maxDeviation = _recentHeartRates.length < 3
+          ? 35
+          : 25; // Allow more variation initially
+      if (deviation > maxDeviation) return false;
     }
+
+    // Additional check: ensure HRV is reasonable for the heart rate
+    // Generally, higher heart rates tend to have lower HRV
+    if (heartRate > 120 && hrv > 80)
+      return false; // High HR with very high HRV is suspicious
+    if (heartRate < 50 && hrv < 8)
+      return false; // Very low HR with very low HRV is suspicious
 
     return true;
   }
 
-  /// Check if measurement should complete
+  /// Enhanced measurement completion logic with faster response
   bool _shouldCompleteMeasurement() {
     // İlk kalp atışı henüz bulunmadıysa devam et
     if (!_hasFoundHeartRate || _stableHeartRateStartTime == null) {
@@ -236,34 +265,68 @@ class HeartRateViewModel extends ChangeNotifier {
     final hasMinimumTime =
         timeSinceHeartRateFound.inSeconds >= _minStableHeartRateSeconds;
 
-    // En az minimum kaliteli ölçüm sayısı gerekli
-    if (_validMeasurements < 8) return false;
+    // Dynamic minimum measurement count based on signal quality
+    final minMeasurements = _signalQuality > 0.85
+        ? 4
+        : 6; // Fewer measurements needed for excellent signal
+    if (_validMeasurements < minMeasurements) return false;
 
     // Son ölçümlerin istikrarlı olup olmadığını kontrol et
-    if (_recentHeartRates.length >= 4) {
+    if (_recentHeartRates.length >= 3) {
+      // Reduced from 4 for faster response
       final avg =
           _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
       final maxDeviation = _recentHeartRates
           .map((hr) => (hr - avg).abs())
           .reduce((a, b) => a > b ? a : b);
 
-      final isStable = maxDeviation <= 8.0; // Daha sıkı tolerans
-      final isValidHRV = _currentHRV > 5.0; // Daha yüksek HRV gereksinimi
-      final isGoodQuality =
-          _signalQuality > 0.8; // Daha yüksek kalite gereksinimi
+      // Dynamic stability threshold based on signal quality
+      final stabilityThreshold = _signalQuality > 0.85
+          ? 6.0
+          : 8.0; // Tighter for high quality
+      final isStable = maxDeviation <= stabilityThreshold;
+
+      // Dynamic HRV threshold based on heart rate
+      final minHRV = _currentHeartRate > 100
+          ? 3.0
+          : 5.0; // Lower threshold for higher HR
+      final isValidHRV = _currentHRV > minHRV;
+
+      // Dynamic quality threshold based on measurement count
+      final qualityThreshold = _validMeasurements >= 8
+          ? 0.75
+          : 0.8; // More lenient with more data
+      final isGoodQuality = _signalQuality > qualityThreshold;
 
       // Toplam ölçüm süresi kontrolü (maksimum 30 saniye)
       final totalTime = DateTime.now().difference(_measurementStartTime!);
       final hasReachedMaxTime =
           totalTime.inSeconds >= _measurementDurationSeconds;
 
+      // Early completion for excellent signals
+      final hasExcellentSignal =
+          _signalQuality > 0.9 &&
+          isStable &&
+          isValidHRV &&
+          _validMeasurements >= 4 &&
+          timeSinceHeartRateFound.inSeconds >= 8;
+
       debugPrint(
-        '🎯 Tamamlama Kontrolü: Time=${timeSinceHeartRateFound.inSeconds}s/${_minStableHeartRateSeconds}s, Stable=$isStable (dev=${maxDeviation.toInt()}), HRV=$isValidHRV (${_currentHRV.toInt()}), Quality=$isGoodQuality (${(_signalQuality * 100).toInt()}%)',
+        '🎯 Tamamlama Kontrolü: Time=${timeSinceHeartRateFound.inSeconds}s/${_minStableHeartRateSeconds}s, '
+        'Stable=$isStable (dev=${maxDeviation.toInt()}, threshold=${stabilityThreshold.toInt()}), '
+        'HRV=$isValidHRV (${_currentHRV.toInt()}, min=${minHRV.toInt()}), '
+        'Quality=$isGoodQuality (${(_signalQuality * 100).toInt()}%, min=${(qualityThreshold * 100).toInt()}%), '
+        'Measurements=$_validMeasurements/$minMeasurements, '
+        'Excellent=$hasExcellentSignal',
       );
 
-      // Ya yeterli zaman geçti ve kaliteli ya da maksimum zamana ulaşıldı
-      return (hasMinimumTime && isStable && isValidHRV && isGoodQuality) ||
-          hasReachedMaxTime;
+      // Enhanced completion criteria
+      return hasExcellentSignal || // Early completion for excellent signals
+          (hasMinimumTime &&
+              isStable &&
+              isValidHRV &&
+              isGoodQuality) || // Normal completion
+          hasReachedMaxTime; // Timeout completion
     }
 
     return false;
@@ -278,17 +341,44 @@ class HeartRateViewModel extends ChangeNotifier {
     return 0.1;
   }
 
-  /// Get status message
+  /// Get enhanced status message with more detailed feedback
   String getStatusMessage() {
     if (isCalibrating) {
-      return 'Sinyal analiz ediliyor... Parmağınızı kameranın üzerine yerleştirin.';
+      return 'Gelişmiş sinyal analizi... Parmağınızı kameranın üzerine yerleştirin ve sabit tutun.';
     } else if (_measurementCompleted) {
-      return 'Kaliteli ölçüm tamamlandı!';
+      return 'Yüksek kaliteli ölçüm tamamlandı! ✨';
     } else if (_validMeasurements > 0) {
-      return 'Kaliteli veri: $_validMeasurements/6 | HRV: ${_currentHRV.toStringAsFixed(1)} | Kalite: ${(_signalQuality * 100).toInt()}%';
+      final qualityPercent = (_signalQuality * 100).toInt();
+      final stabilityIndicator = _recentHeartRates.length >= 3
+          ? _getStabilityIndicator()
+          : '';
+
+      return 'Kaliteli veri: $_validMeasurements/${_getTargetMeasurements()} | '
+          'HRV: ${_currentHRV.toStringAsFixed(1)} ms | '
+          'Kalite: $qualityPercent%$stabilityIndicator';
     } else {
-      return 'Nabız analiz ediliyor...';
+      return 'Nabız analiz ediliyor... Parmağınızı sabit tutun.';
     }
+  }
+
+  /// Get target measurements based on signal quality
+  int _getTargetMeasurements() {
+    return _signalQuality > 0.85 ? 4 : 6;
+  }
+
+  /// Get stability indicator for status
+  String _getStabilityIndicator() {
+    if (_recentHeartRates.length < 3) return '';
+
+    final avg =
+        _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
+    final maxDeviation = _recentHeartRates
+        .map((hr) => (hr - avg).abs())
+        .reduce((a, b) => a > b ? a : b);
+
+    if (maxDeviation <= 5) return ' 🟢'; // Very stable
+    if (maxDeviation <= 10) return ' 🟡'; // Moderately stable
+    return ' 🔴'; // Unstable
   }
 
   @override
