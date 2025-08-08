@@ -243,10 +243,12 @@ class HeartRateViewModel extends ChangeNotifier {
 
     // Additional check: ensure HRV is reasonable for the heart rate
     // Generally, higher heart rates tend to have lower HRV
-    if (heartRate > 120 && hrv > 80)
+    if (heartRate > 120 && hrv > 80) {
       return false; // High HR with very high HRV is suspicious
-    if (heartRate < 50 && hrv < 8)
+    }
+    if (heartRate < 50 && hrv < 8) {
       return false; // Very low HR with very low HRV is suspicious
+    }
 
     return true;
   }

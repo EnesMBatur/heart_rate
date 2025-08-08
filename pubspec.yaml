@@ -47,6 +47,9 @@ dependencies:
   responsive_sizer: ^3.3.1
   line_icons: ^2.0.3
 
+  #splash
+  flutter_native_splash: ^2.4.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,6 +60,7 @@ flutter:
 
   assets:
     - assets/translations/
+    - assets/images/splash/
 
   fonts:
     - family: Montserrat
@@ -69,3 +73,23 @@ flutter:
     - family:  CustomIcons
       fonts:
         - asset: fonts/CustomIcons.ttf
+
+# Flutter Native Splash configuration
+flutter_native_splash:
+  color: "#E53E3E"
+  image: assets/images/splash/logo.png
+ 
+  # Android için
+  android_12:
+    # Android 12+ için özel ayarlar
+    image: assets/images/splash/android12.png
+    color: "#E53E3E"
+    
+  branding: assets/images/splash/secondary_asset.png
+  branding_mode: bottom
+  branding_bottom_padding: 24
+  
+  # Dark mode desteği
+  color_dark: "#C53030"  # Primary dark color
+  image_dark: assets/images/splash/logo.png
+  branding_dark: assets/images/splash/secondary_asset.png
