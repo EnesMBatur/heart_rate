@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import '../screens/home_screen.dart';
 import '../screens/heart_rate_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../locale/lang/locale_keys.g.dart';
-import '../models/heart_rate_measurement.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppRouter {
   static const String home = '/home';
@@ -24,7 +28,7 @@ class AppRouter {
             path: home,
             name: 'home',
             pageBuilder: (context, state) =>
-                NoTransitionPage(child: const HomeContentScreen()),
+                NoTransitionPage(child: const HomeScreen()),
           ),
           GoRoute(
             path: measure,
@@ -75,34 +79,7 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: child,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _getCurrentIndex(context),
-        onTap: (index) => _onItemTapped(context, index),
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: LocaleKeys.home.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.monitor_heart),
-            label: LocaleKeys.measure.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.history),
-            label: LocaleKeys.history.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.lightbulb_outline),
-            label: LocaleKeys.tips.tr(),
-          ),
-        ],
-      ),
-    );
+    return Scaffold(body: child, bottomNavigationBar: buildContainer(context));
   }
 
   int _getCurrentIndex(BuildContext context) {
@@ -137,256 +114,54 @@ class AppShell extends StatelessWidget {
         break;
     }
   }
-}
 
-class HomeContentScreen extends StatefulWidget {
-  const HomeContentScreen({super.key});
-
-  @override
-  State<HomeContentScreen> createState() => _HomeContentScreenState();
-}
-
-class _HomeContentScreenState extends State<HomeContentScreen> {
-  HeartRateMeasurement? _lastMeasurement;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadLastMeasurement();
-  }
-
-  Future<void> _loadLastMeasurement() async {
-    final prefs = await SharedPreferences.getInstance();
-    final lastHeartRate = prefs.getInt('last_heart_rate');
-    final lastTimestamp = prefs.getString('last_timestamp');
-
-    if (lastHeartRate != null && lastTimestamp != null) {
-      setState(() {
-        _lastMeasurement = HeartRateMeasurement(
-          heartRate: lastHeartRate,
-          timestamp: DateTime.parse(lastTimestamp),
-          stress: _getStressLevel(lastHeartRate),
-          tension: _getTensionLevel(lastHeartRate),
-          energy: _getEnergyLevel(lastHeartRate),
-        );
-      });
-    }
-  }
-
-  int _getStressLevel(int heartRate) {
-    if (heartRate < 60) return 1;
-    if (heartRate < 80) return 2;
-    if (heartRate < 100) return 3;
-    if (heartRate < 120) return 4;
-    return 5;
-  }
-
-  int _getTensionLevel(int heartRate) {
-    if (heartRate < 70) return 1;
-    if (heartRate < 90) return 2;
-    if (heartRate < 110) return 3;
-    if (heartRate < 130) return 4;
-    return 5;
-  }
-
-  int _getEnergyLevel(int heartRate) {
-    if (heartRate < 60) return 2;
-    if (heartRate < 80) return 5;
-    if (heartRate < 100) return 4;
-    if (heartRate < 120) return 3;
-    return 2;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.heartRater.tr()), elevation: 0),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Welcome Card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.favorite,
-                          color: Theme.of(context).primaryColor,
-                          size: 32,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            LocaleKeys.welcome_to_heartRater.tr(),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      LocaleKeys.welcome_description.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Last Measurement Card
-            if (_lastMeasurement != null) ...[
-              Text(
-                LocaleKeys.last_measurement.tr(),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 12),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _buildMeasurementItem(
-                            LocaleKeys.heart_rate.tr(),
-                            '${_lastMeasurement!.heartRate}',
-                            LocaleKeys.bpm.tr(),
-                            Icons.monitor_heart,
-                            Theme.of(context).primaryColor,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _buildMeasurementItem(
-                            LocaleKeys.stress.tr(),
-                            '${_lastMeasurement!.stress}',
-                            '/5',
-                            Icons.psychology,
-                            Colors.orange,
-                          ),
-                          _buildMeasurementItem(
-                            LocaleKeys.tension.tr(),
-                            '${_lastMeasurement!.tension}',
-                            '/5',
-                            Icons.fitness_center,
-                            Colors.red,
-                          ),
-                          _buildMeasurementItem(
-                            LocaleKeys.energy.tr(),
-                            '${_lastMeasurement!.energy}',
-                            '/5',
-                            Icons.battery_charging_full,
-                            Colors.green,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-
-            // Quick Start Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () => context.go(AppRouter.measure),
-                icon: const Icon(Icons.monitor_heart),
-                label: Text(LocaleKeys.start_heart_rate_measurement.tr()),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Tips Preview
-            Text(
-              LocaleKeys.quick_tips.tr(),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTipItem(LocaleKeys.tip_hold_steady.tr()),
-                    _buildTipItem(LocaleKeys.tip_breathe_calm.tr()),
-                    _buildTipItem(LocaleKeys.tip_cover_camera.tr()),
-                    _buildTipItem(LocaleKeys.tip_light_touch.tr()),
-                    const SizedBox(height: 12),
-                    TextButton(
-                      onPressed: () => context.go(AppRouter.tips),
-                      child: Text(LocaleKeys.view_all_tips.tr()),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+  Container buildContainer(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(AppConst.kDefaultEdgeInsets),
+          topRight: Radius.circular(AppConst.kDefaultEdgeInsets),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMeasurementItem(
-    String label,
-    String value,
-    String unit,
-    IconData icon,
-    Color color,
-  ) {
-    return Column(
-      children: [
-        Icon(icon, color: color, size: 32),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-        Text(unit, style: TextStyle(fontSize: 12, color: color)),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall,
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTipItem(String tip) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        children: [
-          const Icon(Icons.check_circle, color: Colors.green, size: 16),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(tip, style: Theme.of(context).textTheme.bodyMedium),
-          ),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withValues(alpha: 0.1)),
         ],
       ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+          child: buildGNav(context),
+        ),
+      ),
+    );
+  }
+
+  Widget buildGNav(BuildContext context) {
+    return GNav(
+      rippleColor: Colors.grey[300]!,
+      hoverColor: Colors.grey[100]!,
+      gap: 6,
+      activeColor: Theme.of(context).cardColor,
+      iconSize: Device.screenType == ScreenType.tablet ? 36 : 26,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConst.kDefaultEdgeInsets,
+        vertical: 6,
+      ),
+      duration: DurationItems.durationLow(),
+      tabBackgroundColor: AppConst.kPrimaryColor,
+      color: AppConst.kCircleColor,
+      textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+        fontSize: Device.screenType == ScreenType.tablet ? 18 : 14,
+        color: Theme.of(context).cardColor,
+      ),
+      tabs: [
+        GButton(icon: LineIcons.medicalClinic, text: LocaleKeys.home.tr()),
+        GButton(icon: LineIcons.heartbeat, text: LocaleKeys.measure.tr()),
+        GButton(icon: LineIcons.history, text: LocaleKeys.history.tr()),
+        GButton(icon: LineIcons.lightbulb, text: LocaleKeys.tips.tr()),
+      ],
+      selectedIndex: _getCurrentIndex(context),
+      onTabChange: (index) => _onItemTapped(context, index),
     );
   }
 }

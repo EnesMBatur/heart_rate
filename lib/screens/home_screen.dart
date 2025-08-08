@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'heart_rate_screen.dart';
-import 'history_screen.dart';
-import 'tips_screen.dart';
-import '../models/heart_rate_measurement.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../viewmodels/home_view_model.dart';
+import '../router/app_router.dart';
 import '../locale/lang/locale_keys.g.dart';
+import '../models/heart_rate_measurement.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,13 +16,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  late HomeViewModel _homeViewModel;
   HeartRateMeasurement? _lastMeasurement;
 
   @override
   void initState() {
     super.initState();
+    _homeViewModel = HomeViewModel();
+    _homeViewModel.loadLastMeasurement();
     _loadLastMeasurement();
+  }
+
+  @override
+  void dispose() {
+    _homeViewModel.dispose();
+    super.dispose();
   }
 
   Future<void> _loadLastMeasurement() async {
@@ -68,198 +77,158 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [
-      _buildHomePage(),
-      const HeartRateScreen(),
-      const HistoryScreen(),
-      const TipsScreen(),
-    ];
-
-    return Scaffold(
-      body: pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: LocaleKeys.home.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monitor_heart),
-            label: LocaleKeys.measure.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: LocaleKeys.history.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lightbulb_outline),
-            label: LocaleKeys.tips.tr(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHomePage() {
-    return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.heartRater.tr()), elevation: 0),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Welcome Card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.favorite,
-                          color: Theme.of(context).primaryColor,
-                          size: 32,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            LocaleKeys.welcome_to_heartRater.tr(),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      LocaleKeys.welcome_description.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ),
+    return ChangeNotifierProvider.value(
+      value: _homeViewModel,
+      child: Consumer<HomeViewModel>(
+        builder: (context, homeViewModel, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(LocaleKeys.heartRater.tr()),
+              elevation: 0,
             ),
-
-            const SizedBox(height: 20),
-
-            // Last Measurement Card
-            if (_lastMeasurement != null) ...[
-              Text(
-                LocaleKeys.last_measurement.tr(),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 12),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Welcome Card
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildMeasurementItem(
-                            LocaleKeys.heart_rate.tr(),
-                            '${_lastMeasurement!.heartRate}',
-                            LocaleKeys.bpm.tr(),
-                            Icons.monitor_heart,
-                            Theme.of(context).primaryColor,
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.favorite,
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  LocaleKeys.welcome_to_heartRater.tr(),
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            LocaleKeys.welcome_description.tr(),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _buildMeasurementItem(
-                            LocaleKeys.stress.tr(),
-                            '${_lastMeasurement!.stress}',
-                            '/5',
-                            Icons.psychology,
-                            Colors.orange,
-                          ),
-                          _buildMeasurementItem(
-                            LocaleKeys.tension.tr(),
-                            '${_lastMeasurement!.tension}',
-                            '/5',
-                            Icons.fitness_center,
-                            Colors.red,
-                          ),
-                          _buildMeasurementItem(
-                            LocaleKeys.energy.tr(),
-                            '${_lastMeasurement!.energy}',
-                            '/5',
-                            Icons.battery_charging_full,
-                            Colors.green,
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
 
-            // Quick Start Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                icon: const Icon(Icons.monitor_heart),
-                label: Text(LocaleKeys.start_heart_rate_measurement.tr()),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                ),
-              ),
-            ),
+                  const SizedBox(height: 20),
 
-            const SizedBox(height: 20),
-
-            // Tips Preview
-            Text(
-              LocaleKeys.quick_tips.tr(),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTipItem(LocaleKeys.tip_hold_steady.tr()),
-                    _buildTipItem(LocaleKeys.tip_breathe_calm.tr()),
-                    _buildTipItem(LocaleKeys.tip_cover_camera.tr()),
-                    _buildTipItem(LocaleKeys.tip_light_touch.tr()),
-                    const SizedBox(height: 12),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectedIndex = 3;
-                        });
-                      },
-                      child: Text(LocaleKeys.view_all_tips.tr()),
+                  // Last Measurement Card
+                  if (_lastMeasurement != null) ...[
+                    Text(
+                      LocaleKeys.last_measurement.tr(),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
+                    const SizedBox(height: 12),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                _buildMeasurementItem(
+                                  LocaleKeys.heart_rate.tr(),
+                                  '${_lastMeasurement!.heartRate}',
+                                  LocaleKeys.bpm.tr(),
+                                  Icons.monitor_heart,
+                                  Theme.of(context).primaryColor,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                _buildMeasurementItem(
+                                  LocaleKeys.stress.tr(),
+                                  '${_lastMeasurement!.stress}',
+                                  '/5',
+                                  Icons.psychology,
+                                  Colors.orange,
+                                ),
+                                _buildMeasurementItem(
+                                  LocaleKeys.tension.tr(),
+                                  '${_lastMeasurement!.tension}',
+                                  '/5',
+                                  Icons.fitness_center,
+                                  Colors.red,
+                                ),
+                                _buildMeasurementItem(
+                                  LocaleKeys.energy.tr(),
+                                  '${_lastMeasurement!.energy}',
+                                  '/5',
+                                  Icons.battery_charging_full,
+                                  Colors.green,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
-                ),
+
+                  // Quick Start Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.go(AppRouter.measure),
+                      icon: const Icon(Icons.monitor_heart),
+                      label: Text(LocaleKeys.start_heart_rate_measurement.tr()),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Tips Preview
+                  Text(
+                    LocaleKeys.quick_tips.tr(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildTipItem(LocaleKeys.tip_hold_steady.tr()),
+                          _buildTipItem(LocaleKeys.tip_breathe_calm.tr()),
+                          _buildTipItem(LocaleKeys.tip_cover_camera.tr()),
+                          _buildTipItem(LocaleKeys.tip_light_touch.tr()),
+                          const SizedBox(height: 12),
+                          TextButton(
+                            onPressed: () => context.go(AppRouter.tips),
+                            child: Text(LocaleKeys.view_all_tips.tr()),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -299,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         children: [
-          Icon(Icons.check_circle, color: Colors.green, size: 16),
+          const Icon(Icons.check_circle, color: Colors.green, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(tip, style: Theme.of(context).textTheme.bodyMedium),
