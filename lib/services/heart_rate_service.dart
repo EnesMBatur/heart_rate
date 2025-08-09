@@ -407,8 +407,9 @@ class HeartRateService {
 
       // 3. Signal variability check - prevent flat/fake signals
       final signalVariance = calculateVariance(filteredSignal);
-      if (signalVariance < 3.0)
+      if (signalVariance < 3.0) {
         return null; // Slightly relaxed for filtered signal
+      }
 
       // 4. Enhanced peak detection with adaptive threshold
       final peaks = detectPeaksAdvanced(filteredSignal);
@@ -460,8 +461,9 @@ class HeartRateService {
       final hrDifference = (heartRate - frequencyHR).abs();
 
       // If time and frequency domain differ too much, signal might be noisy
-      if (hrDifference > 15)
+      if (hrDifference > 15) {
         return null; // Allow some difference but not too much
+      }
 
       // 10. Final enhanced validation
       if (hrv < 3.0 || hrv > 250.0) return null; // More realistic HRV range

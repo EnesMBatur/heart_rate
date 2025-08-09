@@ -520,7 +520,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: .3),
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -544,7 +544,9 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                                   ? _viewModel.progress
                                   : 0.0,
                               strokeWidth: 8,
-                              backgroundColor: Colors.white.withOpacity(0.3),
+                              backgroundColor: Colors.white.withValues(
+                                alpha: .3,
+                              ),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 _viewModel.measurementCompleted
                                     ? Colors.green
@@ -567,14 +569,16 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                                   height: 150,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: .9),
                                     border: Border.all(
                                       color: Theme.of(context).primaryColor,
                                       width: 3,
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
+                                        color: Colors.black.withValues(
+                                          alpha: .2,
+                                        ),
                                         blurRadius: 10,
                                         spreadRadius: 2,
                                       ),
@@ -627,8 +631,8 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                           ),
                           decoration: BoxDecoration(
                             color: _viewModel.currentHeartRate > 0
-                                ? Colors.green.withOpacity(0.9)
-                                : Colors.orange.withOpacity(0.9),
+                                ? Colors.green.withValues(alpha: 0.9)
+                                : Colors.orange.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: _viewModel.currentHeartRate > 0
@@ -665,7 +669,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -679,7 +683,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(

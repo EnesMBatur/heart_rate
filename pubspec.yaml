@@ -64,6 +64,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/splash/
+    - assets/images/
 
   fonts:
     - family: Montserrat
@@ -95,19 +96,19 @@ flutter_native_splash:
   # Dark mode desteği
   color_dark: "#C53030"  # Primary dark color
   image_dark: assets/images/splash/logo.png
-  branding_dark: assets/images/splash/secondary_asset.png
+  branding_dark: assets/images/splash/secondary_asset@3x.png
 
 # Flutter Launcher Icons configuration
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/splash/logo.png"
+  image_path: "assets/images/splash/new_logo.png"
   remove_alpha_ios: true # iOS App Store için alpha channel'ı kaldır
   min_sdk_android: 21 # android min sdk min:16, default 21
   
   # Adaptive icon için (Android 8.0+)
-  adaptive_icon_background: "#E53E3E" # Heart red background
-  adaptive_icon_foreground: "assets/images/splash/logo.png"
+  adaptive_icon_background: "#FD4452" # Heart red background
+  adaptive_icon_foreground: "assets/images/splash/logo_foreground.png"
   
   web:
     generate: true
