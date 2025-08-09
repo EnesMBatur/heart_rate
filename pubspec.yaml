@@ -89,14 +89,13 @@ flutter_native_splash:
     image: assets/images/splash/android12.png
     color: "#E53E3E"
     
-  branding: assets/images/splash/secondary_asset.png
+  branding: assets/images/splash/brand.png
   branding_mode: bottom
-  branding_bottom_padding: 24
   
   # Dark mode desteği
   color_dark: "#C53030"  # Primary dark color
   image_dark: assets/images/splash/logo.png
-  branding_dark: assets/images/splash/secondary_asset@3x.png
+  branding_dark: assets/images/splash/brand.png
 
 # Flutter Launcher Icons configuration
 flutter_launcher_icons:
