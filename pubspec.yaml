@@ -47,6 +47,7 @@ dependencies:
   responsive_sizer: ^3.3.1
   line_icons: ^2.0.3
   lottie: ^3.3.1
+  flutter_svg: ^2.2.0
 
   #splash
   flutter_native_splash: ^2.4.6
@@ -67,6 +68,7 @@ flutter:
     - assets/images/splash/
     - assets/images/
     - assets/json/
+    - assets/images/general/
 
   fonts:
     - family: Urbanist

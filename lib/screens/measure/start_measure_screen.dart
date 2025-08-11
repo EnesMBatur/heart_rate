@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import '../theme/app_theme.dart';
+import '../../theme/app_theme.dart';
+import 'components/how_to_measure_modal.dart';
+import 'components/medical_disclaimer_modal.dart';
 
 class StartMeasureScreen extends StatefulWidget {
   const StartMeasureScreen({super.key});
@@ -22,124 +24,11 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
   }
 
   void _onHowToMeasure() {
-    _showHowToMeasureDialog();
+    HowToMeasureModal.show(context);
   }
 
   void _onMedicalDisclaimer() {
-    _showMedicalDisclaimerDialog();
-  }
-
-  void _showHowToMeasureDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'How to measure?',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppTheme.primaryColor,
-          ),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '1. Place your finger on the camera',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              '2. Make sure the flash is on',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              '3. Keep your finger steady',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              '4. Wait for the measurement to complete',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              '5. Avoid movement during measurement',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'Got it',
-              style: TextStyle(
-                color: AppTheme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showMedicalDisclaimerDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'Medical Disclaimer',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppTheme.primaryColor,
-          ),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'This app is for educational and informational purposes only.',
-              style: TextStyle(fontSize: 15.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              'It is not intended to be a substitute for professional medical advice, diagnosis, or treatment.',
-              style: TextStyle(fontSize: 15.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              'Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.',
-              style: TextStyle(fontSize: 15.sp),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              'The measurements provided by this app may not be accurate and should not be used for medical purposes.',
-              style: TextStyle(
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'I Understand',
-              style: TextStyle(
-                color: AppTheme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    MedicalDisclaimerModal.show(context);
   }
 
   @override
