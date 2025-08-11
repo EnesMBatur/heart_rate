@@ -17,6 +17,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'Urbanist',
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         brightness: Brightness.light,
@@ -29,6 +30,12 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
       cardTheme: CardThemeData(
         color: cardColor,
@@ -43,27 +50,80 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 32,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800,
           color: Colors.black87,
         ),
         headlineMedium: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 28,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
           color: Colors.black87,
         ),
         titleLarge: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Colors.black87,
         ),
-        bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-        bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
+        titleMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+        titleSmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+        bodyLarge: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: Colors.black87,
+        ),
+        bodyMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Colors.black54,
+        ),
+        bodySmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Colors.black54,
+        ),
+        labelLarge: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+        labelMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+        labelSmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+          color: Colors.black54,
+        ),
       ),
     );
   }
@@ -71,6 +131,7 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'Urbanist',
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         brightness: Brightness.dark,
@@ -83,6 +144,12 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
       cardTheme: CardThemeData(
         color: darkCardColor,
@@ -97,27 +164,80 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+            fontFamily: 'Urbanist',
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 32,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800,
           color: Colors.white,
         ),
         headlineMedium: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 28,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
           color: Colors.white,
         ),
         titleLarge: TextStyle(
+          fontFamily: 'Urbanist',
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
-        bodyMedium: TextStyle(fontSize: 14, color: Colors.white70),
+        titleMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+        titleSmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+        bodyLarge: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        ),
+        bodyMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Colors.white70,
+        ),
+        bodySmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Colors.white70,
+        ),
+        labelLarge: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+        labelMedium: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+        labelSmall: TextStyle(
+          fontFamily: 'Urbanist',
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+          color: Colors.white70,
+        ),
       ),
     );
   }

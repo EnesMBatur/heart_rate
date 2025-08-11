@@ -7,6 +7,7 @@ import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../screens/home_screen.dart';
+import '../screens/start_measure_screen.dart';
 import '../screens/heart_rate_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
@@ -15,6 +16,7 @@ import '../locale/lang/locale_keys.g.dart';
 class AppRouter {
   static const String home = '/home';
   static const String measure = '/measure';
+  static const String heartRate = '/heart-rate';
   static const String history = '/history';
   static const String tips = '/tips';
 
@@ -34,7 +36,7 @@ class AppRouter {
             path: measure,
             name: 'measure',
             pageBuilder: (context, state) =>
-                NoTransitionPage(child: const HeartRateScreen()),
+                NoTransitionPage(child: const StartMeasureScreen()),
           ),
           GoRoute(
             path: history,
@@ -49,6 +51,13 @@ class AppRouter {
                 NoTransitionPage(child: const TipsScreen()),
           ),
         ],
+      ),
+      // Full-screen route for heart rate measurement
+      GoRoute(
+        path: heartRate,
+        name: 'heartRate',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const HeartRateScreen()),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
