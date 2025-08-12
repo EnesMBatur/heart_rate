@@ -49,8 +49,8 @@ class _HeartRateScreenState extends StartingRateModelView {
 
   // Measurement widget with integrated camera preview
   Widget _buildMeasurementBody() {
-    final bool hasHeartRate = viewModel.currentHeartRate > 0;
-    if (!viewModel.isMeasuring || (viewModel.isMeasuring && !hasHeartRate)) {
+    // Phase 1: Show instructions when measuring but finger not detected
+    if (viewModel.isMeasuring && !viewModel.isFingerDetected) {
       return LayoutBuilder(
         builder: (context, constraints) {
           final started = viewModel.isMeasuring;
@@ -74,7 +74,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                   ),
                   const SizedBox(height: 28),
                   Text(
-                    started ? 'Measuring...' : LocaleKeys.ready_to_measure.tr(),
+                    'Measuring...',
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -85,9 +85,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    started
-                        ? LocaleKeys.instruction_place_finger.tr()
-                        : LocaleKeys.start_measurement.tr(),
+                    'Please put your finger on the camera and flashlight',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
@@ -148,13 +146,27 @@ class _HeartRateScreenState extends StartingRateModelView {
                         ),
                       ],
                     ),
-                    child: Text(
-                      viewModel.getStatusMessage(),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Measuring ${(viewModel.progress * 100).toInt()}%',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Measuring your heart rate. Please hold on...',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

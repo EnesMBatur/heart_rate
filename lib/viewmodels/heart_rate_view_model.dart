@@ -28,6 +28,7 @@ class HeartRateViewModel extends ChangeNotifier {
   double _signalQuality = 0.0;
   double _currentHRV = 0.0;
   int _consecutiveNoFingerFrames = 0;
+  bool _isFingerDetected = false;
 
   // Getters
   bool get isMeasuring => _isMeasuring;
@@ -39,6 +40,7 @@ class HeartRateViewModel extends ChangeNotifier {
   int get sampleCount => _heartRateValues.length;
   bool get isCalibrating =>
       _isMeasuring && _heartRateValues.length < _minAnalysisSampleCount;
+  bool get isFingerDetected => _isFingerDetected;
 
   // Callback for measurement completion
   VoidCallback? onMeasurementComplete;
@@ -57,6 +59,7 @@ class HeartRateViewModel extends ChangeNotifier {
     _stableHeartRateStartTime = null;
     _hasFoundHeartRate = false;
     _consecutiveNoFingerFrames = 0;
+    _isFingerDetected = false;
     notifyListeners();
   }
 
@@ -82,6 +85,7 @@ class HeartRateViewModel extends ChangeNotifier {
 
     if (!isFingerPresent) {
       _consecutiveNoFingerFrames++;
+      _isFingerDetected = false;
       _currentHeartRate = 0;
       _signalQuality = 0.0;
 
@@ -102,6 +106,7 @@ class HeartRateViewModel extends ChangeNotifier {
 
     // Finger detected - reset counters
     _consecutiveNoFingerFrames = 0;
+    _isFingerDetected = true;
 
     // Add intensity data
     _heartRateValues.add(intensity);
