@@ -8,7 +8,7 @@ import 'package:heart_rate/screens/measure/start_measure_screen.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../screens/home_screen.dart';
-import '../screens/heart_rate_screen.dart';
+import '../screens/measure/heart_rate_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../locale/lang/locale_keys.g.dart';
