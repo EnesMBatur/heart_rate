@@ -3,8 +3,6 @@ import 'package:heart_rate/screens/measure/modelview/starting_rate_model_view.da
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:lottie/lottie.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../../locale/lang/locale_keys.g.dart';
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -30,27 +28,27 @@ class _HeartRateScreenState extends StartingRateModelView {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: isInitialized ? _buildMeasurementBody() : _buildLoadingBody(),
-    );
-  }
-
-  Widget _buildLoadingBody() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircularProgressIndicator(),
-          const SizedBox(height: 16),
-          Text(LocaleKeys.initializing_camera.tr()),
-        ],
+      body: AnimatedBuilder(
+        animation: viewModel,
+        builder: (context, child) {
+          // Always show measurement body - start immediately without loading
+          return _buildMeasurementBody();
+        },
       ),
     );
   }
 
   // Measurement widget with integrated camera preview
   Widget _buildMeasurementBody() {
-    // Phase 1: Show instructions when measuring but finger not detected
-    if (viewModel.isMeasuring && !viewModel.isFingerDetected) {
+    // Debug: Print current state
+    debugPrint(
+      '🖥️ UI State: isMeasuring=${viewModel.isMeasuring}, isFingerDetected=${viewModel.isFingerDetected}, currentHeartRate=${viewModel.currentHeartRate}',
+    );
+
+    // Phase 1: Show instructions when measuring but finger not detected OR when camera not ready
+    if (!isInitialized ||
+        (viewModel.isMeasuring && !viewModel.isFingerDetected)) {
+      debugPrint('🖥️ Showing Phase 1: Instructions or Camera not ready');
       return LayoutBuilder(
         builder: (context, constraints) {
           final started = viewModel.isMeasuring;
@@ -105,7 +103,8 @@ class _HeartRateScreenState extends StartingRateModelView {
       );
     }
 
-    // Phase 2: Finger detected & measurement progressing (original rich UI)
+    // Phase 2: Finger detected & measurement progressing
+    debugPrint('🖥️ Showing Phase 2: Finger detected and measuring');
     return Column(
       children: [
         Expanded(

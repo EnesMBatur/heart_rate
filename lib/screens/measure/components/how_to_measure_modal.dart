@@ -17,7 +17,7 @@ class HowToMeasureModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85.h,
+      height: 82.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -53,7 +53,7 @@ class HowToMeasureModal extends StatelessWidget {
 
           // PNG Illustration
           SizedBox(
-            height: 20.h,
+            height: 18.h,
             child: Image.asset(
               'assets/images/general/how_to_use.png', // PNG olarak değiştirdik
               fit: BoxFit.contain,

@@ -114,13 +114,8 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         setState(() {
           isInitialized = true;
         });
-        // Automatically start measurement once the camera is ready
-        // Small delay to ensure camera stream is fully stable before starting
-        Future.delayed(const Duration(milliseconds: 200), () {
-          if (mounted && !viewModel.isMeasuring) {
-            startMeasurement();
-          }
-        });
+        // Start measurement immediately when camera is ready
+        startMeasurement();
       }
     } catch (e) {
       debugPrint('Error initializing camera: $e');
