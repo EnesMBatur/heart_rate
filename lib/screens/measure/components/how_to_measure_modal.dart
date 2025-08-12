@@ -17,7 +17,7 @@ class HowToMeasureModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 82.h,
+      height: 85.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
