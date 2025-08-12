@@ -56,53 +56,50 @@ class _HeartRateScreenState extends StartingRateModelView {
           final started = viewModel.isMeasuring;
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 24),
-                    CircleAvatar(
-                      radius: 26,
-                      backgroundColor: Colors.grey.shade200,
-                      child: Icon(
-                        Icons.favorite,
-                        color: Theme.of(context).primaryColor,
-                        size: 26,
-                      ),
+            child: SizedBox(
+              height: constraints.maxHeight,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Colors.grey.shade200,
+                    child: Icon(
+                      Icons.favorite,
+                      color: Theme.of(context).primaryColor,
+                      size: 26,
                     ),
-                    const SizedBox(height: 28),
-                    Text(
-                      started
-                          ? 'Measuring...'
-                          : LocaleKeys.ready_to_measure.tr(),
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                        letterSpacing: 0.3,
-                      ),
+                  ),
+                  const SizedBox(height: 28),
+                  Text(
+                    started ? 'Measuring...' : LocaleKeys.ready_to_measure.tr(),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                      letterSpacing: 0.3,
                     ),
-                    const SizedBox(height: 6),
-                    Text(
-                      started
-                          ? LocaleKeys.instruction_place_finger.tr()
-                          : LocaleKeys.start_measurement.tr(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    started
+                        ? LocaleKeys.instruction_place_finger.tr()
+                        : LocaleKeys.start_measurement.tr(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.w400,
                     ),
-                    const SizedBox(height: 30),
-                    _StartRing(started: started, animation: pulseAnimation),
-                    const SizedBox(height: 30),
-                    _InstructionPhone(),
-                    const Spacer(),
-                    _buildControlButton(),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 30),
+                  _StartRing(started: started, animation: pulseAnimation),
+                  const SizedBox(height: 30),
+                  _InstructionPhone(),
+                ],
               ),
             ),
           );
@@ -165,7 +162,7 @@ class _HeartRateScreenState extends StartingRateModelView {
             ),
           ),
         ),
-        _buildControlButton(),
+        const SizedBox(height: 28),
       ],
     );
   }
@@ -247,31 +244,6 @@ class _HeartRateScreenState extends StartingRateModelView {
               ),
             ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildControlButton() {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: viewModel.isMeasuring ? stopMeasurement : startMeasurement,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: viewModel.isMeasuring
-              ? Colors.red
-              : Theme.of(context).primaryColor,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        child: Text(
-          viewModel.isMeasuring
-              ? LocaleKeys.stop_measurement.tr()
-              : LocaleKeys.start_measurement.tr(),
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
       ),
     );
   }
