@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/heart_rate_measurement.dart';
 import 'package:heart_rate/screens/measure/heart_rate_screen.dart';
-import 'package:heart_rate/screens/measure/widgets/measurement_results_bottom_sheet.dart';
+import 'package:heart_rate/screens/measure/components/measurement_results_bottom_sheet.dart';
 import 'package:heart_rate/services/heart_rate_service.dart';
 import 'package:heart_rate/viewmodels/heart_rate_view_model.dart';
 import 'package:permission_handler/permission_handler.dart';
