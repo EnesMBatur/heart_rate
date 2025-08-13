@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/heart_rate_measurement.dart';
 import 'package:heart_rate/screens/measure/heart_rate_screen.dart';
@@ -14,9 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 abstract class StartingRateModelView extends State<HeartRateScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   CameraController? cameraController;
   bool isInitialized = false;
+  bool _isDisposed = false;
 
   late AnimationController pulseAnimationController;
   late Animation<double> pulseAnimation;
@@ -27,6 +29,8 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _isDisposed = false;
     viewModel = HeartRateViewModel();
     viewModel.onMeasurementComplete = () {
       Future.delayed(Duration(milliseconds: 1000), () {
@@ -35,6 +39,63 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     };
     initializeAnimation();
     requestPermissions();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isDisposed) return;
+
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
+      // App going to background - pause camera
+      debugPrint('📱 App going to background - pausing camera');
+      _pauseCamera();
+    } else if (state == AppLifecycleState.resumed) {
+      // App coming to foreground - resume camera
+      debugPrint('📱 App resumed - reinitializing camera');
+      _resumeCamera();
+    }
+  }
+
+  Future<void> _pauseCamera() async {
+    try {
+      if (cameraController != null && isInitialized) {
+        await cameraController!.stopImageStream().catchError((e) {
+          debugPrint('⚠️ Error stopping image stream: $e');
+        });
+      }
+    } catch (e) {
+      debugPrint('⚠️ Error pausing camera: $e');
+    }
+  }
+
+  Future<void> _resumeCamera() async {
+    if (_isDisposed) return;
+
+    try {
+      if (cameraController != null && isInitialized) {
+        // Wait a bit for the app to fully resume
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        if (!_isDisposed && mounted) {
+          // Reinitialize camera if needed
+          if (!cameraController!.value.isInitialized) {
+            await initializeCamera();
+          } else {
+            // Just restart measurement if camera is still good
+            if (viewModel.isMeasuring) {
+              startMeasurement();
+            }
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint('⚠️ Error resuming camera: $e');
+      // Try full reinitialization if resume fails
+      if (!_isDisposed && mounted) {
+        await initializeCamera();
+      }
+    }
   }
 
   void initializeAnimation() {
@@ -90,7 +151,16 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
   }
 
   Future<void> initializeCamera() async {
+    if (_isDisposed) return;
+
     try {
+      // Dispose existing controller if any
+      if (cameraController != null) {
+        await cameraController!.dispose();
+        cameraController = null;
+        isInitialized = false;
+      }
+
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
         showPermissionDialog();
@@ -103,26 +173,86 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         orElse: () => cameras.first,
       );
 
+      debugPrint('🎥 Initializing camera: ${backCamera.name}');
+
+      cameraController = CameraController(
+        backCamera,
+        ResolutionPreset
+            .medium, // Changed from low to medium for better Android support
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup
+            .yuv420, // Changed to YUV420 for better Android compatibility
+      );
+
+      await cameraController!.initialize();
+
+      if (_isDisposed) return; // Check if disposed during initialization
+
+      // Wait for camera to fully initialize on Android
+      await Future.delayed(const Duration(milliseconds: 800));
+
+      if (mounted && !_isDisposed) {
+        setState(() {
+          isInitialized = true;
+        });
+
+        debugPrint('✅ Camera initialized successfully');
+
+        // Delay starting measurement to ensure camera is fully ready
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (!_isDisposed) {
+          startMeasurement();
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ Camera initialization failed: $e');
+      // Try fallback initialization for Android
+      if (!_isDisposed) {
+        await _tryFallbackCameraInit();
+      }
+    }
+  }
+
+  Future<void> _tryFallbackCameraInit() async {
+    try {
+      debugPrint('🔄 Attempting fallback camera initialization...');
+      final cameras = await availableCameras();
+
+      if (cameras.isEmpty) {
+        showPermissionDialog();
+        return;
+      }
+
+      final backCamera = cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.back,
+        orElse: () => cameras.first,
+      );
+
+      // Dispose existing controller if any
+      await cameraController?.dispose();
+
+      // Try with different settings for Android compatibility
       cameraController = CameraController(
         backCamera,
         ResolutionPreset.low,
         enableAudio: false,
-        imageFormatGroup: ImageFormatGroup
-            .bgra8888, // Try BGRA format for better color analysis
+        imageFormatGroup: ImageFormatGroup.bgra8888,
       );
 
       await cameraController!.initialize();
+      await Future.delayed(
+        const Duration(milliseconds: 800),
+      ); // Longer delay for Android
 
       if (mounted) {
         setState(() {
           isInitialized = true;
         });
-        // Start measurement immediately when camera is ready
+        await Future.delayed(const Duration(milliseconds: 500));
         startMeasurement();
       }
     } catch (e) {
-      debugPrint('Error initializing camera: $e');
-      // Bu hata kamera izni olmadığını gösterebilir
+      debugPrint('❌ Fallback camera initialization failed: $e');
       if (e.toString().contains('permission') ||
           e.toString().contains('authorization')) {
         showPermissionDialog();
@@ -140,6 +270,26 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
       // Keep screen on during measurement
       await WakelockPlus.enable();
 
+      // Turn on flash first (before locking settings) - Android compatibility
+      try {
+        await cameraController!.setFlashMode(FlashMode.torch);
+        debugPrint('🔦 Flash enabled successfully');
+
+        // Wait for flash to stabilize
+        await Future.delayed(const Duration(milliseconds: 500));
+      } catch (e) {
+        debugPrint('⚠️ Could not enable flash: $e');
+        // Try alternative flash method for some Android devices
+        try {
+          await cameraController!.setFlashMode(FlashMode.off);
+          await Future.delayed(const Duration(milliseconds: 200));
+          await cameraController!.setFlashMode(FlashMode.torch);
+          debugPrint('🔦 Flash enabled with fallback method');
+        } catch (e2) {
+          debugPrint('❌ Flash not available on this device: $e2');
+        }
+      }
+
       // Lock camera exposure and white balance for consistent readings
       try {
         await cameraController!.setExposureMode(ExposureMode.locked);
@@ -151,9 +301,6 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         debugPrint('⚠️ Could not lock camera settings: $e');
         // Continue anyway - not all devices support exposure lock
       }
-
-      // Turn on flash
-      await cameraController!.setFlashMode(FlashMode.torch);
 
       // Apply slight negative exposure offset to prevent saturation
       try {
@@ -302,17 +449,17 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         hrv: viewModel.currentHRV,
         signalQualityPercent: signalQualityPercent,
         onCreateReport: () {
-          // Navigate back to home screen
+          // Navigate back to home screen using GoRouter
           if (mounted) {
-            Navigator.of(context).popUntil((route) => route.isFirst);
+            context.go('/home');
           }
         },
       ),
     ).then((value) {
       // When modal is dismissed (by swiping down or tapping outside),
-      // navigate back to start measure screen
+      // navigate back to start measure screen using GoRouter
       if (mounted) {
-        Navigator.of(context).pop(); // Pop current heart rate screen
+        context.go('/measure');
       }
     });
   }
@@ -325,11 +472,34 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         content: Text(LocaleKeys.measurement_failed_description.tr()),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context); // Close dialog
+              context.go('/measure'); // Navigate back to start measure
+            },
             child: Text(LocaleKeys.ok.tr()),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    WidgetsBinding.instance.removeObserver(this);
+
+    // Clean up timers
+    measurementTimer?.cancel();
+
+    // Clean up animations
+    pulseAnimationController.dispose();
+
+    // Clean up camera
+    cameraController?.dispose();
+
+    // Disable wakelock
+    WakelockPlus.disable();
+
+    super.dispose();
   }
 }

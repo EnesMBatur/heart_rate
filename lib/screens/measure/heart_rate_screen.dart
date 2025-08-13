@@ -86,21 +86,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                                 child: SizedBox(
                                   width: 48, // Reduced from 52
                                   height: 48, // Reduced from 52
-                                  child:
-                                      isInitialized && cameraController != null
-                                      ? AspectRatio(
-                                          aspectRatio: cameraController!
-                                              .value
-                                              .aspectRatio,
-                                          child: CameraPreview(
-                                            cameraController!,
-                                          ),
-                                        )
-                                      : Icon(
-                                          Icons.camera_alt,
-                                          color: Theme.of(context).primaryColor,
-                                          size: 24, // Reduced from 26
-                                        ),
+                                  child: _buildCameraPreview(),
                                 ),
                               ),
                             ),
@@ -368,6 +354,78 @@ class _HeartRateScreenState extends StartingRateModelView {
     cameraController?.dispose();
     WakelockPlus.disable();
     super.dispose();
+  }
+
+  // --- Helper camera widget ---
+  Widget _buildCameraPreview() {
+    // Debug: Print camera state for troubleshooting
+    debugPrint(
+      '🎥 Camera State: isInitialized=$isInitialized, controller=${cameraController != null}',
+    );
+
+    if (!isInitialized || cameraController == null) {
+      debugPrint('🎥 Camera not ready - showing placeholder');
+      return Container(
+        color: Colors.grey[300],
+        child: Icon(
+          Icons.camera_alt,
+          color: Theme.of(context).primaryColor,
+          size: 24,
+        ),
+      );
+    }
+
+    // Check if camera is properly initialized and ready
+    if (!cameraController!.value.isInitialized) {
+      debugPrint('🎥 Camera initializing - showing loading');
+      return Container(
+        color: Colors.grey[400],
+        child: Center(
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+              strokeWidth: 2,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Check for camera errors
+    if (cameraController!.value.hasError) {
+      debugPrint(
+        '❌ Camera has error: ${cameraController!.value.errorDescription}',
+      );
+      return Container(
+        color: Colors.red[100],
+        child: Icon(Icons.error_outline, color: Colors.red, size: 20),
+      );
+    }
+
+    try {
+      debugPrint('✅ Showing camera preview');
+      return ClipOval(
+        child: OverflowBox(
+          alignment: Alignment.center,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: 48,
+              height: 48 * cameraController!.value.aspectRatio,
+              child: CameraPreview(cameraController!),
+            ),
+          ),
+        ),
+      );
+    } catch (e) {
+      debugPrint('❌ Camera preview error: $e');
+      return Container(
+        color: Colors.black87,
+        child: Icon(Icons.camera_alt_outlined, color: Colors.white, size: 20),
+      );
+    }
   }
 
   // --- Helper visual widgets ---
