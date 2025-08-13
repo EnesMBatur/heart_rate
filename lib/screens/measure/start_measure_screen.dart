@@ -55,169 +55,187 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Spacer(),
-            // How to measure section
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: _onHowToMeasure,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'How to measure?',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        SizedBox(width: 2.w),
-                        Container(
-                          padding: EdgeInsets.all(0.5.w),
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryColor.withValues(alpha: .1),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Icon(
-                            Icons.help_outline,
-                            color: AppTheme.primaryColor,
-                            size: 20.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-            // Start button with Lottie animation
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 1.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Lottie heart button
-                  Center(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Heart Lottie animation
-                        Lottie.asset(
-                          'assets/json/start_heart.json',
-                          height: 50.h,
-                          fit: BoxFit.contain,
-                          repeat: true,
-                          animate: true,
-                        ),
-
-                        // Small clickable area in center
-                        GestureDetector(
-                          onTap: _onStartMeasurement,
-                          child: Container(
-                            width: 66.w,
-                            height: 66.w,
-                            color: Colors.transparent,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // START text
-                                Text(
-                                  'START',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24.sp,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 2,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 10.0,
-                                        color: Colors.black.withValues(
-                                          alpha: 0.3,
-                                        ),
-                                        offset: const Offset(2.0, 2.0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                SizedBox(height: 0.5.h),
-
-                                // Tap to measure text
-                                Text(
-                                  'Tap to measure',
-                                  style: TextStyle(
-                                    color: Colors.white.withValues(alpha: 0.9),
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 8.0,
-                                        color: Colors.black.withValues(
-                                          alpha: 0.3,
-                                        ),
-                                        offset: const Offset(1.0, 1.0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+            // Top section - responsive height (20% of screen) - match heart_rate_screen
+            Expanded(
+              flex: 2, // Reduced from 3 to match heart_rate_screen ratio
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: _onHowToMeasure,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'How to measure?',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey[700],
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 2.w),
+                          Container(
+                            padding: EdgeInsets.all(0.5.w),
+                            decoration: BoxDecoration(
+                              color: AppTheme.primaryColor.withValues(
+                                alpha: .1,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Icon(
+                              Icons.help_outline,
+                              color: AppTheme.primaryColor,
+                              size: 20.sp,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            Spacer(),
-            // Medical disclaimer section
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: _onMedicalDisclaimer,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Medical disclaimer',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey[600],
+
+            // Heart animation section - responsive height (60% of screen) - match heart_rate_screen
+            Expanded(
+              flex: 6, // Increased from 4 to match heart_rate_screen ratio
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 1.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Lottie heart button - uses full flex space
+                    Expanded(
+                      child: Center(
+                        child: AspectRatio(
+                          aspectRatio: 1.0, // Keep square aspect ratio
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Heart Lottie animation
+                              Lottie.asset(
+                                'assets/json/start_heart.json',
+                                fit: BoxFit.contain,
+                                repeat: true,
+                                animate: true,
+                              ),
+
+                              // Small clickable area in center
+                              GestureDetector(
+                                onTap: _onStartMeasurement,
+                                child: Container(
+                                  width: 55
+                                      .w, // Reduced from 66.w for smaller screens
+                                  height: 55
+                                      .w, // Reduced from 66.w for smaller screens
+                                  color: Colors.transparent,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      // START text
+                                      Text(
+                                        'START',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24.sp, // Reduced from 24.sp
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 2,
+                                          shadows: [
+                                            Shadow(
+                                              blurRadius: 10.0,
+                                              color: Colors.black.withValues(
+                                                alpha: 0.3,
+                                              ),
+                                              offset: const Offset(2.0, 2.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      SizedBox(
+                                        height: 0.3.h,
+                                      ), // Reduced spacing
+                                      // Tap to measure text
+                                      Text(
+                                        'Tap to measure',
+                                        style: TextStyle(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.9,
+                                          ),
+                                          fontSize: 14.sp, // Reduced from 14.sp
+                                          fontWeight: FontWeight.w400,
+                                          shadows: [
+                                            Shadow(
+                                              blurRadius: 8.0,
+                                              color: Colors.black.withValues(
+                                                alpha: 0.3,
+                                              ),
+                                              offset: const Offset(1.0, 1.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(width: 2.w),
-                        Container(
-                          padding: EdgeInsets.all(0.5.w),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Icon(
-                            Icons.info_outline,
-                            color: Colors.grey[600],
-                            size: 18.sp,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            Spacer(),
+
+            // Bottom section - responsive height (20% of screen) - match heart_rate_screen
+            Expanded(
+              flex: 2, // Reduced from 3 to match heart_rate_screen ratio
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: _onMedicalDisclaimer,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Medical disclaimer',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          SizedBox(width: 2.w),
+                          Container(
+                            padding: EdgeInsets.all(0.5.w),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Icon(
+                              Icons.info_outline,
+                              color: Colors.grey[600],
+                              size: 18.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

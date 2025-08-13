@@ -53,119 +53,156 @@ class _HeartRateScreenState extends StartingRateModelView {
       return LayoutBuilder(
         builder: (context, constraints) {
           final started = viewModel.isMeasuring;
-          return SafeArea(
-            child: Stack(
-              children: [
-                // Main layout - identical to start_measure_screen
-                Column(
+          return Column(
+            children: [
+              // Use SafeArea at the top only to match start_measure_screen
+              SafeArea(
+                bottom: false, // Don't apply bottom SafeArea
+                child: Column(
                   children: [
-                    const Spacer(),
-                    // Main heart animation - EXACTLY like start_measure_screen
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 1.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: SizedBox(
-                              height: 50.h, // Same as start_measure_screen
-                              child: _StartRing(
-                                started: started,
-                                animation: pulseAnimation,
+                    // Top section - responsive height (20% of screen - reduced)
+                    SizedBox(
+                      height:
+                          constraints.maxHeight *
+                          0.20, // Reduced from 0.2 to give more space
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                          vertical: 1.h, // Reduced padding
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Camera preview in circular avatar
+                            CircleAvatar(
+                              radius: 24, // Reduced from 26
+                              backgroundColor: Colors.grey.shade200,
+                              child: ClipOval(
+                                child: SizedBox(
+                                  width: 48, // Reduced from 52
+                                  height: 48, // Reduced from 52
+                                  child:
+                                      isInitialized && cameraController != null
+                                      ? AspectRatio(
+                                          aspectRatio: cameraController!
+                                              .value
+                                              .aspectRatio,
+                                          child: CameraPreview(
+                                            cameraController!,
+                                          ),
+                                        )
+                                      : Icon(
+                                          Icons.camera_alt,
+                                          color: Theme.of(context).primaryColor,
+                                          size: 24, // Reduced from 26
+                                        ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 1.5.h), // Reduced from 3.h
+                            Text(
+                              'Measuring...',
+                              style: TextStyle(
+                                fontSize: 20.sp, // Reduced from 22.sp
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                                letterSpacing: 0.3,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 0.8.h), // Reduced from 1.h
+                            Flexible(
+                              // Add Flexible to prevent overflow
+                              child: Text(
+                                'Please put your finger on the camera and flashlight',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 15.sp, // Reduced from 14.sp
+                                  color: Colors.grey.shade600,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                maxLines: 2, // Limit to 2 lines
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const Spacer(),
+
+                    // Heart animation section - responsive height (60% of screen - increased)
+                    SizedBox(
+                      height:
+                          constraints.maxHeight *
+                          0.48, // Increased from 0.48 to compensate top section reduction
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 1.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Use full available space for heart animation
+                            Expanded(
+                              child: Center(
+                                child: _StartRing(
+                                  started: started,
+                                  animation: pulseAnimation,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Bottom instruction section - responsive height (20% of screen - reduced)
+                    SizedBox(
+                      height:
+                          constraints.maxHeight *
+                          0.28, // 20% of available height
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                          vertical: 2.h,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20.h, // Responsive height
+                              width: double.infinity,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Background chart covering full width
+                                  Positioned.fill(
+                                    child: Image.asset(
+                                      'assets/images/general/bpm_chart.png',
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
+                                  ),
+                                  // Instruction image on top
+                                  Image.asset(
+                                    'assets/images/general/how_to_use.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-
-                // Overlay content (camera and text) - positioned on top
-                Positioned(
-                  top: 20,
-                  left: 16,
-                  right: 16,
-                  child: Column(
-                    children: [
-                      // Camera preview in circular avatar
-                      CircleAvatar(
-                        radius: 26,
-                        backgroundColor: Colors.grey.shade200,
-                        child: ClipOval(
-                          child: SizedBox(
-                            width: 52,
-                            height: 52,
-                            child: isInitialized && cameraController != null
-                                ? AspectRatio(
-                                    aspectRatio:
-                                        cameraController!.value.aspectRatio,
-                                    child: CameraPreview(cameraController!),
-                                  )
-                                : Icon(
-                                    Icons.camera_alt,
-                                    color: Theme.of(context).primaryColor,
-                                    size: 26,
-                                  ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 28),
-                      Text(
-                        'Measuring...',
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                          letterSpacing: 0.3,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Please put your finger on the camera and flashlight',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Bottom instruction area - positioned on top
-                Positioned(
-                  bottom: 20,
-                  left: 16,
-                  right: 16,
-                  child: SizedBox(
-                    height: 140,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Background chart covering full width
-                        Positioned.fill(
-                          child: Image.asset(
-                            'assets/images/general/bpm_chart.png',
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        ),
-                        // Instruction image on top
-                        Image.asset(
-                          'assets/images/general/how_to_use.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              // Add bottom spacing to simulate bottom navigation bar height
+              SizedBox(height: 2.h), // Approximate bottom nav bar height
+            ],
           );
         },
       );
@@ -251,7 +288,8 @@ class _HeartRateScreenState extends StartingRateModelView {
             ),
           ),
         ),
-        const SizedBox(height: 28),
+        // Add bottom spacing to match start_measure_screen's bottom navigation bar height
+        SizedBox(height: 8.h), // Approximate bottom nav bar height
       ],
     );
   }
@@ -293,10 +331,10 @@ class _HeartRateScreenState extends StartingRateModelView {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     'bpm',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.2,
                       color: Colors.white,
@@ -330,89 +368,47 @@ class _StartRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 280,
-      height: 280,
+    return AspectRatio(
+      aspectRatio: 1.0, // Keep square aspect ratio like start_measure_screen
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
-            width: 270, // Reduced from 280 to decrease gap
-            height: 270, // Reduced from 280 to decrease gap
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: SweepGradient(
-                colors: [
-                  Color(0xFFEDEDED),
-                  Color(0xFFF8F8F8),
-                  Color(0xFFEDEDED),
-                ],
+          // Heart animation container - use full available space like start_measure_screen
+          AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) => Transform.scale(
+              scale: started ? animation.value : 1.0,
+              child: Lottie.asset(
+                'assets/json/start_heart.json',
+                repeat: true,
+                fit: BoxFit.contain,
               ),
             ),
           ),
-          Container(
-            width: 250, // Reduced from 260 to decrease gap
-            height: 250, // Reduced from 260 to decrease gap
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: .06),
-                  blurRadius: 14,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 250, // Increased from 230 to make heart animation bigger
-            height: 250, // Increased from 230 to make heart animation bigger
-            child: Stack(
-              alignment: Alignment.center,
+          // BPM text positioned at center of heart animation
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Only show start_heart.json in Phase 1
-                AnimatedBuilder(
-                  animation: animation,
-                  builder: (context, child) => Transform.scale(
-                    scale: started ? animation.value : 1.0,
-                    child: Lottie.asset(
-                      'assets/json/start_heart.json',
-                      repeat: true,
-                      fit: BoxFit.contain,
-                    ),
+                Text(
+                  '--',
+                  style: TextStyle(
+                    fontSize: 20.sp, // Match start_measure_screen
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                    shadows: [Shadow(color: Colors.black38, blurRadius: 8)],
                   ),
                 ),
-                const Positioned(
-                  bottom: 44,
-                  child: Column(
-                    children: [
-                      Text(
-                        '--',
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          letterSpacing: 2,
-                          shadows: [
-                            Shadow(color: Colors.black38, blurRadius: 8),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'bpm',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.2,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(color: Colors.black38, blurRadius: 6),
-                          ],
-                        ),
-                      ),
-                    ],
+                SizedBox(height: 0.3.h), // Match start_measure spacing
+                Text(
+                  'bpm',
+                  style: TextStyle(
+                    fontSize: 12.sp, // Match start_measure_screen
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.2,
+                    color: Colors.white,
+                    shadows: [Shadow(color: Colors.black38, blurRadius: 6)],
                   ),
                 ),
               ],
