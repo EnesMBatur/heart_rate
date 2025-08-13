@@ -210,142 +210,150 @@ class _HeartRateScreenState extends StartingRateModelView {
 
     // Phase 2: Finger detected & measurement progressing
     debugPrint('🖥️ Showing Phase 2: Finger detected and measuring');
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Center(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Column(
+          children: [
+            // Use SafeArea at the top only to match start_measure_screen
+            SafeArea(
+              bottom: false, // Don't apply bottom SafeArea
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildHeartAnimationStack(showValue: true),
-                  const SizedBox(height: 24),
-                  // heart_rate.json animation in Phase 2 (replacing instruction area)
+                  // Top section - responsive height (20% of screen)
                   SizedBox(
-                    height: 190,
-                    child: Lottie.asset(
-                      'assets/json/heart_rate.json',
-                      repeat: true,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  // Progress + status
-                  SizedBox(
-                    width: 200,
-                    child: LinearProgressIndicator(
-                      value: viewModel.progress,
-                      backgroundColor: Colors.grey.withValues(alpha: .2),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        viewModel.measurementCompleted
-                            ? Colors.green
-                            : Theme.of(context).primaryColor,
+                    height: constraints.maxHeight * 0.20,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5.w,
+                        vertical: 1.h,
                       ),
-                      minHeight: 6,
-                      borderRadius: BorderRadius.circular(4),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Camera preview in circular avatar
+                          CircleAvatar(
+                            radius: 24,
+                            backgroundColor: Colors.grey.shade200,
+                            child: ClipOval(
+                              child: SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: isInitialized && cameraController != null
+                                    ? AspectRatio(
+                                        aspectRatio:
+                                            cameraController!.value.aspectRatio,
+                                        child: CameraPreview(cameraController!),
+                                      )
+                                    : Icon(
+                                        Icons.camera_alt,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 24,
+                                      ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 1.5.h),
+                          Text(
+                            'Measuring... (${(viewModel.progress * 100).toInt()}%)',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87,
+                              letterSpacing: 0.3,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 0.8.h),
+                          Flexible(
+                            child: Text(
+                              'Measuring your heart rate. Please hold on...',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: .05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Measuring ${(viewModel.progress * 100).toInt()}%',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Measuring your heart rate. Please hold on...',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Add bottom spacing to match start_measure_screen's bottom navigation bar height
-        SizedBox(height: 8.h), // Approximate bottom nav bar height
-      ],
-    );
-  }
 
-  Widget _buildHeartAnimationStack({required bool showValue}) {
-    return SizedBox(
-      width: 260,
-      height: 260,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Only start_heart.json for Phase 2, remove background chart
-          Positioned.fill(
-            child: Lottie.asset(
-              'assets/json/start_heart.json',
-              repeat: true,
-              fit: BoxFit.contain,
-            ),
-          ),
-          if (showValue)
-            Positioned(
-              bottom: 40,
-              child: Column(
-                children: [
-                  Text(
-                    viewModel.currentHeartRate > 0
-                        ? '${viewModel.currentHeartRate}'
-                        : '--',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withValues(alpha: .15),
-                          blurRadius: 8,
-                        ),
-                      ],
+                  // Heart animation section - responsive height (48% of screen)
+                  SizedBox(
+                    height: constraints.maxHeight * 0.48,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 1.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Use full available space for heart animation
+                          Expanded(
+                            child: Center(
+                              child: _StartRing(
+                                started: true,
+                                animation: pulseAnimation,
+                                heartRate: viewModel.currentHeartRate,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'bpm',
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.white,
-                      shadows: [Shadow(color: Colors.black38, blurRadius: 6)],
+
+                  // Bottom instruction section - responsive height (28% of screen)
+                  SizedBox(
+                    height: constraints.maxHeight * 0.28,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5.w,
+                        vertical: 2.h,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20.h,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // Background chart covering full width and height
+                                Positioned.fill(
+                                  child: Image.asset(
+                                    'assets/images/general/bpm_chart.png',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                                ),
+                                // heart_rate.json animation on top (replacing how_to_use.png)
+                                Lottie.asset(
+                                  'assets/json/heart_rate.json',
+                                  repeat: true,
+                                  fit: BoxFit.contain,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-        ],
-      ),
+            // Add bottom spacing to simulate bottom navigation bar height
+            SizedBox(height: 2.h),
+          ],
+        );
+      },
     );
   }
 
@@ -364,7 +372,12 @@ class _HeartRateScreenState extends StartingRateModelView {
 class _StartRing extends StatelessWidget {
   final bool started;
   final Animation<double> animation;
-  const _StartRing({required this.started, required this.animation});
+  final int? heartRate;
+  const _StartRing({
+    required this.started,
+    required this.animation,
+    this.heartRate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -391,9 +404,9 @@ class _StartRing extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '--',
+                  heartRate != null && heartRate! > 0 ? '$heartRate' : '--',
                   style: TextStyle(
-                    fontSize: 20.sp, // Match start_measure_screen
+                    fontSize: 25.sp, // Match start_measure_screen
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     letterSpacing: 2,
@@ -404,7 +417,7 @@ class _StartRing extends StatelessWidget {
                 Text(
                   'bpm',
                   style: TextStyle(
-                    fontSize: 12.sp, // Match start_measure_screen
+                    fontSize: 16.sp, // Match start_measure_screen
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: Colors.white,
