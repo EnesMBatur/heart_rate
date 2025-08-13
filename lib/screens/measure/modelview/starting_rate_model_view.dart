@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/heart_rate_measurement.dart';
 import 'package:heart_rate/screens/measure/heart_rate_screen.dart';
+import 'package:heart_rate/screens/measure/widgets/measurement_results_bottom_sheet.dart';
 import 'package:heart_rate/services/heart_rate_service.dart';
 import 'package:heart_rate/viewmodels/heart_rate_view_model.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -290,142 +291,22 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
   void showResults() {
     final signalQualityPercent = (viewModel.signalQuality * 100).round();
 
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Text(LocaleKeys.measurement_complete.tr()),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: signalQualityPercent >= 80
-                    ? Colors.green
-                    : signalQualityPercent >= 60
-                    ? Colors.orange
-                    : Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'Q: $signalQualityPercent%',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.favorite,
-              color: Theme.of(context).primaryColor,
-              size: 48,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${viewModel.currentHeartRate} BPM',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              LocaleKeys.heart_rate_category.tr(
-                args: [_getHeartRateCategory(viewModel.currentHeartRate)],
-              ),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: 12),
-            // HRV Display
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'HRV:',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  Text('${viewModel.currentHRV.toStringAsFixed(1)} ms'),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildResultItem(
-                  LocaleKeys.stress.tr(),
-                  _getStressLevel(viewModel.currentHeartRate),
-                ),
-                _buildResultItem(
-                  LocaleKeys.tension.tr(),
-                  _getTensionLevel(viewModel.currentHeartRate),
-                ),
-                _buildResultItem(
-                  LocaleKeys.energy.tr(),
-                  _getEnergyLevel(viewModel.currentHeartRate),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Quality indicator
-            Text(
-              'Ölçüm Kalitesi: ${_getQualityDescription(signalQualityPercent)}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(LocaleKeys.ok.tr()),
-          ),
-        ],
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => MeasurementResultsBottomSheet(
+        heartRate: viewModel.currentHeartRate,
+        hrv: viewModel.currentHRV,
+        signalQualityPercent: signalQualityPercent,
+        onCreateReport: () {
+          // Navigate back to home screen
+          if (mounted) {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          }
+        },
       ),
     );
-  }
-
-  String _getQualityDescription(int qualityPercent) {
-    if (qualityPercent >= 90) return 'Mükemmel';
-    if (qualityPercent >= 80) return 'Çok İyi';
-    if (qualityPercent >= 70) return 'İyi';
-    if (qualityPercent >= 60) return 'Orta';
-    return 'Düşük';
-  }
-
-  Widget _buildResultItem(String label, int value) {
-    return Column(
-      children: [
-        Text(
-          '$value/5',
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
-    );
-  }
-
-  String _getHeartRateCategory(int heartRate) {
-    if (heartRate < 60) return LocaleKeys.heart_rate_low.tr();
-    if (heartRate <= 100) return LocaleKeys.heart_rate_normal.tr();
-    if (heartRate <= 120) return LocaleKeys.heart_rate_elevated.tr();
-    return LocaleKeys.heart_rate_high.tr();
   }
 
   void showErrorDialog() {

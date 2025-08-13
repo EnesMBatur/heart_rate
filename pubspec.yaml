@@ -68,6 +68,7 @@ flutter:
     - assets/images/splash/
     - assets/images/
     - assets/json/
+    - assets/rive/
     - assets/images/general/
 
   fonts:
