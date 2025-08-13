@@ -47,6 +47,13 @@ class HeartRateViewModel extends ChangeNotifier {
       _isMeasuring && _heartRateValues.length < _minAnalysisSampleCount;
   bool get isFingerDetected => _isFingerDetected;
 
+  /// Fast transition to Phase 2: High quality signal detected
+  bool get hasHighQualitySignal =>
+      _isMeasuring &&
+      _heartRateValues.isNotEmpty &&
+      _signalQuality > 0.7 &&
+      _validMeasurements > 0;
+
   // Callback for measurement completion
   VoidCallback? onMeasurementComplete;
 

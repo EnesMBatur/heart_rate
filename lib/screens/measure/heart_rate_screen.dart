@@ -47,8 +47,11 @@ class _HeartRateScreenState extends StartingRateModelView {
     );
 
     // Phase 1: Show instructions when measuring but finger not detected OR when camera not ready
+    // Fast transition: If high quality signal detected, go straight to Phase 2
     if (!isInitialized ||
-        (viewModel.isMeasuring && !viewModel.isFingerDetected)) {
+        (viewModel.isMeasuring &&
+            !viewModel.isFingerDetected &&
+            !viewModel.hasHighQualitySignal)) {
       debugPrint('🖥️ Showing Phase 1: Instructions or Camera not ready');
       return LayoutBuilder(
         builder: (context, constraints) {
