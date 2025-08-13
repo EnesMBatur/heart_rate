@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rive/rive.dart';
 
 class MeasurementResultsBottomSheet extends StatefulWidget {
   final int heartRate;
@@ -21,9 +22,29 @@ class MeasurementResultsBottomSheet extends StatefulWidget {
 }
 
 class _MeasurementResultsBottomSheetState
-    extends State<MeasurementResultsBottomSheet> {
+    extends State<MeasurementResultsBottomSheet>
+    with TickerProviderStateMixin {
   String selectedStatus = 'normal';
   int selectedMood = 3; // 1-5 scale, 3 is neutral
+
+  // Rive animation controllers
+  SMITrigger? confetti;
+  bool isShowConfetti = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Confetti will be triggered when widget is built
+  }
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+    );
+    artboard.addController(controller!);
+    return controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,68 +57,119 @@ class _MeasurementResultsBottomSheetState
           topRight: Radius.circular(24),
         ),
       ),
-      child: Column(
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                // Drag indicator
-                Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                const SizedBox(height: 16),
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            // Header with confetti
+            Container(
+              padding: const EdgeInsets.all(20),
+              height: 250, // Fixed height for confetti area
+              child: Stack(
+                children: [
+                  // Confetti animation background
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: isShowConfetti
+                          ? Transform.scale(
+                              scale:
+                                  4, // Reduced from 7 to 4 for slower visual effect
+                              child: RiveAnimation.asset(
+                                'assets/rive/confetti.riv',
+                                onInit: (artboard) {
+                                  print('🎉 Confetti animation loaded');
+                                  StateMachineController controller =
+                                      getRiveController(artboard);
+                                  confetti =
+                                      controller.findSMI('Trigger explosion')
+                                          as SMITrigger;
 
-                // Checkmark
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    shape: BoxShape.circle,
+                                  // Trigger confetti immediately when loaded
+                                  Future.delayed(
+                                    Duration(milliseconds: 500),
+                                    () {
+                                      confetti?.fire();
+                                    },
+                                  );
+                                },
+                              ),
+                            )
+                          : Container(),
+                    ),
                   ),
-                  child: const Icon(Icons.check, color: Colors.white, size: 30),
-                ),
-                const SizedBox(height: 12),
 
-                Text(
-                  'Ölçüm Tamamlandı',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 8),
+                  // Header content
+                  Column(
+                    children: [
+                      // Drag indicator
+                      Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
 
-                // Heart rate display
-                Text(
-                  '${widget.heartRate} BPM',
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 36,
+                      // Checkmark
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      Text(
+                        'Measurement Completed',
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Heart rate display
+                      Text(
+                        '${widget.heartRate} BPM',
+                        style: Theme.of(context).textTheme.headlineLarge
+                            ?.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 36,
+                            ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          // Content
-          Expanded(
-            child: Padding(
+            // Content
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. Mevcut Durumunuzu Seçin
+                  // 1. Select Your Current Status
                   Text(
-                    '1. Mevcut Durumunuzu Seçin',
+                    '1. Select Your Current Status',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -109,17 +181,17 @@ class _MeasurementResultsBottomSheetState
                     children: [
                       _buildStatusCard('Normal', '🧍‍♂️', 'normal'),
                       const SizedBox(width: 12),
-                      _buildStatusCard('Aktif', '🏃‍♂️', 'active'),
+                      _buildStatusCard('Active', '🏃‍♂️', 'active'),
                       const SizedBox(width: 12),
-                      _buildStatusCard('Dinlenme', '🧘‍♂️', 'resting'),
+                      _buildStatusCard('Resting', '🧘‍♂️', 'resting'),
                     ],
                   ),
 
                   const SizedBox(height: 24),
 
-                  // 2. Modunuzu Seçin
+                  // 2. Select Your Mood
                   Text(
-                    '2. Modunuzu Seçin',
+                    '2. Select Your Mood',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -130,8 +202,7 @@ class _MeasurementResultsBottomSheetState
                   // Mood Bar
                   _buildMoodBar(),
 
-                  // Spacer to push button to bottom
-                  const Spacer(),
+                  const SizedBox(height: 30),
 
                   // Rapor Oluştur Button
                   Container(
@@ -152,7 +223,7 @@ class _MeasurementResultsBottomSheetState
                         elevation: 2,
                       ),
                       child: const Text(
-                        'Rapor Oluştur',
+                        'Create Report',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -163,8 +234,8 @@ class _MeasurementResultsBottomSheetState
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -216,11 +287,11 @@ class _MeasurementResultsBottomSheetState
 
   Widget _buildMoodBar() {
     final moods = [
-      {'emoji': '😰', 'label': 'Kötü', 'value': 1},
-      {'emoji': '😐', 'label': 'Eh İşte', 'value': 2},
+      {'emoji': '😰', 'label': 'Bad', 'value': 1},
+      {'emoji': '😐', 'label': 'Okay', 'value': 2},
       {'emoji': '😊', 'label': 'Normal', 'value': 3},
-      {'emoji': '😄', 'label': 'İyi', 'value': 4},
-      {'emoji': '🤩', 'label': 'Harika', 'value': 5},
+      {'emoji': '😄', 'label': 'Good', 'value': 4},
+      {'emoji': '🤩', 'label': 'Great', 'value': 5},
     ];
 
     return Column(

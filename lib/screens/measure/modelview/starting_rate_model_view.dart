@@ -295,6 +295,8 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
+      isDismissible: true,
+      enableDrag: true,
       builder: (context) => MeasurementResultsBottomSheet(
         heartRate: viewModel.currentHeartRate,
         hrv: viewModel.currentHRV,
@@ -306,7 +308,13 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
           }
         },
       ),
-    );
+    ).then((value) {
+      // When modal is dismissed (by swiping down or tapping outside),
+      // navigate back to start measure screen
+      if (mounted) {
+        Navigator.of(context).pop(); // Pop current heart rate screen
+      }
+    });
   }
 
   void showErrorDialog() {
