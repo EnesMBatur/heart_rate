@@ -94,7 +94,14 @@ class _HeartRateScreenState extends StartingRateModelView {
                   const SizedBox(height: 30),
                   _StartRing(started: started, animation: pulseAnimation),
                   const SizedBox(height: 30),
-                  _InstructionPhone(),
+                  // Only show instruction image in Phase 1
+                  SizedBox(
+                    height: 190,
+                    child: Image.asset(
+                      'assets/images/general/how_to_use.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -115,6 +122,16 @@ class _HeartRateScreenState extends StartingRateModelView {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildHeartAnimationStack(showValue: true),
+                  const SizedBox(height: 24),
+                  // heart_rate.json animation in Phase 2 (replacing instruction area)
+                  SizedBox(
+                    height: 190,
+                    child: Lottie.asset(
+                      'assets/json/heart_rate.json',
+                      repeat: true,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                   const SizedBox(height: 24),
                   // Progress + status
                   SizedBox(
@@ -185,38 +202,12 @@ class _HeartRateScreenState extends StartingRateModelView {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Background chart only (active measuring phase)
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/general/bpm_chart.png',
-              fit: BoxFit.contain,
-            ),
-          ),
-          // Outer stroke animation (optional decorative)
+          // Only start_heart.json for Phase 2, remove background chart
           Positioned.fill(
             child: Lottie.asset(
-              'assets/json/heart_rate.json',
+              'assets/json/start_heart.json',
               repeat: true,
               fit: BoxFit.contain,
-            ),
-          ),
-          // Pulsing heart animation (start heart)
-          Positioned.fill(
-            child: AnimatedBuilder(
-              animation: pulseAnimation,
-              builder: (context, child) {
-                final scale = viewModel.isMeasuring
-                    ? pulseAnimation.value
-                    : 1.0;
-                return Transform.scale(
-                  scale: scale,
-                  child: Lottie.asset(
-                    'assets/json/start_heart.json',
-                    repeat: true,
-                    fit: BoxFit.contain,
-                  ),
-                );
-              },
             ),
           ),
           if (showValue)
@@ -319,11 +310,7 @@ class _StartRing extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Lottie.asset(
-                  'assets/json/heart_rate.json',
-                  repeat: true,
-                  fit: BoxFit.contain,
-                ),
+                // Only show start_heart.json in Phase 1
                 AnimatedBuilder(
                   animation: animation,
                   builder: (context, child) => Transform.scale(
@@ -369,32 +356,6 @@ class _StartRing extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _InstructionPhone extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 190,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/general/bpm_chart.png',
-              fit: BoxFit.cover,
-              color: Colors.red.withValues(alpha: .08),
-              colorBlendMode: BlendMode.srcATop,
-            ),
-          ),
-          Image.asset(
-            'assets/images/general/how_to_use.png',
-            fit: BoxFit.contain,
           ),
         ],
       ),
