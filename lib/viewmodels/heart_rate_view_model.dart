@@ -11,7 +11,11 @@ class HeartRateViewModel extends ChangeNotifier {
   static const int _measurementDurationSeconds =
       30; // 30 seconds measurement duration
   static const int _minStableHeartRateSeconds =
-      10; // Minimum time with stable heart rate
+      15; // Increased from 10 to 15 seconds
+
+  // Enhanced completion requirements
+  static const int _minBeatsToFinish = 14; // ~14 RR ≈ 12–15 sn stable data
+  static const int _minTotalMeasurementSeconds = 18; // minimum 18 seconds total
 
   // Measurement state
   bool _isMeasuring = false;
@@ -20,6 +24,7 @@ class HeartRateViewModel extends ChangeNotifier {
   DateTime? _measurementStartTime;
   DateTime? _stableHeartRateStartTime;
   bool _hasFoundHeartRate = false;
+  int _accumulatedRR = 0; // Total RR intervals collected
 
   // Heart rate data
   final List<double> _heartRateValues = [];
@@ -60,6 +65,7 @@ class HeartRateViewModel extends ChangeNotifier {
     _hasFoundHeartRate = false;
     _consecutiveNoFingerFrames = 0;
     _isFingerDetected = false;
+    _accumulatedRR = 0; // Reset RR count
     notifyListeners();
   }
 
@@ -73,14 +79,20 @@ class HeartRateViewModel extends ChangeNotifier {
   void processImage(CameraImage image) {
     if (!_isMeasuring || _measurementCompleted) return;
 
-    // Calculate intensity
-    final intensity = HeartRateService.calculateAverageIntensity(image);
+    // Calculate frame stats first, then use rApprox as intensity for better PPG signal
+    final stats = HeartRateService.computeFrameStats(image);
+    final intensity =
+        stats.rApprox; // Use red channel approximation instead of avgY
 
-    // Check finger presence
-    final isFingerPresent = HeartRateService.isFingerPresent(intensity);
+    // Enhanced finger detection with frame stats
+    final isFingerPresent = HeartRateService.isFingerPresentWithStats(
+      intensity,
+      stats,
+    );
 
     debugPrint(
-      '🔍 Finger detect: intensity=${intensity.toInt()} -> $isFingerPresent',
+      '🔍 Enhanced Detection: intensity=${intensity.toInt()}, finger=$isFingerPresent, '
+      'avgY=${stats.avgY.toInt()}, stdY=${stats.stdY.toInt()}, redScore=${stats.redScore.toStringAsFixed(2)}',
     );
 
     if (!isFingerPresent) {
@@ -97,6 +109,7 @@ class HeartRateViewModel extends ChangeNotifier {
         _validMeasurements = 0;
         _hasFoundHeartRate = false;
         _stableHeartRateStartTime = null;
+        _accumulatedRR = 0;
         debugPrint('🧹 Parmak uzun süre bulunamadı - veriler temizlendi');
       }
 
@@ -131,7 +144,7 @@ class HeartRateViewModel extends ChangeNotifier {
     var analysisResult = HeartRateService.performUltraAdvancedAnalysis(
       _heartRateValues,
       initialSampleCount: _minAnalysisSampleCount,
-      qualityThreshold: 0.75, // Higher threshold for better quality
+      qualityThreshold: 0.55, // Lowered for improved RMS/MAD SNR calculation
       frameRate: _frameRate,
     );
 
@@ -139,7 +152,7 @@ class HeartRateViewModel extends ChangeNotifier {
     analysisResult ??= HeartRateService.performAdvancedAnalysis(
       _heartRateValues,
       initialSampleCount: _minAnalysisSampleCount,
-      qualityThreshold: 0.7, // Slightly lower fallback threshold
+      qualityThreshold: 0.5, // Slightly lower fallback threshold
       frameRate: _frameRate,
     );
 
@@ -159,6 +172,10 @@ class HeartRateViewModel extends ChangeNotifier {
       }
 
       _validMeasurements++;
+
+      // Track accumulated RR intervals for completion criteria
+      final rrCount = (analysisResult['rrCount'] as int?) ?? 0;
+      _accumulatedRR += rrCount;
 
       // Add to recent heart rates
       _recentHeartRates.add(heartRate);
@@ -258,94 +275,73 @@ class HeartRateViewModel extends ChangeNotifier {
     return true;
   }
 
-  /// Enhanced measurement completion logic with faster response
+  /// Enhanced measurement completion logic with stricter requirements
   bool _shouldCompleteMeasurement() {
     // İlk kalp atışı henüz bulunmadıysa devam et
     if (!_hasFoundHeartRate || _stableHeartRateStartTime == null) {
       return false;
     }
 
-    // Kalp atışı bulunduktan sonra en az minimum süre geçmeli
-    final timeSinceHeartRateFound = DateTime.now().difference(
-      _stableHeartRateStartTime!,
-    );
-    final hasMinimumTime =
-        timeSinceHeartRateFound.inSeconds >= _minStableHeartRateSeconds;
+    final sinceStart = DateTime.now().difference(_measurementStartTime!);
+    final sinceFirstHR = DateTime.now().difference(_stableHeartRateStartTime!);
 
-    // Dynamic minimum measurement count based on signal quality
-    final minMeasurements = _signalQuality > 0.85
-        ? 4
-        : 6; // Fewer measurements needed for excellent signal
-    if (_validMeasurements < minMeasurements) return false;
+    // Mandatory minimums - stricter requirements
+    final minTotalTimeOk =
+        sinceStart.inSeconds >= _minTotalMeasurementSeconds; // 18 seconds
+    final minStableOk =
+        sinceFirstHR.inSeconds >= _minStableHeartRateSeconds; // 15 seconds
+    final beatsOk = _accumulatedRR >= _minBeatsToFinish; // ≥14 RR intervals
+    final qualityOk = _signalQuality >= 0.78; // Higher quality threshold
+    final measurementsOk =
+        _validMeasurements >= 8; // Minimum valid measurements
 
-    // Son ölçümlerin istikrarlı olup olmadığını kontrol et
-    if (_recentHeartRates.length >= 3) {
-      // Reduced from 4 for faster response
+    bool stableOk = false;
+    if (_recentHeartRates.length >= 5) {
       final avg =
           _recentHeartRates.reduce((a, b) => a + b) / _recentHeartRates.length;
-      final maxDeviation = _recentHeartRates
+      final maxDev = _recentHeartRates
           .map((hr) => (hr - avg).abs())
           .reduce((a, b) => a > b ? a : b);
-
-      // Dynamic stability threshold based on signal quality
-      final stabilityThreshold = _signalQuality > 0.85
-          ? 6.0
-          : 8.0; // Tighter for high quality
-      final isStable = maxDeviation <= stabilityThreshold;
-
-      // Dynamic HRV threshold based on heart rate
-      final minHRV = _currentHeartRate > 100
-          ? 3.0
-          : 5.0; // Lower threshold for higher HR
-      final isValidHRV = _currentHRV > minHRV;
-
-      // Dynamic quality threshold based on measurement count
-      final qualityThreshold = _validMeasurements >= 8
-          ? 0.75
-          : 0.8; // More lenient with more data
-      final isGoodQuality = _signalQuality > qualityThreshold;
-
-      // Toplam ölçüm süresi kontrolü (maksimum 30 saniye)
-      final totalTime = DateTime.now().difference(_measurementStartTime!);
-      final hasReachedMaxTime =
-          totalTime.inSeconds >= _measurementDurationSeconds;
-
-      // Early completion for excellent signals
-      final hasExcellentSignal =
-          _signalQuality > 0.9 &&
-          isStable &&
-          isValidHRV &&
-          _validMeasurements >= 4 &&
-          timeSinceHeartRateFound.inSeconds >= 8;
-
-      debugPrint(
-        '🎯 Tamamlama Kontrolü: Time=${timeSinceHeartRateFound.inSeconds}s/${_minStableHeartRateSeconds}s, '
-        'Stable=$isStable (dev=${maxDeviation.toInt()}, threshold=${stabilityThreshold.toInt()}), '
-        'HRV=$isValidHRV (${_currentHRV.toInt()}, min=${minHRV.toInt()}), '
-        'Quality=$isGoodQuality (${(_signalQuality * 100).toInt()}%, min=${(qualityThreshold * 100).toInt()}%), '
-        'Measurements=$_validMeasurements/$minMeasurements, '
-        'Excellent=$hasExcellentSignal',
-      );
-
-      // Enhanced completion criteria
-      return hasExcellentSignal || // Early completion for excellent signals
-          (hasMinimumTime &&
-              isStable &&
-              isValidHRV &&
-              isGoodQuality) || // Normal completion
-          hasReachedMaxTime; // Timeout completion
+      stableOk = maxDev <= 6.0; // Stricter stability: ≤6 bpm deviation
     }
 
-    return false;
+    final isValidHRV = _currentHRV > 3.0; // Reasonable HRV
+
+    // Timeout condition (max 30 seconds)
+    final timeout = sinceStart.inSeconds >= _measurementDurationSeconds;
+
+    debugPrint(
+      '🎯 Enhanced Completion Check: '
+      'TotalTime=${sinceStart.inSeconds}s/${_minTotalMeasurementSeconds}s ✓$minTotalTimeOk, '
+      'StableTime=${sinceFirstHR.inSeconds}s/${_minStableHeartRateSeconds}s ✓$minStableOk, '
+      'RR=$_accumulatedRR/$_minBeatsToFinish ✓$beatsOk, '
+      'Quality=${(_signalQuality * 100).toInt()}%/78% ✓$qualityOk, '
+      'Measurements=$_validMeasurements/8 ✓$measurementsOk, '
+      'Stable=✓$stableOk, HRV=✓$isValidHRV, '
+      'Timeout=✓$timeout',
+    );
+
+    // Enhanced completion criteria - NO early completion, more robust requirements
+    return (minTotalTimeOk &&
+            minStableOk &&
+            beatsOk &&
+            qualityOk &&
+            measurementsOk &&
+            stableOk &&
+            isValidHRV) ||
+        timeout;
   }
 
-  /// Get progress percentage
+  /// Get progress percentage - now time-based for better UX
   double get progress {
     if (_measurementCompleted) return 1.0;
-    if (_validMeasurements > 0) {
-      return (_validMeasurements / 6).clamp(0.0, 1.0); // Changed from 8 to 6
-    }
-    return 0.1;
+    if (_measurementStartTime == null) return 0.0;
+
+    final elapsed = DateTime.now()
+        .difference(_measurementStartTime!)
+        .inMilliseconds;
+    final total = _measurementDurationSeconds * 1000;
+    return (elapsed / total).clamp(0.0, 0.98); // Keep near 98% until completion
   }
 
   /// Get enhanced status message with more detailed feedback

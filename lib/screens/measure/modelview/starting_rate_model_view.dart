@@ -106,6 +106,8 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         backCamera,
         ResolutionPreset.low,
         enableAudio: false,
+        imageFormatGroup: ImageFormatGroup
+            .bgra8888, // Try BGRA format for better color analysis
       );
 
       await cameraController!.initialize();
@@ -151,6 +153,15 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
 
       // Turn on flash
       await cameraController!.setFlashMode(FlashMode.torch);
+
+      // Apply slight negative exposure offset to prevent saturation
+      try {
+        await cameraController!.setExposureOffset(-0.5);
+        debugPrint('📷 Applied exposure offset to prevent saturation');
+      } catch (e) {
+        debugPrint('⚠️ Could not set exposure offset: $e');
+        // Continue anyway - not all devices support exposure offset
+      }
 
       viewModel.startMeasurement();
 

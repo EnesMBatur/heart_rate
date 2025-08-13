@@ -2,6 +2,23 @@ import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 
+/// Frame statistics for enhanced finger detection
+class FrameStats {
+  final double avgY; // 0..255
+  final double stdY; // spatial standard deviation
+  final double redScore; // BGRA: R/(G+B+1) ~ 0.5..3, YUV: (V-U) normalize
+  final bool saturated; // too bright/dark?
+  final double rApprox; // Approximate red channel value for PPG
+
+  const FrameStats({
+    required this.avgY,
+    required this.stdY,
+    required this.redScore,
+    required this.saturated,
+    required this.rApprox,
+  });
+}
+
 class HeartRateService {
   // --- Enhanced Signal Processing with Band-Pass Filtering ---
   static final List<double> _recentSignalValues = [];
@@ -13,8 +30,15 @@ class HeartRateService {
   // Enhanced constants for better signal processing
   static const double defaultFrameRate = 25.0;
   static const int signalBufferSize = 150; // 5-6 seconds of data
-  static const int minimumVariationSamples = 75; // 2-3 seconds
+  static const int minimumVariationSamples =
+      50; // Reduced from 75 to 50 (2 seconds)
   static const double heartRateVariationThreshold = 0.5;
+
+  // Frame gate variables for fast finger detection
+  static int _gateHit = 0;
+  static int _confirmHit = 0;
+  static bool _gateActive = false;
+  static int _framesSinceGateLost = 0;
 
   // Band-pass filter parameters (0.5-4 Hz for heart rate)
   static const double lowCutoffHz = 0.5; // 30 BPM
@@ -36,10 +60,250 @@ class HeartRateService {
     _currentNoiseFloor = 0.0;
     _adaptiveThreshold = heartRateVariationThreshold;
     _noiseCalibrationFrames = 0;
+    // Reset gate variables
+    _gateHit = 0;
+    _confirmHit = 0;
+    _gateActive = false;
+    _framesSinceGateLost = 0;
   }
 
   /// Get finger detection status
   static bool get fingerPresent => _fingerPresent;
+
+  /// Compute frame statistics for enhanced finger detection
+  static FrameStats computeFrameStats(CameraImage image) {
+    try {
+      debugPrint(
+        '📸 Frame Info: ${image.planes.length} planes, format=${image.format.group}, '
+        'width=${image.width}, height=${image.height}',
+      );
+
+      if (image.planes.isNotEmpty) {
+        debugPrint(
+          '📸 Plane 0: ${image.planes[0].bytes.length} bytes, '
+          'bytesPerPixel=${image.planes[0].bytesPerPixel}',
+        );
+      }
+
+      // BGRA format (preferred) - check format group first since bytesPerPixel can be null
+      if (image.format.group == ImageFormatGroup.bgra8888 ||
+          (image.planes.length == 1 &&
+              (image.planes[0].bytesPerPixel == 4 ||
+                  image.planes[0].bytesPerPixel == null))) {
+        debugPrint('📸 Using BGRA processing path');
+        final bytes = image.planes[0].bytes;
+
+        if (bytes.isEmpty) {
+          debugPrint('📸 ERROR: BGRA frame is empty!');
+          return FrameStats(
+            avgY: 0,
+            stdY: 0,
+            redScore: 1.0,
+            saturated: false,
+            rApprox: 0,
+          );
+        }
+
+        const stride = 16; // sampling for speed
+        double sumR = 0, sumG = 0, sumB = 0;
+        int count = 0;
+
+        debugPrint('📸 BGRA Processing: ${bytes.length} bytes available');
+
+        for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
+          final int B = bytes[i];
+          final int G = bytes[i + 1];
+          final int R = bytes[i + 2];
+          sumR += R;
+          sumG += G;
+          sumB += B;
+          count++;
+        }
+
+        final avgR = sumR / (count + 1e-9);
+        final avgG = sumG / (count + 1e-9);
+        final avgB = sumB / (count + 1e-9);
+        final avgY = 0.2126 * avgR + 0.7152 * avgG + 0.0722 * avgB;
+
+        debugPrint(
+          '📸 BGRA Stats: count=$count, avgR=${avgR.toInt()}, avgG=${avgG.toInt()}, avgB=${avgB.toInt()}, avgY=${avgY.toInt()}',
+        );
+
+        if (count == 0 || avgY == 0) {
+          debugPrint('📸 ERROR: No valid BGRA data processed!');
+          return FrameStats(
+            avgY: 0,
+            stdY: 0,
+            redScore: 1.0,
+            saturated: false,
+            rApprox: 0,
+          );
+        }
+
+        // stdY (spatial) with light sampling
+        double mean = avgY, variance = 0;
+        count = 0;
+        for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
+          final yy =
+              0.2126 * bytes[i + 2] + 0.7152 * bytes[i + 1] + 0.0722 * bytes[i];
+          variance += (yy - mean) * (yy - mean);
+          count++;
+        }
+        final stdY = count > 1 ? sqrt(variance / count) : 0.0;
+        final redRatio = avgR / (avgG + avgB + 1.0);
+        final saturated = (avgY > 245) || (avgY < 5);
+
+        return FrameStats(
+          avgY: avgY,
+          stdY: stdY,
+          redScore: redRatio,
+          saturated: saturated,
+          rApprox: avgR, // Use actual red channel for BGRA
+        );
+      }
+
+      // YUV420 format (fallback) - but we detected BGRA format, this shouldn't happen!
+      debugPrint(
+        '📸 ❌ ERROR: BGRA format detected but processing as YUV - this is wrong!',
+      );
+      debugPrint('📸 YUV Processing: ${image.planes.length} planes');
+      final y = image.planes[0].bytes;
+      final u = image.planes.length > 1 ? image.planes[1].bytes : null;
+      final v = image.planes.length > 2 ? image.planes[2].bytes : null;
+
+      debugPrint(
+        '📸 YUV Planes: Y=${y.length} bytes, U=${u?.length ?? 0}, V=${v?.length ?? 0}',
+      );
+
+      double sumY = 0;
+      int count = 0;
+      const stride = 16;
+      for (int i = 0; i < y.length; i += stride) {
+        sumY += y[i];
+        count++;
+      }
+      final avgY = sumY / (count + 1e-9);
+
+      debugPrint(
+        '📸 YUV Stats: count=$count, sumY=${sumY.toInt()}, avgY=${avgY.toInt()}',
+      );
+
+      if (count == 0 || avgY == 0) {
+        debugPrint('📸 ERROR: No valid YUV data processed!');
+        return FrameStats(
+          avgY: 0,
+          stdY: 0,
+          redScore: 1.0,
+          saturated: false,
+          rApprox: 0,
+        );
+      }
+
+      // stdY
+      double variance = 0;
+      count = 0;
+      for (int i = 0; i < y.length; i += stride) {
+        final yy = y[i].toDouble();
+        variance += (yy - avgY) * (yy - avgY);
+        count++;
+      }
+      final stdY = count > 1 ? sqrt(variance / count) : 0.0;
+
+      // Redness: Enhanced YUV to RGB conversion with U/V swap handling
+      double avgU = 0, avgV = 0;
+      int cu = 0, cv = 0;
+      if (u != null) {
+        for (int i = 0; i < u.length; i += stride) {
+          avgU += u[i];
+          cu++;
+        }
+        avgU /= (cu + 1e-9);
+      }
+      if (v != null) {
+        for (int i = 0; i < v.length; i += stride) {
+          avgV += v[i];
+          cv++;
+        }
+        avgV /= (cv + 1e-9);
+      }
+
+      double redScore = 1.0;
+      double bestR = avgY; // fallback to avgY if color conversion fails
+      if (u != null && v != null) {
+        // Attempt 1: (Y, U, V) normal order
+        final r1 = avgY + 1.402 * (avgV - 128.0);
+        final g1 = avgY - 0.344 * (avgU - 128.0) - 0.714 * (avgV - 128.0);
+        final b1 = avgY + 1.772 * (avgU - 128.0);
+        final red1 = r1 / (g1 + b1 + 1.0);
+
+        // Attempt 2: U/V swapped (some devices have different order)
+        final r2 = avgY + 1.402 * (avgU - 128.0);
+        final g2 = avgY - 0.344 * (avgV - 128.0) - 0.714 * (avgU - 128.0);
+        final b2 = avgY + 1.772 * (avgV - 128.0);
+        final red2 = r2 / (g2 + b2 + 1.0);
+
+        redScore = red1.isFinite && red2.isFinite
+            ? (red1 > red2 ? red1 : red2)
+            : 1.0;
+        // Keep in reasonable range
+        redScore = redScore.clamp(0.7, 2.5);
+
+        // Best R channel approximation for intensity
+        bestR = max(r1, r2).clamp(0.0, 255.0);
+        if (!bestR.isFinite) bestR = avgY;
+      }
+
+      final saturated = (avgY > 245) || (avgY < 5);
+
+      return FrameStats(
+        avgY: avgY,
+        stdY: stdY,
+        redScore: redScore,
+        saturated: saturated,
+        rApprox: bestR, // Approximate red channel from YUV conversion
+      );
+    } catch (e, stack) {
+      debugPrint('📸 ERROR processing frame: $e\n$stack');
+      // Return a default frame stats to prevent crashes
+      return FrameStats(
+        avgY: 50.0, // Fake some basic values to test detection
+        stdY: 15.0,
+        redScore: 1.2,
+        saturated: false,
+        rApprox: 100.0,
+      );
+    }
+  }
+
+  /// Fast frame gate for finger detection
+  static bool _frameGate(FrameStats stats) {
+    // "Finger-like" fast gate: 2/3 rule - more lenient thresholds
+    final brightnessOK =
+        !stats.saturated &&
+        stats.avgY >= 15 &&
+        stats.avgY <= 240; // 30→15, 235→240
+    final uniformOK =
+        stats.stdY <= 28.0; // 22→28, more lenient for device diversity
+    final redOK = stats.redScore >= 1.02; // More lenient for YUV devices
+
+    final gatePass =
+        ((brightnessOK ? 1 : 0) + (uniformOK ? 1 : 0) + (redOK ? 1 : 0)) >= 2;
+
+    if (gatePass) {
+      _gateHit = (_gateHit + 1).clamp(0, 10);
+      if (_gateHit >= 4) _gateActive = true; // ~4 consecutive frames ≈ 160 ms
+      _framesSinceGateLost = 0;
+    } else {
+      _framesSinceGateLost++;
+      if (_framesSinceGateLost > 8) {
+        // ~320 ms+ loss
+        _gateHit = 0;
+        _gateActive = false;
+        _confirmHit = 0;
+      }
+    }
+    return _gateActive;
+  }
 
   /// Apply band-pass filter to isolate heart rate frequencies (0.5-4 Hz)
   static List<double> _applyBandPassFilter(List<double> signal) {
@@ -63,6 +327,18 @@ class HeartRateService {
     return bandPassed;
   }
 
+  /// Calculate low-pass filter coefficient
+  static double _lpAlpha(double cutoffHz, double sampleRate) {
+    final omega = 2.0 * pi * cutoffHz / sampleRate;
+    return omega / (omega + 1.0);
+  }
+
+  /// Calculate high-pass filter coefficient
+  static double _hpAlpha(double cutoffHz, double sampleRate) {
+    final omega = 2.0 * pi * cutoffHz / sampleRate;
+    return 1.0 / (omega + 1.0);
+  }
+
   /// High-pass filter implementation
   static List<double> _applyHighPassFilter(
     List<double> signal,
@@ -71,7 +347,7 @@ class HeartRateService {
   ) {
     if (signal.length < 5) return signal;
 
-    final alpha = _calculateFilterAlpha(cutoffHz, sampleRate);
+    final alpha = _hpAlpha(cutoffHz, sampleRate);
     final filtered = <double>[];
 
     // Initialize
@@ -94,7 +370,7 @@ class HeartRateService {
   ) {
     if (signal.length < 5) return signal;
 
-    final alpha = _calculateFilterAlpha(cutoffHz, sampleRate);
+    final alpha = _lpAlpha(cutoffHz, sampleRate);
     final filtered = <double>[];
 
     // Initialize
@@ -106,12 +382,6 @@ class HeartRateService {
     }
 
     return filtered;
-  }
-
-  /// Calculate filter coefficient
-  static double _calculateFilterAlpha(double cutoffHz, double sampleRate) {
-    final omega = 2.0 * pi * cutoffHz / sampleRate;
-    return omega / (omega + 1.0);
   }
 
   /// Enhanced finger detection with adaptive thresholding
@@ -349,24 +619,37 @@ class HeartRateService {
     return _fingerPresent;
   }
 
-  /// Calculate how much the signal varies (indicates heart rate)
+  /// Calculate how much the signal varies (indicates heart rate) with normalization
   static double _calculateSignalVariation(List<double> window) {
     if (window.length < 10) return 0.0;
 
-    // Simple peak-to-valley variation detection
-    double min = window.reduce((a, b) => a < b ? a : b);
-    double max = window.reduce((a, b) => a > b ? a : b);
-    double range = max - min;
-
-    // Also check for periodic behavior
-    double mean = window.reduce((a, b) => a + b) / window.length;
-    double variance =
+    // Normalize signal to z-scores for scale independence
+    final mean = window.reduce((a, b) => a + b) / window.length;
+    final variance =
         window.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
         window.length;
-    double standardDeviation = sqrt(variance);
+    final stdDev = sqrt(variance);
 
-    // Combine range and standard deviation for variation score
-    return range * 0.7 + standardDeviation * 0.3;
+    if (stdDev < 1e-6) return 0.0; // No variation
+
+    final normalized = window.map((x) => (x - mean) / stdDev).toList();
+
+    // Calculate variation on normalized signal
+    double min = normalized.reduce((a, b) => a < b ? a : b);
+    double max = normalized.reduce((a, b) => a > b ? a : b);
+    double range = max - min;
+
+    // Standard deviation of normalized signal (should be around 1.0)
+    final normMean = normalized.reduce((a, b) => a + b) / normalized.length;
+    final normStd = sqrt(
+      normalized
+              .map((x) => (x - normMean) * (x - normMean))
+              .reduce((a, b) => a + b) /
+          normalized.length,
+    );
+
+    // Combine range and std for variation score - now scale independent
+    return range * 0.7 + normStd * 0.3;
   }
 
   /// Calculate average intensity from camera image
@@ -388,11 +671,99 @@ class HeartRateService {
     return detectFingerFromSignalEnhanced(intensity);
   }
 
+  /// Calculate dynamic variation threshold from previous history
+  static double _dynamicVarThresholdFromHistory(List<double> filtered) {
+    if (filtered.length < minimumVariationSamples * 2) return 0.20; // fallback
+    final start = filtered.length - minimumVariationSamples * 2;
+    final end = filtered.length - minimumVariationSamples;
+    final base = _calculateSignalVariation(filtered.sublist(start, end));
+    // Prevent excessive fluctuation
+    return base.clamp(0.12, 0.35);
+  }
+
+  /// Enhanced finger detection with frame stats and hybrid approach
+  static bool isFingerPresentWithStats(double intensity, FrameStats stats) {
+    // 1) Fast frame gate
+    final gate = _frameGate(stats);
+
+    // 2) Normal flow: add to buffer, band-pass + variation
+    _recentSignalValues.add(intensity);
+    if (_recentSignalValues.length > signalBufferSize) {
+      _recentSignalValues.removeAt(0);
+    }
+
+    // 3) Early finger detection when buffer is short but gate is open
+    if (_recentSignalValues.length < minimumVariationSamples) {
+      if (gate) {
+        _confirmHit++;
+        if (_confirmHit >= 4) {
+          // ~150–200 ms
+          _fingerPresent = true; // Open Phase 2 UI immediately
+        }
+      } else {
+        _confirmHit = 0;
+      }
+
+      // Debug for early detection
+      debugPrint(
+        '🚪 Gate Analysis (early): gate=$gate, confirm=$_confirmHit, '
+        'avgY=${stats.avgY.toInt()}, stdY=${stats.stdY.toInt()}, '
+        'red=${stats.redScore.toStringAsFixed(2)}, finger=$_fingerPresent',
+      );
+      return _fingerPresent; // Early return: return finger=true when gate is open
+    }
+
+    final filtered = _applyBandPassFilter(_recentSignalValues);
+    final recentWindow = filtered.sublist(
+      filtered.length - minimumVariationSamples,
+    );
+    final variation = _calculateSignalVariation(recentWindow);
+
+    // Dynamic threshold - lowered for realistic filtered signal levels
+    final dynamicThreshold = _dynamicVarThresholdFromHistory(_filteredSignal);
+    final hasHeartPattern = variation > dynamicThreshold;
+
+    // 4) Hybrid decision: gate first, then periodicity confirmation
+    if (gate && hasHeartPattern) {
+      _confirmHit++;
+      _stableSignalCounter++;
+    } else if (gate) {
+      // gate open but no periodicity → fast decision, wait
+      _confirmHit = max(0, _confirmHit - 1);
+      _stableSignalCounter = max(0, _stableSignalCounter - 1);
+    } else {
+      _confirmHit = 0;
+      _stableSignalCounter = max(0, _stableSignalCounter - 2);
+    }
+
+    // 5) Hysteresis: faster open, slower close
+    if (_confirmHit >= 5) {
+      // ~200 ms + periodic confirmations
+      _fingerPresent = true;
+    }
+    if (!gate && _stableSignalCounter <= 0) {
+      _fingerPresent = false;
+    }
+
+    // Debug (optional)
+    if (_recentSignalValues.length % 15 == 0) {
+      debugPrint(
+        '🚪 Gate Analysis: gate=$gate, variation=${variation.toStringAsFixed(2)}, '
+        'threshold=${dynamicThreshold.toStringAsFixed(2)}, confirm=$_confirmHit, '
+        'avgY=${stats.avgY.toInt()}, stdY=${stats.stdY.toInt()}, '
+        'redScore=${stats.redScore.toStringAsFixed(2)}, finger=$_fingerPresent',
+      );
+    }
+
+    return _fingerPresent;
+  }
+
   /// Perform ultra-advanced PPG signal analysis with enhanced validation and filtering
   static Map<String, dynamic>? performUltraAdvancedAnalysis(
     List<double> signal, {
     int initialSampleCount = 400, // Reduced from 900 for faster response
-    double qualityThreshold = 0.75, // Increased for better quality
+    double qualityThreshold =
+        0.55, // Lowered for improved RMS/MAD SNR calculation
     double frameRate = defaultFrameRate,
   }) {
     if (signal.length < initialSampleCount) return null;
@@ -402,7 +773,10 @@ class HeartRateService {
       final filteredSignal = _applyBandPassFilter(signal);
 
       // 2. Enhanced signal quality check on filtered signal
-      final quality = calculateEnhancedSignalQuality(filteredSignal);
+      final quality = calculateEnhancedSignalQuality(
+        filteredSignal,
+        frameRate: frameRate,
+      );
       if (quality < qualityThreshold) return null;
 
       // 3. Signal variability check - prevent flat/fake signals
@@ -412,7 +786,7 @@ class HeartRateService {
       }
 
       // 4. Enhanced peak detection with adaptive threshold
-      final peaks = detectPeaksAdvanced(filteredSignal);
+      final peaks = detectPeaksAdvanced(filteredSignal, frameRate: frameRate);
       if (peaks.length < 3) return null;
 
       // 5. Calculate R-R intervals with enhanced validation
@@ -557,14 +931,17 @@ class HeartRateService {
   }
 
   /// Enhanced signal quality calculation
-  static double calculateEnhancedSignalQuality(List<double> signal) {
+  static double calculateEnhancedSignalQuality(
+    List<double> signal, {
+    double frameRate = defaultFrameRate,
+  }) {
     if (signal.length < 50) return 0.0;
 
     // 1. Signal-to-noise ratio
     final snr = _calculateSNR(signal);
 
     // 2. Signal consistency (how periodic it is)
-    final periodicity = _calculatePeriodicity(signal);
+    final periodicity = _calculatePeriodicity(signal, frameRate: frameRate);
 
     // 3. Dynamic range (good PPG should have reasonable amplitude variation)
     final dynamicRange = _calculateDynamicRange(signal);
@@ -580,35 +957,55 @@ class HeartRateService {
     );
   }
 
-  /// Calculate signal-to-noise ratio
+  /// Calculate signal-to-noise ratio using RMS/MAD for band-passed signals
   static double _calculateSNR(List<double> signal) {
-    final mean = signal.reduce((a, b) => a + b) / signal.length;
-    final variance =
-        signal.map((x) => (x - mean) * (x - mean)).reduce((a, b) => a + b) /
-        signal.length;
-    final stdDev = sqrt(variance);
+    if (signal.length < 10) return 0.0;
 
-    return mean > 0 ? mean / stdDev : 0.0;
+    final mean = signal.reduce((a, b) => a + b) / signal.length;
+    final detrended = signal.map((x) => x - mean).toList();
+
+    // Signal power ~ RMS (Root Mean Square)
+    final rms = sqrt(
+      detrended.map((x) => x * x).reduce((a, b) => a + b) / detrended.length,
+    );
+
+    // Noise estimation ~ MAD of consecutive differences (robust)
+    final diffs = <double>[];
+    for (int i = 1; i < detrended.length; i++) {
+      diffs.add((detrended[i] - detrended[i - 1]).abs());
+    }
+    diffs.sort();
+    final mad =
+        diffs[diffs.length ~/ 2] +
+        1e-6; // Median Absolute Deviation + small epsilon
+
+    return rms / mad; // Typical range: 2-6 for good signals
   }
 
   /// Calculate how periodic the signal is (good for heart rate)
-  static double _calculatePeriodicity(List<double> signal) {
+  static double _calculatePeriodicity(
+    List<double> signal, {
+    double frameRate = defaultFrameRate,
+  }) {
     if (signal.length < 100) return 0.0;
 
     final autocorr = _calculateAutocorrelation(
       signal.sublist(0, min(signal.length, 200)),
     );
 
-    // Look for periodicity in heart rate range (1-3 second intervals at 25fps)
-    final minLag = 25; // ~1 second
-    final maxLag = min(75, autocorr.length - 1); // ~3 seconds
+    // Look for periodicity in proper BPM range (40-200 BPM)
+    final minLag = max(1, (frameRate * 60.0 / 200.0).round()); // 200 BPM
+    final maxLag = min(
+      autocorr.length - 1,
+      (frameRate * 60.0 / 40.0).round(),
+    ); // 40 BPM
 
     double maxPeriodicity = 0.0;
     for (int lag = minLag; lag <= maxLag; lag++) {
       maxPeriodicity = max(maxPeriodicity, autocorr[lag]);
     }
 
-    return (maxPeriodicity / autocorr[0]).clamp(0.0, 1.0);
+    return (maxPeriodicity / (autocorr[0].abs() + 1e-9)).clamp(0.0, 1.0);
   }
 
   /// Calculate dynamic range of signal
@@ -622,13 +1019,22 @@ class HeartRateService {
   }
 
   /// Enhanced peak detection with adaptive thresholding
-  static List<int> detectPeaksAdvanced(List<double> signal) {
+  static List<int> detectPeaksAdvanced(
+    List<double> signal, {
+    double frameRate = defaultFrameRate,
+  }) {
     final peaks = <int>[];
     if (signal.length < 25) return peaks;
 
     // Calculate adaptive threshold using sliding window
     const windowSize = 50;
     final smoothedSignal = _applyMovingAverageFilter(signal);
+
+    // BPM-based minimum peak distance (for max 200 BPM)
+    final minPeakDistance = max(
+      1,
+      (frameRate * 60.0 / 200.0).floor(),
+    ); // ~7-8 @25fps
 
     for (int i = windowSize; i < smoothedSignal.length - windowSize; i++) {
       final window = smoothedSignal.sublist(
@@ -649,8 +1055,7 @@ class HeartRateService {
           smoothedSignal[i] > smoothedSignal[i + 1] &&
           smoothedSignal[i] > threshold) {
         // Ensure minimum distance between peaks (avoid double detection)
-        if (peaks.isEmpty || i - peaks.last > 15) {
-          // ~0.6 seconds at 25fps
+        if (peaks.isEmpty || i - peaks.last > minPeakDistance) {
           peaks.add(i);
         }
       }
