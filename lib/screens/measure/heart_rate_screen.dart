@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 import 'package:heart_rate/screens/measure/modelview/starting_rate_model_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -61,13 +62,26 @@ class _HeartRateScreenState extends StartingRateModelView {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Camera preview in circular avatar
                   CircleAvatar(
                     radius: 26,
                     backgroundColor: Colors.grey.shade200,
-                    child: Icon(
-                      Icons.favorite,
-                      color: Theme.of(context).primaryColor,
-                      size: 26,
+                    child: ClipOval(
+                      child: SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: isInitialized && cameraController != null
+                            ? AspectRatio(
+                                aspectRatio:
+                                    cameraController!.value.aspectRatio,
+                                child: CameraPreview(cameraController!),
+                              )
+                            : Icon(
+                                Icons.camera_alt,
+                                color: Theme.of(context).primaryColor,
+                                size: 26,
+                              ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 28),
@@ -94,12 +108,27 @@ class _HeartRateScreenState extends StartingRateModelView {
                   const SizedBox(height: 30),
                   _StartRing(started: started, animation: pulseAnimation),
                   const SizedBox(height: 30),
-                  // Only show instruction image in Phase 1
+                  // Instruction image with background chart in Phase 1
                   SizedBox(
-                    height: 190,
-                    child: Image.asset(
-                      'assets/images/general/how_to_use.png',
-                      fit: BoxFit.contain,
+                    height: 160,
+                    width: double.infinity, // Full width
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Background chart covering full width
+                        Positioned.fill(
+                          child: Image.asset(
+                            'assets/images/general/bpm_chart.png',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
+                        // Instruction image on top
+                        Image.asset(
+                          'assets/images/general/how_to_use.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ],
                     ),
                   ),
                 ],
