@@ -178,8 +178,10 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
 
       // Dynamic format detection - test what the device actually supports
       ImageFormatGroup formatGroup = await _detectOptimalFormat(backCamera);
-      
-      debugPrint('🎯 Selected optimal format: $formatGroup for ${Platform.operatingSystem}');
+
+      debugPrint(
+        '🎯 Selected optimal format: $formatGroup for ${Platform.operatingSystem}',
+      );
 
       cameraController = CameraController(
         backCamera,
@@ -201,7 +203,9 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
           isInitialized = true;
         });
 
-        debugPrint('✅ Camera initialized successfully with format: $formatGroup');
+        debugPrint(
+          '✅ Camera initialized successfully with format: $formatGroup',
+        );
 
         // Delay starting measurement to ensure camera is fully ready
         await Future.delayed(const Duration(milliseconds: 300));
@@ -219,26 +223,28 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
   }
 
   /// Dynamically detect the optimal camera format for this device
-  Future<ImageFormatGroup> _detectOptimalFormat(CameraDescription camera) async {
+  Future<ImageFormatGroup> _detectOptimalFormat(
+    CameraDescription camera,
+  ) async {
     // Priority order: platform preference first, then fallbacks
-    final formatPriority = Platform.isIOS 
+    final formatPriority = Platform.isIOS
         ? [ImageFormatGroup.bgra8888, ImageFormatGroup.yuv420]
         : [ImageFormatGroup.yuv420, ImageFormatGroup.bgra8888];
-    
+
     for (final format in formatPriority) {
       try {
         debugPrint('🧪 Testing format: $format');
-        
+
         final testController = CameraController(
           camera,
           ResolutionPreset.low,
           enableAudio: false,
           imageFormatGroup: format,
         );
-        
+
         await testController.initialize();
         await testController.dispose();
-        
+
         debugPrint('✅ Format $format is supported and working');
         return format;
       } catch (e) {
@@ -246,7 +252,7 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         continue;
       }
     }
-    
+
     // Ultimate fallback
     debugPrint('⚠️ Using YUV420 as last resort fallback');
     return ImageFormatGroup.yuv420;

@@ -48,11 +48,15 @@ class HeartRateViewModel extends ChangeNotifier {
   bool get isFingerDetected => _isFingerDetected;
 
   /// Fast transition to Phase 2: High quality signal detected
+  /// More conservative criteria to prevent flickering
   bool get hasHighQualitySignal =>
       _isMeasuring &&
-      _heartRateValues.isNotEmpty &&
-      _signalQuality > 0.7 &&
-      _validMeasurements > 0;
+      _heartRateValues.length >=
+          75 && // At least 3 seconds of data (75 samples at 25fps)
+      _signalQuality > 0.75 && // Higher quality threshold
+      _validMeasurements >= 2 && // At least 2 valid measurements
+      _currentHeartRate > 0 && // Must have a detected heart rate
+      _isFingerDetected; // Finger must be detected
 
   // Callback for measurement completion
   VoidCallback? onMeasurementComplete;
