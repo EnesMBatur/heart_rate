@@ -84,7 +84,6 @@ class _MeasurementResultsBottomSheetState
                               child: RiveAnimation.asset(
                                 'assets/rive/confetti.riv',
                                 onInit: (artboard) {
-                                  print('🎉 Confetti animation loaded');
                                   StateMachineController controller =
                                       getRiveController(artboard);
                                   confetti =
@@ -253,7 +252,7 @@ class _MeasurementResultsBottomSheetState
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           decoration: BoxDecoration(
             color: isSelected
-                ? Theme.of(context).primaryColor.withOpacity(0.1)
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.1)
                 : Colors.grey[100],
             border: Border.all(
               color: isSelected
@@ -312,7 +311,7 @@ class _MeasurementResultsBottomSheetState
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      ? Theme.of(context).primaryColor.withValues(alpha: 0.1)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(

@@ -596,9 +596,6 @@ class HeartRateService {
                   );
                   _signalVariations.clear();
                   _signalVariations.addAll(variationsToKeep);
-                  print(
-                    '🔄 Signal reset: Cleared old data for fresh finger detection',
-                  );
                 }
               }
             }
@@ -607,14 +604,14 @@ class HeartRateService {
       }
     }
 
-    // Debug info
-    if (_recentSignalValues.length % 25 == 0) {
-      // Log every ~1 second
-      print(
-        '🫀 Signal Analysis: variation=${variation.toStringAsFixed(3)}, '
-        'stable=$_stableSignalCounter, finger=$_fingerPresent',
-      );
-    }
+    // // Debug info
+    // if (_recentSignalValues.length % 25 == 0) {
+    //   // Log every ~1 second
+    //   print(
+    //     '🫀 Signal Analysis: variation=${variation.toStringAsFixed(3)}, '
+    //     'stable=$_stableSignalCounter, finger=$_fingerPresent',
+    //   );
+    // }
 
     return _fingerPresent;
   }

@@ -1,14 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/services/firebase_options.dart';
 
 class AppInitializer {
   /// Uygulamanın başlangıç süreçlerini yönetir
   static Future<void> initialize() async {
     // Flutter binding'leri başlat
     WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     // Native splash kontrolü için preserve et
     FlutterNativeSplash.preserve(
