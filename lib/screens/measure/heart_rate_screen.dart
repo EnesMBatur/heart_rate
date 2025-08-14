@@ -3,7 +3,6 @@ import 'package:camera/camera.dart';
 import 'package:heart_rate/screens/measure/components/start_ring.dart';
 import 'package:heart_rate/screens/measure/modelview/starting_rate_model_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:lottie/lottie.dart';
 
 class HeartRateScreen extends StatefulWidget {
@@ -18,6 +17,12 @@ class _HeartRateScreenState extends StartingRateModelView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'Measure',
           style: TextStyle(
@@ -345,15 +350,6 @@ class _HeartRateScreenState extends StartingRateModelView {
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    measurementTimer?.cancel();
-    pulseAnimationController.dispose();
-    cameraController?.dispose();
-    WakelockPlus.disable();
-    super.dispose();
   }
 
   // --- Helper camera widget ---

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -73,9 +74,13 @@ class HeartRateService {
   /// Compute frame statistics for enhanced finger detection
   static FrameStats computeFrameStats(CameraImage image) {
     try {
+      // Platform detection for better format handling
+      final isAndroid = Platform.isAndroid;
+      final isIOS = Platform.isIOS;
+
       debugPrint(
         '📸 Frame Info: ${image.planes.length} planes, format=${image.format.group}, '
-        'width=${image.width}, height=${image.height}',
+        'width=${image.width}, height=${image.height}, platform=${Platform.operatingSystem}',
       );
 
       if (image.planes.isNotEmpty) {
@@ -85,87 +90,135 @@ class HeartRateService {
         );
       }
 
-      // BGRA format (preferred) - check format group first since bytesPerPixel can be null
+      // Platform-aware format detection
+      // iOS typically uses BGRA8888, Android typically uses YUV420
       if (image.format.group == ImageFormatGroup.bgra8888 ||
           (image.planes.length == 1 &&
               (image.planes[0].bytesPerPixel == 4 ||
                   image.planes[0].bytesPerPixel == null))) {
-        debugPrint('📸 Using BGRA processing path');
-        final bytes = image.planes[0].bytes;
-
-        if (bytes.isEmpty) {
-          debugPrint('📸 ERROR: BGRA frame is empty!');
-          return FrameStats(
-            avgY: 0,
-            stdY: 0,
-            redScore: 1.0,
-            saturated: false,
-            rApprox: 0,
-          );
-        }
-
-        const stride = 16; // sampling for speed
-        double sumR = 0, sumG = 0, sumB = 0;
-        int count = 0;
-
-        debugPrint('📸 BGRA Processing: ${bytes.length} bytes available');
-
-        for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
-          final int B = bytes[i];
-          final int G = bytes[i + 1];
-          final int R = bytes[i + 2];
-          sumR += R;
-          sumG += G;
-          sumB += B;
-          count++;
-        }
-
-        final avgR = sumR / (count + 1e-9);
-        final avgG = sumG / (count + 1e-9);
-        final avgB = sumB / (count + 1e-9);
-        final avgY = 0.2126 * avgR + 0.7152 * avgG + 0.0722 * avgB;
-
         debugPrint(
-          '📸 BGRA Stats: count=$count, avgR=${avgR.toInt()}, avgG=${avgG.toInt()}, avgB=${avgB.toInt()}, avgY=${avgY.toInt()}',
+          '📸 Using BGRA processing path ${isIOS ? "(iOS optimal)" : "(Android fallback)"}',
         );
+        return _processBGRAFrame(image);
+      }
 
-        if (count == 0 || avgY == 0) {
-          debugPrint('📸 ERROR: No valid BGRA data processed!');
-          return FrameStats(
-            avgY: 0,
-            stdY: 0,
-            redScore: 1.0,
-            saturated: false,
-            rApprox: 0,
-          );
-        }
+      // YUV420 format processing
+      if (image.format.group == ImageFormatGroup.yuv420 ||
+          image.planes.length >= 3) {
+        debugPrint(
+          '📸 Using YUV processing path ${isAndroid ? "(Android optimal)" : "(iOS fallback)"}',
+        );
+        return _processYUVFrame(image);
+      }
 
-        // stdY (spatial) with light sampling
-        double mean = avgY, variance = 0;
-        count = 0;
-        for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
-          final yy =
-              0.2126 * bytes[i + 2] + 0.7152 * bytes[i + 1] + 0.0722 * bytes[i];
-          variance += (yy - mean) * (yy - mean);
-          count++;
-        }
-        final stdY = count > 1 ? sqrt(variance / count) : 0.0;
-        final redRatio = avgR / (avgG + avgB + 1.0);
-        final saturated = (avgY > 245) || (avgY < 5);
+      // Fallback based on plane count
+      if (image.planes.length == 1) {
+        debugPrint('📸 Single plane detected - treating as BGRA');
+        return _processBGRAFrame(image);
+      } else {
+        debugPrint('📸 Multiple planes detected - treating as YUV');
+        return _processYUVFrame(image);
+      }
+    } catch (e) {
+      debugPrint('📸 Error processing frame: $e');
+      return FrameStats(
+        avgY: 0,
+        stdY: 0,
+        redScore: 1.0,
+        saturated: false,
+        rApprox: 0,
+      );
+    }
+  }
 
+  /// Process BGRA format frames (optimal for iOS)
+  static FrameStats _processBGRAFrame(CameraImage image) {
+    try {
+      final bytes = image.planes[0].bytes;
+
+      if (bytes.isEmpty) {
+        debugPrint('📸 ERROR: BGRA frame is empty!');
         return FrameStats(
-          avgY: avgY,
-          stdY: stdY,
-          redScore: redRatio,
-          saturated: saturated,
-          rApprox: avgR, // Use actual red channel for BGRA
+          avgY: 0,
+          stdY: 0,
+          redScore: 1.0,
+          saturated: false,
+          rApprox: 0,
         );
       }
 
-      // YUV420 format (fallback) - but we detected BGRA format, this shouldn't happen!
+      const stride = 16; // sampling for speed
+      double sumR = 0, sumG = 0, sumB = 0;
+      int count = 0;
+
+      debugPrint('📸 BGRA Processing: ${bytes.length} bytes available');
+
+      for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
+        final int B = bytes[i];
+        final int G = bytes[i + 1];
+        final int R = bytes[i + 2];
+        sumR += R;
+        sumG += G;
+        sumB += B;
+        count++;
+      }
+
+      final avgR = sumR / (count + 1e-9);
+      final avgG = sumG / (count + 1e-9);
+      final avgB = sumB / (count + 1e-9);
+      final avgY = 0.2126 * avgR + 0.7152 * avgG + 0.0722 * avgB;
+
       debugPrint(
-        '📸 ❌ ERROR: BGRA format detected but processing as YUV - this is wrong!',
+        '📸 BGRA Stats: count=$count, avgR=${avgR.toInt()}, avgG=${avgG.toInt()}, avgB=${avgB.toInt()}, avgY=${avgY.toInt()}',
       );
+
+      if (count == 0 || avgY == 0) {
+        debugPrint('📸 ERROR: No valid BGRA data processed!');
+        return FrameStats(
+          avgY: 0,
+          stdY: 0,
+          redScore: 1.0,
+          saturated: false,
+          rApprox: 0,
+        );
+      }
+
+      // stdY (spatial) with light sampling
+      double mean = avgY, variance = 0;
+      count = 0;
+      for (int i = 0; i < bytes.length - 4; i += 4 * stride) {
+        final yy =
+            0.2126 * bytes[i + 2] + 0.7152 * bytes[i + 1] + 0.0722 * bytes[i];
+        variance += (yy - mean) * (yy - mean);
+        count++;
+      }
+      final stdY = count > 1 ? sqrt(variance / count) : 0.0;
+      final redRatio = avgR / (avgG + avgB + 1.0);
+      final saturated = (avgY > 245) || (avgY < 5);
+
+      return FrameStats(
+        avgY: avgY,
+        stdY: stdY,
+        redScore: redRatio,
+        saturated: saturated,
+        rApprox: avgR, // Use actual red channel for BGRA
+      );
+    } catch (e) {
+      debugPrint('📸 Error processing BGRA frame: $e');
+      return FrameStats(
+        avgY: 0,
+        stdY: 0,
+        redScore: 1.0,
+        saturated: false,
+        rApprox: 0,
+      );
+    }
+  }
+
+  /// Process YUV format frames (optimal for Android)
+  /// Process YUV format frames (optimal for Android)
+  static FrameStats _processYUVFrame(CameraImage image) {
+    try {
       debugPrint('📸 YUV Processing: ${image.planes.length} planes');
       final y = image.planes[0].bytes;
       final u = image.planes.length > 1 ? image.planes[1].bytes : null;
@@ -262,15 +315,14 @@ class HeartRateService {
         saturated: saturated,
         rApprox: bestR, // Approximate red channel from YUV conversion
       );
-    } catch (e, stack) {
-      debugPrint('📸 ERROR processing frame: $e\n$stack');
-      // Return a default frame stats to prevent crashes
+    } catch (e) {
+      debugPrint('📸 Error processing YUV frame: $e');
       return FrameStats(
-        avgY: 50.0, // Fake some basic values to test detection
-        stdY: 15.0,
-        redScore: 1.2,
+        avgY: 0,
+        stdY: 0,
+        redScore: 1.0,
         saturated: false,
-        rApprox: 100.0,
+        rApprox: 0,
       );
     }
   }

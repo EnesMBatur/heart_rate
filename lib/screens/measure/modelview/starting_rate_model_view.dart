@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -175,13 +176,17 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
 
       debugPrint('🎥 Initializing camera: ${backCamera.name}');
 
+      // Dynamic format detection - test what the device actually supports
+      ImageFormatGroup formatGroup = await _detectOptimalFormat(backCamera);
+      
+      debugPrint('🎯 Selected optimal format: $formatGroup for ${Platform.operatingSystem}');
+
       cameraController = CameraController(
         backCamera,
         ResolutionPreset
             .medium, // Changed from low to medium for better Android support
         enableAudio: false,
-        imageFormatGroup: ImageFormatGroup
-            .yuv420, // Changed to YUV420 for better Android compatibility
+        imageFormatGroup: formatGroup,
       );
 
       await cameraController!.initialize();
@@ -196,7 +201,7 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
           isInitialized = true;
         });
 
-        debugPrint('✅ Camera initialized successfully');
+        debugPrint('✅ Camera initialized successfully with format: $formatGroup');
 
         // Delay starting measurement to ensure camera is fully ready
         await Future.delayed(const Duration(milliseconds: 300));
@@ -211,6 +216,40 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         await _tryFallbackCameraInit();
       }
     }
+  }
+
+  /// Dynamically detect the optimal camera format for this device
+  Future<ImageFormatGroup> _detectOptimalFormat(CameraDescription camera) async {
+    // Priority order: platform preference first, then fallbacks
+    final formatPriority = Platform.isIOS 
+        ? [ImageFormatGroup.bgra8888, ImageFormatGroup.yuv420]
+        : [ImageFormatGroup.yuv420, ImageFormatGroup.bgra8888];
+    
+    for (final format in formatPriority) {
+      try {
+        debugPrint('🧪 Testing format: $format');
+        
+        final testController = CameraController(
+          camera,
+          ResolutionPreset.low,
+          enableAudio: false,
+          imageFormatGroup: format,
+        );
+        
+        await testController.initialize();
+        await testController.dispose();
+        
+        debugPrint('✅ Format $format is supported and working');
+        return format;
+      } catch (e) {
+        debugPrint('❌ Format $format failed: $e');
+        continue;
+      }
+    }
+    
+    // Ultimate fallback
+    debugPrint('⚠️ Using YUV420 as last resort fallback');
+    return ImageFormatGroup.yuv420;
   }
 
   Future<void> _tryFallbackCameraInit() async {
@@ -231,12 +270,24 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
       // Dispose existing controller if any
       await cameraController?.dispose();
 
+      // Platform-specific fallback format selection
+      ImageFormatGroup fallbackFormat;
+      if (Platform.isAndroid) {
+        // For Android fallback, try BGRA8888 if YUV420 failed
+        fallbackFormat = ImageFormatGroup.bgra8888;
+        debugPrint('🔄 Android fallback: trying BGRA8888');
+      } else {
+        // For iOS fallback, try YUV420 if BGRA8888 failed
+        fallbackFormat = ImageFormatGroup.yuv420;
+        debugPrint('🔄 iOS fallback: trying YUV420');
+      }
+
       // Try with different settings for Android compatibility
       cameraController = CameraController(
         backCamera,
         ResolutionPreset.low,
         enableAudio: false,
-        imageFormatGroup: ImageFormatGroup.bgra8888,
+        imageFormatGroup: fallbackFormat,
       );
 
       await cameraController!.initialize();
