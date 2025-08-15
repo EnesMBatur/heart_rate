@@ -116,7 +116,7 @@ class MetricDetailData {
     return {
       'title': 'HRV Score',
       'value': hrvScore,
-      'unit': '/100',
+      'unit': 'ms',
       'status': _getHRVScoreStatus(hrvScore),
       'statusColor': _getHRVScoreColor(hrvScore),
       'description':
@@ -124,23 +124,23 @@ class MetricDetailData {
       'ranges': [
         {
           'label': 'Düşük',
-          'range': '0 - 40',
+          'range': '< 30 ms',
           'color': Colors.red,
           'min': 0.0,
-          'max': 40.0,
+          'max': 29.9,
         },
         {
           'label': 'Normal',
-          'range': '41 - 70',
+          'range': '30 - 50 ms',
           'color': Colors.orange,
-          'min': 41.0,
-          'max': 70.0,
+          'min': 30.0,
+          'max': 50.0,
         },
         {
           'label': 'Yüksek',
-          'range': '71 - 100',
+          'range': '> 50 ms',
           'color': Colors.green,
-          'min': 71.0,
+          'min': 50.1,
           'max': 100.0,
         },
       ],
@@ -157,40 +157,32 @@ class MetricDetailData {
       'status': _getSDNNStatus(sdnn),
       'statusColor': _getSDNNColor(sdnn),
       'description':
-          'SDNN\'niz beklenenden düşük, bu da otonom sinir sisteminiz üzerinde artan stres olduğunu gösteriyor. Rahatlama tekniklerine odaklanın ve yeterli dinlenme ve iyileşmeye öncelik verin.',
+          'SDNN (Standard Deviation of NN intervals) kalp atım aralıklarının standart sapmasıdır. Otonomik sinir sistemi aktivitesinin genel bir göstergesidir.',
       'ranges': [
         {
           'label': 'Düşük',
-          'range': '0 - 115 ms',
-          'color': Colors.blue,
+          'range': '< 20 ms',
+          'color': Colors.red,
           'min': 0.0,
-          'max': 115.0,
+          'max': 19.9,
         },
         {
           'label': 'Normal',
-          'range': '116 - 176 ms',
-          'color': Colors.green,
-          'min': 116.0,
-          'max': 176.0,
+          'range': '20 - 50 ms',
+          'color': Colors.orange,
+          'min': 20.0,
+          'max': 50.0,
         },
         {
           'label': 'Yüksek',
-          'range': '> 176 ms',
-          'color': Colors.orange,
-          'min': 177.0,
-          'max': 300.0,
+          'range': '> 50 ms',
+          'color': Colors.green,
+          'min': 50.1,
+          'max': 150.0,
         },
       ],
-      'interpretation':
-          'SDNN (Standard Deviation of NN intervals) kalp atım aralıklarının standart sapmasıdır. Otonomik sinir sistemi aktivitesinin genel bir göstergesidir.',
-      'recommendations': [
-        'Düzenli derin nefes egzersizleri yapın',
-        'Meditasyon veya mindfulness teknikleri uygulayın',
-        'Kaliteli uyku alın (7-9 saat)',
-        'Kafein alımını azaltın',
-        'Düzenli hafif egzersiz yapın',
-        'Stres kaynaklarını belirlemeye çalışın',
-      ],
+      'interpretation': _getSDNNInterpretation(sdnn),
+      'recommendations': _getSDNNRecommendations(sdnn),
     };
   }
 
@@ -202,40 +194,32 @@ class MetricDetailData {
       'status': _getRMSSDStatus(rmssd),
       'statusColor': _getRMSSDColor(rmssd),
       'description':
-          'Düşük RMSSD, vücudunuzun strese girdiğini veya etkili bir şekilde iyileşmediğini gösterebilir. Yüksek iş yükünü azaltmaya, hafif fiziksel aktivite yapmaya ve yeterli dinlenmeyi sağlamaya odaklanın.',
+          'RMSSD parasempatik sinir sistemi aktivitesinin önemli bir göstergesidir. Kalp hızı değişkenliğinin kısa vadeli bileşenini yansıtır.',
       'ranges': [
         {
           'label': 'Düşük',
-          'range': '0 - 24 ms',
-          'color': Colors.blue,
+          'range': '< 20 ms',
+          'color': Colors.red,
           'min': 0.0,
-          'max': 24.0,
+          'max': 19.9,
         },
         {
           'label': 'Normal',
-          'range': '25 - 50 ms',
-          'color': Colors.green,
-          'min': 25.0,
+          'range': '20 - 50 ms',
+          'color': Colors.orange,
+          'min': 20.0,
           'max': 50.0,
         },
         {
           'label': 'Yüksek',
           'range': '> 50 ms',
-          'color': Colors.orange,
-          'min': 51.0,
-          'max': 100.0,
+          'color': Colors.green,
+          'min': 50.1,
+          'max': 150.0,
         },
       ],
-      'interpretation':
-          'RMSSD parasempatik sinir sistemi aktivitesinin önemli bir göstergesidir. Kalp hızı değişkenliğinin kısa vadeli bileşenini yansıtır.',
-      'recommendations': [
-        'Parasempatik aktiviteyi artıran aktiviteler yapın',
-        'Yoga veya tai chi gibi sakin egzersizler',
-        'Düzenli meditasyon pratiği',
-        'Sıcak banyo veya duş alın',
-        'Klasik müzik dinleyin',
-        'Doğada zaman geçirin',
-      ],
+      'interpretation': _getRMSSDInterpretation(rmssd),
+      'recommendations': _getRMSSDRecommendations(rmssd),
     };
   }
 
@@ -247,44 +231,36 @@ class MetricDetailData {
       'status': _getPNN50Status(pnn50),
       'statusColor': _getPNN50Color(pnn50),
       'description':
-          'Normal PNN50, kalbinizin günlük stresle iyi başa çıktığını gösterir. Bu durumu desteklemek için dengeli alışkanlıklarla, besleyici bir diyet ve orta seviyede fiziksel aktivite ile devam edin.',
+          'pNN50 parasempatik sinir sistemi aktivitesinin bir göstergesidir. Ardışık RR aralıkları arasında 50ms\'den fazla farkın yüzdesini gösterir.',
       'ranges': [
         {
           'label': 'Düşük',
-          'range': '0 - 9%',
-          'color': Colors.blue,
+          'range': '< 3%',
+          'color': Colors.red,
           'min': 0.0,
-          'max': 9.0,
+          'max': 2.9,
         },
         {
           'label': 'Normal',
-          'range': '10 - 30%',
-          'color': Colors.green,
-          'min': 10.0,
-          'max': 30.0,
+          'range': '3 - 15%',
+          'color': Colors.orange,
+          'min': 3.0,
+          'max': 15.0,
         },
         {
           'label': 'Yüksek',
-          'range': '> 30%',
-          'color': Colors.orange,
-          'min': 31.0,
-          'max': 100.0,
+          'range': '> 15%',
+          'color': Colors.green,
+          'min': 15.1,
+          'max': 50.0,
         },
       ],
-      'interpretation':
-          'pNN50 ardışık kalp atımları arasındaki farkın 50ms\'den fazla olduğu durumların yüzdesini gösterir. Parasempatik aktivitenin bir göstergesidir.',
-      'recommendations': [
-        'Mevcut sağlıklı alışkanlıklarınızı sürdürün',
-        'Dengeli beslenme planına devam edin',
-        'Düzenli uyku saatlerine dikkat edin',
-        'Hafif kardiyovasküler egzersizler yapın',
-        'Sosyal aktivitelere katılın',
-        'Hobi edinmeye odaklanın',
-      ],
+      'interpretation': _getPNN50Interpretation(pnn50),
+      'recommendations': _getPNN50Recommendations(pnn50),
     };
   }
 
-  static Map<String, dynamic> getCoVDetail(double cov) {
+  static Map<String, dynamic> getCovDetail(double cov) {
     return {
       'title': 'CoV',
       'value': cov,
@@ -292,40 +268,32 @@ class MetricDetailData {
       'status': _getCoVStatus(cov),
       'statusColor': _getCoVColor(cov),
       'description':
-          'CoV\'niz yüksek, bu da kalp atış hızı değişkenliğinizin güçlü olduğunu gösterir. Hem fiziksel aktiviteyi hem de yeterli dinlenmeyi önceliklendirmeye devam edin, böylece bu yüksek uyum seviyesini sürdürebilirsiniz.',
+          'CoV (Coefficient of Variation) kalp hızı değişkenliğinin normalleştirilmiş bir ölçüsüdür. Ortalama kalp hızına göre ayarlanmış HRV\'yi gösterir.',
       'ranges': [
         {
           'label': 'Düşük',
-          'range': '0 - 2%',
-          'color': Colors.blue,
+          'range': '< 2%',
+          'color': Colors.red,
           'min': 0.0,
-          'max': 2.0,
+          'max': 1.9,
         },
         {
           'label': 'Normal',
-          'range': '3 - 6%',
-          'color': Colors.green,
-          'min': 3.0,
-          'max': 6.0,
+          'range': '2 - 7%',
+          'color': Colors.orange,
+          'min': 2.0,
+          'max': 7.0,
         },
         {
           'label': 'Yüksek',
-          'range': '> 6%',
-          'color': Colors.orange,
-          'min': 7.0,
-          'max': 50.0,
+          'range': '> 7%',
+          'color': Colors.green,
+          'min': 7.1,
+          'max': 20.0,
         },
       ],
-      'interpretation':
-          'CoV (Coefficient of Variation) kalp hızı değişkenliğinin göreceli bir ölçüsüdür. Kalp atım hızının istikrarını değerlendirir.',
-      'recommendations': [
-        'Yüksek performans seviyenizi koruyun',
-        'Aşırı antrenman yapmaktan kaçının',
-        'Aktif dinlenme günleri planlayın',
-        'Vücudunuzun sinyallerini dinleyin',
-        'Beslenme kalitesini koruyun',
-        'Düzenli sağlık kontrolü yaptırın',
-      ],
+      'interpretation': _getCoVInterpretation(cov),
+      'recommendations': _getCoVRecommendations(cov),
     };
   }
 
@@ -367,63 +335,63 @@ class MetricDetailData {
   }
 
   static String _getHRVScoreStatus(double value) {
-    if (value <= 40) return 'Düşük';
-    if (value <= 70) return 'Normal';
+    if (value < 30) return 'Düşük';
+    if (value <= 50) return 'Normal';
     return 'Yüksek';
   }
 
   static Color _getHRVScoreColor(double value) {
-    if (value <= 40) return Colors.red;
-    if (value <= 70) return Colors.orange;
+    if (value < 30) return Colors.red;
+    if (value <= 50) return Colors.orange;
     return Colors.green;
   }
 
   static String _getSDNNStatus(double value) {
-    if (value <= 115) return 'Düşük';
-    if (value <= 176) return 'Normal';
+    if (value < 20) return 'Düşük';
+    if (value <= 50) return 'Normal';
     return 'Yüksek';
   }
 
   static Color _getSDNNColor(double value) {
-    if (value <= 115) return Colors.blue;
-    if (value <= 176) return Colors.green;
-    return Colors.orange;
+    if (value < 20) return Colors.red;
+    if (value <= 50) return Colors.orange;
+    return Colors.green;
   }
 
   static String _getRMSSDStatus(double value) {
-    if (value <= 24) return 'Düşük';
+    if (value < 20) return 'Düşük';
     if (value <= 50) return 'Normal';
     return 'Yüksek';
   }
 
   static Color _getRMSSDColor(double value) {
-    if (value <= 24) return Colors.blue;
-    if (value <= 50) return Colors.green;
-    return Colors.orange;
+    if (value < 20) return Colors.red;
+    if (value <= 50) return Colors.orange;
+    return Colors.green;
   }
 
   static String _getPNN50Status(double value) {
-    if (value <= 9) return 'Düşük';
-    if (value <= 30) return 'Normal';
+    if (value < 3) return 'Düşük';
+    if (value <= 15) return 'Normal';
     return 'Yüksek';
   }
 
   static Color _getPNN50Color(double value) {
-    if (value <= 9) return Colors.blue;
-    if (value <= 30) return Colors.green;
-    return Colors.orange;
+    if (value < 3) return Colors.red;
+    if (value <= 15) return Colors.orange;
+    return Colors.green;
   }
 
   static String _getCoVStatus(double value) {
-    if (value <= 2) return 'Düşük';
-    if (value <= 6) return 'Normal';
+    if (value < 2) return 'Düşük';
+    if (value <= 7) return 'Normal';
     return 'Yüksek';
   }
 
   static Color _getCoVColor(double value) {
-    if (value <= 2) return Colors.blue;
-    if (value <= 6) return Colors.green;
-    return Colors.orange;
+    if (value < 2) return Colors.red;
+    if (value <= 7) return Colors.orange;
+    return Colors.green;
   }
 
   // Interpretation methods
@@ -577,6 +545,166 @@ class MetricDetailData {
         'Aşırı antrenman yapmaktan kaçının',
         'Başarınızı sürdürülebilir kılın',
         'Diğerlerine ilham olun',
+      ];
+    }
+  }
+
+  // SDNN Interpretation and Recommendations
+  static String _getSDNNInterpretation(double value) {
+    if (value < 20) {
+      return 'Düşük SDNN değeri, otonomik sinir sisteminizde stres veya yorgunluk olduğunu gösterir. Dinlenme ve stres azaltma teknikleri gereklidir.';
+    } else if (value <= 50) {
+      return 'Normal SDNN değeri, otonomik sinir sisteminizin sağlıklı çalıştığını gösterir. Mevcut yaşam tarzınızı sürdürebilirsiniz.';
+    } else {
+      return 'Yüksek SDNN değeri, mükemmel otonomik denge gösterir. Bu durum optimal sağlık ve fitness seviyesini yansıtır.';
+    }
+  }
+
+  static List<String> _getSDNNRecommendations(double value) {
+    if (value < 20) {
+      return [
+        'Derin nefes egzersizleri yapın',
+        'Meditasyon pratiği başlayın',
+        'Uyku kalitesini artırın (7-9 saat)',
+        'Kafein alımını azaltın',
+        'Hafif egzersiz yapın',
+        'Stres kaynaklarını belirleyin',
+      ];
+    } else if (value <= 50) {
+      return [
+        'Mevcut sağlıklı alışkanlıklarınızı sürdürün',
+        'Düzenli egzersiz rutini devam ettirin',
+        'Dengeli beslenme planını koruyun',
+        'Yeterli hidrasyon sağlayın',
+        'Sosyal aktivitelere katılın',
+      ];
+    } else {
+      return [
+        'Mükemmel durumunuzu koruyun',
+        'Performans odaklı antrenman yapabilirsiniz',
+        'Diğerlerine rehberlik edebilirsiniz',
+        'Aşırı antrenmandan kaçının',
+        'Vücudunuzun sinyallerini dinleyin',
+      ];
+    }
+  }
+
+  // RMSSD Interpretation and Recommendations
+  static String _getRMSSDInterpretation(double value) {
+    if (value < 20) {
+      return 'Düşük RMSSD değeri, parasempatik sinir sistemi aktivitesinin azaldığını gösterir. Vücut dinlenme moduna girmekte zorlanıyor.';
+    } else if (value <= 50) {
+      return 'Normal RMSSD değeri, parasempatik sinir sisteminizin sağlıklı çalıştığını gösterir. İyi bir dinlenme-aktivite dengesi var.';
+    } else {
+      return 'Yüksek RMSSD değeri, mükemmel parasempatik aktivite gösterir. Vücudunuz stresle çok iyi başa çıkıyor.';
+    }
+  }
+
+  static List<String> _getRMSSDRecommendations(double value) {
+    if (value < 20) {
+      return [
+        'Yoga veya tai chi yapın',
+        'Düzenli meditasyon pratiği',
+        'Sıcak banyo alın',
+        'Klasik müzik dinleyin',
+        'Doğada zaman geçirin',
+        'Derin nefes teknikleri uygulayın',
+      ];
+    } else if (value <= 50) {
+      return [
+        'Parasempatik aktiviteyi destekleyin',
+        'Rahatlatıcı aktiviteler yapın',
+        'Uyku kalitesini koruyun',
+        'Hafif stretching egzersizleri',
+        'Mindfulness pratiği yapın',
+      ];
+    } else {
+      return [
+        'Mükemmel durumunuzu koruyun',
+        'Yüksek performans antrenmanı yapabilirsiniz',
+        'Recovery zamanlarınızı optimize edin',
+        'Diğerlerine rehberlik edebilirsiniz',
+        'Dengeli yaşam tarzınızı sürdürün',
+      ];
+    }
+  }
+
+  // pNN50 Interpretation and Recommendations
+  static String _getPNN50Interpretation(double value) {
+    if (value < 3) {
+      return 'Düşük pNN50 değeri, parasempatik sinir sistemi aktivitesinin azaldığını ve stres seviyesinin yükseldiğini gösterir.';
+    } else if (value <= 15) {
+      return 'Normal pNN50 değeri, kalbinizin günlük stresle iyi başa çıktığını ve sağlıklı bir otonomik denge olduğunu gösterir.';
+    } else {
+      return 'Yüksek pNN50 değeri, mükemmel parasempatik aktivite ve optimal kalp sağlığını gösterir.';
+    }
+  }
+
+  static List<String> _getPNN50Recommendations(double value) {
+    if (value < 3) {
+      return [
+        'Stres azaltma teknikleri uygulayın',
+        'Düzenli nefes egzersizleri',
+        'Uyku kalitesini artırın',
+        'Kafein alımını azaltın',
+        'Rahatlatıcı aktiviteler yapın',
+        'Profesyonel destek alın',
+      ];
+    } else if (value <= 15) {
+      return [
+        'Mevcut sağlıklı alışkanlıklarınızı sürdürün',
+        'Dengeli beslenme planını koruyun',
+        'Düzenli uyku saatlerine dikkat edin',
+        'Hafif kardiyovasküler egzersizler',
+        'Sosyal aktivitelere katılın',
+      ];
+    } else {
+      return [
+        'Mükemmel durumunuzu koruyun',
+        'Yüksek performans antrenmanı',
+        'Diğerlerine örnek olun',
+        'Aşırı antrenmandan kaçının',
+        'Optimal yaşam tarzınızı sürdürün',
+      ];
+    }
+  }
+
+  // CoV Interpretation and Recommendations
+  static String _getCoVInterpretation(double value) {
+    if (value < 2) {
+      return 'Düşük CoV değeri, kalp hızı değişkenliğinin normalleştirilmiş ölçümünde azalma olduğunu gösterir. Bu stres veya yorgunluk işareti olabilir.';
+    } else if (value <= 7) {
+      return 'Normal CoV değeri, kalp hızı değişkenliğinizin sağlıklı bir seviyede olduğunu gösterir. Otonomik dengeniz iyidir.';
+    } else {
+      return 'Yüksek CoV değeri, mükemmel kalp hızı değişkenliğini gösterir. Bu optimal kardiyovasküler sağlığın işaretidir.';
+    }
+  }
+
+  static List<String> _getCoVRecommendations(double value) {
+    if (value < 2) {
+      return [
+        'HRV artırıcı egzersizler yapın',
+        'Interval training deneyin',
+        'Stres yönetimi teknikleri',
+        'Uyku kalitesini optimize edin',
+        'Beslenme planınızı gözden geçirin',
+        'Düzenli sağlık kontrolü',
+      ];
+    } else if (value <= 7) {
+      return [
+        'Mevcut rutininizi koruyun',
+        'Kardiyovasküler egzersizleri sürdürün',
+        'Dengeli yaşam tarzını devam ettirin',
+        'Hidrasyon seviyenizi koruyun',
+        'Düzenli egzersiz programı',
+      ];
+    } else {
+      return [
+        'Yüksek performansınızı koruyun',
+        'Optimizasyon odaklı antrenman',
+        'Vücudunuzun sinyallerini dinleyin',
+        'Aşırı antrenmandan kaçının',
+        'Başarınızı sürdürülebilir kılın',
       ];
     }
   }

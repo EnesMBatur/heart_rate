@@ -222,7 +222,7 @@ class HRVAnalysisSection extends StatelessWidget {
         detailData = MetricDetailData.getPNN50Detail(value);
         break;
       case 'cov':
-        detailData = MetricDetailData.getCoVDetail(value);
+        detailData = MetricDetailData.getCovDetail(value);
         break;
       default:
         return; // Don't navigate for unsupported metrics
