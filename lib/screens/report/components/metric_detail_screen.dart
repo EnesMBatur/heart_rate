@@ -191,7 +191,7 @@ class MetricDetailScreen extends StatelessWidget {
                           maxLines: 1,
                         ),
                       ),
-                      SizedBox(height: 0.25.h),
+                      SizedBox(height: 0.15.h),
                       Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 2.w,
@@ -254,7 +254,7 @@ class MetricDetailScreen extends StatelessWidget {
                   status,
                   style: TextStyle(
                     color: statusColor,
-                    fontSize: 15.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.5,
                   ),
@@ -271,7 +271,7 @@ class MetricDetailScreen extends StatelessWidget {
             child: Text(
               description,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: Colors.grey[600],
                 height: 1.6,
                 letterSpacing: 0.2,
@@ -354,14 +354,14 @@ class MetricDetailScreen extends StatelessWidget {
                 Text(
                   range['label'] as String,
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                   ),
                 ),
                 Text(
                   range['range'] as String,
-                  style: TextStyle(fontSize: 12.sp, color: Colors.grey[600]),
+                  style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -420,7 +420,7 @@ class MetricDetailScreen extends StatelessWidget {
             child: Text(
               interpretation,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: Colors.grey[700],
                 height: 1.5,
               ),
@@ -492,7 +492,7 @@ class MetricDetailScreen extends StatelessWidget {
                         '${entry.key + 1}',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 12.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -501,9 +501,10 @@ class MetricDetailScreen extends StatelessWidget {
                   SizedBox(width: 3.w),
                   Expanded(
                     child: Text(
+                      textAlign: TextAlign.center,
                       entry.value,
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         color: Colors.grey[700],
                         height: 1.4,
                       ),
