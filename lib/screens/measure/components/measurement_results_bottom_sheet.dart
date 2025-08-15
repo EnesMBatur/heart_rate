@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
+import '../../../services/app_review_service.dart';
 
 class MeasurementResultsBottomSheet extends StatefulWidget {
   final int heartRate;
@@ -35,6 +37,34 @@ class _MeasurementResultsBottomSheetState
   void initState() {
     super.initState();
     // Confetti will be triggered when widget is built
+    _handleAppReview();
+  }
+
+  /// Handle app review request logic
+  Future<void> _handleAppReview() async {
+    try {
+      // Increment measurement count
+      await AppReviewService.instance.incrementMeasurementCount();
+
+      // Check if we should request review
+      final shouldRequest = await AppReviewService.instance
+          .shouldRequestReview();
+
+      if (shouldRequest && mounted) {
+        // Wait for confetti animation to finish before showing review
+        await Future.delayed(const Duration(seconds: 2));
+
+        // Check if still mounted after delay
+        if (!mounted) return;
+
+        // Request review with context
+        await AppReviewService.instance.requestReview(context);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error handling app review: $e');
+      }
+    }
   }
 
   StateMachineController getRiveController(Artboard artboard) {
@@ -230,6 +260,37 @@ class _MeasurementResultsBottomSheetState
                       ),
                     ),
                   ),
+
+                  // Debug: Test Review Button (only in debug mode)
+                  if (kDebugMode) ...[
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () async {
+                          await AppReviewService.instance.forceRequestReview(
+                            context,
+                          );
+                        },
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          side: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Test Review (Debug)',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
