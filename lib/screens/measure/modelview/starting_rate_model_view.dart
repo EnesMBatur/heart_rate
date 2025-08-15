@@ -507,18 +507,9 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         hrv: viewModel.currentHRV,
         signalQualityPercent: signalQualityPercent,
         onCreateReport: (String status, int mood) {
-          // Debug prints
-          print('🔍 onCreateReport called with status: $status, mood: $mood');
-          print('🔍 Heart rate: ${viewModel.currentHeartRate}');
-          print('🔍 HRV: ${viewModel.currentHRV}');
-          print('🔍 Signal quality: $signalQualityPercent');
-          print('🔍 Mounted: $mounted');
-
           reportCreated = true; // Set flag to true
-
           // Navigate to report screen using GoRouter
           if (mounted) {
-            print('🔍 Navigating to /report...');
             context.go(
               '/report',
               extra: {
@@ -530,20 +521,14 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
                 'mood': mood, // Now using the actual mood from bottom sheet
               },
             );
-            print('🔍 Navigation command sent');
-          } else {
-            print('❌ Widget not mounted, cannot navigate');
-          }
+          } else {}
         },
       ),
     ).then((value) {
       // Only navigate back to measure if report was NOT created
       if (mounted && !reportCreated) {
-        print('🔍 Modal dismissed without creating report, going to /measure');
         context.go('/measure');
-      } else if (reportCreated) {
-        print('🔍 Report was created, not navigating back to /measure');
-      }
+      } else if (reportCreated) {}
     });
   }
 

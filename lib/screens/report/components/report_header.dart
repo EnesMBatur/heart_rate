@@ -282,14 +282,18 @@ class ReportHeader extends StatelessWidget {
     // Map heart rate to position on bar (0.0 to 1.0)
     if (heartRate <= 40) return 0.0;
     if (heartRate <= 60) return (heartRate - 40) / 20 * 0.2; // 0.0 to 0.2
-    if (heartRate <= 100)
+    if (heartRate <= 100) {
       return 0.2 + (heartRate - 60) / 40 * 0.2; // 0.2 to 0.4
-    if (heartRate <= 120)
+    }
+    if (heartRate <= 120) {
       return 0.4 + (heartRate - 100) / 20 * 0.2; // 0.4 to 0.6
-    if (heartRate <= 140)
+    }
+    if (heartRate <= 140) {
       return 0.6 + (heartRate - 120) / 20 * 0.2; // 0.6 to 0.8
-    if (heartRate <= 160)
+    }
+    if (heartRate <= 160) {
       return 0.8 + (heartRate - 140) / 20 * 0.2; // 0.8 to 1.0
+    }
     return 1.0; // Above 160
   }
 

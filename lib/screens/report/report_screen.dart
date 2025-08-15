@@ -34,13 +34,6 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   void initState() {
     super.initState();
-    print('🔍 ReportScreen initState called');
-    print('🔍 Heart rate: ${widget.heartRate}');
-    print('🔍 HRV: ${widget.hrv}');
-    print('🔍 Signal quality: ${widget.signalQualityPercent}');
-    print('🔍 Status: ${widget.status}');
-    print('🔍 Mood: ${widget.mood}');
-
     _viewModel = ReportViewModel();
     _viewModel.initializeReport(
       heartRate: widget.heartRate,

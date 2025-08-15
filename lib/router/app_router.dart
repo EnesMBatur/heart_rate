@@ -68,9 +68,7 @@ class AppRouter {
         path: report,
         name: 'report',
         pageBuilder: (context, state) {
-          print('🔍 Report route accessed');
           final extra = state.extra as Map<String, dynamic>?;
-          print('🔍 Extra data: $extra');
           return MaterialPage(
             child: ReportScreen(
               heartRate: extra?['heartRate'] ?? 72,

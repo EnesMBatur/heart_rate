@@ -209,11 +209,7 @@ class _MeasurementResultsBottomSheetState
                     margin: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
                       onPressed: () {
-                        print('🔍 Create Report button pressed');
-                        print('🔍 Selected status: $selectedStatus');
-                        print('🔍 Selected mood: $selectedMood');
                         Navigator.pop(context);
-                        print('🔍 Calling onCreateReport callback...');
                         widget.onCreateReport(selectedStatus, selectedMood);
                       },
                       style: ElevatedButton.styleFrom(

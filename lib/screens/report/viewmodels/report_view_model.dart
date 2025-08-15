@@ -15,13 +15,6 @@ class ReportViewModel extends ChangeNotifier {
     required String status,
     required int mood,
   }) {
-    print('🔍 ReportViewModel initializeReport called');
-    print('🔍 Heart rate: $heartRate');
-    print('🔍 HRV: $hrv');
-    print('🔍 Signal quality: $signalQualityPercent');
-    print('🔍 Status: $status');
-    print('🔍 Mood: $mood');
-
     _isLoading = true;
     notifyListeners();
 
