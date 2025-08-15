@@ -6,7 +6,7 @@ class MeasurementResultsBottomSheet extends StatefulWidget {
   final int heartRate;
   final double hrv;
   final int signalQualityPercent;
-  final VoidCallback onCreateReport;
+  final Function(String status, int mood) onCreateReport;
 
   const MeasurementResultsBottomSheet({
     super.key,
@@ -209,8 +209,12 @@ class _MeasurementResultsBottomSheetState
                     margin: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
                       onPressed: () {
+                        print('🔍 Create Report button pressed');
+                        print('🔍 Selected status: $selectedStatus');
+                        print('🔍 Selected mood: $selectedMood');
                         Navigator.pop(context);
-                        widget.onCreateReport();
+                        print('🔍 Calling onCreateReport callback...');
+                        widget.onCreateReport(selectedStatus, selectedMood);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor,
@@ -221,10 +225,10 @@ class _MeasurementResultsBottomSheetState
                         ),
                         elevation: 2,
                       ),
-                      child: const Text(
+                      child: Text(
                         'Create Report',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

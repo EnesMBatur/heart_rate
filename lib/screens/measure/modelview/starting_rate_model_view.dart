@@ -494,6 +494,7 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
 
   void showResults() {
     final signalQualityPercent = (viewModel.signalQuality * 100).round();
+    bool reportCreated = false; // Flag to track if report was created
 
     showModalBottomSheet(
       context: context,
@@ -505,18 +506,43 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         heartRate: viewModel.currentHeartRate,
         hrv: viewModel.currentHRV,
         signalQualityPercent: signalQualityPercent,
-        onCreateReport: () {
-          // Navigate back to home screen using GoRouter
+        onCreateReport: (String status, int mood) {
+          // Debug prints
+          print('🔍 onCreateReport called with status: $status, mood: $mood');
+          print('🔍 Heart rate: ${viewModel.currentHeartRate}');
+          print('🔍 HRV: ${viewModel.currentHRV}');
+          print('🔍 Signal quality: $signalQualityPercent');
+          print('🔍 Mounted: $mounted');
+
+          reportCreated = true; // Set flag to true
+
+          // Navigate to report screen using GoRouter
           if (mounted) {
-            context.go('/home');
+            print('🔍 Navigating to /report...');
+            context.go(
+              '/report',
+              extra: {
+                'heartRate': viewModel.currentHeartRate,
+                'hrv': viewModel.currentHRV,
+                'signalQualityPercent': signalQualityPercent,
+                'status':
+                    status, // Now using the actual status from bottom sheet
+                'mood': mood, // Now using the actual mood from bottom sheet
+              },
+            );
+            print('🔍 Navigation command sent');
+          } else {
+            print('❌ Widget not mounted, cannot navigate');
           }
         },
       ),
     ).then((value) {
-      // When modal is dismissed (by swiping down or tapping outside),
-      // navigate back to start measure screen using GoRouter
-      if (mounted) {
+      // Only navigate back to measure if report was NOT created
+      if (mounted && !reportCreated) {
+        print('🔍 Modal dismissed without creating report, going to /measure');
         context.go('/measure');
+      } else if (reportCreated) {
+        print('🔍 Report was created, not navigating back to /measure');
       }
     });
   }

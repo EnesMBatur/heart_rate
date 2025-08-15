@@ -11,6 +11,7 @@ import '../screens/home_screen.dart';
 import '../screens/measure/heart_rate_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
+import '../screens/report/report_screen.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -19,6 +20,7 @@ class AppRouter {
   static const String heartRate = '/heart-rate';
   static const String history = '/history';
   static const String tips = '/tips';
+  static const String report = '/report';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -58,6 +60,25 @@ class AppRouter {
         name: 'heartRate',
         pageBuilder: (context, state) =>
             MaterialPage(child: const HeartRateScreen()),
+      ),
+      // Full-screen route for report
+      GoRoute(
+        path: report,
+        name: 'report',
+        pageBuilder: (context, state) {
+          print('🔍 Report route accessed');
+          final extra = state.extra as Map<String, dynamic>?;
+          print('🔍 Extra data: $extra');
+          return MaterialPage(
+            child: ReportScreen(
+              heartRate: extra?['heartRate'] ?? 72,
+              hrv: extra?['hrv'] ?? 30.0,
+              signalQualityPercent: extra?['signalQualityPercent'] ?? 85,
+              status: extra?['status'] ?? 'normal',
+              mood: extra?['mood'] ?? 3,
+            ),
+          );
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
