@@ -61,7 +61,7 @@ class ReportHeader extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 3.h),
+          SizedBox(height: 1.5.h),
 
           // Main Heart Rate Display
           Row(
@@ -88,6 +88,11 @@ class ReportHeader extends StatelessWidget {
               ),
             ],
           ),
+
+          SizedBox(height: 1.h),
+
+          // Heart Rate Status Bar
+          _buildHeartRateStatusBar(report.heartRate),
 
           SizedBox(height: 2.h),
 
@@ -171,6 +176,121 @@ class ReportHeader extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildHeartRateStatusBar(int heartRate) {
+    return Column(
+      children: [
+        // Status Bar
+        Container(
+          width: 80.w,
+          height: 8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF4FC3F7), // Light Blue - Very Low
+                Color(0xFF29B6F6), // Blue - Low
+                Color(0xFF66BB6A), // Green - Normal
+                Color(0xFFFFCA28), // Yellow - Elevated
+                Color(0xFFFF7043), // Orange - High
+                Color(0xFFE53935), // Red - Very High
+              ],
+              stops: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
+            ),
+          ),
+        ),
+        SizedBox(height: 1.h),
+
+        // Indicator
+        SizedBox(
+          width: 80.w,
+          height: 20,
+          child: Stack(
+            children: [
+              // Indicator triangle
+              Positioned(
+                left: (_getIndicatorPosition(heartRate) * 80.w - 6).clamp(
+                  0.0,
+                  80.w - 12,
+                ),
+                top: 0,
+                child: Icon(Icons.arrow_drop_up, color: Colors.white, size: 20),
+              ),
+            ],
+          ),
+        ),
+
+        SizedBox(height: 0.5.h),
+
+        // Range labels
+        SizedBox(
+          width: 80.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '40',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+              Text(
+                '60',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+              Text(
+                '100',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+              Text(
+                '120',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+              Text(
+                '140',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+              Text(
+                '160+',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 12.sp,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  double _getIndicatorPosition(int heartRate) {
+    // Map heart rate to position on bar (0.0 to 1.0)
+    if (heartRate <= 40) return 0.0;
+    if (heartRate <= 60) return (heartRate - 40) / 20 * 0.2; // 0.0 to 0.2
+    if (heartRate <= 100)
+      return 0.2 + (heartRate - 60) / 40 * 0.2; // 0.2 to 0.4
+    if (heartRate <= 120)
+      return 0.4 + (heartRate - 100) / 20 * 0.2; // 0.4 to 0.6
+    if (heartRate <= 140)
+      return 0.6 + (heartRate - 120) / 20 * 0.2; // 0.6 to 0.8
+    if (heartRate <= 160)
+      return 0.8 + (heartRate - 140) / 20 * 0.2; // 0.8 to 1.0
+    return 1.0; // Above 160
   }
 
   String _formatDate(DateTime date) {
