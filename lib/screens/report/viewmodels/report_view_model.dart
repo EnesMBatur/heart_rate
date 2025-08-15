@@ -213,10 +213,8 @@ class ReportViewModel extends ChangeNotifier {
         shortName: 'Stress',
         value: _calculateStressLevel(heartRate, hrv).toDouble(),
         unit: '/5',
-        status: _getMetricStatus(
+        status: _getStressMetricStatus(
           _calculateStressLevel(heartRate, hrv).toDouble(),
-          2,
-          4,
         ),
         description: 'Current stress level based on heart rate and HRV',
         emoji: '😰',
@@ -239,10 +237,8 @@ class ReportViewModel extends ChangeNotifier {
         shortName: 'Tension',
         value: _calculateTensionLevel(heartRate, hrv).toDouble(),
         unit: '/5',
-        status: _getMetricStatus(
+        status: _getTensionMetricStatus(
           _calculateTensionLevel(heartRate, hrv).toDouble(),
-          2,
-          4,
         ),
         description: 'Physical tension and relaxation level',
         emoji: '💪',
@@ -270,6 +266,28 @@ class ReportViewModel extends ChangeNotifier {
       return MetricStatus.normal;
     } else {
       return MetricStatus.low;
+    }
+  }
+
+  // Special status calculation for Physical Tension (lower is better)
+  MetricStatus _getTensionMetricStatus(double tensionLevel) {
+    if (tensionLevel <= 2.0) {
+      return MetricStatus.high; // Low tension = Excellent
+    } else if (tensionLevel <= 3.5) {
+      return MetricStatus.normal; // Moderate tension = Normal
+    } else {
+      return MetricStatus.low; // High tension = Needs Attention
+    }
+  }
+
+  // Special status calculation for Stress Level (lower is better)
+  MetricStatus _getStressMetricStatus(double stressLevel) {
+    if (stressLevel <= 2.0) {
+      return MetricStatus.high; // Low stress = Excellent
+    } else if (stressLevel <= 3.5) {
+      return MetricStatus.normal; // Moderate stress = Normal
+    } else {
+      return MetricStatus.low; // High stress = Needs Attention
     }
   }
 

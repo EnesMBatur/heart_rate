@@ -12,6 +12,7 @@ import '../screens/measure/heart_rate_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../screens/report/report_screen.dart';
+import '../screens/report/components/metric_detail_screen.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -21,6 +22,7 @@ class AppRouter {
   static const String history = '/history';
   static const String tips = '/tips';
   static const String report = '/report';
+  static const String metricDetail = '/metric-detail';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -76,6 +78,29 @@ class AppRouter {
               signalQualityPercent: extra?['signalQualityPercent'] ?? 85,
               status: extra?['status'] ?? 'normal',
               mood: extra?['mood'] ?? 3,
+            ),
+          );
+        },
+      ),
+      // Full-screen route for metric detail
+      GoRoute(
+        path: metricDetail,
+        name: 'metricDetail',
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return MaterialPage(
+            child: MetricDetailScreen(
+              title: extra?['title'] ?? '',
+              value: extra?['value'] ?? 0.0,
+              unit: extra?['unit'] ?? '',
+              status: extra?['status'] ?? '',
+              statusColor: extra?['statusColor'] ?? Colors.grey,
+              description: extra?['description'] ?? '',
+              ranges: List<Map<String, dynamic>>.from(extra?['ranges'] ?? []),
+              interpretation: extra?['interpretation'] ?? '',
+              recommendations: List<String>.from(
+                extra?['recommendations'] ?? [],
+              ),
             ),
           );
         },

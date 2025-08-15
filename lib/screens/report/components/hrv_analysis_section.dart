@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:go_router/go_router.dart';
 import '../../../models/report/heart_rate_report.dart';
+import '../../../router/app_router.dart';
+import '../utils/metric_detail_data.dart';
 
 class HRVAnalysisSection extends StatelessWidget {
   final HRVAnalysis hrvAnalysis;
@@ -119,7 +122,7 @@ class HRVAnalysisSection extends StatelessWidget {
                 child: _buildMetricItem(
                   'SDNN',
                   '${hrvAnalysis.sdnn.toStringAsFixed(1)} ms',
-                  // 'Standard deviation of NN intervals',
+                  hrvAnalysis.sdnn,
                 ),
               ),
               SizedBox(width: 3.w),
@@ -127,7 +130,7 @@ class HRVAnalysisSection extends StatelessWidget {
                 child: _buildMetricItem(
                   'RMSSD',
                   '${hrvAnalysis.rmssd.toStringAsFixed(1)} ms',
-                  // 'Root mean square of successive differences',
+                  hrvAnalysis.rmssd,
                 ),
               ),
             ],
@@ -141,15 +144,15 @@ class HRVAnalysisSection extends StatelessWidget {
                 child: _buildMetricItem(
                   'pNN50',
                   '${hrvAnalysis.pnn50.toStringAsFixed(1)}%',
-                  // 'Percentage of successive NN intervals that differ by more than 50ms',
+                  hrvAnalysis.pnn50,
                 ),
               ),
               SizedBox(width: 3.w),
               Expanded(
                 child: _buildMetricItem(
                   'CoV',
-                  hrvAnalysis.cov.toStringAsFixed(3),
-                  // 'Coefficient of variation',
+                  '${hrvAnalysis.cov.toStringAsFixed(1)}%',
+                  hrvAnalysis.cov,
                 ),
               ),
             ],
@@ -161,48 +164,71 @@ class HRVAnalysisSection extends StatelessWidget {
     );
   }
 
-  Widget _buildMetricItem(String title, String value) {
-    return Container(
-      padding: EdgeInsets.all(3.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
-            ),
+  Widget _buildMetricItem(String title, String value, double metricValue) {
+    return Builder(
+      builder: (context) => GestureDetector(
+        onTap: () => _onMetricTap(context, title, metricValue),
+        child: Container(
+          padding: EdgeInsets.all(3.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
           ),
-          SizedBox(height: 0.5.h),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                  Icon(Icons.chevron_right, color: Colors.grey[400], size: 16),
+                ],
+              ),
+              SizedBox(height: 0.5.h),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
           ),
-          // SizedBox(height: 0.5.h),
-          // Text(
-          //   description,
-          //   style: TextStyle(
-          //     fontSize: 14.sp,
-          //     color: Colors.grey[500],
-          //     height: 1.3,
-          //   ),
-          //   maxLines: 4,
-          //   overflow: TextOverflow.ellipsis,
-          // ),
-        ],
+        ),
       ),
     );
+  }
+
+  void _onMetricTap(BuildContext context, String title, double value) {
+    Map<String, dynamic>? detailData;
+
+    switch (title.toLowerCase()) {
+      case 'sdnn':
+        detailData = MetricDetailData.getSDNNDetail(value);
+        break;
+      case 'rmssd':
+        detailData = MetricDetailData.getRMSSDDetail(value);
+        break;
+      case 'pnn50':
+        detailData = MetricDetailData.getPNN50Detail(value);
+        break;
+      case 'cov':
+        detailData = MetricDetailData.getCoVDetail(value);
+        break;
+      default:
+        return; // Don't navigate for unsupported metrics
+    }
+
+    context.push(AppRouter.metricDetail, extra: detailData);
   }
 
   Color _getStatusColor(HRVStatus status) {
