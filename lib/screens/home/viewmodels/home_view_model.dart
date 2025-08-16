@@ -1,11 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/heart_rate_measurement.dart';
+import '../../../models/heart_rate_measurement.dart';
 
 class HomeViewModel extends ChangeNotifier {
   HeartRateMeasurement? _lastMeasurement;
   bool _isLoading = false;
-  String _userName = 'Andrew'; // Default user name
   int _heartRateRecords = 0;
   int _bloodPressureRecords = 0;
   int _bloodSugarRecords = 0;
@@ -15,7 +14,6 @@ class HomeViewModel extends ChangeNotifier {
   HeartRateMeasurement? get lastMeasurement => _lastMeasurement;
   bool get isLoading => _isLoading;
   bool get hasLastMeasurement => _lastMeasurement != null;
-  String get userName => _userName;
   int get heartRateRecords => _heartRateRecords;
   int get bloodPressureRecords => _bloodPressureRecords;
   int get bloodSugarRecords => _bloodSugarRecords;
@@ -26,24 +24,10 @@ class HomeViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    await Future.wait([
-      _loadUserData(),
-      _loadLastMeasurement(),
-      _loadRecordCounts(),
-    ]);
+    await Future.wait([_loadLastMeasurement(), _loadRecordCounts()]);
 
     _isLoading = false;
     notifyListeners();
-  }
-
-  /// Load user data from SharedPreferences
-  Future<void> _loadUserData() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      _userName = prefs.getString('user_name') ?? 'Andrew';
-    } catch (e) {
-      debugPrint('Error loading user data: $e');
-    }
   }
 
   /// Load the last measurement from SharedPreferences
@@ -89,18 +73,6 @@ class HomeViewModel extends ChangeNotifier {
   /// Refresh all data
   Future<void> refresh() async {
     await initialize();
-  }
-
-  /// Update user name
-  Future<void> updateUserName(String newName) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_name', newName);
-      _userName = newName;
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Error updating user name: $e');
-    }
   }
 
   /// Calculate stress level based on heart rate

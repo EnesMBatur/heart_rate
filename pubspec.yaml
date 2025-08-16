@@ -85,6 +85,7 @@ flutter:
     - assets/json/
     - assets/rive/
     - assets/images/general/
+    - assets/images/home/
 
   fonts:
     - family: Urbanist
