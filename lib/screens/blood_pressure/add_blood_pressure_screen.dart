@@ -7,25 +7,49 @@ import '../../models/blood_pressure_measurement.dart';
 import 'viewmodels/blood_pressure_view_model.dart';
 
 class AddBloodPressureScreen extends StatefulWidget {
-  const AddBloodPressureScreen({super.key});
+  final BloodPressureMeasurement? measurement; // Edit modunda kullanılacak
+
+  const AddBloodPressureScreen({super.key, this.measurement});
 
   @override
   State<AddBloodPressureScreen> createState() => _AddBloodPressureScreenState();
 }
 
 class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
-  final TextEditingController _systolicController = TextEditingController(
-    text: '106',
-  );
-  final TextEditingController _diastolicController = TextEditingController(
-    text: '74',
-  );
-  final TextEditingController _pulseController = TextEditingController(
-    text: '75',
-  );
-  final TextEditingController _noteController = TextEditingController();
+  late final TextEditingController _systolicController;
+  late final TextEditingController _diastolicController;
+  late final TextEditingController _pulseController;
+  late final TextEditingController _noteController;
+  late DateTime _selectedDateTime;
 
-  DateTime _selectedDateTime = DateTime.now();
+  bool get isEditMode => widget.measurement != null;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Edit modunda ise mevcut değerleri kullan, değilse default değerleri kullan
+    if (isEditMode) {
+      final measurement = widget.measurement!;
+      _systolicController = TextEditingController(
+        text: measurement.systolic.toString(),
+      );
+      _diastolicController = TextEditingController(
+        text: measurement.diastolic.toString(),
+      );
+      _pulseController = TextEditingController(
+        text: measurement.pulse.toString(),
+      );
+      _noteController = TextEditingController(text: measurement.note ?? '');
+      _selectedDateTime = measurement.timestamp;
+    } else {
+      _systolicController = TextEditingController(text: '115');
+      _diastolicController = TextEditingController(text: '75');
+      _pulseController = TextEditingController(text: '75');
+      _noteController = TextEditingController();
+      _selectedDateTime = DateTime.now();
+    }
+  }
 
   @override
   void dispose() {
@@ -38,110 +62,116 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          'Add New Record',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: () {
+        // Klavyeyi kapat
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[50],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => context.pop(),
           ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: _selectDateTime,
-            child: Row(
-              children: [
-                Text(
-                  DateFormat('MMM dd • h:mm a').format(_selectedDateTime),
-                  style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
-                ),
-                const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-                SizedBox(width: 3.w),
-              ],
+          title: Text(
+            isEditMode ? 'Edit' : 'Add',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(6.w),
-        child: Column(
-          children: [
-            // Blood pressure input section
-            _buildBloodPressureInputs(),
-
-            SizedBox(height: 4.h),
-
-            // Note section
-            _buildNoteSection(),
-
-            SizedBox(height: 4.h),
-
-            // Category indicator
-            _buildCategoryIndicator(),
-
-            SizedBox(height: 8.h),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(6.w),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: Colors.grey, width: 0.2)),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => context.pop(),
-                style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
-                  side: const BorderSide(color: Colors.grey),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+          actions: [
+            GestureDetector(
+              onTap: _selectDateTime,
+              child: Row(
+                children: [
+                  Text(
+                    DateFormat('MMM dd • h:mm a').format(_selectedDateTime),
+                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                   ),
-                ),
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.grey[700],
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 4.w),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _saveMeasurement,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFF6B6B),
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: Text(
-                  'Save',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                  const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                  SizedBox(width: 3.w),
+                ],
               ),
             ),
           ],
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(6.w),
+          child: Column(
+            children: [
+              // Blood pressure input section
+              _buildBloodPressureInputs(),
+
+              SizedBox(height: 2.h),
+
+              // Note section
+              _buildNoteSection(),
+
+              SizedBox(height: 2.h),
+
+              // Category indicator
+              _buildCategoryIndicator(),
+
+              SizedBox(height: 2.h),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.all(6.w),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(top: BorderSide(color: Colors.grey, width: 0.2)),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => context.pop(),
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
+                    side: const BorderSide(color: Colors.grey),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 4.w),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: _saveMeasurement,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF6B6B),
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    isEditMode ? 'Update' : 'Save',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -180,16 +210,16 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildPicker(
-                initialValue: int.tryParse(_systolicController.text) ?? 120,
-                minValue: 80,
+                initialValue: int.tryParse(_systolicController.text) ?? 115,
+                minValue: 0,
                 maxValue: 200,
                 onChanged: (value) {
                   _systolicController.text = value.toString();
                 },
               ),
               _buildPicker(
-                initialValue: int.tryParse(_diastolicController.text) ?? 80,
-                minValue: 40,
+                initialValue: int.tryParse(_diastolicController.text) ?? 75,
+                minValue: 0,
                 maxValue: 120,
                 onChanged: (value) {
                   _diastolicController.text = value.toString();
@@ -197,7 +227,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
               ),
               _buildPicker(
                 initialValue: int.tryParse(_pulseController.text) ?? 75,
-                minValue: 40,
+                minValue: 0,
                 maxValue: 200,
                 onChanged: (value) {
                   _pulseController.text = value.toString();
@@ -216,6 +246,11 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
     required int maxValue,
     required ValueChanged<int> onChanged,
   }) {
+    final initialIndex = (initialValue - minValue).clamp(
+      0,
+      maxValue - minValue,
+    );
+
     return SizedBox(
       width: 25.w,
       height: 15.h,
@@ -224,10 +259,29 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
         perspective: 0.005,
         diameterRatio: 1.2,
         physics: const FixedExtentScrollPhysics(),
+        controller: FixedExtentScrollController(initialItem: initialIndex),
         childDelegate: ListWheelChildBuilderDelegate(
           builder: (context, index) {
             final value = minValue + index;
-            final isSelected = value == initialValue;
+            final currentSystolic =
+                int.tryParse(_systolicController.text) ?? 115;
+            final currentDiastolic =
+                int.tryParse(_diastolicController.text) ?? 75;
+            final currentPulse = int.tryParse(_pulseController.text) ?? 75;
+
+            // Determine which picker this is and check if it's selected
+            bool isSelected = false;
+            if (maxValue == 200 && minValue == 0) {
+              // This is systolic or pulse picker
+              if (maxValue == 200 && value == currentSystolic) {
+                isSelected = true; // Systolic
+              } else if (value == currentPulse && minValue == 0) {
+                isSelected = true; // Pulse (if it also has max 200)
+              }
+            } else if (maxValue == 120) {
+              // This is diastolic picker
+              isSelected = value == currentDiastolic;
+            }
 
             return Container(
               alignment: Alignment.center,
@@ -353,7 +407,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
               final isSelected = cat == category;
               return Container(
                 margin: const EdgeInsets.only(right: 8),
-                width: isSelected ? 30 : 20,
+                width: isSelected ? 16.w : 10.w,
                 height: 6,
                 decoration: BoxDecoration(
                   color: cat.color,
@@ -365,38 +419,67 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
 
           SizedBox(height: 2.h),
 
-          // Category descriptions
-          ...BloodPressureCategory.values.map((cat) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                children: [
-                  Container(
-                    width: 12,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: cat.color,
-                      shape: BoxShape.circle,
+          // Category descriptions in a beautiful card layout
+          Column(
+            children: BloodPressureCategory.values.map((cat) {
+              final isSelected = cat == category;
+              return Container(
+                margin: EdgeInsets.only(bottom: 1.h),
+                padding: EdgeInsets.all(3.w),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? cat.color.withOpacity(0.1)
+                      : Colors.grey[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isSelected ? cat.color : Colors.grey[200]!,
+                    width: isSelected ? 2 : 1,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // First row: Color indicator + Name
+                    Row(
+                      children: [
+                        Container(
+                          width: 14,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: cat.color,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        SizedBox(width: 2.w),
+                        Text(
+                          cat.displayName,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: isSelected ? cat.color : Colors.black87,
+                          ),
+                        ),
+                        if (isSelected) ...[
+                          const Spacer(),
+                          Icon(Icons.check_circle, color: cat.color, size: 20),
+                        ],
+                      ],
                     ),
-                  ),
-                  SizedBox(width: 2.w),
-                  Text(
-                    cat.displayName,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
+                    SizedBox(height: 0.5.h),
+                    // Second row: Description
+                    Text(
+                      cat.description,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.grey[600],
+                        height: 1.2,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    cat.description,
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            );
-          }),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
@@ -443,13 +526,16 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
     }
 
     final measurement = BloodPressureMeasurement(
+      id: isEditMode
+          ? widget.measurement!.id
+          : null, // Edit modunda mevcut ID'yi koru
       systolic: systolic,
       diastolic: diastolic,
       pulse: pulse,
       timestamp: _selectedDateTime,
-      state: 'Normal',
-      gender: 'Unknown',
-      age: 25,
+      state: isEditMode ? widget.measurement!.state : 'Normal',
+      gender: isEditMode ? widget.measurement!.gender : 'Unknown',
+      age: isEditMode ? widget.measurement!.age : 25,
       note: _noteController.text.isNotEmpty ? _noteController.text : null,
       category: BloodPressureMeasurement.calculateCategory(systolic, diastolic),
     );
@@ -459,18 +545,41 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
       context,
       listen: false,
     );
-    viewModel
-        .addMeasurement(measurement)
-        .then((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Blood pressure saved successfully!')),
-          );
-          context.pop();
-        })
-        .catchError((error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error saving measurement: $error')),
-          );
-        });
+
+    if (isEditMode) {
+      // Edit modunda güncelle
+      viewModel
+          .updateMeasurement(measurement)
+          .then((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Blood pressure updated successfully!'),
+              ),
+            );
+            context.pop();
+          })
+          .catchError((error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error updating measurement: $error')),
+            );
+          });
+    } else {
+      // Add modunda yeni kayıt ekle
+      viewModel
+          .addMeasurement(measurement)
+          .then((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Blood pressure saved successfully!'),
+              ),
+            );
+            context.pop();
+          })
+          .catchError((error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error saving measurement: $error')),
+            );
+          });
+    }
   }
 }

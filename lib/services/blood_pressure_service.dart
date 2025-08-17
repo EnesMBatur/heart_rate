@@ -13,9 +13,14 @@ class BloodPressureService {
       if (data == null) return [];
 
       final List<dynamic> jsonList = json.decode(data);
-      return jsonList
+      final measurements = jsonList
           .map((json) => BloodPressureMeasurement.fromJson(json))
           .toList();
+
+      // En son eklenen/güncellenen üstte olacak şekilde sırala
+      measurements.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+      return measurements;
     } catch (e) {
       print('Error loading measurements: $e');
       return [];

@@ -16,6 +16,7 @@ import '../screens/report/components/metric_detail_screen.dart';
 import '../screens/blood_pressure/blood_pressure_screen.dart';
 import '../screens/blood_pressure/add_blood_pressure_screen.dart';
 import '../screens/blood_pressure/blood_pressure_details_screen.dart';
+import '../models/blood_pressure_measurement.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -120,8 +121,12 @@ class AppRouter {
       GoRoute(
         path: bloodPressureAdd,
         name: 'bloodPressureAdd',
-        pageBuilder: (context, state) =>
-            MaterialPage(child: const AddBloodPressureScreen()),
+        pageBuilder: (context, state) {
+          final measurement = state.extra as BloodPressureMeasurement?;
+          return MaterialPage(
+            child: AddBloodPressureScreen(measurement: measurement),
+          );
+        },
       ),
       // Full-screen route for blood pressure details
       GoRoute(

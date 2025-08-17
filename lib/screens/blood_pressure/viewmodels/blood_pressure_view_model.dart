@@ -31,6 +31,8 @@ class BloodPressureViewModel extends ChangeNotifier {
 
     try {
       _measurements = await _service.getMeasurements();
+      // En son eklenen/güncellenen üstte olacak şekilde sırala
+      _measurements.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     } catch (e) {
       debugPrint('Error loading measurements: $e');
     } finally {

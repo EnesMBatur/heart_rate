@@ -66,8 +66,8 @@ class BloodPressureHistory extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        viewModel.selectMeasurement(measurement);
-        context.push('/blood-pressure/details');
+        // Edit modunda açmak için measurement'ı parametre olarak geçir
+        context.push('/blood-pressure/add', extra: measurement);
       },
       child: Container(
         padding: EdgeInsets.all(4.w),
@@ -101,7 +101,7 @@ class BloodPressureHistory extends StatelessWidget {
                   SizedBox(height: 0.5.h),
                   Text(
                     '${measurement.pulse} bpm',
-                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                   ),
                   SizedBox(height: 1.h),
 
@@ -126,14 +126,14 @@ class BloodPressureHistory extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 2.w),
-                      Text(
-                        measurement.state,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
+                      // SizedBox(width: 2.w),
+                      // Text(
+                      //   measurement.state,
+                      //   style: TextStyle(
+                      //     fontSize: 14.sp,
+                      //     color: Colors.grey[600],
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(height: 1.h),
@@ -141,14 +141,14 @@ class BloodPressureHistory extends StatelessWidget {
                   // Date and time
                   Text(
                     '${dateFormatter.format(measurement.timestamp)} • ${timeFormatter.format(measurement.timestamp)}',
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey[500]),
+                    style: TextStyle(fontSize: 15.sp, color: Colors.grey[500]),
                   ),
                 ],
               ),
             ),
 
             // Arrow icon
-            Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
+            Icon(Icons.arrow_forward_ios, size: 24, color: Colors.grey[400]),
           ],
         ),
       ),
