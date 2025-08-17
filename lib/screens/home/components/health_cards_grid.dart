@@ -192,13 +192,16 @@ class HealthCardsGrid extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               records,
-              style: TextStyle(fontSize: 16.sp, color: Colors.black54),
+              style: TextStyle(fontSize: 14.sp, color: Colors.black54),
             ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: Image.asset(imagePath, fit: BoxFit.contain),
+            // const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerRight,
+              child: SizedBox(
+                width: 8.h,
+                height: 8.h,
+                child: Image.asset(imagePath, fit: BoxFit.contain),
+              ),
             ),
           ],
         ),

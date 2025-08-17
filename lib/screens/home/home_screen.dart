@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     // Bottom padding for better scrolling
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 2.h),
                   ],
                 ),
               ),

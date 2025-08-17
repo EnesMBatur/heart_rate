@@ -24,7 +24,7 @@ class CheckUpHistorySection extends StatelessWidget {
             Text(
               'Check up History',
               style: TextStyle(
-                fontSize: 18.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
@@ -36,7 +36,7 @@ class CheckUpHistorySection extends StatelessWidget {
                   Text(
                     'View All',
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 17.sp,
                       color: const Color(0xFFFF6B6B),
                       fontWeight: FontWeight.w500,
                     ),
@@ -53,7 +53,7 @@ class CheckUpHistorySection extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 16),
+        SizedBox(height: 2.h),
 
         // Last Measurement Card
         if (lastMeasurement != null)
@@ -87,8 +87,8 @@ class CheckUpHistorySection extends StatelessWidget {
         children: [
           // Heart Rate Circle
           Container(
-            width: 60,
-            height: 60,
+            width: 62,
+            height: 62,
             decoration: BoxDecoration(
               color: const Color(0xFFFF6B6B),
               shape: BoxShape.circle,
@@ -99,20 +99,20 @@ class CheckUpHistorySection extends StatelessWidget {
                 Text(
                   '${measurement.heartRate}',
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   'BPM',
-                  style: TextStyle(fontSize: 10.sp, color: Colors.white),
+                  style: TextStyle(fontSize: 12.sp, color: Colors.white),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(width: 16),
+          SizedBox(width: 2.h),
 
           // Measurement Details
           Expanded(
@@ -122,7 +122,7 @@ class CheckUpHistorySection extends StatelessWidget {
                 Text(
                   DateFormat('MMM d, y').format(measurement.timestamp),
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
                   ),
@@ -130,7 +130,7 @@ class CheckUpHistorySection extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   DateFormat('h:mm a').format(measurement.timestamp),
-                  style: TextStyle(fontSize: 12.sp, color: Colors.black54),
+                  style: TextStyle(fontSize: 14.sp, color: Colors.black54),
                 ),
               ],
             ),
@@ -146,7 +146,7 @@ class CheckUpHistorySection extends StatelessWidget {
             child: Text(
               status,
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 18.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
@@ -172,7 +172,7 @@ class CheckUpHistorySection extends StatelessWidget {
           Text(
             'No measurements yet',
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w500,
               color: Colors.grey[600],
             ),
@@ -180,7 +180,7 @@ class CheckUpHistorySection extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             'Start measuring to see your history',
-            style: TextStyle(fontSize: 12.sp, color: Colors.grey[500]),
+            style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
             textAlign: TextAlign.center,
           ),
         ],
