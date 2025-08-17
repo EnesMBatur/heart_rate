@@ -32,7 +32,7 @@ class HealthCardsGrid extends StatelessWidget {
         // Main Heart Rate Card
         _buildMainHeartRateCard(),
 
-        const SizedBox(height: 16),
+        SizedBox(height: 2.h),
 
         // Secondary cards grid
         Row(
@@ -46,7 +46,7 @@ class HealthCardsGrid extends StatelessWidget {
                 onPressed: onBloodPressurePressed,
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 3.w),
             Expanded(
               child: _buildSecondaryCard(
                 title: 'Blood Sugar',
@@ -59,7 +59,7 @@ class HealthCardsGrid extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: 2.h),
 
         // Third row
         Row(
@@ -73,7 +73,7 @@ class HealthCardsGrid extends StatelessWidget {
                 onPressed: onWeightBmiPressed,
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 3.w),
             Expanded(
               child: _buildSecondaryCard(
                 title: 'AI Doctor',
@@ -85,6 +85,7 @@ class HealthCardsGrid extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(height: 0.5.h),
       ],
     );
   }
@@ -118,7 +119,7 @@ class HealthCardsGrid extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   '$heartRateRecords records',
-                  style: TextStyle(fontSize: 14.sp, color: Colors.black54),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black54),
                 ),
                 const SizedBox(height: 16),
                 Container(
@@ -136,7 +137,7 @@ class HealthCardsGrid extends StatelessWidget {
                       'Measure',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 17.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -150,8 +151,8 @@ class HealthCardsGrid extends StatelessWidget {
 
           // Heart Rate Image
           SizedBox(
-            width: 80,
-            height: 80,
+            width: 20.h,
+            height: 20.h,
             child: Image.asset(
               'assets/images/home/heart_rate.png',
               fit: BoxFit.contain,
@@ -183,7 +184,7 @@ class HealthCardsGrid extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
@@ -191,7 +192,7 @@ class HealthCardsGrid extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               records,
-              style: TextStyle(fontSize: 11.sp, color: Colors.black54),
+              style: TextStyle(fontSize: 16.sp, color: Colors.black54),
             ),
             const SizedBox(height: 12),
             SizedBox(
