@@ -38,12 +38,12 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   // Statistics Summary
                   const BloodPressureStats(),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // Toggle Buttons (Statistics/History)
                   const BloodPressureToggleButtons(),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // Content based on selected view
                   if (viewModel.showStatistics) ...[

@@ -16,14 +16,14 @@ class BloodPressureStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lifetime average summary',
+              'Statistics for ${viewModel.selectedTimeRange}',
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w400,
               ),
             ),
-            SizedBox(height: 3.h),
+            SizedBox(height: 2.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -61,7 +61,7 @@ class BloodPressureStats extends StatelessWidget {
         Text(
           value,
           style: TextStyle(
-            fontSize: 28.sp,
+            fontSize: 24.sp,
             color: Colors.black,
             fontWeight: FontWeight.w700,
           ),

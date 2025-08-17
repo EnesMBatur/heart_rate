@@ -9,7 +9,7 @@ class BloodPressureViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool _showStatistics = true;
   String _selectedPeriod = 'Week';
-  String _selectedTimeRange = 'Week';
+  String _selectedTimeRange = '7 Days';
   BloodPressureMeasurement? _selectedMeasurement;
 
   List<BloodPressureMeasurement> get measurements => _measurements;
@@ -79,6 +79,46 @@ class BloodPressureViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Get measurements filtered by time range
+  List<BloodPressureMeasurement> getFilteredMeasurements() {
+    final now = DateTime.now();
+    int daysToSubtract;
+
+    switch (_selectedTimeRange) {
+      case 'Today':
+        daysToSubtract = 0;
+        break;
+      case '7 Days':
+        daysToSubtract = 7;
+        break;
+      case '14 Days':
+        daysToSubtract = 14;
+        break;
+      case '30 Days':
+        daysToSubtract = 30;
+        break;
+      default:
+        daysToSubtract = 7;
+    }
+
+    final startDate = DateTime(now.year, now.month, now.day - daysToSubtract);
+
+    return _measurements.where((measurement) {
+      return measurement.timestamp.isAfter(startDate) ||
+          measurement.timestamp.isAtSameMomentAs(startDate);
+    }).toList();
+  }
+
+  // Get chart data - return individual measurements instead of grouped by date
+  List<BloodPressureMeasurement> getChartData() {
+    final filteredMeasurements = getFilteredMeasurements();
+
+    // Sort measurements by timestamp (oldest to newest for chart display)
+    filteredMeasurements.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+    return filteredMeasurements;
+  }
+
   Future<void> updateMeasurement(BloodPressureMeasurement measurement) async {
     try {
       // First delete the old measurement, then add the updated one
@@ -101,7 +141,9 @@ class BloodPressureViewModel extends ChangeNotifier {
 
   // Stats calculations
   Map<String, dynamic> getStats() {
-    if (_measurements.isEmpty) {
+    final filteredMeasurements = getFilteredMeasurements();
+
+    if (filteredMeasurements.isEmpty) {
       return {
         'systolicAvg': 0,
         'diastolicAvg': 0,
@@ -110,21 +152,24 @@ class BloodPressureViewModel extends ChangeNotifier {
       };
     }
 
-    final systolicSum = _measurements.fold<int>(
+    final systolicSum = filteredMeasurements.fold<int>(
       0,
       (sum, m) => sum + m.systolic,
     );
-    final diastolicSum = _measurements.fold<int>(
+    final diastolicSum = filteredMeasurements.fold<int>(
       0,
       (sum, m) => sum + m.diastolic,
     );
-    final pulseSum = _measurements.fold<int>(0, (sum, m) => sum + m.pulse);
+    final pulseSum = filteredMeasurements.fold<int>(
+      0,
+      (sum, m) => sum + m.pulse,
+    );
 
     return {
-      'systolicAvg': (systolicSum / _measurements.length).round(),
-      'diastolicAvg': (diastolicSum / _measurements.length).round(),
-      'pulseAvg': (pulseSum / _measurements.length).round(),
-      'totalMeasurements': _measurements.length,
+      'systolicAvg': (systolicSum / filteredMeasurements.length).round(),
+      'diastolicAvg': (diastolicSum / filteredMeasurements.length).round(),
+      'pulseAvg': (pulseSum / filteredMeasurements.length).round(),
+      'totalMeasurements': filteredMeasurements.length,
     };
   }
 }

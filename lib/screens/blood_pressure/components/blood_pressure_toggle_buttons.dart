@@ -20,7 +20,7 @@ class BloodPressureToggleButtons extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                  padding: EdgeInsets.symmetric(vertical: 1.5.h),
                   decoration: BoxDecoration(
                     color: viewModel.showStatistics
                         ? const Color(0xFFFF6B6B)
@@ -56,7 +56,7 @@ class BloodPressureToggleButtons extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                  padding: EdgeInsets.symmetric(vertical: 1.5.h),
                   decoration: BoxDecoration(
                     color: !viewModel.showStatistics
                         ? const Color(0xFFFF6B6B)

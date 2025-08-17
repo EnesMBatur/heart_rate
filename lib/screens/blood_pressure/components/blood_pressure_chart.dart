@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:fl_chart/fl_chart.dart';
 import '../viewmodels/blood_pressure_view_model.dart';
 
 class BloodPressureChart extends StatelessWidget {
@@ -12,167 +13,36 @@ class BloodPressureChart extends StatelessWidget {
       builder: (context, viewModel, child) {
         return Column(
           children: [
-            // Date range selector
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.chevron_left),
-                  onPressed: () {
-                    // Previous week
-                  },
-                ),
-                Text(
-                  viewModel.selectedTimeRange,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.chevron_right),
-                  onPressed: () {
-                    // Next week
-                  },
-                ),
-              ],
-            ),
-
-            SizedBox(height: 3.h),
-
-            // Chart container
+            // Date Range Selector
             Container(
-              width: double.infinity,
-              height: 40.h,
+              margin: EdgeInsets.only(bottom: 2.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDateRangeButton('Today', viewModel),
+                  _buildDateRangeButton('7 Days', viewModel),
+                  _buildDateRangeButton('14 Days', viewModel),
+                  _buildDateRangeButton('30 Days', viewModel),
+                ],
+              ),
+            ),
+            // Chart
+            Container(
+              height: 46.h,
               padding: EdgeInsets.all(4.w),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withValues(alpha: 0.1),
-                    spreadRadius: 1,
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 2,
                     blurRadius: 10,
-                    offset: const Offset(0, 2),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  // Y-axis labels and chart area
-                  Expanded(
-                    child: Row(
-                      children: [
-                        // Y-axis labels
-                        SizedBox(
-                          width: 8.w,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                '120',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Text(
-                                '100',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Text(
-                                '80',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Text(
-                                '60',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Text(
-                                '40',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // Chart area
-                        Expanded(child: _buildChartBars(viewModel)),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: 2.h),
-
-                  // X-axis labels (days)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Mon',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Tue',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Wed',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Thu',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Fri',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Sat',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        'Sun',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: _buildChart(viewModel),
             ),
           ],
         );
@@ -180,88 +50,205 @@ class BloodPressureChart extends StatelessWidget {
     );
   }
 
-  Widget _buildChartBars(BloodPressureViewModel viewModel) {
-    final measurements = viewModel.recentMeasurements;
-    if (measurements.isEmpty) {
-      return Center(
+  Widget _buildDateRangeButton(String label, BloodPressureViewModel viewModel) {
+    final isSelected = viewModel.selectedTimeRange == label;
+    return GestureDetector(
+      onTap: () => viewModel.setTimeRange(label),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.8.h),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFFF6B6B) : Colors.transparent,
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Text(
-          'No data available',
-          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+          label,
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+            color: isSelected ? Colors.white : Colors.grey[600],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChart(BloodPressureViewModel viewModel) {
+    final chartData = viewModel.getChartData();
+
+    if (chartData.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.bar_chart, size: 12.w, color: Colors.grey[300]),
+            SizedBox(height: 1.h),
+            Text(
+              'No data available for selected period',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.grey[500],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       );
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Column(
       children: [
-        _buildBarGroup(104, 62, '116'),
-        _buildBarGroup(108, 64, '108'),
-        _buildBarGroup(99, 60, '99'),
-        _buildBarGroup(105, 63, '105'),
-        _buildBarGroup(101, 68, '101'),
-        _buildBarGroup(110, 61, '110'),
-        _buildBarGroup(0, 0, ''), // Empty for last day
+        Text(
+          'Blood Pressure Records',
+          style: TextStyle(
+            fontSize: 18.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[800],
+          ),
+        ),
+        SizedBox(height: 2.h),
+        Expanded(
+          child: BarChart(
+            BarChartData(
+              alignment: BarChartAlignment.spaceAround,
+              maxY: 200,
+              minY: 0,
+              gridData: FlGridData(
+                show: true,
+                drawHorizontalLine: true,
+                drawVerticalLine: false,
+                horizontalInterval: 50,
+                getDrawingHorizontalLine: (value) {
+                  return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
+                },
+              ),
+              titlesData: FlTitlesData(
+                show: true,
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      if (value.toInt() < chartData.length) {
+                        final measurement = chartData[value.toInt()];
+                        return Transform.rotate(
+                          angle: -0.5,
+                          child: Text(
+                            '${measurement.timestamp.day}/${measurement.timestamp.month}',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        );
+                      }
+                      return const Text('');
+                    },
+                  ),
+                ),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 50,
+                    getTitlesWidget: (value, meta) {
+                      return Text(
+                        value.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.grey[600],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: Border(
+                  left: BorderSide(color: Colors.grey[300]!),
+                  bottom: BorderSide(color: Colors.grey[300]!),
+                ),
+              ),
+              barGroups: chartData.asMap().entries.map((entry) {
+                final index = entry.key;
+                final measurement = entry.value;
+
+                return BarChartGroupData(
+                  x: index,
+                  barRods: [
+                    BarChartRodData(
+                      fromY: measurement.diastolic.toDouble(),
+                      toY: measurement.systolic.toDouble(),
+                      width: 8.w,
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF4ECDC4), // Diastolic color (bottom)
+                          Color(0xFFFF6B6B), // Systolic color (top)
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ],
+                );
+              }).toList(),
+              barTouchData: BarTouchData(
+                enabled: true,
+                touchTooltipData: BarTouchTooltipData(
+                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    final measurement = chartData[groupIndex];
+                    return BarTooltipItem(
+                      '${measurement.systolic}/${measurement.diastolic}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
+                      TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 2.h),
+        // Legend
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildLegendItem('Diastolic (Bottom)', const Color(0xFF4ECDC4)),
+            SizedBox(width: 4.w),
+            _buildLegendItem('Systolic (Top)', const Color(0xFFFF6B6B)),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _buildBarGroup(int systolic, int diastolic, String systolicLabel) {
-    if (systolic == 0) {
-      return SizedBox(width: 8.w);
-    }
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+  Widget _buildLegendItem(String label, Color color) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        // Systolic value label
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          width: 3.w,
+          height: 1.h,
           decoration: BoxDecoration(
-            color: const Color(0xFFFF6B6B),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            systolicLabel,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
+            color: color,
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
-
-        const SizedBox(height: 4),
-
-        // Systolic bar
-        Container(
-          width: 6.w,
-          height: (systolic / 120) * 25.h,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFF6B6B),
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
-
-        // Diastolic bar
-        Container(
-          width: 6.w,
-          height: (diastolic / 120) * 25.h,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFB3B3),
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
-
-        const SizedBox(height: 4),
-
-        // Diastolic value label
+        SizedBox(width: 1.w),
         Text(
-          diastolic.toString(),
+          label,
           style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 11.sp,
             color: Colors.grey[600],
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
