@@ -101,12 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onHeartRatePressed() {
-    context.go(AppRouter.measure);
+    context.push(AppRouter.measure);
   }
 
   void _onBloodPressurePressed() {
-    // TODO: Navigate to blood pressure measurement
-    _showFeatureComingSoon('Blood Pressure measurement');
+    context.push(AppRouter.bloodPressure);
   }
 
   void _onBloodSugarPressed() {
@@ -125,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onViewAllHistoryPressed() {
-    context.go(AppRouter.history);
+    context.push(AppRouter.history);
   }
 
   void _showFeatureComingSoon(String featureName) {

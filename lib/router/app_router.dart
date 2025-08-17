@@ -13,6 +13,9 @@ import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../screens/report/report_screen.dart';
 import '../screens/report/components/metric_detail_screen.dart';
+import '../screens/blood_pressure/blood_pressure_screen.dart';
+import '../screens/blood_pressure/add_blood_pressure_screen.dart';
+import '../screens/blood_pressure/blood_pressure_details_screen.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -23,6 +26,9 @@ class AppRouter {
   static const String tips = '/tips';
   static const String report = '/report';
   static const String metricDetail = '/metric-detail';
+  static const String bloodPressure = '/blood-pressure';
+  static const String bloodPressureAdd = '/blood-pressure/add';
+  static const String bloodPressureDetails = '/blood-pressure/details';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -102,6 +108,27 @@ class AppRouter {
             ),
           );
         },
+      ),
+      // Full-screen route for blood pressure
+      GoRoute(
+        path: bloodPressure,
+        name: 'bloodPressure',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const BloodPressureScreen()),
+      ),
+      // Full-screen route for adding blood pressure
+      GoRoute(
+        path: bloodPressureAdd,
+        name: 'bloodPressureAdd',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const AddBloodPressureScreen()),
+      ),
+      // Full-screen route for blood pressure details
+      GoRoute(
+        path: bloodPressureDetails,
+        name: 'bloodPressureDetails',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const BloodPressureDetailsScreen()),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

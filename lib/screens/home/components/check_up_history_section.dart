@@ -53,7 +53,7 @@ class CheckUpHistorySection extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 2.h),
+        SizedBox(height: 1.h),
 
         // Last Measurement Card
         if (lastMeasurement != null)
