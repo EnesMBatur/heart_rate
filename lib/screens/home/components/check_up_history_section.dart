@@ -159,6 +159,7 @@ class CheckUpHistorySection extends StatelessWidget {
 
   Widget _buildEmptyStateCard() {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.grey[50],
@@ -167,7 +168,7 @@ class CheckUpHistorySection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.history, size: 48, color: Colors.grey[400]),
+          Icon(Icons.history, size: 42, color: Colors.grey[400]),
           const SizedBox(height: 12),
           Text(
             'No measurements yet',

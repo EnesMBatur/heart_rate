@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/heart_rate_measurement.dart';
 import '../../../services/blood_pressure_service.dart';
+import '../../../services/blood_sugar_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
   HeartRateMeasurement? _lastMeasurement;
@@ -67,9 +68,13 @@ class HomeViewModel extends ChangeNotifier {
           .getMeasurements();
       _bloodPressureRecords = bloodPressureMeasurements.length;
 
+      // Load blood sugar records count from service
+      final bloodSugarService = BloodSugarService();
+      final bloodSugarMeasurements = await bloodSugarService.getMeasurements();
+      _bloodSugarRecords = bloodSugarMeasurements.length;
+
       // For now, we'll set mock values for other records
       // These can be implemented later when those features are added
-      _bloodSugarRecords = prefs.getInt('blood_sugar_records') ?? 0;
       _weightBmiRecords = prefs.getInt('weight_bmi_records') ?? 0;
     } catch (e) {
       debugPrint('Error loading record counts: $e');

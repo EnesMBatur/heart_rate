@@ -16,7 +16,10 @@ import '../screens/report/components/metric_detail_screen.dart';
 import '../screens/blood_pressure/blood_pressure_screen.dart';
 import '../screens/blood_pressure/add_blood_pressure_screen.dart';
 import '../screens/blood_pressure/blood_pressure_details_screen.dart';
+import '../screens/blood_sugar/blood_sugar_screen.dart';
+import '../screens/blood_sugar/blood_sugar_add_screen.dart';
 import '../models/blood_pressure_measurement.dart';
+import '../models/blood_sugar_measurement.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -30,6 +33,8 @@ class AppRouter {
   static const String bloodPressure = '/blood-pressure';
   static const String bloodPressureAdd = '/blood-pressure/add';
   static const String bloodPressureDetails = '/blood-pressure/details';
+  static const String bloodSugar = '/blood-sugar';
+  static const String bloodSugarAdd = '/blood-sugar/add';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -134,6 +139,24 @@ class AppRouter {
         name: 'bloodPressureDetails',
         pageBuilder: (context, state) =>
             MaterialPage(child: const BloodPressureDetailsScreen()),
+      ),
+      // Full-screen route for blood sugar
+      GoRoute(
+        path: bloodSugar,
+        name: 'bloodSugar',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const BloodSugarScreen()),
+      ),
+      // Full-screen route for adding blood sugar
+      GoRoute(
+        path: bloodSugarAdd,
+        name: 'bloodSugarAdd',
+        pageBuilder: (context, state) {
+          final measurement = state.extra as BloodSugarMeasurement?;
+          return MaterialPage(
+            child: BloodSugarAddScreen(measurement: measurement),
+          );
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

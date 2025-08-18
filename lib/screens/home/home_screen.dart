@@ -109,8 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onBloodSugarPressed() {
-    // TODO: Navigate to blood sugar measurement
-    _showFeatureComingSoon('Blood Sugar measurement');
+    context.push('/blood-sugar');
   }
 
   void _onWeightBmiPressed() {

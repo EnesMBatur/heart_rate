@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../viewmodels/blood_pressure_view_model.dart';
+import '../viewmodels/blood_sugar_view_model.dart';
 
-class BloodPressureChart extends StatelessWidget {
-  const BloodPressureChart({super.key});
+class BloodSugarChart extends StatelessWidget {
+  const BloodSugarChart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BloodPressureViewModel>(
+    return Consumer<BloodSugarViewModel>(
       builder: (context, viewModel, child) {
         return Column(
           children: [
@@ -28,7 +28,7 @@ class BloodPressureChart extends StatelessWidget {
             ),
             // Chart
             Container(
-              height: 46.h,
+              height: 40.h,
               padding: EdgeInsets.all(4.w),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -50,7 +50,7 @@ class BloodPressureChart extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeButton(String label, BloodPressureViewModel viewModel) {
+  Widget _buildDateRangeButton(String label, BloodSugarViewModel viewModel) {
     final isSelected = viewModel.selectedTimeRange == label;
     return GestureDetector(
       onTap: () => viewModel.setTimeRange(label),
@@ -72,7 +72,7 @@ class BloodPressureChart extends StatelessWidget {
     );
   }
 
-  Widget _buildChart(BloodPressureViewModel viewModel) {
+  Widget _buildChart(BloodSugarViewModel viewModel) {
     final chartData = viewModel.getChartData();
 
     if (chartData.isEmpty) {
@@ -84,8 +84,6 @@ class BloodPressureChart extends StatelessWidget {
             SizedBox(height: 1.h),
             Text(
               'No data available for selected period',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[500],
@@ -100,7 +98,7 @@ class BloodPressureChart extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Blood Pressure Records',
+          'Blood Sugar (mg/dL)',
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.bold,
@@ -113,12 +111,12 @@ class BloodPressureChart extends StatelessWidget {
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
               maxY: 200,
-              minY: 0,
+              minY: 50,
               gridData: FlGridData(
                 show: true,
                 drawHorizontalLine: true,
                 drawVerticalLine: false,
-                horizontalInterval: 50,
+                horizontalInterval: 25,
                 getDrawingHorizontalLine: (value) {
                   return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
                 },
@@ -136,7 +134,7 @@ class BloodPressureChart extends StatelessWidget {
                           child: Text(
                             '${measurement.timestamp.day}/${measurement.timestamp.month}',
                             style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 8.sp,
                               color: Colors.grey[600],
                             ),
                           ),
@@ -149,12 +147,12 @@ class BloodPressureChart extends StatelessWidget {
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    interval: 50,
+                    interval: 25,
                     getTitlesWidget: (value, meta) {
                       return Text(
                         value.toInt().toString(),
                         style: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           color: Colors.grey[600],
                         ),
                       );
@@ -183,17 +181,10 @@ class BloodPressureChart extends StatelessWidget {
                   x: index,
                   barRods: [
                     BarChartRodData(
-                      fromY: measurement.diastolic.toDouble(),
-                      toY: measurement.systolic.toDouble(),
+                      fromY: 50,
+                      toY: measurement.value,
                       width: 8.w,
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF4ECDC4), // Diastolic color (bottom)
-                          Color(0xFFFF6B6B), // Systolic color (top)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                      ),
+                      color: measurement.category.color,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ],
@@ -205,11 +196,11 @@ class BloodPressureChart extends StatelessWidget {
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     final measurement = chartData[groupIndex];
                     return BarTooltipItem(
-                      '${measurement.systolic}/${measurement.diastolic}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
+                      '${measurement.value.toStringAsFixed(1)} mg/dL\n${measurement.state.displayName}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
                       TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.sp,
+                        fontSize: 10.sp,
                       ),
                     );
                   },
@@ -220,12 +211,13 @@ class BloodPressureChart extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         // Legend
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
+          spacing: 3.w,
           children: [
-            _buildLegendItem('Diastolic (Bottom)', const Color(0xFF4ECDC4)),
-            SizedBox(width: 4.w),
-            _buildLegendItem('Systolic (Top)', const Color(0xFFFF6B6B)),
+            _buildLegendItem('Low', const Color(0xFF4ECDC4)),
+            _buildLegendItem('Normal', const Color(0xFF45B7D1)),
+            _buildLegendItem('Pre-diabetes', const Color(0xFFFF9500)),
+            _buildLegendItem('Diabetes', const Color(0xFFFF6B6B)),
           ],
         ),
       ],
@@ -248,7 +240,7 @@ class BloodPressureChart extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 11.sp,
+            fontSize: 10.sp,
             color: Colors.grey[600],
             fontWeight: FontWeight.w500,
           ),
