@@ -28,7 +28,7 @@ class BloodSugarChart extends StatelessWidget {
             ),
             // Chart
             Container(
-              height: 40.h,
+              height: 50.h,
               padding: EdgeInsets.all(4.w),
               decoration: BoxDecoration(
                 color: Colors.white,

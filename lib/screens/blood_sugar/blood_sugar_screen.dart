@@ -74,7 +74,7 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.all(4.w),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Header with decorative elements
                     Text(
@@ -121,6 +121,7 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
