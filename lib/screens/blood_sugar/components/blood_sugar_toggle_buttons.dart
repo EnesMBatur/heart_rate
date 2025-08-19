@@ -10,80 +10,83 @@ class BloodSugarToggleButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BloodSugarViewModel>(
       builder: (context, viewModel, child) {
-        return Row(
-          children: [
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  if (!viewModel.showStatistics) {
-                    viewModel.toggleView();
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                  decoration: BoxDecoration(
-                    color: viewModel.showStatistics
-                        ? const Color(0xFFFF6B6B)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
+        return Material(
+          color: Colors.transparent,
+          child: Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    if (!viewModel.showStatistics) {
+                      viewModel.toggleView();
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    decoration: BoxDecoration(
                       color: viewModel.showStatistics
                           ? const Color(0xFFFF6B6B)
-                          : Colors.grey[300]!,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Statistics',
-                      style: TextStyle(
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
                         color: viewModel.showStatistics
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
+                            ? const Color(0xFFFF6B6B)
+                            : Colors.grey[300]!,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Statistics',
+                        style: TextStyle(
+                          color: viewModel.showStatistics
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(width: 3.w),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  if (viewModel.showStatistics) {
-                    viewModel.toggleView();
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                  decoration: BoxDecoration(
-                    color: !viewModel.showStatistics
-                        ? const Color(0xFFFF6B6B)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
+              SizedBox(width: 3.w),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    if (viewModel.showStatistics) {
+                      viewModel.toggleView();
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    decoration: BoxDecoration(
                       color: !viewModel.showStatistics
                           ? const Color(0xFFFF6B6B)
-                          : Colors.grey[300]!,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'History (${viewModel.totalRecords})',
-                      style: TextStyle(
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
                         color: !viewModel.showStatistics
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
+                            ? const Color(0xFFFF6B6B)
+                            : Colors.grey[300]!,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'History (${viewModel.totalRecords})',
+                        style: TextStyle(
+                          color: !viewModel.showStatistics
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

@@ -69,7 +69,6 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
 
             return RefreshIndicator(
               onRefresh: viewModel.loadMeasurements,
-              color: const Color(0xFFFF6B6B),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.all(4.w),
@@ -97,12 +96,14 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
 
                     SizedBox(height: 2.h),
 
-                    // Content based on toggle
-                    viewModel.showStatistics
-                        ? const BloodSugarChart()
-                        : const BloodSugarHistory(),
+                    // Content based on selected view
+                    if (viewModel.showStatistics) ...[
+                      const BloodSugarChart(),
+                    ] else ...[
+                      const BloodSugarHistory(),
+                    ],
 
-                    SizedBox(height: 2.h),
+                    SizedBox(height: 10.h), // Space for FAB (prevents jumps)
                   ],
                 ),
               ),

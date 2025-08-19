@@ -10,42 +10,46 @@ class BloodSugarStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BloodSugarViewModel>(
       builder: (context, viewModel, child) {
-        return FutureBuilder<Map<String, dynamic>>(
-          future: viewModel.getStatistics(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        final data = viewModel.measurements;
+        double avg = 0.0;
+        double max = 0.0;
+        double min = 0.0;
 
-            final stats =
-                snapshot.data ??
-                {'average': 0.0, 'maximum': 0.0, 'minimum': 0.0};
+        if (data.isNotEmpty) {
+          double sum = 0.0;
+          max = data.first.value;
+          min = data.first.value;
+          for (final m in data) {
+            sum += m.value;
+            if (m.value > max) max = m.value;
+            if (m.value < min) min = m.value;
+          }
+          avg = sum / data.length;
+        }
 
-            return Row(
-              children: [
-                Expanded(
-                  child: _buildStatCard(
-                    value: stats['average'].toStringAsFixed(1),
-                    label: 'Average',
-                  ),
-                ),
-                SizedBox(width: 4.w),
-                Expanded(
-                  child: _buildStatCard(
-                    value: stats['maximum'].toStringAsFixed(1),
-                    label: 'Maximum',
-                  ),
-                ),
-                SizedBox(width: 4.w),
-                Expanded(
-                  child: _buildStatCard(
-                    value: stats['minimum'].toStringAsFixed(1),
-                    label: 'Minimum',
-                  ),
-                ),
-              ],
-            );
-          },
+        return Row(
+          children: [
+            Expanded(
+              child: _buildStatCard(
+                value: avg.toStringAsFixed(1),
+                label: 'Average',
+              ),
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: _buildStatCard(
+                value: max.toStringAsFixed(1),
+                label: 'Maximum',
+              ),
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: _buildStatCard(
+                value: min.toStringAsFixed(1),
+                label: 'Minimum',
+              ),
+            ),
+          ],
         );
       },
     );
