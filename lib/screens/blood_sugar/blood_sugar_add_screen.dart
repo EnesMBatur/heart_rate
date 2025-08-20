@@ -1,8 +1,10 @@
+// lib/features/blood_sugar/add/blood_sugar_add_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:intl/intl.dart';
+
 import '../../models/blood_sugar_measurement.dart';
 import 'viewmodels/blood_sugar_add_view_model.dart';
 
@@ -18,6 +20,12 @@ class BloodSugarAddScreen extends StatefulWidget {
 class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
   late BloodSugarAddViewModel _viewModel;
 
+  // Kalıcı wheel controller'ları
+  late FixedExtentScrollController _mainCtrl;
+  late FixedExtentScrollController _decCtrl;
+
+  String _lastUnit = 'mg/dL';
+
   @override
   void initState() {
     super.initState();
@@ -25,339 +33,411 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
     if (widget.measurement != null) {
       _viewModel.setEditingMeasurement(widget.measurement!);
     }
+
+    // Başlangıç indexlerini hesapla ve controller'ları oluştur
+    final initialMainIndex = _computeMainIndex(_viewModel);
+    final initialDecIndex = _computeDecimalIndex(_viewModel);
+
+    _mainCtrl = FixedExtentScrollController(initialItem: initialMainIndex);
+    _decCtrl = FixedExtentScrollController(initialItem: initialDecIndex);
+
+    _lastUnit = _viewModel.selectedUnit;
   }
 
   @override
   void dispose() {
+    _mainCtrl.dispose();
+    _decCtrl.dispose();
     _viewModel.dispose();
     super.dispose();
+  }
+
+  // Mevcut VM değerlerinden wheel indexlerini üret
+  int _computeMainIndex(BloodSugarAddViewModel vm) {
+    final totalTenths = (vm.bloodSugarValue * 10).round();
+    final mainValue = totalTenths ~/ 10;
+
+    final min = vm.selectedUnit == 'mg/dL' ? 50 : 3;
+    final max = vm.selectedUnit == 'mg/dL' ? 400 : 22;
+
+    return (mainValue.clamp(min, max) - min);
+  }
+
+  int _computeDecimalIndex(BloodSugarAddViewModel vm) {
+    final totalTenths = (vm.bloodSugarValue * 10).round();
+    return totalTenths % 10;
+  }
+
+  // Birim değişince wheel'ları doğru item'a taşı
+  void _syncControllersToModel(BloodSugarAddViewModel vm, {bool jump = true}) {
+    final targetMain = _computeMainIndex(vm);
+    final targetDec = _computeDecimalIndex(vm);
+
+    if (jump) {
+      _mainCtrl.jumpToItem(targetMain);
+      _decCtrl.jumpToItem(targetDec);
+    } else {
+      _mainCtrl.animateToItem(
+        targetMain,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+      );
+      _decCtrl.animateToItem(
+        targetDec,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  // Geçerli birim için min/max
+  (int min, int max) _minMaxForUnit(String unit) {
+    if (unit == 'mg/dL') return (50, 400);
+    return (3, 22);
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: _viewModel,
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
-        appBar: AppBar(
+      child: GestureDetector(
+        onTap: () {
+          // Klavyeyi kapat
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
           backgroundColor: const Color(0xFFF8F9FA),
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => context.pop(),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFF8F9FA),
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => context.pop(),
+            ),
+            title: Consumer<BloodSugarAddViewModel>(
+              builder: (context, viewModel, child) {
+                return Text(
+                  viewModel.isEditing ? 'Edit' : 'Add',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              },
+            ),
+            centerTitle: true,
           ),
-          title: Consumer<BloodSugarAddViewModel>(
+          body: Consumer<BloodSugarAddViewModel>(
             builder: (context, viewModel, child) {
-              return Text(
-                viewModel.isEditing ? 'Edit' : 'Add',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-              );
-            },
-          ),
-          centerTitle: true,
-        ),
-        body: Consumer<BloodSugarAddViewModel>(
-          builder: (context, viewModel, child) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(4.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Date and Time Selector
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () => _selectDateTime(context, viewModel),
-                          child: Row(
-                            children: [
-                              Text(
-                                DateFormat(
-                                  'MMM dd, yyyy • h:mm a',
-                                ).format(viewModel.selectedDateTime),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(width: 2.w),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: const Color(0xFFFF6B6B),
-                                size: 24,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              // Birim değiştiyse wheel'ları modelle senkronla
+              if (_lastUnit != viewModel.selectedUnit) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _syncControllersToModel(viewModel, jump: true);
+                });
+                _lastUnit = viewModel.selectedUnit;
+              }
 
-                  SizedBox(height: 2.h),
-
-                  // Unit Toggle
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => viewModel.setUnit('mg/dL'),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                            decoration: BoxDecoration(
-                              color: viewModel.selectedUnit == 'mg/dL'
-                                  ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[200],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'mg/dL',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: viewModel.selectedUnit == 'mg/dL'
-                                      ? Colors.white
-                                      : Colors.grey[600],
-                                ),
-                              ),
-                            ),
+              return SingleChildScrollView(
+                padding: EdgeInsets.all(4.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Date & Time
+                    Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
                           ),
-                        ),
+                        ],
                       ),
-                      SizedBox(width: 3.w),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => viewModel.setUnit('mmol/L'),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                            decoration: BoxDecoration(
-                              color: viewModel.selectedUnit == 'mmol/L'
-                                  ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[200],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'mmol/L',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: viewModel.selectedUnit == 'mmol/L'
-                                      ? Colors.white
-                                      : Colors.grey[600],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 2.h),
-
-                  // Blood Sugar Value Input
-                  _buildBloodSugarInputs(viewModel),
-
-                  SizedBox(height: 2.h),
-
-                  // State Selection
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.psychology,
-                              color: Color(0xFFFF6B6B),
-                            ),
-                            SizedBox(width: 2.w),
-                            Text(
-                              'State',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 2.h),
-                        GestureDetector(
-                          onTap: () => _showStateSelection(context, viewModel),
-                          child: Container(
-                            padding: EdgeInsets.all(3.w),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.grey[300]!),
-                            ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => _selectDateTime(context, viewModel),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  viewModel.selectedState.displayName,
+                                  DateFormat(
+                                    'MMM dd, yyyy • h:mm a',
+                                  ).format(viewModel.selectedDateTime),
                                   style: TextStyle(
                                     fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
                                   ),
                                 ),
-                                Icon(
+                                SizedBox(width: 2.w),
+                                const Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: Colors.grey[600],
+                                  color: Color(0xFFFF6B6B),
+                                  size: 24,
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
 
-                  SizedBox(height: 2.h),
+                    SizedBox(height: 2.h),
 
-                  // Note Section
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    // Unit Toggle
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.note, color: Color(0xFFFF6B6B)),
-                            SizedBox(width: 2.w),
-                            Text(
-                              'Note',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                color: Colors.grey[600],
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => viewModel.setUnit('mg/dL'),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                              decoration: BoxDecoration(
+                                color: viewModel.selectedUnit == 'mg/dL'
+                                    ? const Color(0xFFFF6B6B)
+                                    : Colors.grey[200],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'mg/dL',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: viewModel.selectedUnit == 'mg/dL'
+                                        ? Colors.white
+                                        : Colors.grey[600],
+                                  ),
+                                ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                        SizedBox(height: 2.h),
-                        TextField(
-                          controller: viewModel.noteController,
-                          maxLines: 3,
-                          decoration: InputDecoration(
-                            hintText: 'Add your note here ...',
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                            border: InputBorder.none,
+                        SizedBox(width: 3.w),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => viewModel.setUnit('mmol/L'),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                              decoration: BoxDecoration(
+                                color: viewModel.selectedUnit == 'mmol/L'
+                                    ? const Color(0xFFFF6B6B)
+                                    : Colors.grey[200],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'mmol/L',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: viewModel.selectedUnit == 'mmol/L'
+                                        ? Colors.white
+                                        : Colors.grey[600],
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
 
-                  SizedBox(height: 2.h),
+                    SizedBox(height: 2.h),
 
-                  // Blood Sugar Category Info
-                  _buildCategoryInfo(),
+                    // Value Pickers (hızlı ve akıcı)
+                    _buildBloodSugarInputs(viewModel),
 
-                  SizedBox(height: 1.h),
-                ],
-              ),
-            );
-          },
-        ),
-        bottomNavigationBar: Consumer<BloodSugarAddViewModel>(
-          builder: (context, viewModel, child) {
-            return Container(
-              padding: EdgeInsets.all(6.w),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(top: BorderSide(color: Colors.grey, width: 0.2)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => context.pop(),
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        side: const BorderSide(color: Color(0xFFFF6B6B)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                    SizedBox(height: 2.h),
+
+                    // State
+                    Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFFF6B6B),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.psychology,
+                                color: Color(0xFFFF6B6B),
+                              ),
+                              SizedBox(width: 2.w),
+                              Text(
+                                'State',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 2.h),
+                          GestureDetector(
+                            onTap: () =>
+                                _showStateSelection(context, viewModel),
+                            child: Container(
+                              padding: EdgeInsets.all(3.w),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[50],
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: Colors.grey[300]!),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    viewModel.selectedState.displayName,
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.grey[600],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 2.h),
+
+                    // Note
+                    Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.note, color: Color(0xFFFF6B6B)),
+                              SizedBox(width: 2.w),
+                              Text(
+                                'Note',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 2.h),
+                          TextField(
+                            controller: viewModel.noteController,
+                            maxLines: 3,
+                            decoration: InputDecoration(
+                              hintText: 'Add your note here ...',
+                              hintStyle: TextStyle(color: Colors.grey[400]),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // SizedBox(height: 2.h),
+
+                    // // Ranges
+                    // _buildCategoryInfo(),
+                    SizedBox(height: 1.h),
+                  ],
+                ),
+              );
+            },
+          ),
+          bottomNavigationBar: Consumer<BloodSugarAddViewModel>(
+            builder: (context, viewModel, child) {
+              return Container(
+                padding: EdgeInsets.all(6.w),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(color: Colors.grey, width: 0.2),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => context.pop(),
+                        style: OutlinedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 2.h),
+                          side: const BorderSide(color: Color(0xFFFF6B6B)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFFF6B6B),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 4.w),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => _saveMeasurement(context, viewModel),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF6B6B),
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                    SizedBox(width: 4.w),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () => _saveMeasurement(context, viewModel),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFF6B6B),
+                          padding: EdgeInsets.symmetric(vertical: 2.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        viewModel.isEditing ? 'Update' : 'Save',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                        child: Text(
+                          viewModel.isEditing ? 'Update' : 'Save',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -572,7 +652,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 12),
               width: 40,
@@ -685,7 +765,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
+            color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 10,
             offset: const Offset(0, 2),
@@ -694,17 +774,14 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
       ),
       child: Column(
         children: [
-          // // Labels
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [_buildLabel('Main'), _buildLabel('Decimal')],
-          // ),
-
-          // Picker wheels
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildBloodSugarPicker(isMainValue: true, viewModel: viewModel),
+              _buildWheel(
+                isMainValue: true,
+                viewModel: viewModel,
+                controller: _mainCtrl,
+              ),
               Container(
                 alignment: Alignment.center,
                 child: Text(
@@ -716,7 +793,11 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                   ),
                 ),
               ),
-              _buildBloodSugarPicker(isMainValue: false, viewModel: viewModel),
+              _buildWheel(
+                isMainValue: false,
+                viewModel: viewModel,
+                controller: _decCtrl,
+              ),
             ],
           ),
         ],
@@ -724,39 +805,24 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
     );
   }
 
-  Widget _buildBloodSugarPicker({
+  Widget _buildWheel({
     required bool isMainValue,
     required BloodSugarAddViewModel viewModel,
+    required FixedExtentScrollController controller,
   }) {
-    // Get current values
-    final currentValue = viewModel.bloodSugarValue;
-    final mainValue = currentValue.floor();
-    final decimalValue = ((currentValue - mainValue) * 10).round();
+    // Görüntü amacıyla 1 ondalığa göre ayrıştır
+    final totalTenths = (viewModel.bloodSugarValue * 10).round();
+    final mainValue = totalTenths ~/ 10;
+    final decimalValue = totalTenths % 10;
 
-    // Set min/max based on unit and value type
-    final int minValue;
-    final int maxValue;
-    final int initialValue;
+    // Min / max
+    final (minValue, maxValue) = isMainValue
+        ? _minMaxForUnit(viewModel.selectedUnit)
+        : (0, 9);
 
-    if (isMainValue) {
-      if (viewModel.selectedUnit == 'mg/dL') {
-        minValue = 50;
-        maxValue = 400;
-      } else {
-        minValue = 3;
-        maxValue = 22;
-      }
-      initialValue = mainValue;
-    } else {
-      minValue = 0;
-      maxValue = 9;
-      initialValue = decimalValue;
-    }
-
-    final initialIndex = (initialValue - minValue).clamp(
-      0,
-      maxValue - minValue,
-    );
+    final initialValue = isMainValue
+        ? mainValue.clamp(minValue, maxValue)
+        : decimalValue;
 
     return SizedBox(
       width: 35.w,
@@ -765,52 +831,52 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
         itemExtent: 40,
         perspective: 0.005,
         diameterRatio: 1.2,
-        physics: const FixedExtentScrollPhysics(),
-        controller: FixedExtentScrollController(initialItem: initialIndex),
+        // 🔥 hızlı ve akıcı fling
+        physics: const FixedExtentScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
+        controller: controller,
+        useMagnifier: true,
+        magnification: 1.08,
+        overAndUnderCenterOpacity: 0.6,
         childDelegate: ListWheelChildBuilderDelegate(
+          childCount: maxValue - minValue + 1,
           builder: (context, index) {
             final value = minValue + index;
-
-            // Check if this value is currently selected
-            bool isSelected;
-            if (isMainValue) {
-              isSelected = value == mainValue;
-            } else {
-              isSelected = value == decimalValue;
-            }
-
+            // (Seçili item vurgusunu istersen koruyabilirsin; burada sade tuttuk)
             return Container(
               alignment: Alignment.center,
               child: Text(
                 value.toString(),
                 style: TextStyle(
-                  fontSize: isSelected ? 24.sp : 18.sp,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                  color: isSelected
+                  fontSize: value == initialValue ? 24.sp : 18.sp,
+                  fontWeight: value == initialValue
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                  color: value == initialValue
                       ? const Color(0xFFFF6B6B)
-                      : Colors.grey[600],
+                      : Colors.grey[700],
                 ),
               ),
             );
           },
-          childCount: maxValue - minValue + 1,
         ),
         onSelectedItemChanged: (index) {
           final selectedValue = minValue + index;
 
+          // Diğer kısmı controller'dan al (senkron ve hızlı)
           if (isMainValue) {
-            // Update main value, keep decimal part
-            final currentDecimal = ((currentValue - currentValue.floor()) * 10)
-                .round();
-            final newValue = selectedValue + (currentDecimal / 10.0);
+            final otherIndex = _decCtrl.selectedItem; // 0..9
+            final newValue = selectedValue + (otherIndex / 10.0);
             viewModel.setBloodSugarValue(newValue);
           } else {
-            // Update decimal value, keep main part
-            final currentMain = currentValue.floor();
+            final (mainMin, _) = _minMaxForUnit(viewModel.selectedUnit);
+            final otherIndex = _mainCtrl.selectedItem; // 0..range
+            final currentMain = mainMin + otherIndex;
             final newValue = currentMain + (selectedValue / 10.0);
             viewModel.setBloodSugarValue(newValue);
           }
-          setState(() {});
+          // Not: Burada controller'ları yeniden konumlandırmıyoruz; kullanıcı sürüklüyor.
         },
       ),
     );
