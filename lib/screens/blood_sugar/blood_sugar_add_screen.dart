@@ -210,80 +210,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 3.h),
-
-                  // Gender Selection
-                  _buildSectionTitle('Gender'),
-                  SizedBox(height: 1.h),
-                  GestureDetector(
-                    onTap: () => _showGenderSelection(context, viewModel),
-                    child: Container(
-                      padding: EdgeInsets.all(4.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey[300]!),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            viewModel.selectedGender,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey[600],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 3.h),
-
-                  // Age Selection
-                  _buildSectionTitle('Age'),
-                  SizedBox(height: 1.h),
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[300]!),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          viewModel.selectedAge.toString(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () =>
-                                  viewModel.setAge(viewModel.selectedAge - 1),
-                              icon: const Icon(Icons.remove),
-                            ),
-                            IconButton(
-                              onPressed: () =>
-                                  viewModel.setAge(viewModel.selectedAge + 1),
-                              icon: const Icon(Icons.add),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // Note Section
                   _buildSectionTitle('Note'),
@@ -312,56 +239,63 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                   // Blood Sugar Category Info
                   _buildCategoryInfo(),
 
-                  SizedBox(height: 5.h),
-
-                  // Save and Cancel Buttons
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () => context.pop(),
-                          style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            side: const BorderSide(color: Color(0xFFFF6B6B)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFFFF6B6B),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 4.w),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => _saveMeasurement(context, viewModel),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFF6B6B),
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          child: Text(
-                            'Save',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
                   SizedBox(height: 3.h),
+                ],
+              ),
+            );
+          },
+        ),
+        bottomNavigationBar: Consumer<BloodSugarAddViewModel>(
+          builder: (context, viewModel, child) {
+            return Container(
+              padding: EdgeInsets.all(6.w),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(top: BorderSide(color: Colors.grey, width: 0.2)),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => context.pop(),
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 2.h),
+                        side: const BorderSide(color: Color(0xFFFF6B6B)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFFFF6B6B),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 4.w),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => _saveMeasurement(context, viewModel),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFF6B6B),
+                        padding: EdgeInsets.symmetric(vertical: 2.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        viewModel.isEditing ? 'Update' : 'Save',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -372,23 +306,13 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
   }
 
   Widget _buildSectionTitle(String title) {
-    return Row(
-      children: [
-        Icon(
-          Icons.fiber_manual_record,
-          color: const Color(0xFFFF6B6B),
-          size: 12,
-        ),
-        SizedBox(width: 2.w),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-          ),
-        ),
-      ],
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        color: Colors.black87,
+      ),
     );
   }
 
