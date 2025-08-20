@@ -49,7 +49,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
           title: Consumer<BloodSugarAddViewModel>(
             builder: (context, viewModel, child) {
               return Text(
-                viewModel.isEditing ? 'Edit Record' : 'Add New Record',
+                viewModel.isEditing ? 'Edit' : 'Add',
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -111,7 +111,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // Unit Toggle
                   Row(
@@ -172,86 +172,12 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                     ],
                   ),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
-                  // Blood Sugar Value
-                  Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          viewModel.bloodSugarValue.toStringAsFixed(1),
-                          style: TextStyle(
-                            fontSize: 48.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                        // Value Slider
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 4.w,
-                            vertical: 2.h,
-                          ),
-                          child: SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              trackHeight: 8,
-                              thumbColor: const Color(0xFFFF6B6B),
-                              activeTrackColor: const Color(0xFFFF6B6B),
-                              inactiveTrackColor: Colors.grey[300],
-                              thumbShape: const RoundSliderThumbShape(
-                                enabledThumbRadius: 12,
-                              ),
-                              overlayShape: const RoundSliderOverlayShape(
-                                overlayRadius: 20,
-                              ),
-                            ),
-                            child: Slider(
-                              value: viewModel.bloodSugarValue,
-                              min: viewModel.selectedUnit == 'mg/dL'
-                                  ? 50.0
-                                  : 3.0,
-                              max: viewModel.selectedUnit == 'mg/dL'
-                                  ? 400.0
-                                  : 22.0,
-                              divisions: viewModel.selectedUnit == 'mg/dL'
-                                  ? 350
-                                  : 190,
-                              onChanged: viewModel.setBloodSugarValue,
-                            ),
-                          ),
-                        ),
-                        // Range indicators
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                viewModel.selectedUnit == 'mg/dL'
-                                    ? '50'
-                                    : '3.0',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              Text(
-                                viewModel.selectedUnit == 'mg/dL'
-                                    ? '400'
-                                    : '22.0',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Blood Sugar Value Input
+                  _buildBloodSugarInputs(viewModel),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // State Selection
                   _buildSectionTitle('State'),
@@ -877,5 +803,144 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
         );
       }
     }
+  }
+
+  Widget _buildBloodSugarInputs(BloodSugarAddViewModel viewModel) {
+    return Container(
+      padding: EdgeInsets.all(2.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.1),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // // Labels
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [_buildLabel('Main'), _buildLabel('Decimal')],
+          // ),
+
+          // Picker wheels
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildBloodSugarPicker(isMainValue: true, viewModel: viewModel),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  '.',
+                  style: TextStyle(
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFFFF6B6B),
+                  ),
+                ),
+              ),
+              _buildBloodSugarPicker(isMainValue: false, viewModel: viewModel),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBloodSugarPicker({
+    required bool isMainValue,
+    required BloodSugarAddViewModel viewModel,
+  }) {
+    // Get current values
+    final currentValue = viewModel.bloodSugarValue;
+    final mainValue = currentValue.floor();
+    final decimalValue = ((currentValue - mainValue) * 10).round();
+
+    // Set min/max based on unit and value type
+    final int minValue;
+    final int maxValue;
+    final int initialValue;
+
+    if (isMainValue) {
+      if (viewModel.selectedUnit == 'mg/dL') {
+        minValue = 50;
+        maxValue = 400;
+      } else {
+        minValue = 3;
+        maxValue = 22;
+      }
+      initialValue = mainValue;
+    } else {
+      minValue = 0;
+      maxValue = 9;
+      initialValue = decimalValue;
+    }
+
+    final initialIndex = (initialValue - minValue).clamp(
+      0,
+      maxValue - minValue,
+    );
+
+    return SizedBox(
+      width: 35.w,
+      height: 15.h,
+      child: ListWheelScrollView.useDelegate(
+        itemExtent: 40,
+        perspective: 0.005,
+        diameterRatio: 1.2,
+        physics: const FixedExtentScrollPhysics(),
+        controller: FixedExtentScrollController(initialItem: initialIndex),
+        childDelegate: ListWheelChildBuilderDelegate(
+          builder: (context, index) {
+            final value = minValue + index;
+
+            // Check if this value is currently selected
+            bool isSelected;
+            if (isMainValue) {
+              isSelected = value == mainValue;
+            } else {
+              isSelected = value == decimalValue;
+            }
+
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                value.toString(),
+                style: TextStyle(
+                  fontSize: isSelected ? 24.sp : 18.sp,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected
+                      ? const Color(0xFFFF6B6B)
+                      : Colors.grey[600],
+                ),
+              ),
+            );
+          },
+          childCount: maxValue - minValue + 1,
+        ),
+        onSelectedItemChanged: (index) {
+          final selectedValue = minValue + index;
+
+          if (isMainValue) {
+            // Update main value, keep decimal part
+            final currentDecimal = ((currentValue - currentValue.floor()) * 10)
+                .round();
+            final newValue = selectedValue + (currentDecimal / 10.0);
+            viewModel.setBloodSugarValue(newValue);
+          } else {
+            // Update decimal value, keep main part
+            final currentMain = currentValue.floor();
+            final newValue = currentMain + (selectedValue / 10.0);
+            viewModel.setBloodSugarValue(newValue);
+          }
+          setState(() {});
+        },
+      ),
+    );
   }
 }
