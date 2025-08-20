@@ -84,26 +84,57 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          actions: [
-            GestureDetector(
-              onTap: _selectDateTime,
-              child: Row(
-                children: [
-                  Text(
-                    DateFormat('MMM dd • h:mm a').format(_selectedDateTime),
-                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
-                  ),
-                  const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-                  SizedBox(width: 3.w),
-                ],
-              ),
-            ),
-          ],
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(6.w),
+          padding: EdgeInsets.all(4.w),
           child: Column(
             children: [
+              // Date & Time
+              Container(
+                padding: EdgeInsets.all(4.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withValues(alpha: 0.1),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => _selectDateTime(),
+                      child: Row(
+                        children: [
+                          Text(
+                            DateFormat(
+                              'MMM dd, yyyy • h:mm a',
+                            ).format(_selectedDateTime),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          SizedBox(width: 2.w),
+                          const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Color(0xFFFF6B6B),
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 2.h),
               // Blood pressure input section
               _buildBloodPressureInputs(),
 
@@ -428,7 +459,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
                 padding: EdgeInsets.all(3.w),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? cat.color.withOpacity(0.1)
+                      ? cat.color.withValues(alpha: 0.1)
                       : Colors.grey[50],
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -497,6 +528,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
       final time = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
+        initialEntryMode: TimePickerEntryMode.input,
       );
 
       if (time != null) {
