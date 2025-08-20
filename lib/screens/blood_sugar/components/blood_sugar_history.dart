@@ -158,7 +158,7 @@ class BloodSugarHistory extends StatelessWidget {
                     Text(
                       measurement.value.toStringAsFixed(1),
                       style: TextStyle(
-                        fontSize: 24.sp,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.black,
                       ),
@@ -189,7 +189,7 @@ class BloodSugarHistory extends StatelessWidget {
                             measurement.category.displayName,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -198,7 +198,7 @@ class BloodSugarHistory extends StatelessWidget {
                         Text(
                           measurement.state.displayName,
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 16.sp,
                             color: Colors.grey[600],
                           ),
                         ),

@@ -35,7 +35,7 @@ class BloodSugarChart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withValues(alpha: 0.1),
                     spreadRadius: 2,
                     blurRadius: 10,
                     offset: const Offset(0, 3),
@@ -110,13 +110,13 @@ class BloodSugarChart extends StatelessWidget {
           child: BarChart(
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
-              maxY: 200,
+              maxY: 300,
               minY: 50,
               gridData: FlGridData(
                 show: true,
                 drawHorizontalLine: true,
                 drawVerticalLine: false,
-                horizontalInterval: 25,
+                horizontalInterval: 50,
                 getDrawingHorizontalLine: (value) {
                   return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
                 },
@@ -134,7 +134,7 @@ class BloodSugarChart extends StatelessWidget {
                           child: Text(
                             '${measurement.timestamp.day}/${measurement.timestamp.month}',
                             style: TextStyle(
-                              fontSize: 8.sp,
+                              fontSize: 12.sp,
                               color: Colors.grey[600],
                             ),
                           ),
@@ -147,12 +147,12 @@ class BloodSugarChart extends StatelessWidget {
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    interval: 25,
+                    interval: 50,
                     getTitlesWidget: (value, meta) {
                       return Text(
                         value.toInt().toString(),
                         style: TextStyle(
-                          fontSize: 10.sp,
+                          fontSize: 12.sp,
                           color: Colors.grey[600],
                         ),
                       );
@@ -200,7 +200,7 @@ class BloodSugarChart extends StatelessWidget {
                       TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 10.sp,
+                        fontSize: 14.sp,
                       ),
                     );
                   },
@@ -240,7 +240,7 @@ class BloodSugarChart extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 13.sp,
             color: Colors.grey[600],
             fontWeight: FontWeight.w500,
           ),

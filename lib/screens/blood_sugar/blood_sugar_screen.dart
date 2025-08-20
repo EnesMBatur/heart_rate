@@ -57,6 +57,8 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.all(4.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   // Header with decorative elements
                   Text(
