@@ -36,12 +36,6 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Consumer<BloodSugarViewModel>(
         builder: (context, viewModel, child) {
