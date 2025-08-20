@@ -16,114 +16,93 @@ class BloodSugarScreen extends StatefulWidget {
 }
 
 class _BloodSugarScreenState extends State<BloodSugarScreen> {
-  late BloodSugarViewModel _viewModel;
-
-  @override
-  void initState() {
-    super.initState();
-    _viewModel = BloodSugarViewModel();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: _viewModel,
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      appBar: AppBar(
         backgroundColor: const Color(0xFFF8F9FA),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFF8F9FA),
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => context.pop(),
-          ),
-          title: Text(
-            'Blood Sugar',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.more_vert, color: Colors.black),
-              onPressed: () {},
-            ),
-          ],
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => context.pop(),
         ),
-        body: Consumer<BloodSugarViewModel>(
-          builder: (context, viewModel, child) {
-            if (viewModel.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: Color(0xFFFF6B6B)),
-              );
-            }
-
-            return RefreshIndicator(
-              onRefresh: viewModel.loadMeasurements,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.all(4.w),
-                child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header with decorative elements
-                    Text(
-                      'Lifetime average summary',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-
-                    SizedBox(height: 1.5.h),
-
-                    // Statistics section
-                    const BloodSugarStats(),
-
-                    SizedBox(height: 2.h),
-
-                    // Toggle buttons
-                    const BloodSugarToggleButtons(),
-
-                    SizedBox(height: 2.h),
-
-                    // Content based on selected view
-                    if (viewModel.showStatistics) ...[
-                      const BloodSugarChart(),
-                    ] else ...[
-                      const BloodSugarHistory(),
-                    ],
-
-                    SizedBox(height: 10.h), // Space for FAB (prevents jumps)
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            context.push('/blood-sugar/add');
-          },
-          backgroundColor: const Color(0xFFFF6B6B),
-          foregroundColor: Colors.white,
-          icon: const Icon(Icons.add),
-          label: const Text(
-            'Add',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        title: Text(
+          'Blood Sugar',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
+      body: Consumer<BloodSugarViewModel>(
+        builder: (context, viewModel, child) {
+          if (viewModel.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(color: Color(0xFFFF6B6B)),
+            );
+          }
+
+          return RefreshIndicator(
+            onRefresh: viewModel.loadMeasurements,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.all(4.w),
+              child: Column(
+                children: [
+                  // Header with decorative elements
+                  Text(
+                    'Lifetime average summary',
+                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
+                  ),
+
+                  SizedBox(height: 1.5.h),
+
+                  // Statistics section
+                  const BloodSugarStats(),
+
+                  SizedBox(height: 2.h),
+
+                  // Toggle buttons
+                  const BloodSugarToggleButtons(),
+
+                  SizedBox(height: 2.h),
+
+                  // Content based on selected view
+                  if (viewModel.showStatistics) ...[
+                    const BloodSugarChart(),
+                  ] else ...[
+                    const BloodSugarHistory(),
+                  ],
+
+                  SizedBox(height: 10.h), // Space for FAB (prevents jumps)
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.push('/blood-sugar/add');
+        },
+        backgroundColor: const Color(0xFFFF6B6B),
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add),
+        label: const Text(
+          'Add',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -29,6 +29,7 @@ class BloodSugarAddViewModel extends ChangeNotifier {
   BloodSugarState get selectedState => _selectedState;
   String get selectedGender => _selectedGender;
   bool get isEditing => _isEditing;
+  String? get editingId => _editingId;
 
   void setDateTime(DateTime dateTime) {
     _selectedDateTime = dateTime;

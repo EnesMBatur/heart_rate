@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../models/blood_sugar_measurement.dart';
 import 'viewmodels/blood_sugar_add_view_model.dart';
+import 'viewmodels/blood_sugar_view_model.dart';
 
 class BloodSugarAddScreen extends StatefulWidget {
   final BloodSugarMeasurement? measurement;
@@ -570,7 +571,35 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
     BloodSugarAddViewModel viewModel,
   ) async {
     try {
-      await viewModel.saveMeasurement();
+      // Convert mmol/L to mg/dL for storage if needed
+      double valueInMgDl = viewModel.selectedUnit == 'mmol/L'
+          ? viewModel.bloodSugarValue / 0.0555
+          : viewModel.bloodSugarValue;
+
+      final measurement = BloodSugarMeasurement(
+        id: viewModel.isEditing
+            ? viewModel.editingId!
+            : DateTime.now().millisecondsSinceEpoch.toString(),
+        value: double.parse(valueInMgDl.toStringAsFixed(1)),
+        state: viewModel.selectedState,
+        timestamp: viewModel.selectedDateTime,
+        note: viewModel.noteController.text.isNotEmpty
+            ? viewModel.noteController.text
+            : null,
+      );
+
+      // Get the main BloodSugarViewModel from the provider
+      final mainViewModel = Provider.of<BloodSugarViewModel>(
+        context,
+        listen: false,
+      );
+
+      if (viewModel.isEditing) {
+        await mainViewModel.updateMeasurement(measurement);
+      } else {
+        await mainViewModel.addMeasurement(measurement);
+      }
+
       if (context.mounted) {
         context.pop();
         ScaffoldMessenger.of(context).showSnackBar(

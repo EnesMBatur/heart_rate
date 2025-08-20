@@ -8,6 +8,7 @@ import 'router/app_router.dart';
 import 'theme/app_theme.dart';
 import 'locale/lang/locale_keys.g.dart';
 import 'screens/blood_pressure/viewmodels/blood_pressure_view_model.dart';
+import 'screens/blood_sugar/viewmodels/blood_sugar_view_model.dart';
 import 'screens/home/viewmodels/home_view_model.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (context) => HomeViewModel()),
           ChangeNotifierProvider(create: (context) => BloodPressureViewModel()),
+          ChangeNotifierProvider(create: (context) => BloodSugarViewModel()),
         ],
         child: const HeartRaterApp(),
       ),
