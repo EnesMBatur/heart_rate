@@ -10,10 +10,9 @@ class BloodSugarAddViewModel extends ChangeNotifier {
 
   DateTime _selectedDateTime = DateTime.now();
   String _selectedUnit = 'mg/dL';
-  double _bloodSugarValue = 115.0;
+  double _bloodSugarValue = 100.0;
   BloodSugarState _selectedState = BloodSugarState.default_;
   String _selectedGender = 'Male';
-  int _selectedAge = 28;
   bool _isEditing = false;
   String? _editingId;
 
@@ -23,7 +22,6 @@ class BloodSugarAddViewModel extends ChangeNotifier {
   double get bloodSugarValue => _bloodSugarValue;
   BloodSugarState get selectedState => _selectedState;
   String get selectedGender => _selectedGender;
-  int get selectedAge => _selectedAge;
   bool get isEditing => _isEditing;
 
   void setDateTime(DateTime dateTime) {
@@ -59,21 +57,12 @@ class BloodSugarAddViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setAge(int age) {
-    if (age >= 1 && age <= 120) {
-      _selectedAge = age;
-      notifyListeners();
-    }
-  }
-
   void setEditingMeasurement(BloodSugarMeasurement measurement) {
     _isEditing = true;
     _editingId = measurement.id;
     _selectedDateTime = measurement.timestamp;
     _bloodSugarValue = measurement.value;
     _selectedState = measurement.state;
-    _selectedGender = measurement.gender;
-    _selectedAge = measurement.age;
     noteController.text = measurement.note ?? '';
     notifyListeners();
   }
@@ -91,8 +80,6 @@ class BloodSugarAddViewModel extends ChangeNotifier {
         state: _selectedState,
         timestamp: _selectedDateTime,
         note: noteController.text.isNotEmpty ? noteController.text : null,
-        gender: _selectedGender,
-        age: _selectedAge,
       );
 
       await _service.saveMeasurement(measurement);

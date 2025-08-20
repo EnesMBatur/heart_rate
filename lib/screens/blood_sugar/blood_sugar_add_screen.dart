@@ -180,66 +180,124 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                   SizedBox(height: 2.h),
 
                   // State Selection
-                  _buildSectionTitle('State'),
-                  SizedBox(height: 1.h),
-                  GestureDetector(
-                    onTap: () => _showStateSelection(context, viewModel),
-                    child: Container(
-                      padding: EdgeInsets.all(4.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey[300]!),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            viewModel.selectedState.displayName,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
+                  Container(
+                    padding: EdgeInsets.all(4.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.psychology,
+                              color: Color(0xFFFF6B6B),
+                            ),
+                            SizedBox(width: 2.w),
+                            Text(
+                              'State',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 2.h),
+                        GestureDetector(
+                          onTap: () => _showStateSelection(context, viewModel),
+                          child: Container(
+                            padding: EdgeInsets.all(3.w),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.grey[300]!),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  viewModel.selectedState.displayName,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.grey[600],
+                                ),
+                              ],
                             ),
                           ),
-                          Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey[600],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
 
                   SizedBox(height: 2.h),
 
                   // Note Section
-                  _buildSectionTitle('Note'),
-                  SizedBox(height: 1.h),
                   Container(
                     padding: EdgeInsets.all(4.w),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[300]!),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                    child: TextField(
-                      controller: viewModel.noteController,
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                        hintText: 'Add your note here ...',
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.grey[400]),
-                      ),
-                      style: TextStyle(fontSize: 14.sp),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.note, color: Color(0xFFFF6B6B)),
+                            SizedBox(width: 2.w),
+                            Text(
+                              'Note',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 2.h),
+                        TextField(
+                          controller: viewModel.noteController,
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                            hintText: 'Add your note here ...',
+                            hintStyle: TextStyle(color: Colors.grey[400]),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 2.h),
 
                   // Blood Sugar Category Info
                   _buildCategoryInfo(),
 
-                  SizedBox(height: 3.h),
+                  SizedBox(height: 1.h),
                 ],
               ),
             );
@@ -301,17 +359,6 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
-        color: Colors.black87,
       ),
     );
   }
@@ -514,14 +561,18 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      useSafeArea: true,
       builder: (context) => Container(
+        width: double.infinity,
+        height: 320,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 12),
               width: 40,
@@ -531,165 +582,62 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(4.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'State',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(4.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'State',
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 2.h),
-                  Wrap(
-                    spacing: 2.w,
-                    runSpacing: 1.h,
-                    children: BloodSugarState.values.map((state) {
-                      final isSelected = viewModel.selectedState == state;
-                      return GestureDetector(
-                        onTap: () {
-                          viewModel.setState(state);
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4.w,
-                            vertical: 1.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? const Color(0xFFFF6B6B)
-                                : Colors.grey[100],
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            state.displayName,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: isSelected
-                                  ? Colors.white
-                                  : Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 2.h),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showGenderSelection(
-    BuildContext context,
-    BloodSugarAddViewModel viewModel,
-  ) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 12),
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(4.w),
-              child: Column(
-                children: [
-                  Text(
-                    'Gender',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 2.h),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            viewModel.setGender('Male');
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            decoration: BoxDecoration(
-                              color: viewModel.selectedGender == 'Male'
-                                  ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[100],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Male',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: viewModel.selectedGender == 'Male'
-                                      ? Colors.white
-                                      : Colors.grey[700],
+                    SizedBox(height: 2.h),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Wrap(
+                          spacing: 2.w,
+                          runSpacing: 1.h,
+                          children: BloodSugarState.values.map((state) {
+                            final isSelected = viewModel.selectedState == state;
+                            return GestureDetector(
+                              onTap: () {
+                                viewModel.setState(state);
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 4.w,
+                                  vertical: 1.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? const Color(0xFFFF6B6B)
+                                      : Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  state.displayName,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.grey[700],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      SizedBox(width: 3.w),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            viewModel.setGender('Female');
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            decoration: BoxDecoration(
-                              color: viewModel.selectedGender == 'Female'
-                                  ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[100],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Female',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: viewModel.selectedGender == 'Female'
-                                      ? Colors.white
-                                      : Colors.grey[700],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 2.h),
-                ],
+                    ),
+                    SizedBox(height: 2.h),
+                  ],
+                ),
               ),
             ),
           ],

@@ -31,8 +31,6 @@ class BloodSugarMeasurement {
   final BloodSugarState state;
   final DateTime timestamp;
   final String? note;
-  final String gender;
-  final int age;
 
   BloodSugarMeasurement({
     required this.id,
@@ -40,8 +38,6 @@ class BloodSugarMeasurement {
     required this.state,
     required this.timestamp,
     this.note,
-    this.gender = 'Male',
-    this.age = 28,
   });
 
   BloodSugarCategory get category {
@@ -75,8 +71,6 @@ class BloodSugarMeasurement {
       'state': state.name,
       'timestamp': timestamp.toIso8601String(),
       'note': note,
-      'gender': gender,
-      'age': age,
     };
   }
 
@@ -90,8 +84,6 @@ class BloodSugarMeasurement {
       ),
       timestamp: DateTime.parse(json['timestamp'] as String),
       note: json['note'] as String?,
-      gender: json['gender'] as String? ?? 'Male',
-      age: json['age'] as int? ?? 28,
     );
   }
 
@@ -110,8 +102,6 @@ class BloodSugarMeasurement {
       state: state ?? this.state,
       timestamp: timestamp ?? this.timestamp,
       note: note ?? this.note,
-      gender: gender ?? this.gender,
-      age: age ?? this.age,
     );
   }
 }
