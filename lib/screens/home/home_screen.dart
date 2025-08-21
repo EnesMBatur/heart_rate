@@ -15,13 +15,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late HomeViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
     _viewModel = HomeViewModel();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.initialize();
     });
@@ -29,8 +30,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _viewModel.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // App resumed, update data
+      _viewModel.updateRecordCounts();
+    }
   }
 
   @override
@@ -101,19 +112,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onHeartRatePressed() {
-    context.push(AppRouter.measure);
+    context.push(AppRouter.measure).then((_) {
+      // Update data when returning from heart rate screen
+      _viewModel.updateRecordCounts();
+    });
   }
 
   void _onBloodPressurePressed() {
-    context.push(AppRouter.bloodPressure);
+    context.push(AppRouter.bloodPressure).then((_) {
+      // Update data when returning from blood pressure screen
+      _viewModel.updateRecordCounts();
+    });
   }
 
   void _onBloodSugarPressed() {
-    context.push(AppRouter.bloodSugar);
+    context.push(AppRouter.bloodSugar).then((_) {
+      // Update data when returning from blood sugar screen
+      _viewModel.updateRecordCounts();
+    });
   }
 
   void _onWeightBmiPressed() {
-    context.push(AppRouter.bmi);
+    context.push(AppRouter.bmi).then((_) {
+      // Update data when returning from BMI screen
+      _viewModel.updateRecordCounts();
+    });
   }
 
   void _onAiDoctorPressed() {

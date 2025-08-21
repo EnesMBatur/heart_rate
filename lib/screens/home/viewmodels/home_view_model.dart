@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/heart_rate_measurement.dart';
 import '../../../services/blood_pressure_service.dart';
 import '../../../services/blood_sugar_service.dart';
+import '../../../services/bmi_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
   HeartRateMeasurement? _lastMeasurement;
@@ -73,9 +74,10 @@ class HomeViewModel extends ChangeNotifier {
       final bloodSugarMeasurements = await bloodSugarService.getMeasurements();
       _bloodSugarRecords = bloodSugarMeasurements.length;
 
-      // For now, we'll set mock values for other records
-      // These can be implemented later when those features are added
-      _weightBmiRecords = prefs.getInt('weight_bmi_records') ?? 0;
+      // Load BMI records count from service
+      final bmiService = BMIService();
+      final bmiRecords = await bmiService.getRecords();
+      _weightBmiRecords = bmiRecords.length;
     } catch (e) {
       debugPrint('Error loading record counts: $e');
     }
@@ -84,6 +86,12 @@ class HomeViewModel extends ChangeNotifier {
   /// Refresh all data
   Future<void> refresh() async {
     await initialize();
+  }
+
+  /// Update record counts without full reload (for real-time updates)
+  Future<void> updateRecordCounts() async {
+    await _loadRecordCounts();
+    notifyListeners();
   }
 
   /// Calculate stress level based on heart rate
