@@ -17,7 +17,9 @@ class BMIStats extends StatelessWidget {
             final avgWeight = data?['avgWeight'] ?? 0.0;
             final maxWeight = data?['maxWeight'] ?? 0.0;
             final minWeight = data?['minWeight'] ?? 0.0;
-            final avgBMI = data?['avgBMI'] ?? 0.0;
+            final currentBMI = vm.getChartData().isNotEmpty
+                ? vm.getChartData().last.bmi
+                : 0.0;
             final maxBMI = data?['maxBMI'] ?? 0.0;
             final minBMI = data?['minBMI'] ?? 0.0;
 
@@ -94,7 +96,7 @@ class BMIStats extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildStatTile('Average', avgBMI, ''),
+                          _buildStatTile('Current', currentBMI, ''),
                           _buildStatTile('Maximum', maxBMI, ''),
                           _buildStatTile('Minimum', minBMI, ''),
                         ],

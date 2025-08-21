@@ -231,11 +231,24 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
       final record = vm.buildRecord();
       final mainVm = Provider.of<BMIViewModel>(context, listen: false);
 
+      // Debug: Print record info
+      print(
+        'BMI Add Screen - Saving record: BMI=${record.bmi}, Date=${record.timestamp}',
+      );
+      print('BMI Add Screen - Records before save: ${mainVm.records.length}');
+
       if (vm.isEditing) {
         await mainVm.update(record);
+        print('BMI Add Screen - Updated record');
       } else {
         await mainVm.add(record);
+        print('BMI Add Screen - Added new record');
       }
+
+      print('BMI Add Screen - Records after save: ${mainVm.records.length}');
+      print(
+        'BMI Add Screen - Selected time range: ${mainVm.selectedTimeRange}',
+      );
 
       if (context.mounted) {
         context.pop();
