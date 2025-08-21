@@ -6,8 +6,8 @@ class BMIAddViewModel extends ChangeNotifier {
   final TextEditingController noteController = TextEditingController();
   final _uuid = const Uuid();
 
-  double _weight = 75.4; // kg
-  double _height = 185.6; // cm
+  double _weight = 75; // kg
+  double _height = 180; // cm
   DateTime _timestamp = DateTime.now();
   String? _editingId;
 

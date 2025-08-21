@@ -12,25 +12,27 @@ class BMIHistory extends StatelessWidget {
     return Consumer<BMIViewModel>(
       builder: (context, vm, child) {
         if (vm.records.isEmpty) {
-          return Container(
-            padding: EdgeInsets.all(4.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
+          return Center(
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Icon(Icons.timeline, size: 64, color: Colors.grey[400]),
+                SizedBox(height: 2.h),
+                Text(
+                  'No measurements yet',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
+                SizedBox(height: 1.h),
+                Text(
+                  'Start by adding your first BMI record',
+                  style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
+                ),
+                SizedBox(height: 10.h),
               ],
-            ),
-            child: Center(
-              child: Text(
-                'No data yet',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
             ),
           );
         }

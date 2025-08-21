@@ -38,11 +38,13 @@ class BMIService {
         'maxWeight': 0.0,
         'minWeight': 0.0,
         'avgBMI': 0.0,
+        'maxBMI': 0.0,
+        'minBMI': 0.0,
         'count': 0,
       };
     }
     final weights = list.map((e) => e.weightKg).toList()..sort();
-    final bmis = list.map((e) => e.bmi).toList();
+    final bmis = list.map((e) => e.bmi).toList()..sort();
     final avgW = weights.reduce((a, b) => a + b) / weights.length;
     final avgBMI = bmis.reduce((a, b) => a + b) / bmis.length;
     return {
@@ -50,6 +52,8 @@ class BMIService {
       'maxWeight': weights.last,
       'minWeight': weights.first,
       'avgBMI': double.parse(avgBMI.toStringAsFixed(1)),
+      'maxBMI': double.parse(bmis.last.toStringAsFixed(1)),
+      'minBMI': double.parse(bmis.first.toStringAsFixed(1)),
       'count': list.length,
     };
   }

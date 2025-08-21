@@ -57,4 +57,33 @@ class BMIViewModel extends ChangeNotifier {
     _selectedTimeRange = value;
     notifyListeners();
   }
+
+  List<BMIRecord> getChartData() {
+    final now = DateTime.now();
+    DateTime startDate;
+
+    switch (_selectedTimeRange) {
+      case 'Today':
+        startDate = DateTime(now.year, now.month, now.day);
+        break;
+      case '7 Days':
+        startDate = now.subtract(const Duration(days: 7));
+        break;
+      case '14 Days':
+        startDate = now.subtract(const Duration(days: 14));
+        break;
+      case '30 Days':
+        startDate = now.subtract(const Duration(days: 30));
+        break;
+      default:
+        startDate = now.subtract(const Duration(days: 7));
+    }
+
+    final filteredRecords = _records
+        .where((record) => record.timestamp.isAfter(startDate))
+        .toList();
+
+    filteredRecords.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    return filteredRecords;
+  }
 }

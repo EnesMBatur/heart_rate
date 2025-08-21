@@ -18,42 +18,91 @@ class BMIStats extends StatelessWidget {
             final maxWeight = data?['maxWeight'] ?? 0.0;
             final minWeight = data?['minWeight'] ?? 0.0;
             final avgBMI = data?['avgBMI'] ?? 0.0;
+            final maxBMI = data?['maxBMI'] ?? 0.0;
+            final minBMI = data?['minBMI'] ?? 0.0;
 
-            return Container(
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _tile('Average', avgWeight),
-                      _tile('Maximum', maxWeight),
-                      _tile('Minimum', minWeight),
+            return Column(
+              children: [
+                // Weight Section
+                Container(
+                  padding: EdgeInsets.all(4.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 2.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _tile('BMI', avgBMI),
-                      const SizedBox(width: 16),
-                      const SizedBox(width: 16),
+                      Text(
+                        'Weight',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildStatTile('Average', avgWeight, 'kg'),
+                          _buildStatTile('Maximum', maxWeight, 'kg'),
+                          _buildStatTile('Minimum', minWeight, 'kg'),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+
+                SizedBox(height: 1.h),
+
+                // BMI Section
+                Container(
+                  padding: EdgeInsets.all(4.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'BMI',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildStatTile('Average', avgBMI, ''),
+                          _buildStatTile('Maximum', maxBMI, ''),
+                          _buildStatTile('Minimum', minBMI, ''),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             );
           },
         );
@@ -61,18 +110,41 @@ class BMIStats extends StatelessWidget {
     );
   }
 
-  Widget _tile(String label, double value) {
+  Widget _buildStatTile(String label, double value, String unit) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          value.toStringAsFixed(1),
-          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: value.toStringAsFixed(1),
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              ),
+              if (unit.isNotEmpty)
+                TextSpan(
+                  text: ' $unit',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[600],
+                  ),
+                ),
+            ],
+          ),
         ),
-        SizedBox(height: 0.3.h),
+        SizedBox(height: 0.5.h),
         Text(
           label,
-          style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );

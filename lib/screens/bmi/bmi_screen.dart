@@ -6,6 +6,7 @@ import 'viewmodels/bmi_view_model.dart';
 import 'components/bmi_stats.dart';
 import 'components/bmi_history.dart';
 import 'components/bmi_toggle_buttons.dart';
+import 'components/bmi_chart.dart';
 
 class BMIScreen extends StatelessWidget {
   const BMIScreen({super.key});
@@ -44,6 +45,7 @@ class BMIScreen extends StatelessWidget {
               physics: const AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.all(4.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Lifetime summary',
@@ -55,8 +57,7 @@ class BMIScreen extends StatelessWidget {
                   const BMIToggleButtons(),
                   SizedBox(height: 2.h),
                   if (vm.showStatistics) ...[
-                    // For now history is reused; chart can be added similarly
-                    const BMIHistory(),
+                    const BMIChart(),
                   ] else ...[
                     const BMIHistory(),
                   ],
