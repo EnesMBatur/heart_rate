@@ -18,8 +18,11 @@ import '../screens/blood_pressure/add_blood_pressure_screen.dart';
 import '../screens/blood_pressure/blood_pressure_details_screen.dart';
 import '../screens/blood_sugar/blood_sugar_screen.dart';
 import '../screens/blood_sugar/blood_sugar_add_screen.dart';
+import '../screens/bmi/bmi_screen.dart';
+import '../screens/bmi/bmi_add_screen.dart';
 import '../models/blood_pressure_measurement.dart';
 import '../models/blood_sugar_measurement.dart';
+import '../models/bmi_record.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -35,6 +38,8 @@ class AppRouter {
   static const String bloodPressureDetails = '/blood-pressure/details';
   static const String bloodSugar = '/blood-sugar';
   static const String bloodSugarAdd = '/blood-sugar/add';
+  static const String bmi = '/bmi';
+  static const String bmiAdd = '/bmi/add';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -156,6 +161,21 @@ class AppRouter {
           return MaterialPage(
             child: BloodSugarAddScreen(measurement: measurement),
           );
+        },
+      ),
+      // Full-screen route for BMI
+      GoRoute(
+        path: bmi,
+        name: 'bmi',
+        pageBuilder: (context, state) => MaterialPage(child: const BMIScreen()),
+      ),
+      // Full-screen route for adding BMI
+      GoRoute(
+        path: bmiAdd,
+        name: 'bmiAdd',
+        pageBuilder: (context, state) {
+          final record = state.extra as BMIRecord?;
+          return MaterialPage(child: BMIAddScreen(record: record));
         },
       ),
     ],

@@ -119,7 +119,8 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
               builder: (context, viewModel, child) {
                 return Text(
                   viewModel.isEditing ? 'Edit' : 'Add',
-                  style: const TextStyle(
+                  style: TextStyle(
+                    fontSize: 20.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                   ),

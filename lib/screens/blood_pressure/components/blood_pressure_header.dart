@@ -9,7 +9,7 @@ class BloodPressureHeader extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF8F9FA),
       elevation: 0,
       centerTitle: true,
       leading: IconButton(

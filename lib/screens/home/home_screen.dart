@@ -109,12 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onBloodSugarPressed() {
-    context.push('/blood-sugar');
+    context.push(AppRouter.bloodSugar);
   }
 
   void _onWeightBmiPressed() {
-    // TODO: Navigate to weight & BMI measurement
-    _showFeatureComingSoon('Weight & BMI measurement');
+    context.push(AppRouter.bmi);
   }
 
   void _onAiDoctorPressed() {
