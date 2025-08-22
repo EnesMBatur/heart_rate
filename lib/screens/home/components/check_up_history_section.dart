@@ -120,18 +120,16 @@ class CheckUpHistorySection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  DateFormat('MMM d, y').format(measurement.timestamp),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
-                  ),
+                  DateFormat(
+                    'MMM dd, yyyy • h:mm a',
+                  ).format(measurement.timestamp),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  DateFormat('h:mm a').format(measurement.timestamp),
-                  style: TextStyle(fontSize: 14.sp, color: Colors.black54),
-                ),
+                // const SizedBox(height: 4),
+                // Text(
+                //   DateFormat('h:mm a').format(measurement.timestamp),
+                //   style: TextStyle(fontSize: 14.sp, color: Colors.black54),
+                // ),
               ],
             ),
           ),
@@ -146,7 +144,7 @@ class CheckUpHistorySection extends StatelessWidget {
             child: Text(
               status,
               style: TextStyle(
-                fontSize: 18.sp,
+                fontSize: 16.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),

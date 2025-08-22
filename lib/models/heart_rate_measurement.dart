@@ -6,6 +6,7 @@ class HeartRateMeasurement {
   final int stress; // 1-5 scale
   final int tension; // 1-5 scale
   final int energy; // 1-5 scale
+  final int? mood; // 1-5 scale, nullable because user might not select
   final double? hrv; // Heart Rate Variability (RMSSD in ms)
   final double? signalQuality; // 0.0-1.0 signal quality
   final String? algorithmUsed; // "basic" or "fft"
@@ -25,6 +26,7 @@ class HeartRateMeasurement {
     required this.stress,
     required this.tension,
     required this.energy,
+    this.mood,
     this.hrv,
     this.signalQuality,
     this.algorithmUsed,
@@ -43,6 +45,7 @@ class HeartRateMeasurement {
       'stress': stress,
       'tension': tension,
       'energy': energy,
+      'mood': mood,
       'hrv': hrv,
       'signalQuality': signalQuality,
       'algorithmUsed': algorithmUsed,
@@ -62,6 +65,7 @@ class HeartRateMeasurement {
       stress: json['stress'],
       tension: json['tension'],
       energy: json['energy'],
+      mood: json['mood'],
       hrv: json['hrv']?.toDouble(),
       signalQuality: json['signalQuality']?.toDouble(),
       algorithmUsed: json['algorithmUsed'],

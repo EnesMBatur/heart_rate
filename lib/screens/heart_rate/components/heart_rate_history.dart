@@ -57,9 +57,8 @@ class HeartRateHistory extends StatelessWidget {
     HeartRateMeasurement measurement,
     HeartRateViewModel viewModel,
   ) {
-    final dateFormatter = DateFormat('MMM dd, yyyy');
-    final timeFormatter = DateFormat('h:mm a');
-
+    final status = _getHeartRateStatus(measurement.heartRate);
+    final statusColor = _getStatusColor(status);
     return Dismissible(
       key: Key(measurement.timestamp.millisecondsSinceEpoch.toString()),
       direction: DismissDirection.endToStart,
@@ -93,7 +92,7 @@ class HeartRateHistory extends StatelessWidget {
             return AlertDialog(
               title: const Text('Delete Measurement'),
               content: Text(
-                'Are you sure you want to delete this heart rate measurement?\n\n${measurement.heartRate} BPM - ${dateFormatter.format(measurement.timestamp)}',
+                'Are you sure you want to delete this heart rate measurement?\n\n${measurement.heartRate} BPM - ${DateFormat('MMM dd, yyyy').format(measurement.timestamp)}',
               ),
               actions: [
                 TextButton(
@@ -130,7 +129,9 @@ class HeartRateHistory extends StatelessWidget {
               'signalQualityPercent': ((measurement.signalQuality ?? 0.8) * 100)
                   .round(),
               'status': measurement.heartRateCategory,
-              'mood': 3, // Default mood
+              'mood':
+                  measurement.mood ?? 3, // Use measurement's mood or default
+              'source': 'history', // Add source info for navigation
             },
           );
         },
@@ -150,130 +151,68 @@ class HeartRateHistory extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Heart rate icon with color based on category
+              // Heart Rate Circle (same as home screen design)
               Container(
-                width: 16.w,
-                height: 16.w,
+                width: 62,
+                height: 62,
                 decoration: BoxDecoration(
-                  color: _getHeartRateColor(
-                    measurement.heartRate,
-                  ).withOpacity(0.1),
+                  color: const Color(0xFFFF6B6B),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.favorite,
-                  color: _getHeartRateColor(measurement.heartRate),
-                  size: 32,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${measurement.heartRate}',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'BPM',
+                      style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
 
-              SizedBox(width: 4.w),
+              SizedBox(width: 2.h),
 
               // Measurement details
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${measurement.heartRate} BPM',
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 3.w,
-                            vertical: 0.5.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _getHeartRateColor(
-                              measurement.heartRate,
-                            ).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            measurement.heartRateCategory,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: _getHeartRateColor(measurement.heartRate),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 1.h),
-
-                    // // Additional metrics
-                    // Row(
-                    //   children: [
-                    //     _buildMetricChip(
-                    //       'Stress',
-                    //       measurement.stress.toString(),
-                    //       Icons.psychology,
-                    //     ),
-                    //     SizedBox(width: 2.w),
-                    //     _buildMetricChip(
-                    //       'Energy',
-                    //       measurement.energy.toString(),
-                    //       Icons.bolt,
-                    //     ),
-                    //     if (measurement.hrv != null) ...[
-                    //       SizedBox(width: 2.w),
-                    //       _buildMetricChip(
-                    //         'HRV',
-                    //         measurement.hrv!.toStringAsFixed(1),
-                    //         Icons.show_chart,
-                    //       ),
-                    //     ],
-                    //   ],
-                    // ),
-                    SizedBox(height: 1.h),
-
-                    // Date and time
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 16,
-                          color: Colors.grey[600],
-                        ),
-                        SizedBox(width: 1.w),
-                        Text(
-                          dateFormatter.format(measurement.timestamp),
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        SizedBox(width: 4.w),
-                        Icon(
-                          Icons.access_time,
-                          size: 16,
-                          color: Colors.grey[600],
-                        ),
-                        SizedBox(width: 1.w),
-                        Text(
-                          timeFormatter.format(measurement.timestamp),
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
+                    Text(
+                      DateFormat(
+                        'MMM dd, yyyy • h:mm a',
+                      ).format(measurement.timestamp),
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ],
                 ),
               ),
-
-              // Arrow icon
-              Icon(Icons.chevron_right, color: Colors.grey[400], size: 24),
+              // Status Badge
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -281,35 +220,25 @@ class HeartRateHistory extends StatelessWidget {
     );
   }
 
-  Widget _buildMetricChip(String label, String value, IconData icon) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: Colors.grey[600]),
-          SizedBox(width: 1.w),
-          Text(
-            '$label: $value',
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Colors.grey[700],
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
+  String _getHeartRateStatus(int heartRate) {
+    if (heartRate < 60) return 'Low';
+    if (heartRate <= 100) return 'Normal';
+    if (heartRate <= 120) return 'Elevated';
+    return 'High';
   }
 
-  Color _getHeartRateColor(int heartRate) {
-    if (heartRate < 60) return Colors.blue;
-    if (heartRate <= 100) return Colors.green;
-    if (heartRate <= 120) return Colors.orange;
-    return Colors.red;
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'Low':
+        return Colors.blue;
+      case 'Normal':
+        return Colors.green;
+      case 'Elevated':
+        return Colors.orange;
+      case 'High':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
   }
 }

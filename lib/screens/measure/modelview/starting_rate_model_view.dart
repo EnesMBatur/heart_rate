@@ -443,7 +443,7 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     }
   }
 
-  Future<void> saveMeasurement() async {
+  Future<void> saveMeasurement({int? mood, String? status}) async {
     // Create a ReportViewModel to generate all detailed data
     final reportViewModel = ReportViewModel();
     final signalQualityPercent = (viewModel.signalQuality * 100).round();
@@ -453,19 +453,19 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
       heartRate: viewModel.currentHeartRate,
       hrv: viewModel.currentHRV,
       signalQualityPercent: signalQualityPercent,
-      status: _getStatusFromHeartRate(viewModel.currentHeartRate),
-      mood: 3, // Default mood - bu ölçüm sırasında user mood seçmiyor
+      status: status ?? _getStatusFromHeartRate(viewModel.currentHeartRate),
+      mood: mood ?? 3, // Use provided mood or default
     );
 
-    final report = reportViewModel.report;
-
-    // Create measurement with all detailed data from report
+    final report = reportViewModel
+        .report; // Create measurement with all detailed data from report
     final measurement = HeartRateMeasurement(
       heartRate: viewModel.currentHeartRate,
       timestamp: DateTime.now(),
       stress: report.stressLevel,
       tension: report.tensionLevel,
       energy: report.energyLevel,
+      mood: mood, // Use the mood from user selection
       hrv: viewModel.currentHRV,
       signalQuality: viewModel.signalQuality, // double olarak
       sdnn: report.hrvAnalysis.sdnn,
@@ -506,6 +506,28 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     return 'normal';
   }
 
+  Future<void> _updateLastMeasurementWithMoodAndStatus(
+    int mood,
+    String status,
+  ) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final measurementsList =
+          prefs.getStringList('heart_rate_measurements') ?? [];
+
+      if (measurementsList.isNotEmpty) {
+        // Remove the last measurement without mood
+        measurementsList.removeLast();
+        await prefs.setStringList('heart_rate_measurements', measurementsList);
+
+        // Create new measurement with mood and status
+        await saveMeasurement(mood: mood, status: status);
+      }
+    } catch (e) {
+      debugPrint('Error updating measurement with mood: $e');
+    }
+  }
+
   void showResults() {
     final signalQualityPercent = (viewModel.signalQuality * 100).round();
     bool reportCreated = false; // Flag to track if report was created
@@ -520,8 +542,12 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
         heartRate: viewModel.currentHeartRate,
         hrv: viewModel.currentHRV,
         signalQualityPercent: signalQualityPercent,
-        onCreateReport: (String status, int mood) {
+        onCreateReport: (String status, int mood) async {
           reportCreated = true; // Set flag to true
+
+          // Update the last measurement with mood and status
+          await _updateLastMeasurementWithMoodAndStatus(mood, status);
+
           // Navigate to report screen using GoRouter
           if (mounted) {
             context.go(
@@ -533,9 +559,10 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
                 'status':
                     status, // Now using the actual status from bottom sheet
                 'mood': mood, // Now using the actual mood from bottom sheet
+                'source': 'measurement', // Add source info for navigation
               },
             );
-          } else {}
+          }
         },
       ),
     ).then((value) {

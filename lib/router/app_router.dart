@@ -102,6 +102,7 @@ class AppRouter {
               signalQualityPercent: extra?['signalQualityPercent'] ?? 85,
               status: extra?['status'] ?? 'normal',
               mood: extra?['mood'] ?? 3,
+              source: extra?['source'], // Add source parameter
             ),
           );
         },

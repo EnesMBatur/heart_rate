@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _onViewAllHistoryPressed() {
-    context.push(AppRouter.history);
+    context.push(AppRouter.heartRateTracker);
   }
 
   void _showFeatureComingSoon(String featureName) {

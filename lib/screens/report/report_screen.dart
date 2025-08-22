@@ -16,6 +16,7 @@ class ReportScreen extends StatefulWidget {
   final int signalQualityPercent;
   final String status;
   final int mood;
+  final String? source; // 'measurement' or 'history'
 
   const ReportScreen({
     super.key,
@@ -24,6 +25,7 @@ class ReportScreen extends StatefulWidget {
     required this.signalQualityPercent,
     required this.status,
     required this.mood,
+    this.source,
   });
 
   @override
@@ -54,7 +56,15 @@ class _ReportScreenState extends State<ReportScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => context.go('/home'),
+          onPressed: () {
+            // If coming from measurement, go to home
+            // If coming from history, just pop back
+            if (widget.source == 'measurement') {
+              context.go('/home');
+            } else {
+              context.pop();
+            }
+          },
         ),
         title: Text(
           'Health Report',
