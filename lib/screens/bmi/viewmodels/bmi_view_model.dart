@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../models/bmi_record.dart';
 import '../../../services/bmi_service.dart';
+import '../../../services/event_bus.dart';
 
 class BMIViewModel extends ChangeNotifier {
   final BMIService _service = BMIService();
@@ -34,6 +35,9 @@ class BMIViewModel extends ChangeNotifier {
   Future<void> add(BMIRecord record) async {
     await _service.saveRecord(record);
     await load();
+
+    // Home screen'i güncellemek için event gönder
+    EventBus().fire('bmi_data_changed');
   }
 
   Future<void> update(BMIRecord record) async {
@@ -44,6 +48,14 @@ class BMIViewModel extends ChangeNotifier {
   Future<void> delete(String id) async {
     await _service.deleteRecord(id);
     await load();
+  }
+
+  Future<void> deleteRecord(BMIRecord record) async {
+    await _service.deleteRecord(record.id);
+    await load();
+
+    // Home screen'i güncellemek için event gönder
+    EventBus().fire('bmi_data_changed');
   }
 
   Future<Map<String, dynamic>> stats() => _service.getStatistics();

@@ -45,59 +45,122 @@ class BMIHistory extends StatelessWidget {
   }
 
   Widget _tile(BuildContext context, BMIViewModel vm, BMIRecord r) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 1.5.h),
-      padding: EdgeInsets.all(4.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${r.weightKg.toStringAsFixed(1)} kg',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(height: 0.5.h),
-                Text(
-                  'BMI: ${r.bmi.toStringAsFixed(1)}',
-                  style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.6.h),
-            decoration: BoxDecoration(
-              color: r.category.color.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              r.category.displayName,
+    return Dismissible(
+      key: Key(r.timestamp.millisecondsSinceEpoch.toString()),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(right: 4.w),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.delete_outline, color: Colors.white, size: 32),
+            SizedBox(height: 0.5.h),
+            Text(
+              'Delete',
               style: TextStyle(
-                color: r.category.color,
+                color: Colors.white,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
-                fontSize: 14.sp,
               ),
             ),
+          ],
+        ),
+      ),
+      confirmDismiss: (direction) async {
+        return await showDialog<bool>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Delete BMI Record'),
+              content: Text(
+                'Are you sure you want to delete this BMI record?\n\n'
+                'Weight: ${r.weightKg.toStringAsFixed(1)} kg\n'
+                'BMI: ${r.bmi.toStringAsFixed(1)}\n'
+                'Category: ${r.category.displayName}',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  style: TextButton.styleFrom(foregroundColor: Colors.red),
+                  child: const Text('Delete'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      onDismissed: (direction) {
+        vm.deleteRecord(r);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('BMI record deleted'),
+            backgroundColor: Colors.red,
           ),
-        ],
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 1.5.h),
+        padding: EdgeInsets.all(4.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${r.weightKg.toStringAsFixed(1)} kg',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 0.5.h),
+                  Text(
+                    'BMI: ${r.bmi.toStringAsFixed(1)}',
+                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.6.h),
+              decoration: BoxDecoration(
+                color: r.category.color.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                r.category.displayName,
+                style: TextStyle(
+                  color: r.category.color,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

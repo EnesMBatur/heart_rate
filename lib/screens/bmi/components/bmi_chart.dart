@@ -429,7 +429,7 @@ class BMIChart extends StatelessWidget {
 
   Widget _buildWeightChart(List chartData) {
     return Container(
-      height: 36.h,
+      height: 40.h,
       padding: EdgeInsets.all(4.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -443,20 +443,48 @@ class BMIChart extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             'Weight Trend',
             style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade800,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade700,
             ),
           ),
           SizedBox(height: 2.h),
           Expanded(
             child: LineChart(
               LineChartData(
+                lineTouchData: LineTouchData(
+                  enabled: true,
+                  touchTooltipData: LineTouchTooltipData(
+                    // getTooltipColor: (LineBarSpot spot) => Colors.white,
+                    tooltipPadding: EdgeInsets.all(2.w),
+                    tooltipMargin: 1.h,
+                    getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+                      return touchedBarSpots.map((barSpot) {
+                        final index = barSpot.x.toInt();
+                        if (index >= 0 && index < chartData.length) {
+                          final record = chartData[index];
+
+                          return LineTooltipItem(
+                            '${record.weightKg.toStringAsFixed(1)} kg\n'
+                            '${record.bmi.toStringAsFixed(1)}\n'
+                            '${record.timestamp.day}/${record.timestamp.month} ${record.timestamp.hour}:${record.timestamp.minute.toString().padLeft(2, '0')}',
+                            TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.sp,
+                            ),
+                          );
+                        }
+                        return null;
+                      }).toList();
+                    },
+                  ),
+                ),
                 gridData: FlGridData(
                   show: true,
                   drawVerticalLine: false,

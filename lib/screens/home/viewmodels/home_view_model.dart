@@ -4,6 +4,8 @@ import '../../../models/heart_rate_measurement.dart';
 import '../../../services/blood_pressure_service.dart';
 import '../../../services/blood_sugar_service.dart';
 import '../../../services/bmi_service.dart';
+import '../../../services/event_bus.dart';
+import 'dart:async';
 
 class HomeViewModel extends ChangeNotifier {
   HeartRateMeasurement? _lastMeasurement;
@@ -12,6 +14,25 @@ class HomeViewModel extends ChangeNotifier {
   int _bloodPressureRecords = 0;
   int _bloodSugarRecords = 0;
   int _weightBmiRecords = 0;
+  StreamSubscription<String>? _eventSubscription;
+
+  HomeViewModel() {
+    _initEventListener();
+  }
+
+  void _initEventListener() {
+    _eventSubscription = EventBus().events.listen((event) {
+      if (event == 'heart_rate_data_changed' || event == 'bmi_data_changed') {
+        _loadRecordCounts();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _eventSubscription?.cancel();
+    super.dispose();
+  }
 
   // Getters
   HeartRateMeasurement? get lastMeasurement => _lastMeasurement;
