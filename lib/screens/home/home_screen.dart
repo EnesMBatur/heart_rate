@@ -39,8 +39,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
-      // App resumed, update data
-      _viewModel.updateRecordCounts();
+      // App resumed, refresh all data including last measurement
+      _viewModel.refresh();
     }
   }
 

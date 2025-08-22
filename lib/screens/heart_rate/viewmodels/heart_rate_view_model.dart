@@ -10,6 +10,9 @@ class HeartRateViewModel extends ChangeNotifier {
   String _selectedTimeRange = '7 Days';
   HeartRateMeasurement? _selectedMeasurement;
 
+  // Callback for when data changes (to notify other screens)
+  VoidCallback? onDataChanged;
+
   List<HeartRateMeasurement> get measurements => _measurements;
   bool get isLoading => _isLoading;
   bool get showStatistics => _showStatistics;
@@ -165,6 +168,7 @@ class HeartRateViewModel extends ChangeNotifier {
 
   Future<void> deleteMeasurement(HeartRateMeasurement measurement) async {
     try {
+      // Remove from local list
       _measurements.removeWhere(
         (m) =>
             m.timestamp == measurement.timestamp &&
@@ -172,12 +176,38 @@ class HeartRateViewModel extends ChangeNotifier {
       );
 
       final prefs = await SharedPreferences.getInstance();
-      final historyData = _measurements
-          .map((e) => jsonEncode(e.toJson()))
-          .toList();
 
-      await prefs.setStringList('heart_rate_history', historyData);
+      // Update detailed measurements JSON list
+      final measurementsList = _measurements
+          .map((e) => e.toJsonString())
+          .toList();
+      await prefs.setStringList('heart_rate_measurements', measurementsList);
+
+      // Also update legacy format for backward compatibility
+      final legacyHistory = _measurements
+          .map((e) => '${e.timestamp.toIso8601String()}|${e.heartRate}')
+          .toList();
+      await prefs.setStringList('heart_rate_history', legacyHistory);
+
+      // Update last measurement if it was deleted
+      if (_measurements.isNotEmpty) {
+        final lastMeasurement =
+            _measurements.first; // Already sorted by timestamp desc
+        await prefs.setInt('last_heart_rate', lastMeasurement.heartRate);
+        await prefs.setString(
+          'last_timestamp',
+          lastMeasurement.timestamp.toIso8601String(),
+        );
+      } else {
+        // No measurements left, clear last measurement
+        await prefs.remove('last_heart_rate');
+        await prefs.remove('last_timestamp');
+      }
+
       notifyListeners();
+
+      // Notify other screens that data has changed
+      onDataChanged?.call();
     } catch (e) {
       debugPrint('Error deleting heart rate measurement: $e');
     }
