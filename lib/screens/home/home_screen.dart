@@ -74,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       bloodPressureRecords: viewModel.bloodPressureRecords,
                       bloodSugarRecords: viewModel.bloodSugarRecords,
                       weightBmiRecords: viewModel.weightBmiRecords,
-                      onHeartRatePressed: _onHeartRatePressed,
+                      onHeartRatePressed: _onHeartRateMeasurePressed,
+                      onHeartRateTrackerPressed: _onHeartRateTrackerPressed,
                       onBloodPressurePressed: _onBloodPressurePressed,
                       onBloodSugarPressed: _onBloodSugarPressed,
                       onWeightBmiPressed: _onWeightBmiPressed,
@@ -111,9 +112,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
-  void _onHeartRatePressed() {
+  void _onHeartRateMeasurePressed() {
     context.push(AppRouter.measure).then((_) {
-      // Update data when returning from heart rate screen
+      // Update data when returning from measure screen
+      _viewModel.updateRecordCounts();
+    });
+  }
+
+  void _onHeartRateTrackerPressed() {
+    context.push(AppRouter.heartRateTracker).then((_) {
+      // Update data when returning from heart rate tracker screen
       _viewModel.updateRecordCounts();
     });
   }

@@ -9,6 +9,7 @@ import 'package:heart_rate/screens/measure/start_measure_screen.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../screens/measure/heart_rate_screen.dart';
+import '../screens/heart_rate/heart_rate_screen.dart' as heart_rate_tracker;
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../screens/report/report_screen.dart';
@@ -29,6 +30,7 @@ class AppRouter {
   static const String home = '/home';
   static const String measure = '/measure';
   static const String heartRate = '/heart-rate';
+  static const String heartRateTracker = '/heart-rate-tracker';
   static const String history = '/history';
   static const String tips = '/tips';
   static const String report = '/report';
@@ -79,6 +81,13 @@ class AppRouter {
         name: 'heartRate',
         pageBuilder: (context, state) =>
             MaterialPage(child: const HeartRateScreen()),
+      ),
+      // Full-screen route for heart rate tracker/history
+      GoRoute(
+        path: heartRateTracker,
+        name: 'heartRateTracker',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const heart_rate_tracker.HeartRateScreen()),
       ),
       // Full-screen route for report
       GoRoute(

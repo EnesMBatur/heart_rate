@@ -6,7 +6,8 @@ class HealthCardsGrid extends StatelessWidget {
   final int bloodPressureRecords;
   final int bloodSugarRecords;
   final int weightBmiRecords;
-  final VoidCallback? onHeartRatePressed;
+  final VoidCallback? onHeartRatePressed; // For measure button
+  final VoidCallback? onHeartRateTrackerPressed; // For card area
   final VoidCallback? onBloodPressurePressed;
   final VoidCallback? onBloodSugarPressed;
   final VoidCallback? onWeightBmiPressed;
@@ -19,6 +20,7 @@ class HealthCardsGrid extends StatelessWidget {
     required this.bloodSugarRecords,
     required this.weightBmiRecords,
     this.onHeartRatePressed,
+    this.onHeartRateTrackerPressed,
     this.onBloodPressurePressed,
     this.onBloodSugarPressed,
     this.onWeightBmiPressed,
@@ -91,74 +93,77 @@ class HealthCardsGrid extends StatelessWidget {
   }
 
   Widget _buildMainHeartRateCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFFFFE5E5), Color(0xFFFFF0F0)],
+    return GestureDetector(
+      onTap: onHeartRateTrackerPressed,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFFFE5E5), Color(0xFFFFF0F0)],
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Heart Rate',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Heart Rate',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '$heartRateRecords records',
-                  style: TextStyle(fontSize: 16.sp, color: Colors.black54),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                  const SizedBox(height: 8),
+                  Text(
+                    '$heartRateRecords records',
+                    style: TextStyle(fontSize: 16.sp, color: Colors.black54),
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFF6B6B),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: GestureDetector(
+                  const SizedBox(height: 16),
+                  GestureDetector(
                     onTap: onHeartRatePressed,
-                    child: Text(
-                      'Measure',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w500,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF6B6B),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        'Measure',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(width: 16),
+            const SizedBox(width: 16),
 
-          // Heart Rate Image
-          SizedBox(
-            width: 20.h,
-            height: 20.h,
-            child: Image.asset(
-              'assets/images/home/heart_rate.png',
-              fit: BoxFit.contain,
+            // Heart Rate Image
+            SizedBox(
+              width: 20.h,
+              height: 20.h,
+              child: Image.asset(
+                'assets/images/home/heart_rate.png',
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
