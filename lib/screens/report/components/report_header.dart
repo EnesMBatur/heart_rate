@@ -345,7 +345,7 @@ class ReportHeader extends StatelessWidget {
     if (heartRate < 60) {
       return 'Below Normal Range';
     } else if (heartRate <= 100) {
-      return 'Normal Resting Heart Rate';
+      return 'Normal Heart Rate';
     } else if (heartRate <= 120) {
       return 'Slightly Elevated';
     } else {

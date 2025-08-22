@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:go_router/go_router.dart';
 import 'viewmodels/heart_rate_view_model.dart';
 import 'components/heart_rate_header.dart';
 import 'components/heart_rate_stats.dart';

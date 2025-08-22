@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class HeartRateMeasurement {
   final int heartRate;
   final DateTime timestamp;
@@ -8,6 +10,15 @@ class HeartRateMeasurement {
   final double? signalQuality; // 0.0-1.0 signal quality
   final String? algorithmUsed; // "basic" or "fft"
 
+  // Detailed HRV metrics from report
+  final double? sdnn; // Standard deviation of NN intervals
+  final double? rmssd; // Root mean square of successive differences
+  final double?
+  pnn50; // Percentage of successive RR intervals that differ by more than 50ms
+  final double? cov; // Coefficient of variation
+  final double? triangularIndex; // Triangular index
+  final double? tinn; // Triangular interpolation of NN interval histogram
+
   HeartRateMeasurement({
     required this.heartRate,
     required this.timestamp,
@@ -17,6 +28,12 @@ class HeartRateMeasurement {
     this.hrv,
     this.signalQuality,
     this.algorithmUsed,
+    this.sdnn,
+    this.rmssd,
+    this.pnn50,
+    this.cov,
+    this.triangularIndex,
+    this.tinn,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,6 +46,12 @@ class HeartRateMeasurement {
       'hrv': hrv,
       'signalQuality': signalQuality,
       'algorithmUsed': algorithmUsed,
+      'sdnn': sdnn,
+      'rmssd': rmssd,
+      'pnn50': pnn50,
+      'cov': cov,
+      'triangularIndex': triangularIndex,
+      'tinn': tinn,
     };
   }
 
@@ -42,7 +65,17 @@ class HeartRateMeasurement {
       hrv: json['hrv']?.toDouble(),
       signalQuality: json['signalQuality']?.toDouble(),
       algorithmUsed: json['algorithmUsed'],
+      sdnn: json['sdnn']?.toDouble(),
+      rmssd: json['rmssd']?.toDouble(),
+      pnn50: json['pnn50']?.toDouble(),
+      cov: json['cov']?.toDouble(),
+      triangularIndex: json['triangularIndex']?.toDouble(),
+      tinn: json['tinn']?.toDouble(),
     );
+  }
+
+  String toJsonString() {
+    return jsonEncode(toJson());
   }
 
   String get heartRateCategory {

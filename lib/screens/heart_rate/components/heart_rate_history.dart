@@ -210,31 +210,30 @@ class HeartRateHistory extends StatelessWidget {
 
                     SizedBox(height: 1.h),
 
-                    // Additional metrics
-                    Row(
-                      children: [
-                        _buildMetricChip(
-                          'Stress',
-                          measurement.stress.toString(),
-                          Icons.psychology,
-                        ),
-                        SizedBox(width: 2.w),
-                        _buildMetricChip(
-                          'Energy',
-                          measurement.energy.toString(),
-                          Icons.bolt,
-                        ),
-                        if (measurement.hrv != null) ...[
-                          SizedBox(width: 2.w),
-                          _buildMetricChip(
-                            'HRV',
-                            measurement.hrv!.toStringAsFixed(1),
-                            Icons.show_chart,
-                          ),
-                        ],
-                      ],
-                    ),
-
+                    // // Additional metrics
+                    // Row(
+                    //   children: [
+                    //     _buildMetricChip(
+                    //       'Stress',
+                    //       measurement.stress.toString(),
+                    //       Icons.psychology,
+                    //     ),
+                    //     SizedBox(width: 2.w),
+                    //     _buildMetricChip(
+                    //       'Energy',
+                    //       measurement.energy.toString(),
+                    //       Icons.bolt,
+                    //     ),
+                    //     if (measurement.hrv != null) ...[
+                    //       SizedBox(width: 2.w),
+                    //       _buildMetricChip(
+                    //         'HRV',
+                    //         measurement.hrv!.toStringAsFixed(1),
+                    //         Icons.show_chart,
+                    //       ),
+                    //     ],
+                    //   ],
+                    // ),
                     SizedBox(height: 1.h),
 
                     // Date and time

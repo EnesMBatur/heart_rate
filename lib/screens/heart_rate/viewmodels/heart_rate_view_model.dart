@@ -28,11 +28,40 @@ class HeartRateViewModel extends ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      final historyData = prefs.getStringList('heart_rate_history') ?? [];
 
-      _measurements = historyData
-          .map((e) => HeartRateMeasurement.fromJson(jsonDecode(e)))
-          .toList();
+      // Try to load from new detailed measurements first
+      final detailedMeasurements =
+          prefs.getStringList('heart_rate_measurements') ?? [];
+
+      if (detailedMeasurements.isNotEmpty) {
+        // Load detailed measurements
+        _measurements = detailedMeasurements
+            .map(
+              (jsonString) =>
+                  HeartRateMeasurement.fromJson(jsonDecode(jsonString)),
+            )
+            .toList();
+      } else {
+        // Fallback to legacy history format
+        final historyData = prefs.getStringList('heart_rate_history') ?? [];
+        _measurements = historyData
+            .map((e) {
+              final parts = e.split('|');
+              if (parts.length >= 2) {
+                return HeartRateMeasurement(
+                  heartRate: int.parse(parts[1]),
+                  timestamp: DateTime.parse(parts[0]),
+                  stress: 3, // Default values for legacy data
+                  tension: 3,
+                  energy: 3,
+                );
+              }
+              return null;
+            })
+            .where((measurement) => measurement != null)
+            .cast<HeartRateMeasurement>()
+            .toList();
+      }
 
       // En son eklenen/güncellenen üstte olacak şekilde sırala
       _measurements.sort((a, b) => b.timestamp.compareTo(a.timestamp));

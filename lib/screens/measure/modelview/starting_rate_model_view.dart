@@ -14,6 +14,7 @@ import 'package:heart_rate/viewmodels/heart_rate_view_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:heart_rate/screens/report/viewmodels/report_view_model.dart';
 
 abstract class StartingRateModelView extends State<HeartRateScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
@@ -443,12 +444,36 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
   }
 
   Future<void> saveMeasurement() async {
+    // Create a ReportViewModel to generate all detailed data
+    final reportViewModel = ReportViewModel();
+    final signalQualityPercent = (viewModel.signalQuality * 100).round();
+
+    // Initialize report with current measurement data
+    reportViewModel.initializeReport(
+      heartRate: viewModel.currentHeartRate,
+      hrv: viewModel.currentHRV,
+      signalQualityPercent: signalQualityPercent,
+      status: _getStatusFromHeartRate(viewModel.currentHeartRate),
+      mood: 3, // Default mood - bu ölçüm sırasında user mood seçmiyor
+    );
+
+    final report = reportViewModel.report;
+
+    // Create measurement with all detailed data from report
     final measurement = HeartRateMeasurement(
       heartRate: viewModel.currentHeartRate,
       timestamp: DateTime.now(),
-      stress: _getStressLevel(viewModel.currentHeartRate),
-      tension: _getTensionLevel(viewModel.currentHeartRate),
-      energy: _getEnergyLevel(viewModel.currentHeartRate),
+      stress: report.stressLevel,
+      tension: report.tensionLevel,
+      energy: report.energyLevel,
+      hrv: viewModel.currentHRV,
+      signalQuality: viewModel.signalQuality, // double olarak
+      sdnn: report.hrvAnalysis.sdnn,
+      rmssd: report.hrvAnalysis.rmssd,
+      pnn50: report.hrvAnalysis.pnn50,
+      cov: report.hrvAnalysis.cov,
+      triangularIndex: 0.0, // ReportViewModel'de henüz yok
+      tinn: 0.0, // ReportViewModel'de henüz yok
     );
 
     final prefs = await SharedPreferences.getInstance();
@@ -460,7 +485,13 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
       measurement.timestamp.toIso8601String(),
     );
 
-    // Save to history
+    // Save full measurement data as JSON
+    final measurementsList =
+        prefs.getStringList('heart_rate_measurements') ?? [];
+    measurementsList.add(measurement.toJsonString());
+    await prefs.setStringList('heart_rate_measurements', measurementsList);
+
+    // Keep legacy simple history for backward compatibility
     final history = prefs.getStringList('heart_rate_history') ?? [];
     history.add(
       '${measurement.timestamp.toIso8601String()}|${viewModel.currentHeartRate}',
@@ -468,28 +499,11 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     await prefs.setStringList('heart_rate_history', history);
   }
 
-  int _getStressLevel(int heartRate) {
-    if (heartRate < 60) return 1;
-    if (heartRate < 80) return 2;
-    if (heartRate < 100) return 3;
-    if (heartRate < 120) return 4;
-    return 5;
-  }
-
-  int _getTensionLevel(int heartRate) {
-    if (heartRate < 70) return 1;
-    if (heartRate < 90) return 2;
-    if (heartRate < 110) return 3;
-    if (heartRate < 130) return 4;
-    return 5;
-  }
-
-  int _getEnergyLevel(int heartRate) {
-    if (heartRate < 60) return 2;
-    if (heartRate < 80) return 5;
-    if (heartRate < 100) return 4;
-    if (heartRate < 120) return 3;
-    return 2;
+  String _getStatusFromHeartRate(int heartRate) {
+    if (heartRate < 60) return 'concerning';
+    if (heartRate < 100) return 'excellent';
+    if (heartRate < 120) return 'good';
+    return 'normal';
   }
 
   void showResults() {
