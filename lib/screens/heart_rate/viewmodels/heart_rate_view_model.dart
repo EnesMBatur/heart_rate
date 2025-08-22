@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../models/heart_rate_measurement.dart';
+import '../../../services/event_bus.dart';
 
 class HeartRateViewModel extends ChangeNotifier {
   List<HeartRateMeasurement> _measurements = [];
@@ -208,6 +209,9 @@ class HeartRateViewModel extends ChangeNotifier {
 
       // Notify other screens that data has changed
       onDataChanged?.call();
+
+      // Fire global event for home screen to refresh
+      EventBus().fire(Events.heartRateDataChanged);
     } catch (e) {
       debugPrint('Error deleting heart rate measurement: $e');
     }

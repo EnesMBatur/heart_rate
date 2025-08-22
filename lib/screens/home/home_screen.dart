@@ -7,6 +7,8 @@ import 'viewmodels/home_view_model.dart';
 import 'components/home_header.dart';
 import 'components/health_cards_grid.dart';
 import 'components/check_up_history_section.dart';
+import '../../services/event_bus.dart';
+import 'dart:async';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late HomeViewModel _viewModel;
+  StreamSubscription<String>? _eventSubscription;
 
   @override
   void initState() {
@@ -26,11 +29,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.initialize();
     });
+
+    // Listen for heart rate data changes
+    _eventSubscription = EventBus().events.listen((event) {
+      if (event == Events.heartRateDataChanged) {
+        _viewModel.refresh();
+      }
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _eventSubscription?.cancel();
     _viewModel.dispose();
     super.dispose();
   }

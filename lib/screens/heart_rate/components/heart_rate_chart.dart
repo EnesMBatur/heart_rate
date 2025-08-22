@@ -140,7 +140,7 @@ class HeartRateChart extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontWeight: FontWeight.w500,
-                            fontSize: 10.sp,
+                            fontSize: 12.sp,
                           ),
                         );
                       }
@@ -158,13 +158,56 @@ class HeartRateChart extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w500,
-                          fontSize: 10.sp,
+                          fontSize: 12.sp,
                         ),
                       );
                     },
                     reservedSize: 40,
                   ),
                 ),
+              ),
+              lineTouchData: LineTouchData(
+                enabled: true,
+                touchTooltipData: LineTouchTooltipData(
+                  getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                    return touchedSpots.map((LineBarSpot touchedSpot) {
+                      final spotIndex = touchedSpot.x.toInt();
+                      if (spotIndex >= 0 && spotIndex < chartData.length) {
+                        final measurement = chartData[spotIndex];
+                        return LineTooltipItem(
+                          '${measurement.heartRate} BPM\n${measurement.heartRateCategory}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
+                          TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                          ),
+                        );
+                      }
+                      return null;
+                    }).toList();
+                  },
+                ),
+                handleBuiltInTouches: true,
+                getTouchedSpotIndicator:
+                    (LineChartBarData barData, List<int> spotIndexes) {
+                      return spotIndexes.map((spotIndex) {
+                        return TouchedSpotIndicatorData(
+                          FlLine(
+                            color: const Color(0xFFFF6B6B),
+                            strokeWidth: 2,
+                          ),
+                          FlDotData(
+                            getDotPainter: (spot, percent, barData, index) =>
+                                FlDotCirclePainter(
+                                  radius: 6,
+                                  color: Colors.white,
+                                  strokeWidth: 3,
+                                  strokeColor: const Color(0xFFFF6B6B),
+                                ),
+                          ),
+                        );
+                      }).toList();
+                    },
               ),
               borderData: FlBorderData(
                 show: true,
