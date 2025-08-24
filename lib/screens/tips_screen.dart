@@ -8,7 +8,7 @@ class TipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.heart_health_tips.tr())),
+      appBar: AppBar(title: Text(LocaleKeys.general_heart_health_tips.tr())),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -33,17 +33,17 @@ class TipsScreen extends StatelessWidget {
             // Best practices section
             _buildSectionCard(
               context,
-              LocaleKeys.best_results_tips.tr(),
+              LocaleKeys.general_best_results_tips.tr(),
               Icons.lightbulb_outline,
               [
-                LocaleKeys.best_tip_1.tr(),
-                LocaleKeys.best_tip_2.tr(),
-                LocaleKeys.best_tip_3.tr(),
-                LocaleKeys.best_tip_4.tr(),
-                LocaleKeys.best_tip_5.tr(),
-                LocaleKeys.best_tip_6.tr(),
-                LocaleKeys.best_tip_7.tr(),
-                LocaleKeys.best_tip_8.tr(),
+                LocaleKeys.general_best_tip_1.tr(),
+                LocaleKeys.general_best_tip_2.tr(),
+                LocaleKeys.general_best_tip_3.tr(),
+                LocaleKeys.general_best_tip_4.tr(),
+                LocaleKeys.general_best_tip_5.tr(),
+                LocaleKeys.general_best_tip_6.tr(),
+                LocaleKeys.general_best_tip_7.tr(),
+                LocaleKeys.general_best_tip_8.tr(),
               ],
             ),
 

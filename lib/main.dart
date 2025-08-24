@@ -42,7 +42,7 @@ class HeartRaterApp extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return MaterialApp.router(
-          title: LocaleKeys.app_title.tr(),
+          title: LocaleKeys.general_app_title.tr(),
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,

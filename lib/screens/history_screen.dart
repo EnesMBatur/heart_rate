@@ -95,17 +95,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(LocaleKeys.clear_history.tr()),
-        content: Text(LocaleKeys.clear_history_confirmation.tr()),
+        title: Text(LocaleKeys.general_clear_history.tr()),
+        content: Text(LocaleKeys.general_clear_history_confirmation.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text(LocaleKeys.cancel.tr()),
+            child: Text(LocaleKeys.general_cancel.tr()),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: Text(LocaleKeys.delete.tr()),
+            child: Text(LocaleKeys.general_delete.tr()),
           ),
         ],
       ),
@@ -120,7 +120,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.history_cleared.tr())),
+          SnackBar(content: Text(LocaleKeys.general_history_cleared.tr())),
         );
       }
     }
@@ -130,13 +130,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.measurement_history.tr()),
+        title: Text(LocaleKeys.general_measurement_history.tr()),
         actions: [
           if (_measurements.isNotEmpty)
             IconButton(
               onPressed: _clearHistory,
               icon: const Icon(Icons.delete_outline),
-              tooltip: LocaleKeys.clear_history.tr(),
+              tooltip: LocaleKeys.general_clear_history.tr(),
             ),
         ],
       ),
@@ -156,7 +156,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Icon(Icons.history, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            LocaleKeys.no_measurements_yet.tr(),
+            LocaleKeys.general_no_measurements_yet.tr(),
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
@@ -164,7 +164,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              LocaleKeys.no_measurements_description.tr(),
+              LocaleKeys.general_no_measurements_description.tr(),
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium?.copyWith(color: Colors.grey[500]),
@@ -195,7 +195,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
           // History List
           Text(
-            LocaleKeys.recent_measurements.tr(),
+            LocaleKeys.general_recent_measurements.tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 12),
@@ -223,7 +223,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.statistics.tr(),
+              LocaleKeys.general_statistics.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
@@ -231,19 +231,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildStatItem(
-                  LocaleKeys.average.tr(),
+                  LocaleKeys.general_average.tr(),
                   avgHeartRate.round(),
                   'BPM',
                   Icons.trending_flat,
                 ),
                 _buildStatItem(
-                  LocaleKeys.lowest.tr(),
+                  LocaleKeys.general_lowest.tr(),
                   minHeartRate,
                   'BPM',
                   Icons.trending_down,
                 ),
                 _buildStatItem(
-                  LocaleKeys.highest.tr(),
+                  LocaleKeys.general_highest.tr(),
                   maxHeartRate,
                   'BPM',
                   Icons.trending_up,
@@ -252,7 +252,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              LocaleKeys.total_measurements.tr(
+              LocaleKeys.general_total_measurements.tr(
                 args: ['${_measurements.length}'],
               ),
               style: Theme.of(context).textTheme.bodyMedium,
@@ -298,7 +298,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.heart_rate_trend.tr(),
+              LocaleKeys.general_heart_rate_trend.tr(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 20),

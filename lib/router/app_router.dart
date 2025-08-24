@@ -293,10 +293,16 @@ class AppShell extends StatelessWidget {
         color: Theme.of(context).cardColor,
       ),
       tabs: [
-        GButton(icon: LineIcons.medicalClinic, text: LocaleKeys.home.tr()),
-        GButton(icon: LineIcons.heartbeat, text: LocaleKeys.measure.tr()),
-        GButton(icon: LineIcons.history, text: LocaleKeys.history.tr()),
-        GButton(icon: LineIcons.lightbulb, text: LocaleKeys.tips.tr()),
+        GButton(
+          icon: LineIcons.medicalClinic,
+          text: LocaleKeys.general_home.tr(),
+        ),
+        GButton(
+          icon: LineIcons.heartbeat,
+          text: LocaleKeys.general_measure.tr(),
+        ),
+        GButton(icon: LineIcons.history, text: LocaleKeys.general_history.tr()),
+        GButton(icon: LineIcons.lightbulb, text: LocaleKeys.general_tips.tr()),
       ],
       selectedIndex: _getCurrentIndex(context),
       onTabChange: (index) => _onItemTapped(context, index),

@@ -133,19 +133,19 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(LocaleKeys.camera_permission_required.tr()),
-        content: Text(LocaleKeys.camera_permission_description.tr()),
+        title: Text(LocaleKeys.general_camera_permission_required.tr()),
+        content: Text(LocaleKeys.general_camera_permission_description.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(LocaleKeys.cancel.tr()),
+            child: Text(LocaleKeys.general_cancel.tr()),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               openAppSettings();
             },
-            child: Text(LocaleKeys.settings.tr()),
+            child: Text(LocaleKeys.general_settings.tr()),
           ),
         ],
       ),
@@ -577,15 +577,15 @@ abstract class StartingRateModelView extends State<HeartRateScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(LocaleKeys.measurement_failed.tr()),
-        content: Text(LocaleKeys.measurement_failed_description.tr()),
+        title: Text(LocaleKeys.general_measurement_failed.tr()),
+        content: Text(LocaleKeys.general_measurement_failed_description.tr()),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context); // Close dialog
               context.go('/measure'); // Navigate back to start measure
             },
-            child: Text(LocaleKeys.ok.tr()),
+            child: Text(LocaleKeys.general_ok.tr()),
           ),
         ],
       ),
