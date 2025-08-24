@@ -91,6 +91,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       onBloodSugarPressed: _onBloodSugarPressed,
                       onWeightBmiPressed: _onWeightBmiPressed,
                       onAiDoctorPressed: _onAiDoctorPressed,
+                      onBloodOxygenPressed: _onBloodOxygenPressed,
+                      onRecipesPressed: _onRecipesPressed,
                     ),
 
                     SizedBox(height: 2.h),
@@ -161,6 +163,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void _onAiDoctorPressed() {
     // TODO: Navigate to AI Doctor chat
     _showFeatureComingSoon('AI Doctor chat');
+  }
+
+  void _onBloodOxygenPressed() {
+    // TODO: Navigate to Blood Oxygen measurement
+    _showFeatureComingSoon('Blood Oxygen monitoring');
+  }
+
+  void _onRecipesPressed() {
+    // TODO: Navigate to Recipes screen
+    _showFeatureComingSoon('Healthy Recipes');
   }
 
   void _onViewAllHistoryPressed() {

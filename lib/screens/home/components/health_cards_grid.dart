@@ -12,6 +12,8 @@ class HealthCardsGrid extends StatelessWidget {
   final VoidCallback? onBloodSugarPressed;
   final VoidCallback? onWeightBmiPressed;
   final VoidCallback? onAiDoctorPressed;
+  final VoidCallback? onBloodOxygenPressed;
+  final VoidCallback? onRecipesPressed;
 
   const HealthCardsGrid({
     super.key,
@@ -25,6 +27,8 @@ class HealthCardsGrid extends StatelessWidget {
     this.onBloodSugarPressed,
     this.onWeightBmiPressed,
     this.onAiDoctorPressed,
+    this.onBloodOxygenPressed,
+    this.onRecipesPressed,
   });
 
   @override
@@ -68,6 +72,17 @@ class HealthCardsGrid extends StatelessWidget {
           children: [
             Expanded(
               child: _buildSecondaryCard(
+                title: 'Blood Oxygen',
+                records: 'Monitor oxygen levels',
+                imagePath: 'assets/images/home/blood_oxygen.png',
+                backgroundColor: const Color(0xFFF3F1F1),
+                onPressed: onBloodOxygenPressed,
+              ),
+            ),
+            SizedBox(width: 3.w),
+
+            Expanded(
+              child: _buildSecondaryCard(
                 title: 'Weight & BMI',
                 records: '$weightBmiRecords records',
                 imagePath: 'assets/images/home/bmi.png',
@@ -75,7 +90,14 @@ class HealthCardsGrid extends StatelessWidget {
                 onPressed: onWeightBmiPressed,
               ),
             ),
-            SizedBox(width: 3.w),
+          ],
+        ),
+
+        SizedBox(height: 2.h),
+
+        // Fourth row - Blood Oxygen and Recipes
+        Row(
+          children: [
             Expanded(
               child: _buildSecondaryCard(
                 title: 'AI Doctor',
@@ -83,6 +105,16 @@ class HealthCardsGrid extends StatelessWidget {
                 imagePath: 'assets/images/home/ai_doctor.png',
                 backgroundColor: const Color(0xFFE8F5E8),
                 onPressed: onAiDoctorPressed,
+              ),
+            ),
+            SizedBox(width: 3.w),
+            Expanded(
+              child: _buildSecondaryCard(
+                title: 'Recipes',
+                records: 'Healthy meal ideas',
+                imagePath: 'assets/images/home/recipes.png',
+                backgroundColor: const Color(0xFFFFF3E0),
+                onPressed: onRecipesPressed,
               ),
             ),
           ],
