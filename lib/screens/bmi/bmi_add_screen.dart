@@ -37,162 +37,170 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: _vm,
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
-        appBar: AppBar(
+      child: GestureDetector(
+        onTap: () {
+          // Klavyeyi kapat
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
           backgroundColor: const Color(0xFFF8F9FA),
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => context.pop(),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFF8F9FA),
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => context.pop(),
+            ),
+            title: Consumer<BMIAddViewModel>(
+              builder: (context, vm, child) {
+                return Text(
+                  vm.isEditing ? 'Edit' : 'Add',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              },
+            ),
+            centerTitle: true,
           ),
-          title: Consumer<BMIAddViewModel>(
+          body: Consumer<BMIAddViewModel>(
             builder: (context, vm, child) {
-              return Text(
-                vm.isEditing ? 'Edit' : 'Add',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
+              return SingleChildScrollView(
+                padding: EdgeInsets.all(4.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Date and Time Selector
+                    Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => _selectDateTime(context, vm),
+                            child: Row(
+                              children: [
+                                Text(
+                                  DateFormat(
+                                    'MMM dd, yyyy • h:mm a',
+                                  ).format(vm.timestamp),
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(width: 2.w),
+                                const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Color(0xFFFF6B6B),
+                                  size: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 2.h),
+
+                    // Weight Input
+                    _buildWeightInput(vm),
+
+                    SizedBox(height: 2.h),
+
+                    // Height Input
+                    _buildHeightInput(vm),
+
+                    SizedBox(height: 2.h),
+
+                    // Note Section
+                    _buildNoteSection(vm),
+
+                    SizedBox(height: 2.h),
+
+                    // BMI Category Display
+                    _buildBMICategory(vm),
+
+                    SizedBox(height: 1.h),
+                  ],
                 ),
               );
             },
           ),
-          centerTitle: true,
-        ),
-        body: Consumer<BMIAddViewModel>(
-          builder: (context, vm, child) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(4.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Date and Time Selector
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () => _selectDateTime(context, vm),
-                          child: Row(
-                            children: [
-                              Text(
-                                DateFormat(
-                                  'MMM dd, yyyy • h:mm a',
-                                ).format(vm.timestamp),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(width: 2.w),
-                              const Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Color(0xFFFF6B6B),
-                                size: 24,
-                              ),
-                            ],
+          bottomNavigationBar: Consumer<BMIAddViewModel>(
+            builder: (context, vm, child) {
+              return Container(
+                padding: EdgeInsets.all(6.w),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(color: Colors.grey, width: 0.2),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => context.pop(),
+                        style: OutlinedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 2.h),
+                          side: const BorderSide(color: Color(0xFFFF6B6B)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: 2.h),
-
-                  // Weight Input
-                  _buildWeightInput(vm),
-
-                  SizedBox(height: 2.h),
-
-                  // Height Input
-                  _buildHeightInput(vm),
-
-                  SizedBox(height: 2.h),
-
-                  // Note Section
-                  _buildNoteSection(vm),
-
-                  SizedBox(height: 2.h),
-
-                  // BMI Category Display
-                  _buildBMICategory(vm),
-
-                  SizedBox(height: 1.h),
-                ],
-              ),
-            );
-          },
-        ),
-        bottomNavigationBar: Consumer<BMIAddViewModel>(
-          builder: (context, vm, child) {
-            return Container(
-              padding: EdgeInsets.all(6.w),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(top: BorderSide(color: Colors.grey, width: 0.2)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => context.pop(),
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        side: const BorderSide(color: Color(0xFFFF6B6B)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFFF6B6B),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFFF6B6B),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 4.w),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => _saveRecord(context, vm),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF6B6B),
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                    SizedBox(width: 4.w),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () => _saveRecord(context, vm),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFF6B6B),
+                          padding: EdgeInsets.symmetric(vertical: 2.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        vm.isEditing ? 'Update' : 'Save',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                        child: Text(
+                          vm.isEditing ? 'Update' : 'Save',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -26,6 +26,7 @@ import '../screens/blood_oxygen/blood_oxygen_input_screen.dart';
 import '../models/blood_pressure_measurement.dart';
 import '../models/blood_sugar_measurement.dart';
 import '../models/bmi_record.dart';
+import '../models/blood_oxygen_record.dart';
 import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
@@ -203,8 +204,10 @@ class AppRouter {
       GoRoute(
         path: bloodOxygenInput,
         name: 'bloodOxygenInput',
-        pageBuilder: (context, state) =>
-            MaterialPage(child: const BloodOxygenInputScreen()),
+        pageBuilder: (context, state) {
+          final record = state.extra as BloodOxygenRecord?;
+          return MaterialPage(child: BloodOxygenInputScreen(record: record));
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

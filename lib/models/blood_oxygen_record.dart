@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 enum BloodOxygenCategory {
-  low,
+  normal,
   concerning,
-  normal;
+  low;
 
   String get displayName {
     switch (this) {

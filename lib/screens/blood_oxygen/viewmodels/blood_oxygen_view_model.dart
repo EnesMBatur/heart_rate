@@ -43,6 +43,9 @@ class BloodOxygenViewModel extends ChangeNotifier {
   Future<void> update(BloodOxygenRecord record) async {
     await _service.saveRecord(record);
     await load();
+
+    // Home screen'i güncellemek için event gönder
+    EventBus().fire('blood_oxygen_data_changed');
   }
 
   Future<void> delete(String id) async {
