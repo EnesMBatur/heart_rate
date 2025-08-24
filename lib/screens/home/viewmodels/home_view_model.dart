@@ -4,6 +4,7 @@ import '../../../models/heart_rate_measurement.dart';
 import '../../../services/blood_pressure_service.dart';
 import '../../../services/blood_sugar_service.dart';
 import '../../../services/bmi_service.dart';
+import '../../../services/blood_oxygen_service.dart';
 import '../../../services/event_bus.dart';
 import 'dart:async';
 
@@ -14,6 +15,7 @@ class HomeViewModel extends ChangeNotifier {
   int _bloodPressureRecords = 0;
   int _bloodSugarRecords = 0;
   int _weightBmiRecords = 0;
+  int _bloodOxygenRecords = 0;
   StreamSubscription<String>? _eventSubscription;
 
   HomeViewModel() {
@@ -22,7 +24,9 @@ class HomeViewModel extends ChangeNotifier {
 
   void _initEventListener() {
     _eventSubscription = EventBus().events.listen((event) {
-      if (event == 'heart_rate_data_changed' || event == 'bmi_data_changed') {
+      if (event == 'heart_rate_data_changed' ||
+          event == 'bmi_data_changed' ||
+          event == 'blood_oxygen_data_changed') {
         _loadRecordCounts();
       }
     });
@@ -42,6 +46,7 @@ class HomeViewModel extends ChangeNotifier {
   int get bloodPressureRecords => _bloodPressureRecords;
   int get bloodSugarRecords => _bloodSugarRecords;
   int get weightBmiRecords => _weightBmiRecords;
+  int get bloodOxygenRecords => _bloodOxygenRecords;
 
   /// Initialize the ViewModel
   Future<void> initialize() async {
@@ -99,6 +104,11 @@ class HomeViewModel extends ChangeNotifier {
       final bmiService = BMIService();
       final bmiRecords = await bmiService.getRecords();
       _weightBmiRecords = bmiRecords.length;
+
+      // Load blood oxygen records count from service
+      final bloodOxygenService = BloodOxygenService();
+      final bloodOxygenRecords = await bloodOxygenService.getRecords();
+      _bloodOxygenRecords = bloodOxygenRecords.length;
     } catch (e) {
       debugPrint('Error loading record counts: $e');
     }

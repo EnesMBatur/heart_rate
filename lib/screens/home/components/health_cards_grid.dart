@@ -6,6 +6,7 @@ class HealthCardsGrid extends StatelessWidget {
   final int bloodPressureRecords;
   final int bloodSugarRecords;
   final int weightBmiRecords;
+  final int bloodOxygenRecords;
   final VoidCallback? onHeartRatePressed; // For measure button
   final VoidCallback? onHeartRateTrackerPressed; // For card area
   final VoidCallback? onBloodPressurePressed;
@@ -21,6 +22,7 @@ class HealthCardsGrid extends StatelessWidget {
     required this.bloodPressureRecords,
     required this.bloodSugarRecords,
     required this.weightBmiRecords,
+    required this.bloodOxygenRecords,
     this.onHeartRatePressed,
     this.onHeartRateTrackerPressed,
     this.onBloodPressurePressed,
@@ -73,7 +75,7 @@ class HealthCardsGrid extends StatelessWidget {
             Expanded(
               child: _buildSecondaryCard(
                 title: 'Blood Oxygen',
-                records: 'Monitor oxygen levels',
+                records: '$bloodOxygenRecords records',
                 imagePath: 'assets/images/home/blood_oxygen.png',
                 backgroundColor: const Color(0xFFF3F1F1),
                 onPressed: onBloodOxygenPressed,

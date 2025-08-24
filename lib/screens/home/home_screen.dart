@@ -85,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       bloodPressureRecords: viewModel.bloodPressureRecords,
                       bloodSugarRecords: viewModel.bloodSugarRecords,
                       weightBmiRecords: viewModel.weightBmiRecords,
+                      bloodOxygenRecords: viewModel.bloodOxygenRecords,
                       onHeartRatePressed: _onHeartRateMeasurePressed,
                       onHeartRateTrackerPressed: _onHeartRateTrackerPressed,
                       onBloodPressurePressed: _onBloodPressurePressed,
@@ -166,8 +167,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _onBloodOxygenPressed() {
-    // TODO: Navigate to Blood Oxygen measurement
-    _showFeatureComingSoon('Blood Oxygen monitoring');
+    context.push(AppRouter.bloodOxygen).then((_) {
+      // Update data when returning from blood oxygen screen
+      _viewModel.updateRecordCounts();
+    });
   }
 
   void _onRecipesPressed() {
