@@ -1,17 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, cascade_invocations, lines_longer_than_80_chars
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/enums/recipe_tab_bar_enum.dart';
-import 'package:glycemic_index/models/recipes.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_cached_network_image.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_like_button.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/info/info.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/ingredient/ingredients.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/instruction/instructions.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/main_details.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/recipe_detail_tab_bar.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/recipe_tab_bar_enum.dart';
+import 'package:heart_rate/models/recipe/recipes.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/custom_cached_network_image.dart';
+import 'package:heart_rate/screens/recipes/components/detail/info/info.dart';
+import 'package:heart_rate/screens/recipes/components/detail/ingredient/ingredients.dart';
+import 'package:heart_rate/screens/recipes/components/detail/instruction/instructions.dart';
+import 'package:heart_rate/screens/recipes/components/detail/main_details.dart';
+import 'package:heart_rate/screens/recipes/components/detail/recipe_detail_tab_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -44,10 +43,9 @@ class RecipeDetailsState extends ConsumerState<RecipeDetails> {
   Widget build(BuildContext context) {
     final selectedTabRef = ref.watch(recipeProvider);
     final size = MediaQuery.of(context).size;
-    final textStyle = Theme.of(context)
-        .textTheme
-        .titleMedium!
-        .copyWith(fontSize: Device.screenType == ScreenType.tablet ? 30 : 18);
+    final textStyle = Theme.of(context).textTheme.titleMedium!.copyWith(
+      fontSize: Device.screenType == ScreenType.tablet ? 30 : 18,
+    );
     return Scaffold(
       body: SlidingUpPanel(
         minHeight: Device.screenType == ScreenType.tablet
@@ -85,11 +83,11 @@ class RecipeDetailsState extends ConsumerState<RecipeDetails> {
                   onTap: () => Navigator.pop(context),
                 ),
               ),
-              Positioned(
-                top: 50,
-                right: 20,
-                child: CustomLikeButton(recipes: widget.recipeData),
-              ),
+              // Positioned(
+              //   top: 50,
+              //   right: 20,
+              //   child: CustomLikeButton(recipes: widget.recipeData),
+              // ),
             ],
           ),
         ),
@@ -98,14 +96,9 @@ class RecipeDetailsState extends ConsumerState<RecipeDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: buildDecorationSizedBox(context),
-              ),
+              Center(child: buildDecorationSizedBox(context)),
               const SizedBox(height: 20),
-              Text(
-                widget.recipeData.title,
-                style: textStyle,
-              ),
+              Text(widget.recipeData.title, style: textStyle),
               SizedBox(
                 height: Device.screenType == ScreenType.tablet ? 20 : 10,
               ),
@@ -113,26 +106,18 @@ class RecipeDetailsState extends ConsumerState<RecipeDetails> {
               SizedBox(
                 height: Device.screenType == ScreenType.tablet ? 20 : 10,
               ),
-              Divider(
-                color: Theme.of(context).dividerColor,
-              ),
+              Divider(color: Theme.of(context).dividerColor),
               SizedBox(height: Device.screenType == ScreenType.tablet ? 10 : 5),
               const RecipeDetailTabBar(),
               SizedBox(height: Device.screenType == ScreenType.tablet ? 10 : 5),
-              Divider(
-                color: Theme.of(context).dividerColor,
-              ),
+              Divider(color: Theme.of(context).dividerColor),
               SizedBox(
                 height: Device.screenType == ScreenType.tablet ? 20 : 10,
               ),
               if (selectedTabRef.tab == RecipeTabBarEnum.ingredients.value)
-                Expanded(
-                  child: Ingredients(recipeData: widget.recipeData),
-                ),
+                Expanded(child: Ingredients(recipeData: widget.recipeData)),
               if (selectedTabRef.tab == RecipeTabBarEnum.instructions.value)
-                Expanded(
-                  child: Instructions(recipeData: widget.recipeData),
-                ),
+                Expanded(child: Instructions(recipeData: widget.recipeData)),
               if (selectedTabRef.tab == RecipeTabBarEnum.info.value)
                 Expanded(child: DetailInfo(recipeData: widget.recipeData)),
             ],

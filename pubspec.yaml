@@ -26,12 +26,12 @@ dependencies:
   
   # Charts for heart rate visualization
   fl_chart: ^1.0.0
+  fraction: ^5.0.5
   
   # Local storage
   shared_preferences: ^2.5.3
   hive_ce: ^2.11.3
   hive_ce_flutter: ^2.3.1
-  hive_ce_generator: ^1.9.3
   
   # Date formatting
   intl: ^0.20.2
@@ -54,6 +54,7 @@ dependencies:
   provider: ^6.1.5
   riverpod: ^2.6.1
   flutter_riverpod: ^2.6.1
+  flutter_secure_storage: ^9.2.4
 
 
   # UI
@@ -63,6 +64,11 @@ dependencies:
   lottie: ^3.3.1
   flutter_svg: ^2.2.0
   rive: ^0.13.20
+  blur: ^4.0.2
+  sliding_up_panel: ^2.0.0+1
+  cached_network_image: ^3.4.1
+  animations: ^2.0.11
+  badges: ^3.1.2
 
   #splash
   flutter_native_splash: ^2.4.6
@@ -83,6 +89,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  hive_ce_generator: ^1.9.3
+  build_runner: ^2.4.15
 
 flutter:
   uses-material-design: true
@@ -95,6 +103,7 @@ flutter:
     - assets/rive/
     - assets/images/general/
     - assets/images/home/
+    - assets/svg/general/
 
   fonts:
     - family: Urbanist

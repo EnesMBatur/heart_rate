@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "מרכיבים",
+        "instructions": "הוראות",
+        "comments": "תגובות",
+        "addallchart": "הוסף הכל לעגלה",
+        "item": "פריטים",
+        "instruction": "הוראות",
+        "notes": "הערות",
+        "info": "מידע"
+    },
+    "button": {
+        "skip": "דלג",
+        "done": "סיום",
+        "signin": "המשך",
+        "edit": "ערוך",
+        "update": "עדכן",
+        "close": "סגור",
+        "ok": "אישור",
+        "filter": "סינון",
+        "clearfilters": "נקה מסננים",
+        "cleartags": "נקה תגיות",
+        "add": "הוסף",
+        "save": "שמור",
+        "deleteall": "מחק הכל",
+        "delete": "מחק"
+    },
     "general": {
         "app_title": "HeartRater - מד דופק",
         "home": "בית",

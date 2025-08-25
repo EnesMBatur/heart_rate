@@ -1,8 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 class NutritionFacts extends StatelessWidget {
   const NutritionFacts({
@@ -174,7 +171,8 @@ class NutritionFacts extends StatelessWidget {
     // N/A veya boş değerleri kontrol et
     final displayValue = (value == 'N/A' || value.isEmpty) ? 'N/A' : value;
     final showUnitText = showUnit && displayValue != 'N/A';
-    final entitlement = Provider.of<RevenueCatProvider>(context).entitlement;
+    //TODO: RevenueCatProvider
+    // final entitlement = Provider.of<RevenueCatProvider>(context).entitlement;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Row(
@@ -190,28 +188,25 @@ class NutritionFacts extends StatelessWidget {
                     fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                   ),
           ),
-          entitlement == Entitlement.free
-              ? GestureDetector(
-                  onTap: () async => await context.push(AppRouter.paywall),
-                  child: SvgPicture.asset(
-                    height: 22,
-                    SvgGeneralEnum.lock.svgPath,
+          // entitlement == Entitlement.free
+          //     ? GestureDetector(
+          //         onTap: () async => await context.push(AppRouter.paywall),
+          //         child: SvgPicture.asset(
+          //           height: 22,
+          //           SvgGeneralEnum.lock.svgPath,
+          //         ),
+          //       )
+          //     :
+          Text(
+            showUnitText ? "$displayValue$unit" : displayValue,
+            style: (isLarge)
+                ? Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                  )
+                : Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                   ),
-                )
-              : Text(
-                  showUnitText ? "$displayValue$unit" : displayValue,
-                  style: (isLarge)
-                      ? Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: isBold
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                        )
-                      : Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: isBold
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                        ),
-                ),
+          ),
         ],
       ),
     );

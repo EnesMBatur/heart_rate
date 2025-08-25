@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Składniki",
+        "instructions": "Instrukcje",
+        "comments": "Komentarze",
+        "addallchart": "Dodaj wszystko do koszyka",
+        "item": "Elementy",
+        "instruction": "Instrukcje",
+        "notes": "Notatki",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Pomiń",
+        "done": "Gotowe",
+        "signin": "Kontynuuj",
+        "edit": "Edytuj",
+        "update": "Aktualizuj",
+        "close": "Zamknij",
+        "ok": "OK",
+        "filter": "Filtruj",
+        "clearfilters": "Wyczyść filtry",
+        "cleartags": "Wyczyść tagi",
+        "add": "Dodaj",
+        "save": "Zapisz",
+        "deleteall": "Usuń wszystko",
+        "delete": "Usuń"
+    },
     "general": {
         "app_title": "HeartRater - Miernik tętna",
         "home": "Strona główna",

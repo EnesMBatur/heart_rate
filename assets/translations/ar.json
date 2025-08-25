@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "المكونات",
+        "instructions": "التعليمات",
+        "comments": "التعليقات",
+        "addallchart": "أضف الكل إلى السلة",
+        "item": "عناصر",
+        "instruction": "التعليمات",
+        "notes": "الملاحظات",
+        "info": "معلومات"
+    },
+    "button": {
+        "skip": "تخطي",
+        "done": "تم",
+        "signin": "متابعة",
+        "edit": "تعديل",
+        "update": "تحديث",
+        "close": "إغلاق",
+        "ok": "موافق",
+        "filter": "تصفية",
+        "clearfilters": "مسح الفلاتر",
+        "cleartags": "مسح الوسوم",
+        "add": "إضافة",
+        "save": "حفظ",
+        "deleteall": "حذف الكل",
+        "delete": "حذف"
+    },
     "general": {
         "app_title": "HeartRater - مراقب معدل ضربات القلب",
         "home": "الرئيسية",

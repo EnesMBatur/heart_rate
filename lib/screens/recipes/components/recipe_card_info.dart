@@ -1,8 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/svg_general_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/recipe/recipes.dart';
+import 'package:heart_rate/screens/recipes/glycemic_indicator.dart';
 import 'package:heart_rate/utils/glycemic_index_color.dart';
+import 'package:heart_rate/utils/recipes_time_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RecipeCardInfo extends StatelessWidget

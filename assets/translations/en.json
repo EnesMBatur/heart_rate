@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ingredients",
+        "instructions": "Directions",
+        "comments": "Comments",
+        "addallchart": "Add All to Cart",
+        "item": "Items",
+        "instruction": "Directions",
+        "notes": "Notes",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Skip",
+        "done": "Done",
+        "signin": "Continue",
+        "edit": "Edit",
+        "update": "Update",
+        "close": "Close",
+        "ok": "OK",
+        "filter": "Filter",
+        "clearfilters": "Clear Filters",
+        "cleartags": "Clear Tags",
+        "add": "Add",
+        "save": "Save",
+        "deleteall": "Delete All",
+        "delete": "Delete"
+    },
     "general": {
         "app_title": "HeartRater - Heart Rate Monitor",
         "home": "Home",

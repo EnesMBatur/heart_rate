@@ -8,23 +8,21 @@ import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/constants/duration_items.dart';
-import 'package:glycemic_index/core/enums/lottie_items_enum.dart';
-import 'package:glycemic_index/locale/lang/locale_keys.g.dart';
-import 'package:glycemic_index/models/recipes.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/recipe_detail.dart';
-import 'package:glycemic_index/screens/recipes/components/recipe_card.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/core/enums/lottie_items_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/models/recipe/recipes.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/detail/recipe_detail.dart';
+import 'package:heart_rate/screens/recipes/components/recipe_card.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 const limit = 10;
 
 class RecipesList extends ConsumerStatefulWidget {
-  const RecipesList({
-    super.key,
-  });
+  const RecipesList({super.key});
 
   @override
   RecipesListState createState() => RecipesListState();
@@ -113,9 +111,7 @@ class RecipesListState extends ConsumerState<RecipesList> {
       _refresh();
       _scrollUp();
     }
-    return Expanded(
-      child: buildListView(),
-    );
+    return Expanded(child: buildListView());
   }
 
   ListView buildListView() {
@@ -132,7 +128,8 @@ class RecipesListState extends ConsumerState<RecipesList> {
             transitionDuration: DurationItems.durationLowPlus(),
             transitionType: ContainerTransitionType.fadeThrough,
             closedElevation: 0,
-            closedColor: Theme.of(context).tabBarTheme.indicatorColor ??
+            closedColor:
+                Theme.of(context).tabBarTheme.indicatorColor ??
                 Theme.of(context).cardColor,
             closedBuilder: (context, action) {
               return RecipeCard(
@@ -142,10 +139,7 @@ class RecipesListState extends ConsumerState<RecipesList> {
               );
             },
             openBuilder: (context, action) {
-              return RecipeDetails(
-                recipeData: recipes[index],
-                isFav: false,
-              );
+              return RecipeDetails(recipeData: recipes[index], isFav: false);
             },
           );
         } else {

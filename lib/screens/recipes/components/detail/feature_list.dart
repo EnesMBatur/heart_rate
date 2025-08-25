@@ -1,16 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, omit_local_variable_types, inference_failure_on_collection_literal, lines_longer_than_80_chars
 import 'package:flutter/material.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/enums/diets_enum.dart';
-import 'package:glycemic_index/core/enums/meals_enum.dart';
-import 'package:glycemic_index/models/recipes.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/diets_enum.dart';
+import 'package:heart_rate/core/enums/meals_enum.dart';
+import 'package:heart_rate/models/recipe/recipes.dart';
+
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class FeatureList extends StatefulWidget {
-  const FeatureList({
-    required this.recipeData,
-    super.key,
-  });
+  const FeatureList({required this.recipeData, super.key});
 
   final Recipe recipeData;
 
@@ -57,10 +55,10 @@ class _FeatureListState extends State<FeatureList> {
           child: Text(
             featureList[index] as String,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: Device.screenType == ScreenType.tablet ? 22 : 14,
-                  color: Theme.of(context).primaryColorLight,
-                ),
+              fontWeight: FontWeight.w500,
+              fontSize: Device.screenType == ScreenType.tablet ? 22 : 14,
+              color: Theme.of(context).primaryColorLight,
+            ),
           ),
         );
       },

@@ -3,17 +3,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glycemic_index/core/config/router.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/enums/diets_enum.dart';
-import 'package:glycemic_index/core/enums/meals_enum.dart';
-import 'package:glycemic_index/locale/lang/locale_keys.g.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
-import 'package:glycemic_index/provider/revenuecat.dart';
-import 'package:glycemic_index/screens/recipes/components/sheet_row.dart';
-import 'package:go_router/go_router.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/diets_enum.dart';
+import 'package:heart_rate/core/enums/meals_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/sheet_row.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:provider/provider.dart' as provider;
 
 class CustomBottomSheet extends ConsumerStatefulWidget {
   const CustomBottomSheet({
@@ -46,10 +42,9 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context)
-        .textTheme
-        .titleMedium!
-        .copyWith(fontSize: Device.screenType == ScreenType.tablet ? 30 : 18);
+    final textStyle = Theme.of(context).textTheme.titleMedium!.copyWith(
+      fontSize: Device.screenType == ScreenType.tablet ? 30 : 18,
+    );
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
@@ -111,8 +106,9 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
     int index,
   ) {
     final selectedOption = ref.watch(recipeProvider).filters;
-    final isSelected = selectedOption
-        .any((element) => mapEquals(element, {filters[index]: option}));
+    final isSelected = selectedOption.any(
+      (element) => mapEquals(element, {filters[index]: option}),
+    );
 
     final foregroundColor = isSelected
         ? Theme.of(context).primaryColorLight
@@ -124,10 +120,12 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
     return GestureDetector(
       onTap: () => setState(() {
         //selectedOption.contains({filters[index]: option})
-        selectedOption
-                .any((element) => mapEquals(element, {filters[index]: option}))
-            ? selectedOption
-                .removeWhere((element) => element[filters[index]] == option)
+        selectedOption.any(
+              (element) => mapEquals(element, {filters[index]: option}),
+            )
+            ? selectedOption.removeWhere(
+                (element) => element[filters[index]] == option,
+              )
             : selectedOption.add({filters[index]: option});
       }),
       child: Chip(
@@ -154,40 +152,36 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
           children: [
             TextButton(
               onPressed: widget.onClickedClose,
+              child: Text(LocaleKeys.button_close.tr(), style: textStyle),
+            ),
+            //TODO: RevenueCat integration
+            // provider.Consumer<RevenueCatProvider>(
+            //   builder: (context, revenueCatProvider, child) {
+            // return
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+              onPressed: () async {
+                // final entitlement = revenueCatProvider.entitlement;
+                // if (entitlement == Entitlement.free) {
+                //   await context.push(AppRouter.paywall);
+                // } else {
+                widget.onClickedConfirm();
+                //}
+              },
               child: Text(
-                LocaleKeys.button_close.tr(),
-                style: textStyle,
+                LocaleKeys.button_filter.tr(),
+                style: textStyle.copyWith(
+                  color: Theme.of(context).primaryColorLight,
+                ),
               ),
             ),
-            provider.Consumer<RevenueCatProvider>(
-              builder: (context, revenueCatProvider, child) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                  onPressed: () async {
-                    final entitlement = revenueCatProvider.entitlement;
-                    if (entitlement == Entitlement.free) {
-                      await context.push(AppRouter.paywall);
-                    } else {
-                      widget.onClickedConfirm();
-                    }
-                  },
-                  child: Text(
-                    LocaleKeys.button_filter.tr(),
-                    style: textStyle.copyWith(
-                      color: Theme.of(context).primaryColorLight,
-                    ),
-                  ),
-                );
-              },
-            ),
+            //   },
+            // ),
           ],
         ),
         TextButton(
           onPressed: widget.onClickedClearFilters,
-          child: Text(
-            LocaleKeys.button_clearfilters.tr(),
-            style: textStyle,
-          ),
+          child: Text(LocaleKeys.button_clearfilters.tr(), style: textStyle),
         ),
       ],
     );

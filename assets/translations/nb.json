@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ingredienser",
+        "instructions": "Instruksjoner",
+        "comments": "Kommentarer",
+        "addallchart": "Legg alt i kurven",
+        "item": "Elementer",
+        "instruction": "Instruksjoner",
+        "notes": "Notater",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Hopp over",
+        "done": "Ferdig",
+        "signin": "Fortsett",
+        "edit": "Rediger",
+        "update": "Oppdater",
+        "close": "Lukk",
+        "ok": "OK",
+        "filter": "Filter",
+        "clearfilters": "Fjern filtre",
+        "cleartags": "Fjern tagger",
+        "add": "Legg til",
+        "save": "Lagre",
+        "deleteall": "Slett alt",
+        "delete": "Slett"
+    },
     "general": {
         "app_title": "HeartRater - Hjertefrekvensmåler",
         "home": "Hjem",

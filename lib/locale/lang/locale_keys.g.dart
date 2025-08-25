@@ -3,6 +3,30 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const recipedetailitems_ingredients = 'recipedetailitems.ingredients';
+  static const recipedetailitems_instructions = 'recipedetailitems.instructions';
+  static const recipedetailitems_comments = 'recipedetailitems.comments';
+  static const recipedetailitems_addallchart = 'recipedetailitems.addallchart';
+  static const recipedetailitems_item = 'recipedetailitems.item';
+  static const recipedetailitems_instruction = 'recipedetailitems.instruction';
+  static const recipedetailitems_notes = 'recipedetailitems.notes';
+  static const recipedetailitems_info = 'recipedetailitems.info';
+  static const recipedetailitems = 'recipedetailitems';
+  static const button_skip = 'button.skip';
+  static const button_done = 'button.done';
+  static const button_signin = 'button.signin';
+  static const button_edit = 'button.edit';
+  static const button_update = 'button.update';
+  static const button_close = 'button.close';
+  static const button_ok = 'button.ok';
+  static const button_filter = 'button.filter';
+  static const button_clearfilters = 'button.clearfilters';
+  static const button_cleartags = 'button.cleartags';
+  static const button_add = 'button.add';
+  static const button_save = 'button.save';
+  static const button_deleteall = 'button.deleteall';
+  static const button_delete = 'button.delete';
+  static const button = 'button';
   static const general_app_title = 'general.app_title';
   static const general_home = 'general.home';
   static const general_measure = 'general.measure';

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/core/enums/lottie_items_enum.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
 

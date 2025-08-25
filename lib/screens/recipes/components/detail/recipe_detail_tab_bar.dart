@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/locale/lang/locale_keys.g.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RecipeDetailTabBar extends ConsumerWidget {
@@ -70,12 +70,12 @@ class RecipeDetailTabBar extends ConsumerWidget {
         child: Text(
           text,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: Device.screenType == ScreenType.tablet ? 24 : 16,
-                color: selectedTabRef.tab == index
-                    ? Theme.of(context).primaryColorLight
-                    : AppConst.kCircleColor,
-              ),
+            fontWeight: FontWeight.w500,
+            fontSize: Device.screenType == ScreenType.tablet ? 24 : 16,
+            color: selectedTabRef.tab == index
+                ? Theme.of(context).primaryColorLight
+                : AppConst.kCircleColor,
+          ),
         ),
       ),
     );

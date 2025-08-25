@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Malzemeler",
+        "instructions": "Tarif",
+        "comments": "Yorumlar",
+        "addallchart": "Hepsini Sepete Ekle",
+        "item": "Öğeler",
+        "instruction": "Tarif",
+        "notes": "Notlar",
+        "info": "Bilgi"
+    },
+    "button": {
+        "skip": "Atla",
+        "done": "Bitti",
+        "signin": "Devam Et",
+        "edit": "Düzenle",
+        "update": "Güncelle",
+        "close": "Kapat",
+        "ok": "Tamam",
+        "filter": "Filtrele",
+        "clearfilters": "Filtreleri Temizle",
+        "cleartags": "Etiketleri Temizle",
+        "add": "Ekle",
+        "save": "Kaydet",
+        "deleteall": "Tümünü Sil",
+        "delete": "Sil"
+    },
     "general": {
         "app_title": "HeartRater - Kalp Hızı Monitörü",
         "home": "Ana Sayfa",

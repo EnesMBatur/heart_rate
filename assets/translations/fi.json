@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ainekset",
+        "instructions": "Ohjeet",
+        "comments": "Kommentit",
+        "addallchart": "Lisää kaikki ostoskoriin",
+        "item": "Tuotteet",
+        "instruction": "Ohjeet",
+        "notes": "Muistiinpanot",
+        "info": "Tiedot"
+    },
+    "button": {
+        "skip": "Ohita",
+        "done": "Valmis",
+        "signin": "Jatka",
+        "edit": "Muokkaa",
+        "update": "Päivitä",
+        "close": "Sulje",
+        "ok": "OK",
+        "filter": "Suodata",
+        "clearfilters": "Tyhjennä suodattimet",
+        "cleartags": "Tyhjennä tunnisteet",
+        "add": "Lisää",
+        "save": "Tallenna",
+        "deleteall": "Poista kaikki",
+        "delete": "Poista"
+    },
     "general": {
         "app_title": "HeartRater - Sydänrytmin mittari",
         "home": "Koti",

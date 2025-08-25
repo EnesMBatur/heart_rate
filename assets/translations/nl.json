@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ingrediënten",
+        "instructions": "Instructies",
+        "comments": "Opmerkingen",
+        "addallchart": "Alles aan winkelwagen toevoegen",
+        "item": "Artikelen",
+        "instruction": "Instructies",
+        "notes": "Notities",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Overslaan",
+        "done": "Klaar",
+        "signin": "Doorgaan",
+        "edit": "Bewerken",
+        "update": "Bijwerken",
+        "close": "Sluiten",
+        "ok": "OK",
+        "filter": "Filter",
+        "clearfilters": "Filters wissen",
+        "cleartags": "Tags wissen",
+        "add": "Toevoegen",
+        "save": "Opslaan",
+        "deleteall": "Alles verwijderen",
+        "delete": "Verwijderen"
+    },
     "general": {
         "app_title": "HeartRater - Hartslagmeter",
         "home": "Home",

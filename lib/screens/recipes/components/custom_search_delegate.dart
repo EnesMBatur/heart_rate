@@ -1,15 +1,14 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:animations/animations.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/constants/duration_items.dart';
-import 'package:glycemic_index/locale/lang/locale_keys.g.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_search.dart';
-import 'package:glycemic_index/screens/recipes/components/detail/recipe_detail.dart';
-import 'package:glycemic_index/screens/recipes/components/recipe_card.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/custom_search.dart';
+import 'package:heart_rate/screens/recipes/components/detail/recipe_detail.dart';
+import 'package:heart_rate/screens/recipes/components/recipe_card.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -18,9 +17,9 @@ class CustomSearchDelegate extends SearchCustomDelegate {
 
   @override
   TextStyle get searchFieldStyle => TextStyle(
-        fontSize: Device.screenType == ScreenType.tablet ? 32 : 20,
-        fontFamily: 'Montserrat',
-      );
+    fontSize: Device.screenType == ScreenType.tablet ? 32 : 20,
+    fontFamily: 'Montserrat',
+  );
 
   @override
   Animation<double> get transitionAnimation => const AlwaysStoppedAnimation(0);
@@ -34,35 +33,32 @@ class CustomSearchDelegate extends SearchCustomDelegate {
 
   @override
   List<Widget>? buildActions(BuildContext context) => [
-        IconButton(
-          iconSize: Device.screenType == ScreenType.tablet
-              ? AppConst.kTabletIconSize
-              : AppConst.kIconSize,
-          onPressed: () {
-            if (query.isEmpty) {
-              close(context, null);
-            } else {
-              query = '';
-            }
-          },
-          icon: Icon(
-            LineIcons.times,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-      ];
+    IconButton(
+      iconSize: Device.screenType == ScreenType.tablet
+          ? AppConst.kTabletIconSize
+          : AppConst.kIconSize,
+      onPressed: () {
+        if (query.isEmpty) {
+          close(context, null);
+        } else {
+          query = '';
+        }
+      },
+      icon: Icon(LineIcons.times, color: Theme.of(context).primaryColor),
+    ),
+  ];
 
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-        onPressed: () => close(context, null),
-        icon: Icon(
-          size: Device.screenType == ScreenType.tablet
-              ? AppConst.kTabletIconSize
-              : AppConst.kIconSize,
-          LineIcons.arrowLeft,
-          color: Theme.of(context).primaryColor,
-        ),
-      );
+    onPressed: () => close(context, null),
+    icon: Icon(
+      size: Device.screenType == ScreenType.tablet
+          ? AppConst.kTabletIconSize
+          : AppConst.kIconSize,
+      LineIcons.arrowLeft,
+      color: Theme.of(context).primaryColor,
+    ),
+  );
 
   @override
   Widget buildResults(BuildContext context) => Container();

@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ингредиенты",
+        "instructions": "Инструкции",
+        "comments": "Комментарии",
+        "addallchart": "Добавить всё в корзину",
+        "item": "Элементы",
+        "instruction": "Инструкции",
+        "notes": "Заметки",
+        "info": "Инфо"
+    },
+    "button": {
+        "skip": "Пропустить",
+        "done": "Готово",
+        "signin": "Продолжить",
+        "edit": "Редактировать",
+        "update": "Обновить",
+        "close": "Закрыть",
+        "ok": "OK",
+        "filter": "Фильтр",
+        "clearfilters": "Очистить фильтры",
+        "cleartags": "Очистить теги",
+        "add": "Добавить",
+        "save": "Сохранить",
+        "deleteall": "Удалить всё",
+        "delete": "Удалить"
+    },
     "general": {
         "app_title": "HeartRater - Измеритель пульса",
         "home": "Главная",

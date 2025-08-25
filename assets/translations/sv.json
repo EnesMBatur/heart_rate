@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ingredienser",
+        "instructions": "Instruktioner",
+        "comments": "Kommentarer",
+        "addallchart": "Lägg allt i kundvagnen",
+        "item": "Artiklar",
+        "instruction": "Instruktioner",
+        "notes": "Anteckningar",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Hoppa över",
+        "done": "Klart",
+        "signin": "Fortsätt",
+        "edit": "Redigera",
+        "update": "Uppdatera",
+        "close": "Stäng",
+        "ok": "OK",
+        "filter": "Filter",
+        "clearfilters": "Rensa filter",
+        "cleartags": "Rensa taggar",
+        "add": "Lägg till",
+        "save": "Spara",
+        "deleteall": "Ta bort alla",
+        "delete": "Ta bort"
+    },
     "general": {
         "app_title": "HeartRater - Pulsmonitor",
         "home": "Hem",

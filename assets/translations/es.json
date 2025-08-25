@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Ingredientes",
+        "instructions": "Instrucciones",
+        "comments": "Comentarios",
+        "addallchart": "Añadir todo al carrito",
+        "item": "Artículos",
+        "instruction": "Instrucciones",
+        "notes": "Notas",
+        "info": "Información"
+    },
+    "button": {
+        "skip": "Omitir",
+        "done": "Hecho",
+        "signin": "Continuar",
+        "edit": "Editar",
+        "update": "Actualizar",
+        "close": "Cerrar",
+        "ok": "OK",
+        "filter": "Filtrar",
+        "clearfilters": "Borrar filtros",
+        "cleartags": "Borrar etiquetas",
+        "add": "Añadir",
+        "save": "Guardar",
+        "deleteall": "Eliminar todo",
+        "delete": "Eliminar"
+    },
     "general": {
         "app_title": "HeartRater - Monitor de frecuencia cardíaca",
         "home": "Inicio",

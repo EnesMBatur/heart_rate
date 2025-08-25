@@ -1,4 +1,30 @@
 {
+    "recipedetailitems": {
+        "ingredients": "Zutaten",
+        "instructions": "Anleitung",
+        "comments": "Kommentare",
+        "addallchart": "Alle zum Warenkorb hinzufügen",
+        "item": "Artikel",
+        "instruction": "Anleitung",
+        "notes": "Notizen",
+        "info": "Info"
+    },
+    "button": {
+        "skip": "Überspringen",
+        "done": "Fertig",
+        "signin": "Weiter",
+        "edit": "Bearbeiten",
+        "update": "Aktualisieren",
+        "close": "Schließen",
+        "ok": "OK",
+        "filter": "Filter",
+        "clearfilters": "Filter löschen",
+        "cleartags": "Tags löschen",
+        "add": "Hinzufügen",
+        "save": "Speichern",
+        "deleteall": "Alles löschen",
+        "delete": "Löschen"
+    },
     "general": {
         "app_title": "HeartRater - Herzfrequenzmesser",
         "home": "Startseite",

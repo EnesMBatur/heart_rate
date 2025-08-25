@@ -1,17 +1,16 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glycemic_index/core/constants/constants.dart';
-import 'package:glycemic_index/core/constants/duration_items.dart';
-import 'package:glycemic_index/core/enums/svg_general_enum.dart';
-import 'package:glycemic_index/locale/lang/locale_keys.g.dart';
-import 'package:glycemic_index/provider/recipe_provider.dart';
-import 'package:glycemic_index/screens/recipes/components/body.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_bottom_sheet.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_search.dart';
-import 'package:glycemic_index/screens/recipes/components/custom_search_delegate.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/core/enums/svg_general_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/body.dart';
+import 'package:heart_rate/screens/recipes/components/custom_bottom_sheet.dart';
+import 'package:heart_rate/screens/recipes/components/custom_search.dart';
+import 'package:heart_rate/screens/recipes/components/custom_search_delegate.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RecipesScreen extends ConsumerStatefulWidget {
@@ -39,9 +38,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
       title: Text(LocaleKeys.navbar_recipes.tr()),
       actions: [
         buildSearchButton(context),
-        SizedBox(
-          width: Device.screenType == ScreenType.tablet ? 8 : 4,
-        ),
+        SizedBox(width: Device.screenType == ScreenType.tablet ? 8 : 4),
       ],
     );
   }
@@ -61,9 +58,9 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
         badgeContent: Text(
           filtersCount.toString(),
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context).primaryColorLight,
-                fontSize: Device.screenType == ScreenType.tablet ? 20 : 12,
-              ),
+            color: Theme.of(context).primaryColorLight,
+            fontSize: Device.screenType == ScreenType.tablet ? 20 : 12,
+          ),
         ),
         child: buildIconButton(context),
       ),
@@ -92,9 +89,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
     return showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       context: context,
       builder: (context) {

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:heart_rate/models/recipe/recipes.dart';
+import 'package:heart_rate/provider/recipe_provider.dart';
+import 'package:heart_rate/screens/recipes/components/detail/ingredient/ingredient_listtile.dart';
 
 class IngredientList extends ConsumerWidget {
   const IngredientList({required this.recipeData, super.key});

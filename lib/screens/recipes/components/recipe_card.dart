@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, use_if_null_to_convert_nulls_to_bools, lines_longer_than_80_chars
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/models/recipe/recipes.dart';
 import 'package:heart_rate/screens/recipes/components/custom_cached_network_image.dart';
 import 'package:heart_rate/screens/recipes/components/recipe_card_info.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RecipeCard extends StatefulWidget {
@@ -83,46 +81,46 @@ class _RecipeCardState extends State<RecipeCard> {
             ),
           ),
         ),
-        Positioned(
-          top: 20,
-          right: 20,
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                saved = !saved;
-              });
-            },
-            child: CustomLikeButton(recipes: widget.recipeData),
-          ),
-        ),
-        if (widget.isChanged == true)
-          Positioned(
-            top: 20,
-            left: 20,
-            child: InkWell(
-              onTap: () {
-                if (widget.moment != null) {
-                  HapticFeedback.vibrate();
-                  MealofDayController.changeMenuItem(widget.moment!);
-                }
-              },
-              child: Container(
-                height: Device.screenType == ScreenType.tablet ? 72 : 40,
-                width: Device.screenType == ScreenType.tablet ? 72 : 40,
-                decoration: BoxDecoration(
-                  color: const Color(0XFFE6EBF2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  LineIcons.alternateSync,
-                  color: AppConst.kCircleColor,
-                  size: Device.screenType == ScreenType.tablet
-                      ? AppConst.kTabletIconSize
-                      : AppConst.kIconSize,
-                ),
-              ),
-            ),
-          ),
+        // Positioned(
+        //   top: 20,
+        //   right: 20,
+        //   child: InkWell(
+        //     onTap: () {
+        //       setState(() {
+        //         saved = !saved;
+        //       });
+        //     },
+        //     child: CustomLikeButton(recipes: widget.recipeData),
+        //   ),
+        // ),
+        // if (widget.isChanged == true)
+        //   Positioned(
+        //     top: 20,
+        //     left: 20,
+        //     child: InkWell(
+        //       onTap: () {
+        //         if (widget.moment != null) {
+        //           HapticFeedback.vibrate();
+        //           MealofDayController.changeMenuItem(widget.moment!);
+        //         }
+        //       },
+        //       child: Container(
+        //         height: Device.screenType == ScreenType.tablet ? 72 : 40,
+        //         width: Device.screenType == ScreenType.tablet ? 72 : 40,
+        //         decoration: BoxDecoration(
+        //           color: const Color(0XFFE6EBF2),
+        //           borderRadius: BorderRadius.circular(12),
+        //         ),
+        //         child: Icon(
+        //           LineIcons.alternateSync,
+        //           color: AppConst.kCircleColor,
+        //           size: Device.screenType == ScreenType.tablet
+        //               ? AppConst.kTabletIconSize
+        //               : AppConst.kIconSize,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
       ],
     );
   }
