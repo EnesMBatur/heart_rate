@@ -4,7 +4,8 @@
         "hour": "sa",
         "servings": "porsiyon",
         "GI": "Gİ",
-        "GL": "GY"
+        "GL": "GY",
+        "serving_size": "Porsiyon Boyutu"
     },
     "recipe": {
         "norecipe": "Arama sorgunuza uygun tarif bulunamadı.",

@@ -4,7 +4,8 @@
         "hour": "h",
         "servings": "porção(ões)",
         "GI": "IG",
-        "GL": "CG"
+        "GL": "CG",
+        "serving_size": "Tamanho da porção"
     },
     "recipe": {
         "norecipe": "Nenhuma receita encontrada correspondente à pesquisa.",

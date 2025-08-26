@@ -4,7 +4,8 @@
         "hour": "t",
         "servings": "portion(er)",
         "GI": "GI",
-        "GL": "GL"
+        "GL": "GL",
+        "serving_size": "Portionsstørrelse"
     },
     "recipe": {
         "norecipe": "Ingen opskrifter fundet, der matcher søgeordene.",

@@ -4,7 +4,8 @@
         "hour": "t",
         "servings": "annos(annosta)",
         "GI": "GI",
-        "GL": "GL"
+        "GL": "GL",
+        "serving_size": "Annoskoko"
     },
     "recipe": {
         "norecipe": "Ei löytynyt reseptejä, jotka vastaisivat hakua.",

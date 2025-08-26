@@ -4,7 +4,8 @@
         "hour": "hr",
         "servings": "serving(s)",
         "GI": "GI",
-        "GL": "GL"
+        "GL": "GL",
+        "serving_size": "Serving Size"
     },
     "recipe": {
         "norecipe": "No recipes found matching search query.",

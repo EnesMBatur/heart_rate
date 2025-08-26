@@ -4,7 +4,8 @@
         "hour": "u",
         "servings": "portie(s)",
         "GI": "GI",
-        "GL": "GL"
+        "GL": "GL",
+        "serving_size": "Portiegrootte"
     },
     "recipe": {
         "norecipe": "Geen recepten gevonden die overeenkomen met de zoekopdracht.",

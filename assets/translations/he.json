@@ -4,7 +4,8 @@
         "hour": "שע",
         "servings": "מנה(ות)",
         "GI": "GI",
-        "GL": "GL"
+        "GL": "GL",
+        "serving_size": "גודל מנה"
     },
     "recipe": {
         "norecipe": "לא נמצאו מתכונים התואמים לחיפוש.",

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/core/hive/initialize.dart';
+import 'package:heart_rate/core/hive/secure_storage.dart';
 import 'package:heart_rate/services/firebase_options.dart';
 
 class AppInitializer {
@@ -15,7 +17,10 @@ class AppInitializer {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-
+    await hiveInitialize();
+    final storageManager = SecureStorage();
+    await storageManager.setupInitialUUID();
+    await storageManager.setupInitialID();
     // Native splash kontrolü için preserve et
     FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),

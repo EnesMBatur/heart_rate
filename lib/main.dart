@@ -12,6 +12,7 @@ import 'screens/blood_sugar/viewmodels/blood_sugar_view_model.dart';
 import 'screens/blood_oxygen/viewmodels/blood_oxygen_view_model.dart';
 import 'screens/home/viewmodels/home_view_model.dart';
 import 'screens/bmi/viewmodels/bmi_view_model.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() async {
   // Uygulama başlangıç süreçlerini çalıştır
@@ -30,7 +31,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => BloodOxygenViewModel()),
           ChangeNotifierProvider(create: (context) => BMIViewModel()),
         ],
-        child: const HeartRaterApp(),
+        child: const ProviderScope(child: HeartRaterApp()),
       ),
     ),
   );

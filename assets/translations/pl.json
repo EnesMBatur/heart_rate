@@ -4,7 +4,8 @@
         "hour": "godz.",
         "servings": "porcja(e)",
         "GI": "IG",
-        "GL": "ŁG"
+        "GL": "ŁG",
+        "serving_size": "Wielkość porcji"
     },
     "recipe": {
         "norecipe": "Nie znaleziono przepisów pasujących do wyszukiwania.",
