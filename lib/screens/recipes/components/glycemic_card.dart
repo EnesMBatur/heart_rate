@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/screens/recipes/glycemic_indicator.dart';
@@ -50,12 +51,12 @@ class GlycemicCard extends StatelessWidget with GlycemicIndexColor {
                 const SizedBox(height: 8),
                 if (isRecipe != true)
                   Text(
-                    "$calories ${LocaleKeys.general_caloriesper.tr()} $servingSize $unit",
+                    "$calories ${LocaleKeys.recipe_caloriesper.tr()} $servingSize $unit",
                     style: Theme.of(context).textTheme.bodyMedium,
                   )
                 else
                   Text(
-                    "$calories ${LocaleKeys.general_caloriesper.tr()} ${LocaleKeys.others_servings.tr()}",
+                    "$calories ${LocaleKeys.recipe_caloriesper.tr()} ${LocaleKeys.others_servings.tr()}",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
               ],
@@ -66,7 +67,7 @@ class GlycemicCard extends StatelessWidget with GlycemicIndexColor {
           GlycemicIndicator(
             context: context,
             value: gi,
-            label: LocaleKeys.calendar_GI.tr(),
+            label: LocaleKeys.others_GI.tr(),
             color: getGIColor(gi),
             size: 52,
           ),
@@ -75,7 +76,7 @@ class GlycemicCard extends StatelessWidget with GlycemicIndexColor {
           GlycemicIndicator(
             context: context,
             value: gl,
-            label: LocaleKeys.calendar_GL.tr(),
+            label: LocaleKeys.others_GL.tr(),
             color: getGLColor(gl),
             size: 52,
           ),

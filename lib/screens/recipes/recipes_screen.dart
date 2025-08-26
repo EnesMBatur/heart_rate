@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
-import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/provider/recipe_provider.dart';
 import 'package:heart_rate/screens/recipes/components/body.dart';
 import 'package:heart_rate/screens/recipes/components/custom_bottom_sheet.dart';
@@ -35,7 +34,8 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       leading: buildBadge(filtersCount, context),
-      title: Text(LocaleKeys.navbar_recipes.tr()),
+      //TODO: Localization
+      title: Text('Recipes'),
       actions: [
         buildSearchButton(context),
         SizedBox(width: Device.screenType == ScreenType.tablet ? 8 : 4),

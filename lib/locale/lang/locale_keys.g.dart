@@ -3,6 +3,35 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const others_min = 'others.min';
+  static const others_hour = 'others.hour';
+  static const others_servings = 'others.servings';
+  static const others_GI = 'others.GI';
+  static const others_GL = 'others.GL';
+  static const others = 'others';
+  static const recipe_norecipe = 'recipe.norecipe';
+  static const recipe_entermoreterms = 'recipe.entermoreterms';
+  static const recipe_recipeload = 'recipe.recipeload';
+  static const recipe_nutrition = 'recipe.nutrition';
+  static const recipe_serving = 'recipe.serving';
+  static const recipe_calories = 'recipe.calories';
+  static const recipe_glycemic = 'recipe.glycemic';
+  static const recipe_glycemicload = 'recipe.glycemicload';
+  static const recipe_carbohydrates = 'recipe.carbohydrates';
+  static const recipe_netCarbs = 'recipe.netCarbs';
+  static const recipe_sugars = 'recipe.sugars';
+  static const recipe_fiber = 'recipe.fiber';
+  static const recipe_protein = 'recipe.protein';
+  static const recipe_fat = 'recipe.fat';
+  static const recipe_cholesterol = 'recipe.cholesterol';
+  static const recipe_note1 = 'recipe.note1';
+  static const recipe_note2 = 'recipe.note2';
+  static const recipe_note3 = 'recipe.note3';
+  static const recipe_note4 = 'recipe.note4';
+  static const recipe_notes = 'recipe.notes';
+  static const recipe_kcalories = 'recipe.kcalories';
+  static const recipe_caloriesper = 'recipe.caloriesper';
+  static const recipe = 'recipe';
   static const recipedetailitems_ingredients = 'recipedetailitems.ingredients';
   static const recipedetailitems_instructions = 'recipedetailitems.instructions';
   static const recipedetailitems_comments = 'recipedetailitems.comments';

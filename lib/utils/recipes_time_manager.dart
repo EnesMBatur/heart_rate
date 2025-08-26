@@ -1,5 +1,6 @@
 // ignore_for_file: cascade_invocations, lines_longer_than_80_chars
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 mixin RecipeTimeManager {

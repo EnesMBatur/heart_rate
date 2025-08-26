@@ -154,7 +154,7 @@ class RecipesListState extends ConsumerState<RecipesList> {
                       fit: BoxFit.fill,
                     )
                   : Text(
-                      LocaleKeys.general_recipeload.tr(),
+                      LocaleKeys.recipe_recipeload.tr(),
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
             ),

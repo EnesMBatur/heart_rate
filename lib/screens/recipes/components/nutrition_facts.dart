@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
@@ -44,7 +45,7 @@ class NutritionFacts extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             //alignment: Alignment.center,
             child: Text(
-              LocaleKeys.general_nutrition.tr(),
+              LocaleKeys.recipe_nutrition.tr(),
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -55,7 +56,7 @@ class NutritionFacts extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Text(
-              '${LocaleKeys.calendar_serving_size.tr()}: $servingSize',
+              '${LocaleKeys.recipe_serving_size.tr()}: $servingSize',
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -67,7 +68,7 @@ class NutritionFacts extends StatelessWidget {
           // Kalori
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_calories.tr(),
+            title: LocaleKeys.recipe_calories.tr(),
             value: calories,
             isBold: true,
             isLarge: true,
@@ -79,13 +80,13 @@ class NutritionFacts extends StatelessWidget {
           // Glycemic Values
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_glycemic.tr(),
+            title: LocaleKeys.recipe_glycemic.tr(),
             value: gi,
             showUnit: false,
           ),
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_glycemicload.tr(),
+            title: LocaleKeys.recipe_glycemicload.tr(),
             value: gl,
             showUnit: false,
           ),
@@ -93,7 +94,7 @@ class NutritionFacts extends StatelessWidget {
           // Total Carbs
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_carbohydrates.tr(),
+            title: LocaleKeys.recipe_carbohydrates.tr(),
             value: carbs,
             isBold: true,
           ),
@@ -102,7 +103,7 @@ class NutritionFacts extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16),
             child: _buildNutritionRow(
               context: context,
-              title: LocaleKeys.general_netCarbs.tr(),
+              title: LocaleKeys.recipe_netCarbs.tr(),
               value: netCarbs,
             ),
           ),
@@ -111,7 +112,7 @@ class NutritionFacts extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16),
             child: _buildNutritionRow(
               context: context,
-              title: LocaleKeys.general_sugars.tr(),
+              title: LocaleKeys.recipe_sugars.tr(),
               value: totalSugar,
             ),
           ),
@@ -120,7 +121,7 @@ class NutritionFacts extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16),
             child: _buildNutritionRow(
               context: context,
-              title: LocaleKeys.general_fiber.tr(),
+              title: LocaleKeys.recipe_fiber.tr(),
               value: fiber,
             ),
           ),
@@ -128,7 +129,7 @@ class NutritionFacts extends StatelessWidget {
           // Protein
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_protein.tr(),
+            title: LocaleKeys.recipe_protein.tr(),
             value: protein,
             isBold: true,
           ),
@@ -136,7 +137,7 @@ class NutritionFacts extends StatelessWidget {
           // Total Fat
           _buildNutritionRow(
             context: context,
-            title: LocaleKeys.general_fat.tr(),
+            title: LocaleKeys.recipe_fat.tr(),
             value: totalFat,
             isBold: true,
           ),
@@ -148,7 +149,7 @@ class NutritionFacts extends StatelessWidget {
               ? const SizedBox.shrink()
               : _buildNutritionRow(
                   context: context,
-                  title: LocaleKeys.general_cholesterol.tr(),
+                  title: LocaleKeys.recipe_cholesterol.tr(),
                   value: cholestrol!,
                   isBold: true,
                   unit: "mg",

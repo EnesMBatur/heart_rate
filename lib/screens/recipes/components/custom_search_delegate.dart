@@ -1,6 +1,7 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
@@ -96,7 +97,7 @@ class CustomSearchDelegate extends SearchCustomDelegate {
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: Text(
-                          LocaleKeys.general_norecipe.tr(),
+                          LocaleKeys.recipe_norecipe.tr(),
                           style: Theme.of(context).textTheme.titleMedium,
                           textAlign: TextAlign.center,
                         ),
@@ -137,7 +138,7 @@ class CustomSearchDelegate extends SearchCustomDelegate {
                     const SizedBox(height: 10),
                     if (recipes.length >= limit)
                       Text(
-                        LocaleKeys.general_entermoreterms.tr(),
+                        LocaleKeys.recipe_entermoreterms.tr(),
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                   ],

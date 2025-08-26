@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heart_rate/core/constants/constants.dart';
@@ -73,7 +74,7 @@ class RecipeCardInfo extends StatelessWidget
               GlycemicIndicator(
                 context: context,
                 value: recipeData.gi.toString(),
-                label: LocaleKeys.calendar_GI.tr(),
+                label: LocaleKeys.others_GI.tr(),
                 color: getGIColor(recipeData.gi.toString()),
                 size: Device.screenType == ScreenType.tablet ? 60 : 48,
               ),
@@ -84,7 +85,7 @@ class RecipeCardInfo extends StatelessWidget
               GlycemicIndicator(
                 context: context,
                 value: recipeData.gl.toString(),
-                label: LocaleKeys.calendar_GL.tr(),
+                label: LocaleKeys.others_GL.tr(),
                 color: getGLColor(recipeData.gl.toString()),
                 size: Device.screenType == ScreenType.tablet ? 60 : 48,
               ),

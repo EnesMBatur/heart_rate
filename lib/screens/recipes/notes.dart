@@ -24,7 +24,7 @@ class Notes extends StatelessWidget {
     const String sydneyGiDbUrl =
         'https://glycemicindex.com/'; // Örnek URL, doğru olanı bulun.
 
-    String note1Text = LocaleKeys.general_note1.tr();
+    String note1Text = LocaleKeys.recipe_note1.tr();
     String part1 = note1Text.substring(
       0,
       note1Text.indexOf("USDA FoodData Central"),
@@ -50,7 +50,7 @@ class Notes extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "${LocaleKeys.general_notes.tr()}:",
+            "${LocaleKeys.recipe_notes.tr()}:",
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -108,11 +108,11 @@ class Notes extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          _buildNoteItem(context, LocaleKeys.general_note2.tr()),
+          _buildNoteItem(context, LocaleKeys.recipe_note2.tr()),
           const SizedBox(height: 4),
-          _buildNoteItem(context, LocaleKeys.general_note3.tr()),
+          _buildNoteItem(context, LocaleKeys.recipe_note3.tr()),
           const SizedBox(height: 4),
-          _buildNoteItem(context, LocaleKeys.general_note4.tr()),
+          _buildNoteItem(context, LocaleKeys.recipe_note4.tr()),
         ],
       ),
     );
