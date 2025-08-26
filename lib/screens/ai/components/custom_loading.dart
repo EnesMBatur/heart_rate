@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_rate/core/enums/lottie_items_enum.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

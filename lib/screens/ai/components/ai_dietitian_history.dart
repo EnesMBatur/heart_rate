@@ -4,13 +4,16 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/chat_history.dart';
 import 'package:heart_rate/screens/ai/components/chat_history.dart';
+import 'package:heart_rate/screens/ai/components/custom_icon.dart';
 import 'package:heart_rate/screens/ai/components/custom_loading.dart';
+import 'package:heart_rate/screens/ai/components/empty_list.dart';
 import 'package:heart_rate/services/chat_crud.dart';
 import 'package:heart_rate/utils/dialog_manager.dart';
 import 'package:line_icons/line_icons.dart';
@@ -146,7 +149,7 @@ class AiDietitianHistory extends StatelessWidget with DialogManager {
         onPressed: () => context.pop(context),
       ),
       centerTitle: true,
-      title: const Text(LocaleKeys.others_aihistory).tr(),
+      title: Text(LocaleKeys.others_aihistory).tr(),
     );
   }
 }

@@ -2,10 +2,20 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/response_type_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/models/chat_message.dart';
+import 'package:heart_rate/provider/ask_provider.dart';
+import 'package:heart_rate/screens/ai/components/ai_dietitian_history.dart';
+import 'package:heart_rate/screens/ai/components/custom_icon_button.dart';
+import 'package:heart_rate/screens/ai/components/custom_loading.dart';
+import 'package:heart_rate/screens/ai/components/hi_ai.dart';
+import 'package:heart_rate/screens/ai/components/message.dart';
+import 'package:heart_rate/screens/ai/modelview/ai_modelview.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart' as providerone;
 
 class AiScreen extends ConsumerStatefulWidget {
   const AiScreen({super.key});
@@ -67,11 +77,13 @@ class _AiScreenState extends AiModelview {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text(LocaleKeys.navbar_ai).tr(),
+      //TODO: Change Localize
+      title: const Text('AI'),
       centerTitle: true,
       automaticallyImplyLeading: false,
-      leading: const ProLeading(),
-      leadingWidth: 115,
+      //TODO: proLeading
+      // leading: const ProLeading(),
+      // leadingWidth: 115,
       actions: [
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -122,34 +134,34 @@ class _AiScreenState extends AiModelview {
           builder: (context, ref, child) {
             final chatRef = ref.watch(askProvider);
             final lastIndex = index == chatList.length;
-            return providerone.Consumer<RevenueCatProvider>(
-              builder: (context, revenueCatProvider, child) {
-                return Message(
-                  lastIndex: lastIndex,
-                  message: chatList[adjustedIndex].msg,
-                  index:
-                      ResponseTypeEnum.user.name == chatList[adjustedIndex].role
-                      ? 0
-                      : 1,
-                  onTap: () async {
-                    final value = await SecureStorage().readSecureData(
-                      'aiChat',
-                    );
-                    final entitlement = revenueCatProvider.entitlement;
-                    if (entitlement == Entitlement.free &&
-                        value > AppConst.kTrialValue) {
-                      if (!context.mounted) return;
-                      await context.push(AppRouter.paywall);
-                    } else {
-                      await refreshMessage(chatRef);
-                    }
-                  },
-                );
+            //TODO: Revenuecat Integration
+            // return providerone.Consumer<RevenueCatProvider>(
+            //   builder: (context, revenueCatProvider, child) {
+            return Message(
+              lastIndex: lastIndex,
+              message: chatList[adjustedIndex].msg,
+              index: ResponseTypeEnum.user.name == chatList[adjustedIndex].role
+                  ? 0
+                  : 1,
+              onTap: () async {
+                // final value = await SecureStorage().readSecureData(
+                //   'aiChat',
+                // );
+                // final entitlement = revenueCatProvider.entitlement;
+                // if (entitlement == Entitlement.free &&
+                //     value > AppConst.kTrialValue) {
+                //   if (!context.mounted) return;
+                //   await context.push(AppRouter.paywall);
+                // } else {
+                await refreshMessage(chatRef);
+                // }
               },
             );
           },
         );
       },
+      //   );
+      // },
     );
   }
 
@@ -163,9 +175,11 @@ class _AiScreenState extends AiModelview {
           top: 2 * AppConst.kDefaultEdgeInsets,
           bottom: AppConst.kDefaultPadding,
         ),
-        child: providerone.Consumer<RevenueCatProvider>(
-          builder: (context, revenueCatProvider, child) {
-            return Row(
+        child:
+            // providerone.Consumer<RevenueCatProvider>(
+            //   builder: (context, revenueCatProvider, child) {
+            //     return
+            Row(
               children: [
                 Expanded(
                   child: TextField(
@@ -174,18 +188,18 @@ class _AiScreenState extends AiModelview {
                     maxLines: 12,
                     minLines: 1,
                     onSubmitted: (value) async {
-                      final value = await SecureStorage().readSecureData(
-                        'aiChat',
-                      );
-                      final entitlement = revenueCatProvider.entitlement;
-                      if (entitlement == Entitlement.free &&
-                          value > AppConst.kTrialValue) {
-                        if (!context.mounted) return;
-                        await context.push(AppRouter.paywall);
-                      } else {
-                        await sendMessage(chatRef);
-                        textEditingController.clear();
-                      }
+                      // final value = await SecureStorage().readSecureData(
+                      //   'aiChat',
+                      // );
+                      // final entitlement = revenueCatProvider.entitlement;
+                      // if (entitlement == Entitlement.free &&
+                      //     value > AppConst.kTrialValue) {
+                      //   if (!context.mounted) return;
+                      //   await context.push(AppRouter.paywall);
+                      // } else {
+                      await sendMessage(chatRef);
+                      textEditingController.clear();
+                      // }
                     },
                     style: textStyle,
                     decoration: InputDecoration.collapsed(
@@ -196,18 +210,18 @@ class _AiScreenState extends AiModelview {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final value = await SecureStorage().readSecureData(
-                      'aiChat',
-                    );
-                    final entitlement = revenueCatProvider.entitlement;
-                    if (entitlement == Entitlement.free &&
-                        value > AppConst.kTrialValue) {
-                      if (!context.mounted) return;
-                      await context.push(AppRouter.paywall);
-                    } else {
-                      await sendMessage(chatRef);
-                      textEditingController.clear();
-                    }
+                    // final value = await SecureStorage().readSecureData(
+                    //   'aiChat',
+                    // );
+                    // final entitlement = revenueCatProvider.entitlement;
+                    // if (entitlement == Entitlement.free &&
+                    //     value > AppConst.kTrialValue) {
+                    //   if (!context.mounted) return;
+                    //   await context.push(AppRouter.paywall);
+                    // } else {
+                    await sendMessage(chatRef);
+                    textEditingController.clear();
+                    // }
                   },
                   icon: Icon(
                     LineIcons.paperPlane,
@@ -216,9 +230,9 @@ class _AiScreenState extends AiModelview {
                   ),
                 ),
               ],
-            );
-          },
-        ),
+              //   );
+              // },
+            ),
       ),
     );
   }

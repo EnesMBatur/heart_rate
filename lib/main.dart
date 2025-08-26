@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:heart_rate/core/services/app_initializer.dart';
@@ -12,7 +13,6 @@ import 'screens/blood_sugar/viewmodels/blood_sugar_view_model.dart';
 import 'screens/blood_oxygen/viewmodels/blood_oxygen_view_model.dart';
 import 'screens/home/viewmodels/home_view_model.dart';
 import 'screens/bmi/viewmodels/bmi_view_model.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() async {
   // Uygulama başlangıç süreçlerini çalıştır
@@ -31,7 +31,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => BloodOxygenViewModel()),
           ChangeNotifierProvider(create: (context) => BMIViewModel()),
         ],
-        child: const ProviderScope(child: HeartRaterApp()),
+        child: const riverpod.ProviderScope(child: HeartRaterApp()),
       ),
     ),
   );

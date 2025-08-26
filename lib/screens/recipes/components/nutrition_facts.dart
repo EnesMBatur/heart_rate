@@ -56,7 +56,7 @@ class NutritionFacts extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Text(
-              '${LocaleKeys.recipe_serving_size.tr()}: $servingSize',
+              '${LocaleKeys.others_serving_size.tr()}: $servingSize',
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),

@@ -2,10 +2,19 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/core/enums/response_type_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/models/chat_message.dart';
+import 'package:heart_rate/provider/ask_provider.dart';
+import 'package:heart_rate/screens/ai/components/chat_message.dart';
+import 'package:heart_rate/screens/ai/components/custom_icon.dart';
+import 'package:heart_rate/screens/ai/components/custom_loading.dart';
+import 'package:heart_rate/screens/ai/modelview/chat_history_model_view.dart';
+import 'package:heart_rate/services/chat_crud.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart' as providerone;
 
 class ChatHistoryScreen extends ConsumerStatefulWidget {
   const ChatHistoryScreen({required this.basePath, super.key});
@@ -111,26 +120,29 @@ class _ChatHistoryScreenState extends ChatHistoryModelView {
           top: 2 * AppConst.kDefaultEdgeInsets,
           bottom: 2 * AppConst.kDefaultPadding,
         ),
-        child: providerone.Consumer<RevenueCatProvider>(
-          builder: (context, revenueCatProvider, child) {
-            return Row(
+        child:
+            //TODO: Revenuecat Integration
+            // providerone.Consumer<RevenueCatProvider>(
+            //   builder: (context, revenueCatProvider, child) {
+            //     return
+            Row(
               children: [
                 Expanded(
                   child: TextField(
                     focusNode: focusNode,
                     controller: textEditingController,
                     onSubmitted: (value) async {
-                      final value = await SecureStorage().readSecureData(
-                        'aiChat',
-                      );
-                      final entitlement = revenueCatProvider.entitlement;
-                      if (entitlement == Entitlement.free &&
-                          value > AppConst.kTrialValue) {
-                        if (!context.mounted) return;
-                        await context.push(AppRouter.paywall);
-                      } else {
-                        await sendMessage(chatRef);
-                      }
+                      // final value = await SecureStorage().readSecureData(
+                      //   'aiChat',
+                      // );
+                      // final entitlement = revenueCatProvider.entitlement;
+                      // if (entitlement == Entitlement.free &&
+                      //     value > AppConst.kTrialValue) {
+                      //   if (!context.mounted) return;
+                      //   await context.push(AppRouter.paywall);
+                      // } else {
+                      await sendMessage(chatRef);
+                      //}
                     },
                     style: textStyle,
                     decoration: InputDecoration.collapsed(
@@ -141,17 +153,17 @@ class _ChatHistoryScreenState extends ChatHistoryModelView {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final value = await SecureStorage().readSecureData(
-                      'aiChat',
-                    );
-                    final entitlement = revenueCatProvider.entitlement;
-                    if (entitlement == Entitlement.free &&
-                        value > AppConst.kTrialValue) {
-                      if (!context.mounted) return;
-                      await context.push(AppRouter.paywall);
-                    } else {
-                      await sendMessage(chatRef);
-                    }
+                    // final value = await SecureStorage().readSecureData(
+                    //   'aiChat',
+                    // );
+                    // final entitlement = revenueCatProvider.entitlement;
+                    // if (entitlement == Entitlement.free &&
+                    //     value > AppConst.kTrialValue) {
+                    //   if (!context.mounted) return;
+                    //   await context.push(AppRouter.paywall);
+                    // } else {
+                    await sendMessage(chatRef);
+                    // }
                   },
                   icon: Icon(
                     LineIcons.paperPlane,
@@ -160,9 +172,9 @@ class _ChatHistoryScreenState extends ChatHistoryModelView {
                   ),
                 ),
               ],
-            );
-          },
-        ),
+              //   );
+              // },
+            ),
       ),
     );
   }

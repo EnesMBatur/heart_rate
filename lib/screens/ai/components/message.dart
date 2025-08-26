@@ -1,4 +1,8 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:heart_rate/core/constants/constants.dart';
+import 'package:heart_rate/provider/ask_provider.dart';
 
 class Message extends ConsumerWidget {
   const Message({

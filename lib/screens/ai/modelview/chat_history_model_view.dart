@@ -1,6 +1,16 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:heart_rate/core/enums/response_type_enum.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/ask_provider.dart';
+import 'package:heart_rate/screens/ai/components/chat_history.dart';
+import 'package:heart_rate/services/chat_crud.dart';
+import 'package:heart_rate/services/chat_service.dart';
+import 'package:heart_rate/utils/dio_manager.dart';
+import 'package:heart_rate/utils/snackbar_manager.dart';
 
 abstract class ChatHistoryModelView extends ConsumerState<ChatHistoryScreen>
     with SnackBarManager, DioManagerMixin {

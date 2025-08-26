@@ -3,6 +3,7 @@
 // Check in to version control
 
 import 'package:hive_ce/hive.dart';
+import 'package:heart_rate/models/message.dart';
 import 'package:heart_rate/models/recipe/ingredient.dart';
 import 'package:heart_rate/models/recipe/nutrition.dart';
 import 'package:heart_rate/models/recipe/recipes.dart';
@@ -10,6 +11,7 @@ import 'package:heart_rate/models/recipe/recipes.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(IngredientAdapter());
+    registerAdapter(MessageAdapter());
     registerAdapter(NutritionAdapter());
     registerAdapter(RecipeAdapter());
   }
@@ -18,6 +20,7 @@ extension HiveRegistrar on HiveInterface {
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(IngredientAdapter());
+    registerAdapter(MessageAdapter());
     registerAdapter(NutritionAdapter());
     registerAdapter(RecipeAdapter());
   }

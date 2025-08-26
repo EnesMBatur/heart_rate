@@ -8,6 +8,7 @@ abstract class  LocaleKeys {
   static const others_servings = 'others.servings';
   static const others_GI = 'others.GI';
   static const others_GL = 'others.GL';
+  static const others_serving_size = 'others.serving_size';
   static const others = 'others';
   static const recipe_norecipe = 'recipe.norecipe';
   static const recipe_entermoreterms = 'recipe.entermoreterms';
