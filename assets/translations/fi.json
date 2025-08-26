@@ -206,7 +206,13 @@
         "cancel": "Peruuta",
         "delete": "Poista",
         "deleteData": "Poista tietosi",
-        "deleteAI": "Koko AI-historiasi poistetaan pysyvästi."
+        "deleteAI": "Koko AI-historiasi poistetaan pysyvästi.",
+        "aihistory": "AI-historia",
+        "fav": "Tallenna suosikkireseptisi.",
+        "delete_title": "Oletko varma?",
+        "delete_content": "Tietosi poistetaan pysyvästi.",
+        "confirmtext": "Ok",
+        "canceltext": "Ei"
     },
     "filters": {
         "filters": "Suodattimet",

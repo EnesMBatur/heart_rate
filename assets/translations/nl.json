@@ -206,7 +206,13 @@
         "cancel": "Annuleren",
         "delete": "Verwijderen",
         "deleteData": "Verwijder je gegevens",
-        "deleteAI": "Al je AI-geschiedenis wordt permanent verwijderd."
+        "deleteAI": "Al je AI-geschiedenis wordt permanent verwijderd.",
+        "aihistory": "AI-geschiedenis",
+        "fav": "Sla je favoriete recepten op.",
+        "delete_title": "Weet je het zeker?",
+        "delete_content": "Je gegevens worden permanent verwijderd.",
+        "confirmtext": "Ok",
+        "canceltext": "Nee"
     },
     "filters": {
         "filters": "Filters",

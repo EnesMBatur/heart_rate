@@ -15,11 +15,11 @@ abstract class IChatService {
   IChatService(this.dio);
   final Dio dio;
 
-  Future<Chat?> fetchRecipeResponse(
-    String content,
-    String trimester,
-    String tags,
-  );
+  // Future<Chat?> fetchRecipeResponse(
+  //   String content,
+  //   String trimester,
+  //   String tags,
+  // );
   Future<List<ChatMessage>?> fetchChatResponse(
     String content,
     String servicePath,
@@ -29,42 +29,42 @@ abstract class IChatService {
 class ChatService extends IChatService {
   ChatService(super.dio);
 
-  @override
-  Future<Chat?> fetchRecipeResponse(
-    String content,
-    String trimester,
-    String tags,
-  ) async {
-    Map<String, dynamic>? searchDetails;
-    final msg = LocaleKeys.others_openaiservice.tr(
-      namedArgs: {'tags': tags, 'content': content, 'trimester': trimester},
-    );
-    searchDetails = {
-      'model': 'gpt-5-mini',
-      'messages': [
-        {'role': 'user', 'content': msg},
-      ],
-      'temperature': 0.7,
-      'max_tokens': 1000,
-    };
+  // @override
+  // Future<Chat?> fetchRecipeResponse(
+  //   String content,
+  //   String trimester,
+  //   String tags,
+  // ) async {
+  //   Map<String, dynamic>? searchDetails;
+  //   final msg = LocaleKeys.others_openaiservice.tr(
+  //     namedArgs: {'tags': tags, 'content': content, 'trimester': trimester},
+  //   );
+  //   searchDetails = {
+  //     'model': 'gpt-5-mini',
+  //     'messages': [
+  //       {'role': 'user', 'content': msg},
+  //     ],
+  //     'temperature': 0.7,
+  //     'max_tokens': 1000,
+  //   };
 
-    final response = await dio.post('/responses', data: searchDetails);
-    if (response.statusCode == HttpStatus.ok) {
-      final datas = response.data;
-      if (datas is Map<String, dynamic>) {
-        return Chat.fromJson(datas);
-      }
-    } else {
-      final datas = response.data;
-      if (datas['error'] != null) {
-        log(datas['error']['message']);
+  //   final response = await dio.post('/responses', data: searchDetails);
+  //   if (response.statusCode == HttpStatus.ok) {
+  //     final datas = response.data;
+  //     if (datas is Map<String, dynamic>) {
+  //       return Chat.fromJson(datas);
+  //     }
+  //   } else {
+  //     final datas = response.data;
+  //     if (datas['error'] != null) {
+  //       log(datas['error']['message']);
 
-        throw HttpException(datas['error']['message'] as String);
-      }
-    }
+  //       throw HttpException(datas['error']['message'] as String);
+  //     }
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   @override
   Future<List<ChatMessage>?> fetchChatResponse(

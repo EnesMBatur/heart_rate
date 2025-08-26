@@ -53,21 +53,18 @@ mixin DialogManager {
       builder: (BuildContext context) => AlertDialog.adaptive(
         backgroundColor: Colors.black,
         title: Text(
-          LocaleKeys.profileitems_delete_title.tr(),
+          LocaleKeys.aiChat_delete_title.tr(),
           style: textStyleMedium,
         ),
         content: Text(
-          LocaleKeys.profileitems_delete_content.tr(),
+          LocaleKeys.aiChat_delete_content.tr(),
           style: textStyleSmall,
         ),
         actions: <Widget>[
           adaptiveAction(
             context: context,
             onPressed: () => context.pop(),
-            child: Text(
-              LocaleKeys.profileitems_cancel.tr(),
-              style: textStyleMedium,
-            ),
+            child: Text(LocaleKeys.aiChat_cancel.tr(), style: textStyleMedium),
           ),
           adaptiveAction(
             context: context,
@@ -82,7 +79,7 @@ mixin DialogManager {
               context.pop();
             },
             child: Text(
-              LocaleKeys.profileitems_delete_button.tr(),
+              LocaleKeys.aiChat_delete.tr(),
               style: textStyleMedium.copyWith(color: Colors.red.shade400),
             ),
           ),
@@ -108,7 +105,7 @@ mixin DialogManager {
             context: context,
             onPressed: () => context.pop(),
             child: Text(
-              LocaleKeys.text_confirmtext.tr(),
+              LocaleKeys.aiChat_confirmtext.tr(),
               style: textStyleMedium,
             ),
           ),

@@ -206,7 +206,13 @@
         "cancel": "İptal",
         "delete": "Sil",
         "deleteData": "Verilerinizi sil",
-        "deleteAI": "Tüm AI geçmişiniz kalıcı olarak silinecek."
+        "deleteAI": "Tüm AI geçmişiniz kalıcı olarak silinecek.",
+        "aihistory": "YZ Geçmişi",
+        "fav": "Favori tariflerinizi kaydedin.",
+        "delete_title": "Emin misiniz?",
+        "delete_content": "Verileriniz kalıcı olarak silinecek.",
+        "confirmtext": "Tamam",
+        "canceltext": "Hayır"
     },
     "filters": {
         "filters": "Filtreler",

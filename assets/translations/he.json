@@ -206,7 +206,13 @@
         "cancel": "ביטול",
         "delete": "מחק",
         "deleteData": "מחק את הנתונים שלך",
-        "deleteAI": "כל היסטוריית ה-AI שלך תמחק לצמיתות."
+        "deleteAI": "כל היסטוריית ה-AI שלך תמחק לצמיתות.",
+        "aihistory": "היסטוריית AI",
+        "fav": "שמור את המתכונים המועדפים עליך.",
+        "delete_title": "האם אתה בטוח?",
+        "delete_content": "הנתונים שלך יימחקו לצמיתות.",
+        "confirmtext": "בסדר",
+        "canceltext": "לא"
     },
     "filters": {
         "filters": "מסננים",

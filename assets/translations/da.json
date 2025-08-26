@@ -206,7 +206,13 @@
         "cancel": "Annuller",
         "delete": "Slet",
         "deleteData": "Slet dine data",
-        "deleteAI": "Al din AI-historik vil blive permanent slettet."
+        "deleteAI": "Al din AI-historik vil blive permanent slettet.",
+        "aihistory": "AI-historik",
+        "fav": "Gem dine favoritopskrifter.",
+        "delete_title": "Er du sikker?",
+        "delete_content": "Dine data vil blive slettet permanent.",
+        "confirmtext": "Ok",
+        "canceltext": "Nej"
     },
     "filters": {
         "filters": "Filtre",

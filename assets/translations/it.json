@@ -206,7 +206,13 @@
         "cancel": "Annulla",
         "delete": "Elimina",
         "deleteData": "Elimina i tuoi dati",
-        "deleteAI": "Tutta la cronologia AI sarà eliminata definitivamente."
+        "deleteAI": "Tutta la cronologia AI sarà eliminata definitivamente.",
+        "aihistory": "Cronologia IA",
+        "fav": "Salva le tue ricette preferite.",
+        "delete_title": "Sei sicuro?",
+        "delete_content": "I tuoi dati saranno eliminati definitivamente.",
+        "confirmtext": "Ok",
+        "canceltext": "No"
     },
     "filters": {
         "filters": "Filtri",

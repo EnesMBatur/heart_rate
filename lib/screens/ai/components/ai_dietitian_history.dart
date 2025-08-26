@@ -149,7 +149,7 @@ class AiDietitianHistory extends StatelessWidget with DialogManager {
         onPressed: () => context.pop(context),
       ),
       centerTitle: true,
-      title: Text(LocaleKeys.others_aihistory).tr(),
+      title: Text(LocaleKeys.aiChat_aihistory).tr(),
     );
   }
 }

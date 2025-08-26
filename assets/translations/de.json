@@ -206,7 +206,13 @@
         "cancel": "Abbrechen",
         "delete": "Löschen",
         "deleteData": "Lösche deine Daten",
-        "deleteAI": "Deine gesamte AI-Historie wird dauerhaft gelöscht."
+        "deleteAI": "Deine gesamte AI-Historie wird dauerhaft gelöscht.",
+        "aihistory": "KI-Historie",
+        "fav": "Speichern Sie Ihre Lieblingsrezepte.",
+        "delete_title": "Sind Sie sicher?",
+        "delete_content": "Ihre Daten werden dauerhaft gelöscht.",
+        "confirmtext": "Ok",
+        "canceltext": "Nein"
     },
     "filters": {
         "filters": "Filter",

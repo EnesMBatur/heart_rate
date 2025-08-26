@@ -206,7 +206,13 @@
         "cancel": "إلغاء",
         "delete": "حذف",
         "deleteData": "احذف بياناتك",
-        "deleteAI": "سيتم حذف كافة سجل AI الخاص بك نهائيًا."
+        "deleteAI": "سيتم حذف كافة سجل AI الخاص بك نهائيًا.",
+        "aihistory": "سجل الذكاء الاصطناعي",
+        "fav": "احفظ وصفاتك المفضلة.",
+        "delete_title": "هل أنت متأكد؟",
+        "delete_content": "سيتم حذف بياناتك نهائيًا.",
+        "confirmtext": "حسنا",
+        "canceltext": "لا"
     },
     "filters": {
         "filters": "فلاتر",

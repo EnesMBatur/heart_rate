@@ -206,7 +206,13 @@
         "cancel": "Annuler",
         "delete": "Supprimer",
         "deleteData": "Supprimez vos données",
-        "deleteAI": "Tout votre historique IA sera supprimé définitivement."
+        "deleteAI": "Tout votre historique IA sera supprimé définitivement.",
+        "aihistory": "Historique IA",
+        "fav": "Enregistrez vos recettes favorites.",
+        "delete_title": "Êtes-vous sûr ?",
+        "delete_content": "Vos données seront supprimées définitivement.",
+        "confirmtext": "Ok",
+        "canceltext": "Non"
     },
     "filters": {
         "filters": "Filtres",

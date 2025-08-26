@@ -206,7 +206,13 @@
         "cancel": "Avbryt",
         "delete": "Radera",
         "deleteData": "Radera dina data",
-        "deleteAI": "All din AI-historik kommer att raderas permanent."
+        "deleteAI": "All din AI-historik kommer att raderas permanent.",
+        "aihistory": "AI-historik",
+        "fav": "Spara dina favoritrecept.",
+        "delete_title": "Är du säker?",
+        "delete_content": "Din data kommer att raderas permanent.",
+        "confirmtext": "Okej",
+        "canceltext": "Nej"
     },
     "filters": {
         "filters": "Filter",

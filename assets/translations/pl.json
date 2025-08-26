@@ -206,7 +206,13 @@
         "cancel": "Anuluj",
         "delete": "Usuń",
         "deleteData": "Usuń swoje dane",
-        "deleteAI": "Cała Twoja historia AI zostanie trwale usunięta."
+        "deleteAI": "Cała Twoja historia AI zostanie trwale usunięta.",
+        "aihistory": "Historia AI",
+        "fav": "Zapisz ulubione przepisy.",
+        "delete_title": "Czy na pewno?",
+        "delete_content": "Twoje dane zostaną trwale usunięte.",
+        "confirmtext": "Ok",
+        "canceltext": "Nie"
     },
     "filters": {
         "filters": "Filtry",

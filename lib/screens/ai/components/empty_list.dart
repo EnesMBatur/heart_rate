@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
-import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EmptyList extends StatelessWidget {
-  const EmptyList({this.svgPath, super.key, this.text});
+  const EmptyList({this.svgPath, super.key, required this.text});
 
-  final String? text;
+  final String text;
   final String? svgPath;
 
   @override
@@ -29,11 +28,7 @@ class EmptyList extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const SizedBox(height: AppConst.kDefaultPadding),
-          Text(
-            text ?? LocaleKeys.empty_fav.tr(),
-            style: textStyle,
-            textAlign: TextAlign.center,
-          ),
+          Text(text, style: textStyle, textAlign: TextAlign.center),
         ],
       ),
     );
