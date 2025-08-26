@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "t",
+        "servings": "porsjon(er)",
+        "GI": "GI",
+        "GL": "GL"
+    },
+    "recipe": {
+        "norecipe": "Ingen oppskrifter funnet som samsvarer med søket.",
+        "entermoreterms": "Vennligst angi flere søkeord for flere resultater.",
+        "recipeload": "Ingen flere oppskrifter å laste.",
+        "nutrition": "Næringsinnhold",
+        "serving": "Porsjonsstørrelse:",
+        "calories": "Kalorier",
+        "glycemic": "Glykemisk indeks",
+        "glycemicload": "Glykemisk belastning",
+        "carbohydrates": "Totale karbohydrater",
+        "netCarbs": "Nettokarbohydrater",
+        "sugars": "Sukker",
+        "fiber": "Kostfiber",
+        "protein": "Protein",
+        "fat": "Totalt fett",
+        "cholesterol": "Kolesterol",
+        "note1": "Næringsverdiene i tabellen er omtrentlige gjennomsnitt hentet fra USDA FoodData Central, andre pålitelige databaser, vitenskapelige publikasjoner (f.eks. University of Sydney GI Database) og relaterte kilder.",
+        "note2": "GI-verdien (glykemisk indeks) reflekterer effekten av karbohydrater i produktet på blodsukkernivået, mens GL-verdien (glykemisk belastning) beregnes ved å multiplisere GI med produktets nettokarbohydratinnhold og deretter dele på 100.",
+        "note3": "Verdiene kan variere avhengig av produkttype, merke og tilberedningsmetode.",
+        "note4": "For produkter uten målbare data tilgjengelig, med svært lavt karbohydratinnhold eller som krydder og smakstilsetninger, angis GI-verdien som '0' eller 'N/A'.",
+        "notes": "Notater",
+        "kcalories": "kalorier",
+        "caloriesper": "kalorier per"
+    },
     "recipedetailitems": {
         "ingredients": "Ingredienser",
         "instructions": "Instruksjoner",

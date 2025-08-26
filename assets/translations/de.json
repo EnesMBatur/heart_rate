@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "Min.",
+        "hour": "Std",
+        "servings": "Portion(en)",
+        "GI": "GI",
+        "GL": "GL"
+    },
+    "recipe": {
+        "norecipe": "Keine Rezepte zur Suchanfrage gefunden.",
+        "entermoreterms": "Bitte geben Sie mehr Begriffe ein, um mehr Ergebnisse zu erhalten.",
+        "recipeload": "Keine weiteren Rezepte zum Laden.",
+        "nutrition": "Nährwertangaben",
+        "serving": "Portionsgröße:",
+        "calories": "Kalorien",
+        "glycemic": "Glykämischer Index",
+        "glycemicload": "Glykämische Last",
+        "carbohydrates": "Kohlenhydrate gesamt",
+        "netCarbs": "Netto-Kohlenhydrate",
+        "sugars": "Zucker",
+        "fiber": "Ballaststoffe",
+        "protein": "Eiweiß",
+        "fat": "Fett gesamt",
+        "cholesterol": "Cholesterin",
+        "note1": "Die Nährwertangaben in der Tabelle sind ungefähre Durchschnittswerte, basierend auf Daten von USDA FoodData Central, anderen verlässlichen Datenbanken, wissenschaftlichen Publikationen (z. B. University of Sydney GI Database) und verwandten Quellen.",
+        "note2": "Der GI-Wert (glykämischer Index) spiegelt die Auswirkung der im Produkt enthaltenen Kohlenhydrate auf den Blutzuckerspiegel wider, während der GL-Wert (glykämische Last) berechnet wird, indem der GI mit dem Netto-Kohlenhydratgehalt des Produkts multipliziert und durch 100 geteilt wird.",
+        "note3": "Werte können je nach Produktsorte, Marke und Zubereitungsart variieren.",
+        "note4": "Für Produkte ohne verfügbare messbare Daten, mit sehr niedrigem Kohlenhydratgehalt oder solche wie Gewürze und Aromen wird der GI-Wert mit „0“ oder „N/A“ angegeben.",
+        "notes": "Notizen",
+        "kcalories": "Kalorien",
+        "caloriesper": "Kalorien pro"
+    },
     "recipedetailitems": {
         "ingredients": "Zutaten",
         "instructions": "Anleitung",

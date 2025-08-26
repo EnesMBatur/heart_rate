@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "t",
+        "servings": "portion(er)",
+        "GI": "GI",
+        "GL": "GL"
+    },
+    "recipe": {
+        "norecipe": "Inga recept matchar sökningen.",
+        "entermoreterms": "Ange fler termer för fler resultat.",
+        "recipeload": "Inga fler recept att ladda.",
+        "nutrition": "Näringsvärde",
+        "serving": "Portionsstorlek:",
+        "calories": "Kalorier",
+        "glycemic": "Glykemiskt index",
+        "glycemicload": "Glykemisk belastning",
+        "carbohydrates": "Totala kolhydrater",
+        "netCarbs": "Nettokolhydrater",
+        "sugars": "Sockerarter",
+        "fiber": "Kostfiber",
+        "protein": "Protein",
+        "fat": "Totalt fett",
+        "cholesterol": "Kolesterol",
+        "note1": "Näringsvärdena i tabellen är ungefärliga genomsnitt sammansatta från USDA FoodData Central, andra pålitliga databaser, vetenskapliga publikatio­n­er (t.ex. University of Sydney GI Database) och relaterade källor.",
+        "note2": "GI-värdet (glykemiskt index) återspeglar hur kolhydraterna i produkten påverkar blodsockernivån, medan GL-värdet (glykemisk belastning) beräknas genom att multiplicera GI med produktens nettokolhydratinnehåll och dela med 100.",
+        "note3": "Värden kan variera beroende på produktvariant, märke och tillagningsmetod.",
+        "note4": "För produkter utan tillgängliga mätbara data, med mycket lågt kolhydratinnehåll eller såsom kryddor och smaksättningar, anges GI-värdet som '0' eller 'N/A'.",
+        "notes": "Anteckningar",
+        "kcalories": "kalorier",
+        "caloriesper": "kalorier per"
+    },
     "recipedetailitems": {
         "ingredients": "Ingredienser",
         "instructions": "Instruktioner",

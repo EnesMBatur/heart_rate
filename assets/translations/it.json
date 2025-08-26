@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "h",
+        "servings": "porzione(e)",
+        "GI": "IG",
+        "GL": "CG"
+    },
+    "recipe": {
+        "norecipe": "Nessuna ricetta trovata corrispondente alla ricerca.",
+        "entermoreterms": "Inserisci più termini per ottenere più risultati.",
+        "recipeload": "Non ci sono altre ricette da caricare.",
+        "nutrition": "Informazioni nutrizionali",
+        "serving": "Dimensione porzione:",
+        "calories": "Calorie",
+        "glycemic": "Indice glicemico",
+        "glycemicload": "Carico glicemico",
+        "carbohydrates": "Carboidrati totali",
+        "netCarbs": "Carboidrati netti",
+        "sugars": "Zuccheri",
+        "fiber": "Fibre alimentari",
+        "protein": "Proteine",
+        "fat": "Grassi totali",
+        "cholesterol": "Colesterolo",
+        "note1": "I valori nutrizionali nella tabella sono medie approssimative compilate da USDA FoodData Central, altre banche dati affidabili, pubblicazioni scientifiche (es. University of Sydney GI Database) e fonti correlate.",
+        "note2": "Il valore IG (Indice Glicemico) riflette l’effetto dei carboidrati del prodotto sui livelli di glucosio nel sangue, mentre il valore CG (Carico Glicemico) si calcola moltiplicando l’IG per il contenuto di carboidrati netti del prodotto e dividendo per 100.",
+        "note3": "I valori possono variare a seconda della varietà di prodotto, del marchio e del metodo di preparazione.",
+        "note4": "Per i prodotti senza dati misurabili disponibili, con contenuto di carboidrati molto basso, o come spezie e aromi, il valore IG è indicato come '0' o 'N/A'.",
+        "notes": "Note",
+        "kcalories": "calorie",
+        "caloriesper": "calorie per"
+    },
     "recipedetailitems": {
         "ingredients": "Ingredienti",
         "instructions": "Istruzioni",

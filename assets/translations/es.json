@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "h",
+        "servings": "porción(es)",
+        "GI": "IG",
+        "GL": "CG"
+    },
+    "recipe": {
+        "norecipe": "No se encontraron recetas que coincidan con la búsqueda.",
+        "entermoreterms": "Por favor, ingrese más términos para obtener más resultados.",
+        "recipeload": "No hay más recetas para cargar.",
+        "nutrition": "Información nutricional",
+        "serving": "Tamaño de la porción:",
+        "calories": "Calorías",
+        "glycemic": "Índice glucémico",
+        "glycemicload": "Carga glucémica",
+        "carbohydrates": "Carbohidratos totales",
+        "netCarbs": "Carbohidratos netos",
+        "sugars": "Azúcares",
+        "fiber": "Fibra dietética",
+        "protein": "Proteína",
+        "fat": "Grasas totales",
+        "cholesterol": "Colesterol",
+        "note1": "Los valores nutricionales en la tabla son promedios aproximados recopilados de USDA FoodData Central, otras bases de datos confiables, publicaciones científicas (p. ej., University of Sydney GI Database) y fuentes relacionadas.",
+        "note2": "El valor GI (Índice glucémico) refleja el efecto de los carbohidratos del producto en los niveles de glucosa en sangre, mientras que el valor GL (Carga glucémica) se calcula multiplicando el GI por el contenido de carbohidratos netos del producto y dividiendo entre 100.",
+        "note3": "Los valores pueden variar según la variedad del producto, la marca y el método de preparación.",
+        "note4": "Para productos sin datos medibles disponibles, con contenido muy bajo de carbohidratos, o como especias y condimentos, el valor GI se indica como \"0\" o \"N/A\".",
+        "notes": "Notas",
+        "kcalories": "calorías",
+        "caloriesper": "calorías por"
+    },
     "recipedetailitems": {
         "ingredients": "Ingredientes",
         "instructions": "Instrucciones",

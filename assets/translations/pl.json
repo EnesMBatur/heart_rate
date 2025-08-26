@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "godz.",
+        "servings": "porcja(e)",
+        "GI": "IG",
+        "GL": "ŁG"
+    },
+    "recipe": {
+        "norecipe": "Nie znaleziono przepisów pasujących do wyszukiwania.",
+        "entermoreterms": "Wprowadź więcej haseł, aby uzyskać więcej wyników.",
+        "recipeload": "Brak kolejnych przepisów do załadowania.",
+        "nutrition": "Wartości odżywcze",
+        "serving": "Wielkość porcji:",
+        "calories": "Kalorie",
+        "glycemic": "Indeks glikemiczny",
+        "glycemicload": "Ładunek glikemiczny",
+        "carbohydrates": "Węglowodany ogółem",
+        "netCarbs": "Węglowodany netto",
+        "sugars": "Cukry",
+        "fiber": "Błonnik",
+        "protein": "Białko",
+        "fat": "Tłuszcze ogółem",
+        "cholesterol": "Cholesterol",
+        "note1": "Wartości odżywcze w tabeli to przybliżone średnie z USDA FoodData Central, innych wiarygodnych baz danych, publikacji naukowych (np. University of Sydney GI Database) i powiązanych źródeł.",
+        "note2": "Wartość IG (indeks glikemiczny) odzwierciedla wpływ węglowodanów zawartych w produkcie na poziom glukozy we krwi, natomiast wartość GL (ładunek glikemiczny) oblicza się, mnożąc IG przez zawartość węglowodanów netto w produkcie i dzieląc przez 100.",
+        "note3": "Wartości mogą się różnić w zależności od odmiany produktu, marki i sposobu przygotowania.",
+        "note4": "Dla produktów bez dostępnych mierzalnych danych, o bardzo niskiej zawartości węglowodanów lub takich jak przyprawy i aromaty, wartość IG wskazana jest jako '0' lub 'N/A'.",
+        "notes": "Notatki",
+        "kcalories": "kalorie",
+        "caloriesper": "kalorie na"
+    },
     "recipedetailitems": {
         "ingredients": "Składniki",
         "instructions": "Instrukcje",

@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "h",
+        "servings": "portion(s)",
+        "GI": "IG",
+        "GL": "CG"
+    },
+    "recipe": {
+        "norecipe": "Aucune recette ne correspond à la recherche.",
+        "entermoreterms": "Veuillez saisir plus de termes pour obtenir plus de résultats.",
+        "recipeload": "Plus de recette à charger.",
+        "nutrition": "Valeurs nutritionnelles",
+        "serving": "Taille de la portion :",
+        "calories": "Calories",
+        "glycemic": "Index glycémique",
+        "glycemicload": "Charge glycémique",
+        "carbohydrates": "Glucides totaux",
+        "netCarbs": "Glucides nets",
+        "sugars": "Sucres",
+        "fiber": "Fibres alimentaires",
+        "protein": "Protéines",
+        "fat": "Matières grasses totales",
+        "cholesterol": "Cholestérol",
+        "note1": "Les valeurs nutritionnelles du tableau sont des moyennes approximatives compilées à partir de USDA FoodData Central, d'autres bases de données fiables, de publications scientifiques (p. ex., University of Sydney GI Database) et de sources associées.",
+        "note2": "La valeur IG (Index Glycémique) reflète l'effet des glucides du produit sur le taux de glucose sanguin, tandis que la valeur CG (Charge Glycémique) est calculée en multipliant l'IG par la teneur en glucides nets du produit et en divisant par 100.",
+        "note3": "Les valeurs peuvent varier en fonction de la variété du produit, de la marque et du mode de préparation.",
+        "note4": "Pour les produits sans données mesurables disponibles, à très faible teneur en glucides ou tels que les épices et arômes, la valeur IG est indiquée comme \"0\" ou \"N/A\".",
+        "notes": "Notes",
+        "kcalories": "calories",
+        "caloriesper": "calories par"
+    },
     "recipedetailitems": {
         "ingredients": "Ingrédients",
         "instructions": "Instructions",

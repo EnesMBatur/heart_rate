@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "t",
+        "servings": "annos(annosta)",
+        "GI": "GI",
+        "GL": "GL"
+    },
+    "recipe": {
+        "norecipe": "Ei löytynyt reseptejä, jotka vastaisivat hakua.",
+        "entermoreterms": "Anna lisää hakusanoja saadaksesi lisää tuloksia.",
+        "recipeload": "Ei enempää reseptejä ladattavaksi.",
+        "nutrition": "Ravintoarvot",
+        "serving": "Annoskoko:",
+        "calories": "Kalorit",
+        "glycemic": "Glykeeminen indeksi",
+        "glycemicload": "Glykeeminen kuorma",
+        "carbohydrates": "Hiilihydraatit yhteensä",
+        "netCarbs": "Nettokarbohydraatit",
+        "sugars": "Sokerit",
+        "fiber": "Ravintokuidut",
+        "protein": "Proteiini",
+        "fat": "Rasvat yhteensä",
+        "cholesterol": "Kolesteroli",
+        "note1": "Taulukon ravintoarvot ovat arvioituja keskiarvoja, jotka on koottu USDA FoodData Centralista, muista luotettavista tietokannoista, tieteellisistä julkaisuista (esim. University of Sydney GI Database) ja muista lähteistä.",
+        "note2": "GI-arvo (glykeeminen indeksi) kuvaa tuotteen hiilihydraattien vaikutusta verensokeriin, kun taas GL-arvo (glykeeminen kuorma) lasketaan kertomalla GI tuotteen nettokarbohydraattisella määrällä ja jakamalla tulos sadalla.",
+        "note3": "Arvot voivat vaihdella tuotteen lajikkeen, merkin ja valmistusmenetelmän mukaan.",
+        "note4": "Tuotteille, joiden mittaustiedot eivät ole saatavilla, joiden hiilihydraattipitoisuus on erittäin alhainen, tai mausteille ja makuaineille, GI-arvoksi merkitään \"0\" tai \"N/A\".",
+        "notes": "Muistiinpanot",
+        "kcalories": "kalorit",
+        "caloriesper": "kaloreita per"
+    },
     "recipedetailitems": {
         "ingredients": "Ainekset",
         "instructions": "Ohjeet",

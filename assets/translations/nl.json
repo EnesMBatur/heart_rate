@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "min",
+        "hour": "u",
+        "servings": "portie(s)",
+        "GI": "GI",
+        "GL": "GL"
+    },
+    "recipe": {
+        "norecipe": "Geen recepten gevonden die overeenkomen met de zoekopdracht.",
+        "entermoreterms": "Voer meer zoektermen in voor meer resultaten.",
+        "recipeload": "Geen recepten meer om te laden.",
+        "nutrition": "Voedingsfeiten",
+        "serving": "Portiegrootte:",
+        "calories": "Calorieën",
+        "glycemic": "Glycemische index",
+        "glycemicload": "Glycemische belasting",
+        "carbohydrates": "Totale koolhydraten",
+        "netCarbs": "Netto koolhydraten",
+        "sugars": "Suikers",
+        "fiber": "Voedingsvezels",
+        "protein": "Eiwit",
+        "fat": "Totaal vet",
+        "cholesterol": "Cholesterol",
+        "note1": "De voedingswaarden in de tabel zijn geschatte gemiddelden samengesteld uit USDA FoodData Central, andere betrouwbare databases, wetenschappelijke publicaties (bijv. University of Sydney GI Database) en aanverwante bronnen.",
+        "note2": "De GI-waarde (glycemische index) geeft de invloed weer van de in het product aanwezige koolhydraten op de bloedsuikerspiegel, terwijl de GL-waarde (glycemische belasting) wordt berekend door de GI te vermenigvuldigen met het netto koolhydraatgehalte van het product en te delen door 100.",
+        "note3": "Waarden kunnen variëren afhankelijk van productvariëteit, merk en bereidingsmethode.",
+        "note4": "Voor producten zonder meetbare gegevens, met zeer laag koolhydraatgehalte of zoals specerijen en aroma's, wordt de GI-waarde aangegeven als '0' of 'N/A'.",
+        "notes": "Notities",
+        "kcalories": "calorieën",
+        "caloriesper": "calorieën per"
+    },
     "recipedetailitems": {
         "ingredients": "Ingrediënten",
         "instructions": "Instructies",

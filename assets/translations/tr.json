@@ -1,4 +1,35 @@
 {
+    "others": {
+        "min": "dk",
+        "hour": "sa",
+        "servings": "porsiyon",
+        "GI": "Gİ",
+        "GL": "GY"
+    },
+    "recipe": {
+        "norecipe": "Arama sorgunuza uygun tarif bulunamadı.",
+        "entermoreterms": "Daha fazla sonuç için lütfen daha fazla terim girin.",
+        "recipeload": "Yüklenecek başka tarif yok.",
+        "nutrition": "Besin Değerleri",
+        "serving": "Porsiyon Boyutu:",
+        "calories": "Kalori",
+        "glycemic": "Glisemik İndeks",
+        "glycemicload": "Glisemik Yük",
+        "carbohydrates": "Toplam Karbonhidrat",
+        "netCarbs": "Net Karbonhidrat",
+        "sugars": "Şekerler",
+        "fiber": "Diyet Lifi",
+        "protein": "Protein",
+        "fat": "Toplam Yağ",
+        "cholesterol": "Kolesterol",
+        "note1": "Tablodaki besin değerleri, USDA FoodData Central, diğer güvenilir besin veritabanları, bilimsel yayınlar (örn. University of Sydney GI Database) ve ilgili kaynaklardan derlenen yaklaşık ortalama değerlerdir.",
+        "note2": "GI (Glisemik İndeks) değeri, ürünün içerdiği karbonhidratların kan şekeri üzerindeki etkisini yansıtırken, GL (Glisemik Yük) değeri, GI’nin ürünün net karbonhidrat içeriği ile çarpılıp 100’e bölünmesiyle hesaplanır.",
+        "note3": "Değerler ürün çeşidine, markaya ve hazırlama yöntemine göre değişiklik gösterebilir.",
+        "note4": "Ölçülebilir veri bulunmayan, karbonhidrat içeriği çok düşük olan veya baharat ve aroma vericiler gibi ürünler için GI değeri '0' veya 'N/A' olarak belirtilir.",
+        "notes": "Notlar",
+        "kcalories": "kalori",
+        "caloriesper": "kalori başına"
+    },
     "recipedetailitems": {
         "ingredients": "Malzemeler",
         "instructions": "Tarif",
