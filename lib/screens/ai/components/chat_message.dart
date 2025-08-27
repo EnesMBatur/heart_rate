@@ -46,9 +46,7 @@ class ChatHistoryMessage extends StatelessWidget {
                 : const EdgeInsets.only(top: 8, bottom: 8, right: 60),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
-              color: index == 1
-                  ? Theme.of(context).primaryColorLight
-                  : AppConst.kPrimaryColor,
+              color: index == 1 ? Colors.white : AppConst.kPrimaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(14)),
             ),
             child: Consumer(

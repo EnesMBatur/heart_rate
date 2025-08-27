@@ -75,7 +75,7 @@ class ChatService extends IChatService {
         chatsList!.map((chat) => {'role': chat.role, 'content': chat.msg}),
       );
     searchDetails = {
-      'model': 'gpt-5-mini',
+      'model': 'gpt-4.1-mini',
       'messages': memChats,
       'temperature': 0.7,
       'max_tokens': 1200,

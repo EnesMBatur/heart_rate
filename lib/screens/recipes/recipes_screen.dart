@@ -63,7 +63,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
         badgeContent: Text(
           filtersCount.toString(),
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: Theme.of(context).primaryColorLight,
+            color: Colors.white,
             fontSize: Device.screenType == ScreenType.tablet ? 20 : 12,
           ),
         ),
