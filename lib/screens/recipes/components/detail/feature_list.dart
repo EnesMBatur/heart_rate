@@ -49,7 +49,7 @@ class _FeatureListState extends State<FeatureList> {
             vertical: 5,
           ),
           decoration: BoxDecoration(
-            color: AppConst.kPrimaryColor,
+            color: Colors.lightGreen,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
@@ -57,7 +57,7 @@ class _FeatureListState extends State<FeatureList> {
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: Device.screenType == ScreenType.tablet ? 22 : 14,
-              color: Theme.of(context).primaryColorLight,
+              color: Colors.white,
             ),
           ),
         );

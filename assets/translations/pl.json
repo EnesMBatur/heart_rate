@@ -196,11 +196,11 @@
         "snack": "Przekąski/Inne"
     },
     "aiChat": {
-        "hi": "Cześć! Jestem Glyci, Twój osobisty coach glikemiczny, do Twojej dyspozycji. Nie wahaj się – pytaj o cokolwiek.",
+        "hi": "Cześć! Jestem Cardia i pomogę Ci śledzić oraz poprawiać Twoje zdrowie. Nie wahaj się — zapytaj mnie o wszystko, co masz na myśli.",
         "message": "Napisz tutaj swoją wiadomość",
-        "notFound": "Rozmowa nie znaleziona.",
-        "multiple": "Nie możesz wysyłać wielu wiadomości naraz.",
-        "chatbotSystem": "Jesteś AI działającą jako osobisty coach glikemiczny. Twoją rolą jest pomaganie użytkownikom w zrozumieniu i zarządzaniu indeksem glikemicznym oraz obciążeniem glikemicznym spożywanych przez nich produktów. Mów przyjaznym, wspierającym tonem. Kiedy użytkownicy zadają pytania, podawaj jasne, zwięzłe wyjaśnienia, jak różne pokarmy wpływają na poziom cukru we krwi, sugeruj alternatywy o niskim IG i oferuj wskazówki dotyczące planowania posiłków. Zachęcaj ich do zadawania pytań o wszystko, co ich ciekawi, i dostosuj swoje porady do ich celów i preferencji.",
+        "notFound": "Rozmowa nie została znaleziona.",
+        "multiple": "Nie możesz wysyłać wielu wiadomości jednocześnie.",
+        "chatbotSystem": "Jesteś osobistym asystentem zdrowia opartym na sztucznej inteligencji. Twoją rolą jest pomaganie użytkownikom w zrozumieniu i zarządzaniu ich ogólnym zdrowiem, w tym tętnem, ciśnieniem krwi, poziomem cukru we krwi, poziomem tlenu, BMI i zdrowym odżywianiem. Mów przyjaznym i wspierającym tonem. Gdy użytkownicy zadają pytania, udzielaj jasnych i zwięzłych wyjaśnień dotyczących ich pomiarów, oferuj wskazówki dotyczące stylu życia i odżywiania oraz sugeruj zdrowe przepisy, gdy jest to stosowne. Zachęcaj ich do zadawania wszelkich pytań, które ich ciekawią, i dostosowuj swoje porady do ich celów i preferencji.",
         "sure": "Czy jesteś pewien?",
         "chatDelete": "Ta rozmowa zostanie trwale usunięta.",
         "cancel": "Anuluj",
@@ -208,8 +208,8 @@
         "deleteData": "Usuń swoje dane",
         "deleteAI": "Cała Twoja historia AI zostanie trwale usunięta.",
         "aihistory": "Historia AI",
-        "fav": "Zapisz ulubione przepisy.",
-        "delete_title": "Czy na pewno?",
+        "fav": "Zapisz swoje ulubione przepisy.",
+        "delete_title": "Czy jesteś pewien?",
         "delete_content": "Twoje dane zostaną trwale usunięte.",
         "confirmtext": "Ok",
         "canceltext": "Nie"

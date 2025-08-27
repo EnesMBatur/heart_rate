@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
@@ -31,12 +32,16 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
 
   AppBar buildAppBar(BuildContext context, int filtersCount) {
     return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => context.pop(),
+      ),
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: buildBadge(filtersCount, context),
       //TODO: Localization
       title: Text('Recipes'),
       actions: [
+        buildBadge(filtersCount, context),
         buildSearchButton(context),
         SizedBox(width: Device.screenType == ScreenType.tablet ? 8 : 4),
       ],
@@ -71,10 +76,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
     return IconButton(
       icon: SvgPicture.asset(
         SvgGeneralEnum.menu.svgPath,
-        colorFilter: ColorFilter.mode(
-          Theme.of(context).primaryColor,
-          BlendMode.srcIn,
-        ),
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
         height: Device.screenType == ScreenType.tablet
             ? AppConst.kTabletIconSize
             : AppConst.kIconSize,
@@ -113,10 +115,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
     return IconButton(
       icon: SvgPicture.asset(
         SvgGeneralEnum.search.svgPath,
-        colorFilter: ColorFilter.mode(
-          Theme.of(context).primaryColor,
-          BlendMode.srcIn,
-        ),
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
         height: Device.screenType == ScreenType.tablet
             ? AppConst.kTabletIconSize
             : AppConst.kIconSize,

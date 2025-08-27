@@ -30,9 +30,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       _viewModel.initialize();
     });
 
-    // Listen for heart rate data changes
+    // Listen for data changes from all modules
     _eventSubscription = EventBus().events.listen((event) {
-      if (event == Events.heartRateDataChanged) {
+      if (event == Events.heartRateDataChanged ||
+          event == Events.bloodOxygenDataChanged ||
+          event == Events.bloodPressureDataChanged ||
+          event == Events.bloodSugarDataChanged ||
+          event == Events.bmiDataChanged) {
         _viewModel.refresh();
       }
     });
@@ -162,8 +166,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _onAiDoctorPressed() {
-    // TODO: Navigate to AI Doctor chat
-    _showFeatureComingSoon('AI Doctor chat');
+    context.push(AppRouter.aiDoctor);
   }
 
   void _onBloodOxygenPressed() {
@@ -174,20 +177,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _onRecipesPressed() {
-    // TODO: Navigate to Recipes screen
-    _showFeatureComingSoon('Healthy Recipes');
+    context.push(AppRouter.recipes);
   }
 
   void _onViewAllHistoryPressed() {
     context.push(AppRouter.heartRateTracker);
-  }
-
-  void _showFeatureComingSoon(String featureName) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('$featureName coming soon!'),
-        backgroundColor: const Color(0xFFFF6B6B),
-      ),
-    );
   }
 }

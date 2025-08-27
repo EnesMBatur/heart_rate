@@ -110,12 +110,10 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
       (element) => mapEquals(element, {filters[index]: option}),
     );
 
-    final foregroundColor = isSelected
-        ? Theme.of(context).primaryColorLight
-        : Theme.of(context).primaryColor;
+    final foregroundColor = isSelected ? Colors.white : Colors.black87;
     final backgroundColor = isSelected
-        ? AppConst.kPrimaryColor
-        : Theme.of(context).primaryColorLight;
+        ? Colors.lightGreen
+        : Theme.of(context).scaffoldBackgroundColor;
 
     return GestureDetector(
       onTap: () => setState(() {
@@ -129,9 +127,7 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
             : selectedOption.add({filters[index]: option});
       }),
       child: Chip(
-        shape: const StadiumBorder(
-          side: BorderSide(color: AppConst.kPrimaryColor),
-        ),
+        shape: const StadiumBorder(side: BorderSide(color: Colors.lightGreen)),
         label: Text(
           option,
           style: textStyle.copyWith(
@@ -159,7 +155,10 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
             //   builder: (context, revenueCatProvider, child) {
             // return
             ElevatedButton(
-              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+              style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                backgroundColor: Colors.lightGreen,
+              ),
               onPressed: () async {
                 // final entitlement = revenueCatProvider.entitlement;
                 // if (entitlement == Entitlement.free) {
@@ -170,9 +169,7 @@ class CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
               },
               child: Text(
                 LocaleKeys.button_filter.tr(),
-                style: textStyle.copyWith(
-                  color: Theme.of(context).primaryColorLight,
-                ),
+                style: textStyle.copyWith(color: Colors.white),
               ),
             ),
             //   },

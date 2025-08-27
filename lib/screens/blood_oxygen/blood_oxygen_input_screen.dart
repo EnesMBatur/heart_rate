@@ -47,9 +47,7 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
           FocusScope.of(context).unfocus();
         },
         child: Scaffold(
-          backgroundColor: const Color(0xFFF8F9FA),
           appBar: AppBar(
-            backgroundColor: const Color(0xFFF8F9FA),
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.black),

@@ -19,22 +19,13 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF8F9FA),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: Text(
-          'Blood Sugar',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        title: Text('Blood Sugar'),
         centerTitle: true,
       ),
       body: Consumer<BloodSugarViewModel>(

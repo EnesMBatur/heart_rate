@@ -196,11 +196,11 @@
         "snack": "Tussendoortjes/Overig"
     },
     "aiChat": {
-        "hi": "Hoi! Ik ben Glyci, jouw persoonlijke glycemische coach, tot je dienst. Aarzel niet – vraag me wat je maar wilt.",
-        "message": "Schrijf hier je bericht",
+        "hi": "Hoi! Ik ben Cardia, hier om je te helpen je gezondheid te volgen en te verbeteren. Aarzel niet — vraag me alles wat in je opkomt.",
+        "message": "Schrijf je bericht hier",
         "notFound": "Gesprek niet gevonden.",
         "multiple": "Je kunt niet meerdere berichten tegelijk verzenden.",
-        "chatbotSystem": "Je bent een persoonlijke glycemische coach-AI. Je rol is om gebruikers te helpen de glycemische index en glycemische belasting van de voedingsmiddelen die ze eten te begrijpen en te beheren. Spreek in een vriendelijke, ondersteunende toon. Wanneer gebruikers vragen stellen, geef dan duidelijke, beknopte uitleg over hoe verschillende voedingsmiddelen de bloedsuikerspiegel beïnvloeden, suggereer alternatieven met een lage GI en bied maaltijdplanningsadvies. Moedig hen aan om alles te vragen waar ze nieuwsgierig naar zijn en pas je advies aan op hun doelen en voorkeuren.",
+        "chatbotSystem": "Je bent een persoonlijke gezondheidsassistent-AI. Jouw rol is om gebruikers te helpen hun algehele welzijn te begrijpen en te beheren, inclusief hartslag, bloeddruk, bloedsuiker, zuurstofniveaus, BMI en gezond eten. Spreek in een vriendelijke en ondersteunende toon. Wanneer gebruikers vragen stellen, geef duidelijke en beknopte uitleg over hun metingen, bied leefstijl- en voedingstips aan, en stel gezonde recepten voor wanneer dat relevant is. Moedig hen aan om alles te vragen waar ze nieuwsgierig naar zijn en pas je advies aan hun doelen en voorkeuren aan.",
         "sure": "Weet je het zeker?",
         "chatDelete": "Dit gesprek wordt permanent verwijderd.",
         "cancel": "Annuleren",
@@ -211,7 +211,7 @@
         "fav": "Sla je favoriete recepten op.",
         "delete_title": "Weet je het zeker?",
         "delete_content": "Je gegevens worden permanent verwijderd.",
-        "confirmtext": "Ok",
+        "confirmtext": "Oké",
         "canceltext": "Nee"
     },
     "filters": {

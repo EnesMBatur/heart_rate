@@ -204,6 +204,12 @@ abstract class  LocaleKeys {
   static const aiChat_delete = 'aiChat.delete';
   static const aiChat_deleteData = 'aiChat.deleteData';
   static const aiChat_deleteAI = 'aiChat.deleteAI';
+  static const aiChat_aihistory = 'aiChat.aihistory';
+  static const aiChat_fav = 'aiChat.fav';
+  static const aiChat_delete_title = 'aiChat.delete_title';
+  static const aiChat_delete_content = 'aiChat.delete_content';
+  static const aiChat_confirmtext = 'aiChat.confirmtext';
+  static const aiChat_canceltext = 'aiChat.canceltext';
   static const aiChat = 'aiChat';
   static const filters_filters = 'filters.filters';
   static const filters_diet = 'filters.diet';

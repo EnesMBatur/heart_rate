@@ -26,7 +26,7 @@ class HiAi extends StatelessWidget {
             margin: const EdgeInsets.only(top: 8, bottom: 8, right: 80),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).cardColor,
               borderRadius: const BorderRadius.all(Radius.circular(14)),
             ),
             child: Column(

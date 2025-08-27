@@ -23,4 +23,8 @@ class EventBus {
 /// Event types
 class Events {
   static const String heartRateDataChanged = 'heart_rate_data_changed';
+  static const String bloodOxygenDataChanged = 'blood_oxygen_data_changed';
+  static const String bloodPressureDataChanged = 'blood_pressure_data_changed';
+  static const String bloodSugarDataChanged = 'blood_sugar_data_changed';
+  static const String bmiDataChanged = 'bmi_data_changed';
 }

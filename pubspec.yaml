@@ -107,6 +107,7 @@ flutter:
     - assets/images/splash/
     - assets/images/
     - assets/json/
+    - assets/svg/
     - assets/rive/
     - assets/images/general/
     - assets/images/home/

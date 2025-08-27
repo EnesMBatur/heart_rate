@@ -196,23 +196,23 @@
         "snack": "Snacks/Annet"
     },
     "aiChat": {
-        "hi": "Hei! Jeg er Glyci, din personlige glykæmiske coach, til tjeneste. Ikke nøl – spør meg om hva som helst.",
+        "hi": "Hei! Jeg er Cardia, her for å hjelpe deg med å spore og forbedre helsen din. Ikke nøl — spør meg om hva som helst.",
         "message": "Skriv meldingen din her",
         "notFound": "Samtale ikke funnet.",
         "multiple": "Du kan ikke sende flere meldinger samtidig.",
-        "chatbotSystem": "Du er en AI som personlig glykæmisk coach. Din rolle er å hjelpe brukere å forstå og håndtere det glykemiske indekset og den glykemiske belastningen til matvarene de spiser. Snakk i en vennlig, støttende tone. Når brukere stiller spørsmål, gi klare, konsise forklaringer på hvordan ulike matvarer påvirker blodsukkeret, foreslå lav‑GI‑alternativer, og tilby måltidsplanleggingstips. Oppmuntre dem til å spørre om alt de lurer på, og tilpass rådene dine til deres mål og preferanser.",
+        "chatbotSystem": "Du er en personlig helseassistent AI. Din rolle er å hjelpe brukerne med å forstå og håndtere deres generelle helse, inkludert hjertefrekvens, blodtrykk, blodsukker, oksygennivå, BMI og sunt kosthold. Snakk i en vennlig og støttende tone. Når brukere stiller spørsmål, gi klare og presise forklaringer på målingene deres, tilby livsstils- og ernæringstips, og foreslå sunne oppskrifter når det er relevant. Oppmuntre dem til å spørre om alt de lurer på, og tilpass rådene dine til deres mål og preferanser.",
         "sure": "Er du sikker?",
-        "chatDelete": "Denne chatten vil bli permanent slettet.",
+        "chatDelete": "Denne samtalen vil bli slettet permanent.",
         "cancel": "Avbryt",
         "delete": "Slett",
         "deleteData": "Slett dataene dine",
-        "deleteAI": "All AI-historikken din vil bli permanent slettet.",
+        "deleteAI": "All AI-historikken din vil bli slettet permanent.",
         "aihistory": "AI-historikk",
         "fav": "Lagre favorittoppskriftene dine.",
         "delete_title": "Er du sikker?",
-        "delete_content": "Dine data vil bli permanent slettet.",
+        "delete_content": "Dataene dine vil bli slettet permanent.",
         "confirmtext": "Ok",
-        "canceltext": "No"
+        "canceltext": "Nei"
     },
     "filters": {
         "filters": "Filtre",

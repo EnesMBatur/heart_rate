@@ -23,6 +23,8 @@ import '../screens/bmi/bmi_screen.dart';
 import '../screens/bmi/bmi_add_screen.dart';
 import '../screens/blood_oxygen/blood_oxygen_screen.dart';
 import '../screens/blood_oxygen/blood_oxygen_input_screen.dart';
+import '../screens/recipes/recipes_screen.dart';
+import '../screens/ai/ai_screen.dart';
 import '../models/blood_pressure_measurement.dart';
 import '../models/blood_sugar_measurement.dart';
 import '../models/bmi_record.dart';
@@ -47,6 +49,8 @@ class AppRouter {
   static const String bmiAdd = '/bmi/add';
   static const String bloodOxygen = '/blood-oxygen';
   static const String bloodOxygenInput = '/blood-oxygen/input';
+  static const String recipes = '/recipes';
+  static const String aiDoctor = '/ai-doctor';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -208,6 +212,19 @@ class AppRouter {
           final record = state.extra as BloodOxygenRecord?;
           return MaterialPage(child: BloodOxygenInputScreen(record: record));
         },
+      ),
+      // Full-screen route for Recipes
+      GoRoute(
+        path: recipes,
+        name: 'recipes',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const RecipesScreen()),
+      ),
+      // Full-screen route for AI Doctor
+      GoRoute(
+        path: aiDoctor,
+        name: 'aiDoctor',
+        pageBuilder: (context, state) => MaterialPage(child: const AiScreen()),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

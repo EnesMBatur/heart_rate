@@ -63,7 +63,7 @@ class RecipeDetailTabBar extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color: selectedTabRef.tab == index
-              ? AppConst.kPrimaryColor
+              ? Colors.lightGreen
               : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
@@ -73,7 +73,7 @@ class RecipeDetailTabBar extends ConsumerWidget {
             fontWeight: FontWeight.w500,
             fontSize: Device.screenType == ScreenType.tablet ? 24 : 16,
             color: selectedTabRef.tab == index
-                ? Theme.of(context).primaryColorLight
+                ? Colors.white
                 : AppConst.kCircleColor,
           ),
         ),

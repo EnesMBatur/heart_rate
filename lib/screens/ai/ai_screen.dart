@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/enums/response_type_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
@@ -78,7 +79,11 @@ class _AiScreenState extends AiModelview {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       //TODO: Change Localize
-      title: const Text('AI'),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => context.pop(),
+      ),
+      title: Text('AI'),
       centerTitle: true,
       automaticallyImplyLeading: false,
       //TODO: proLeading
@@ -167,7 +172,7 @@ class _AiScreenState extends AiModelview {
 
   Material buildTextEditing(TextStyle textStyle, AskNotifier chatRef) {
     return Material(
-      color: Theme.of(context).primaryColorLight,
+      color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.only(
           right: 16,
@@ -226,7 +231,7 @@ class _AiScreenState extends AiModelview {
                   icon: Icon(
                     LineIcons.paperPlane,
                     size: 32,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.black,
                   ),
                 ),
               ],

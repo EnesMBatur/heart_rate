@@ -21,7 +21,7 @@ class CustomIconButton extends StatelessWidget {
       iconSize: Device.screenType == ScreenType.tablet
           ? AppConst.kTabletIconSize
           : AppConst.kIconSize,
-      icon: Icon(iconData, color: Theme.of(context).primaryColor),
+      icon: Icon(iconData, color: Colors.black),
     );
   }
 }

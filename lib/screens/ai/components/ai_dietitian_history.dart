@@ -11,7 +11,6 @@ import 'package:heart_rate/core/enums/svg_general_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/chat_history.dart';
 import 'package:heart_rate/screens/ai/components/chat_history.dart';
-import 'package:heart_rate/screens/ai/components/custom_icon.dart';
 import 'package:heart_rate/screens/ai/components/custom_loading.dart';
 import 'package:heart_rate/screens/ai/components/empty_list.dart';
 import 'package:heart_rate/services/chat_crud.dart';
@@ -145,8 +144,8 @@ class AiDietitianHistory extends StatelessWidget with DialogManager {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        icon: const CustomIcon(),
-        onPressed: () => context.pop(context),
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => context.pop(),
       ),
       centerTitle: true,
       title: Text(LocaleKeys.aiChat_aihistory).tr(),

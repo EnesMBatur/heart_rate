@@ -20,7 +20,6 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
       appBar: const BloodPressureHeader(),
       body: Consumer<BloodPressureViewModel>(
         builder: (context, viewModel, child) {

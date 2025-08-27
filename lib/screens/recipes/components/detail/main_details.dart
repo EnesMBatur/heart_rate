@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/recipe/recipes.dart';
@@ -48,14 +47,14 @@ class MainDetails extends ConsumerWidget with RecipeTimeManager {
               SizedBox(width: Device.screenType == ScreenType.tablet ? 20 : 10),
               IconButton(
                 icon: const Icon(LineIcons.minusCircle),
-                color: AppConst.kPrimaryColor,
+                color: Colors.lightGreen,
                 iconSize: 28,
                 onPressed: servingRef.minusServing,
               ),
               Text(servingRef.serving.toString(), style: textStyle),
               IconButton(
                 icon: const Icon(LineIcons.plusCircle),
-                color: AppConst.kPrimaryColor,
+                color: Colors.lightGreen,
                 iconSize: 28,
                 onPressed: servingRef.addServing,
               ),

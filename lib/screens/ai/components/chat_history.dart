@@ -4,13 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/core/enums/response_type_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/chat_message.dart';
 import 'package:heart_rate/provider/ask_provider.dart';
 import 'package:heart_rate/screens/ai/components/chat_message.dart';
-import 'package:heart_rate/screens/ai/components/custom_icon.dart';
 import 'package:heart_rate/screens/ai/components/custom_loading.dart';
 import 'package:heart_rate/screens/ai/modelview/chat_history_model_view.dart';
 import 'package:heart_rate/services/chat_crud.dart';
@@ -99,8 +99,8 @@ class _ChatHistoryScreenState extends ChatHistoryModelView {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        icon: const CustomIcon(),
-        onPressed: () => Navigator.pop(context),
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => context.pop(),
       ),
       centerTitle: true,
     );

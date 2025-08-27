@@ -35,7 +35,6 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
         appBar: const HeartRateHeader(),
         body: Consumer<HeartRateViewModel>(
           builder: (context, viewModel, child) {

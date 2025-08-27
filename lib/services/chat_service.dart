@@ -1,13 +1,10 @@
 // ignore_for_file: avoid_dynamic_calls, inference_failure_on_function_invocation, lines_longer_than_80_chars
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:heart_rate/core/enums/response_type_enum.dart';
 import 'package:heart_rate/core/hive/secure_storage.dart';
-import 'package:heart_rate/locale/lang/locale_keys.g.dart';
-import 'package:heart_rate/models/chat.dart';
 import 'package:heart_rate/models/chat_message.dart';
 import 'package:heart_rate/services/chat_crud.dart' show ChatCrud;
 

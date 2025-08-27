@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AppTheme {
   // Color scheme
@@ -16,6 +17,7 @@ class AppTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
+      scaffoldBackgroundColor: Color(0xFFF8F9FA),
       useMaterial3: true,
       fontFamily: 'Urbanist',
       colorScheme: ColorScheme.fromSeed(
@@ -25,16 +27,16 @@ class AppTheme {
         secondary: accentColor,
         surface: surfaceColor,
       ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: primaryColor,
+      appBarTheme: AppBarTheme(
+        backgroundColor: Color(0xFFF8F9FA),
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(
           fontFamily: 'Urbanist',
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
-          color: Colors.white,
+          color: Colors.black,
         ),
       ),
       cardTheme: CardThemeData(
