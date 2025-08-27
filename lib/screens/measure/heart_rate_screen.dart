@@ -32,6 +32,7 @@ class _HeartRateScreenState extends StartingRateModelView {
           ),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),

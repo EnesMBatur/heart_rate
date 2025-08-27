@@ -102,9 +102,9 @@ class HealthCardsGrid extends StatelessWidget {
           children: [
             Expanded(
               child: _buildSecondaryCard(
-                title: 'AI Doctor',
-                records: 'Chat with AI doctor',
-                imagePath: 'assets/images/home/ai_doctor.png',
+                title: 'AI',
+                records: 'Chat with AI',
+                imagePath: 'assets/images/home/ai.png',
                 backgroundColor: const Color(0xFFE8F5E8),
                 onPressed: onAiDoctorPressed,
               ),

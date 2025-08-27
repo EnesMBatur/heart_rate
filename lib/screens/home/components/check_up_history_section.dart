@@ -60,6 +60,8 @@ class CheckUpHistorySection extends StatelessWidget {
           _buildLastMeasurementCard()
         else
           _buildEmptyStateCard(),
+
+        SizedBox(height: 10.h),
       ],
     );
   }

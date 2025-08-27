@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:heart_rate/core/constants/constants.dart';
-import 'package:heart_rate/core/constants/duration_items.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:heart_rate/screens/home/home_screen.dart';
 import 'package:heart_rate/screens/measure/start_measure_screen.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../screens/measure/heart_rate_screen.dart';
 import '../screens/heart_rate/heart_rate_screen.dart' as heart_rate_tracker;
+import '../screens/settings/settings_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/tips_screen.dart';
 import '../screens/report/report_screen.dart';
@@ -29,11 +27,11 @@ import '../models/blood_pressure_measurement.dart';
 import '../models/blood_sugar_measurement.dart';
 import '../models/bmi_record.dart';
 import '../models/blood_oxygen_record.dart';
-import '../locale/lang/locale_keys.g.dart';
 
 class AppRouter {
   static const String home = '/home';
   static const String measure = '/measure';
+  static const String settings = '/settings';
   static const String heartRate = '/heart-rate';
   static const String heartRateTracker = '/heart-rate-tracker';
   static const String history = '/history';
@@ -71,16 +69,10 @@ class AppRouter {
                 NoTransitionPage(child: const StartMeasureScreen()),
           ),
           GoRoute(
-            path: history,
-            name: 'history',
+            path: settings,
+            name: 'settings',
             pageBuilder: (context, state) =>
-                NoTransitionPage(child: const HistoryScreen()),
-          ),
-          GoRoute(
-            path: tips,
-            name: 'tips',
-            pageBuilder: (context, state) =>
-                NoTransitionPage(child: const TipsScreen()),
+                NoTransitionPage(child: const SettingsScreen()),
           ),
         ],
       ),
@@ -226,6 +218,20 @@ class AppRouter {
         name: 'aiDoctor',
         pageBuilder: (context, state) => MaterialPage(child: const AiScreen()),
       ),
+      // Full-screen route for History
+      GoRoute(
+        path: history,
+        name: 'history',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const HistoryScreen()),
+      ),
+      // Full-screen route for Tips
+      GoRoute(
+        path: tips,
+        name: 'tips',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const TipsScreen()),
+      ),
     ],
     errorBuilder: (context, state) => Scaffold(
       appBar: AppBar(title: const Text('Error')),
@@ -255,95 +261,83 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: child, bottomNavigationBar: buildContainer(context));
+    return Scaffold(
+      body: child,
+      extendBody: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.go(AppRouter.measure),
+        backgroundColor: const Color(0xFFFF6B6B),
+        elevation: 8,
+        shape: const CircleBorder(),
+        child: Icon(
+          LineIcons.heartbeat,
+          color: Colors.white,
+          size: Device.screenType == ScreenType.tablet ? 42 : 38,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: 2,
+        tabBuilder: (int index, bool isActive) {
+          final icons = [LineIcons.medicalBook, LineIcons.userCog];
+          final labels = ['Dashboard', 'Settings'];
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icons[index],
+                size: Device.screenType == ScreenType.tablet ? 36 : 28,
+                color: isActive ? const Color(0xFFFF6B6B) : Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                labels[index],
+                style: TextStyle(
+                  fontSize: Device.screenType == ScreenType.tablet ? 18 : 12,
+                  color: isActive ? const Color(0xFFFF6B6B) : Colors.grey,
+                  fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+                ),
+              ),
+            ],
+          );
+        },
+        activeIndex: _getCurrentIndexForTwoItems(context),
+        onTap: (index) => _onItemTappedTwoItems(context, index),
+        backgroundColor: Colors.white,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.smoothEdge,
+        leftCornerRadius: 20,
+        rightCornerRadius: 20,
+        elevation: 8,
+        notchMargin: 8,
+        height: 75,
+        splashColor: const Color(0xFFFF6B6B).withValues(alpha: 0.2),
+      ),
+    );
   }
 
-  int _getCurrentIndex(BuildContext context) {
+  int _getCurrentIndexForTwoItems(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
     switch (location) {
       case AppRouter.home:
         return 0;
-      case AppRouter.measure:
+      case AppRouter.settings:
         return 1;
-      case AppRouter.history:
-        return 2;
-      case AppRouter.tips:
-        return 3;
       default:
         return 0;
     }
   }
 
-  void _onItemTapped(BuildContext context, int index) {
+  void _onItemTappedTwoItems(BuildContext context, int index) {
     switch (index) {
       case 0:
         context.go(AppRouter.home);
         break;
       case 1:
-        context.go(AppRouter.measure);
-        break;
-      case 2:
-        context.go(AppRouter.history);
-        break;
-      case 3:
-        context.go(AppRouter.tips);
+        context.go(AppRouter.settings);
         break;
     }
-  }
-
-  Container buildContainer(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppConst.kDefaultEdgeInsets),
-          topRight: Radius.circular(AppConst.kDefaultEdgeInsets),
-        ),
-        color: Theme.of(context).scaffoldBackgroundColor,
-        boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withValues(alpha: 0.1)),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-          child: buildGNav(context),
-        ),
-      ),
-    );
-  }
-
-  Widget buildGNav(BuildContext context) {
-    return GNav(
-      rippleColor: Colors.grey[300]!,
-      hoverColor: Colors.grey[100]!,
-      gap: 6,
-      activeColor: Theme.of(context).cardColor,
-      iconSize: Device.screenType == ScreenType.tablet ? 36 : 26,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConst.kDefaultEdgeInsets,
-        vertical: 6,
-      ),
-      duration: DurationItems.durationLow(),
-      tabBackgroundColor: AppConst.kPrimaryColor,
-      color: AppConst.kCircleColor,
-      textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-        fontSize: Device.screenType == ScreenType.tablet ? 18 : 14,
-        color: Theme.of(context).cardColor,
-      ),
-      tabs: [
-        GButton(
-          icon: LineIcons.medicalClinic,
-          text: LocaleKeys.general_home.tr(),
-        ),
-        GButton(
-          icon: LineIcons.heartbeat,
-          text: LocaleKeys.general_measure.tr(),
-        ),
-        GButton(icon: LineIcons.history, text: LocaleKeys.general_history.tr()),
-        GButton(icon: LineIcons.lightbulb, text: LocaleKeys.general_tips.tr()),
-      ],
-      selectedIndex: _getCurrentIndex(context),
-      onTabChange: (index) => _onItemTapped(context, index),
-    );
   }
 }
