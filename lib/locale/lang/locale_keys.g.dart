@@ -3,6 +3,30 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const premium_3free = 'premium.3free';
+  static const premium_restore = 'premium.restore';
+  static const premium_privacy = 'premium.privacy';
+  static const premium_terms = 'premium.terms';
+  static const premium_weekly = 'premium.weekly';
+  static const premium_monthly = 'premium.monthly';
+  static const premium_annual = 'premium.annual';
+  static const premium_lifetime = 'premium.lifetime';
+  static const premium_onetime = 'premium.onetime';
+  static const premium_nofound = 'premium.nofound';
+  static const premium_nofound_text = 'premium.nofound_text';
+  static const premium_purcheserestored = 'premium.purcheserestored';
+  static const premium_purcheserestoredtext = 'premium.purcheserestoredtext';
+  static const premium_cancelbutton = 'premium.cancelbutton';
+  static const premium_canceltext = 'premium.canceltext';
+  static const premium_free_enabled = 'premium.free_enabled';
+  static const premium_enable_free = 'premium.enable_free';
+  static const premium_continue = 'premium.continue';
+  static const premium_billed = 'premium.billed';
+  static const premium_good = 'premium.good';
+  static const premium_best_offer = 'premium.best_offer';
+  static const premium_upgrade = 'premium.upgrade';
+  static const premium_upgrade_subtitle = 'premium.upgrade_subtitle';
+  static const premium = 'premium';
   static const profileitems_darkmode = 'profileitems.darkmode';
   static const profileitems_premium = 'profileitems.premium';
   static const profileitems_notification = 'profileitems.notification';
