@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Tryb ciemny",
+        "premium": "Premium",
+        "notification": "Powiadomienie",
+        "tellafriend": "Powiedz przyjacielowi",
+        "rateus": "Oceń nas",
+        "contactus": "Skontaktuj się z nami",
+        "language": "Zmień język",
+        "delete": "Usuń swoje dane",
+        "share_text": "Dzięki HeartRater zmierzysz tętno, będziesz śledzić poziom cukru we krwi i ciśnienie, zapiszesz BMI i poziom tlenu. Odkryj zdrowe przepisy i zarządzaj wszystkimi danymi zdrowotnymi w jednej aplikacji."
+    },
     "others": {
         "min": "min",
         "hour": "godz.",

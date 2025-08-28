@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Mørk tilstand",
+        "premium": "Premium",
+        "notification": "Notifikation",
+        "tellafriend": "Fortæl en ven",
+        "rateus": "Bedøm os",
+        "contactus": "Kontakt os",
+        "language": "Skift sprog",
+        "delete": "Slet dine data",
+        "share_text": "Med HeartRater kan du måle din puls, spore blodsukker og blodtryk, registrere dit BMI og iltniveau. Oplev sunde opskrifter og administrer alle dine helbredsdata i én app."
+    },
     "others": {
         "min": "min",
         "hour": "t",

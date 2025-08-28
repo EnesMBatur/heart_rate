@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Modo escuro",
+        "premium": "Premium",
+        "notification": "Notificação",
+        "tellafriend": "Conte a um amigo",
+        "rateus": "Avalie-nos",
+        "contactus": "Contate-nos",
+        "language": "Alterar idioma",
+        "delete": "Exclua seus dados",
+        "share_text": "Com o HeartRater, meça sua frequência cardíaca, acompanhe a glicemia e a pressão arterial, registre seu IMC e níveis de oxigênio. Descubra receitas saudáveis e gerencie todos os seus dados de saúde em um único app."
+    },
     "others": {
         "min": "min",
         "hour": "h",

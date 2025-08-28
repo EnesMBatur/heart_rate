@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Dunkelmodus",
+        "premium": "Premium",
+        "notification": "Benachrichtigung",
+        "tellafriend": "Empfehlen Sie es einem Freund",
+        "rateus": "Bewerten Sie uns",
+        "contactus": "Kontaktieren Sie uns",
+        "language": "Sprache ändern",
+        "delete": "Löschen Sie Ihre Daten",
+        "share_text": "Mit HeartRater kannst du deine Herzfrequenz messen, Blutzucker und Blutdruck verfolgen sowie deinen BMI und Sauerstoffgehalt protokollieren. Entdecke gesunde Rezepte und verwalte alle deine Gesundheitsdaten in einer App."
+    },
     "others": {
         "min": "Min.",
         "hour": "Std",

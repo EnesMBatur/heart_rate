@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Modalità scura",
+        "premium": "Premium",
+        "notification": "Notifica",
+        "tellafriend": "Dì a un amico",
+        "rateus": "Valutaci",
+        "contactus": "Contattaci",
+        "language": "Cambia lingua",
+        "delete": "Elimina i tuoi dati",
+        "share_text": "Con HeartRater misura la frequenza cardiaca, monitora la glicemia e la pressione sanguigna, registra il tuo BMI e i livelli di ossigeno. Scopri ricette salutari e gestisci tutti i tuoi dati sulla salute in un’unica app."
+    },
     "others": {
         "min": "min",
         "hour": "h",

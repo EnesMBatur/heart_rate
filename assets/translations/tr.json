@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Koyu mod",
+        "premium": "Premium",
+        "notification": "Bildirim",
+        "tellafriend": "Arkadaşlarınla paylaş",
+        "rateus": "Bizi değerlendirin",
+        "contactus": "Bize ulaşın",
+        "language": "Dili değiştir",
+        "delete": "Verilerinizi silin",
+        "share_text": "HeartRater ile kalp hızınızı ölçün, kan şekeri ve tansiyonunuzu takip edin, BMI ve oksijen seviyelerinizi kaydedin. Sağlıklı tarifler keşfedin ve tüm sağlık verilerinizi tek bir uygulamada yönetin."
+    },
     "others": {
         "min": "dk",
         "hour": "sa",

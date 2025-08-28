@@ -9,7 +9,7 @@ import '../screens/measure/heart_rate_screen.dart';
 import '../screens/heart_rate/heart_rate_screen.dart' as heart_rate_tracker;
 import '../screens/settings/settings_screen.dart';
 import '../screens/history_screen.dart';
-import '../screens/tips_screen.dart';
+import '../screens/settings/components/tips_screen.dart';
 import '../screens/report/report_screen.dart';
 import '../screens/report/components/metric_detail_screen.dart';
 import '../screens/blood_pressure/blood_pressure_screen.dart';
@@ -23,6 +23,7 @@ import '../screens/blood_oxygen/blood_oxygen_screen.dart';
 import '../screens/blood_oxygen/blood_oxygen_input_screen.dart';
 import '../screens/recipes/recipes_screen.dart';
 import '../screens/ai/ai_screen.dart';
+import '../screens/disclaimer/disclaimer_screen.dart';
 import '../models/blood_pressure_measurement.dart';
 import '../models/blood_sugar_measurement.dart';
 import '../models/bmi_record.dart';
@@ -49,6 +50,8 @@ class AppRouter {
   static const String bloodOxygenInput = '/blood-oxygen/input';
   static const String recipes = '/recipes';
   static const String aiDoctor = '/ai-doctor';
+  static const String disclaimer = '/disclaimer';
+  static const String paywall = '/paywall';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -231,6 +234,13 @@ class AppRouter {
         name: 'tips',
         pageBuilder: (context, state) =>
             MaterialPage(child: const TipsScreen()),
+      ),
+      // Full-screen route for Disclaimer
+      GoRoute(
+        path: disclaimer,
+        name: 'disclaimer',
+        pageBuilder: (context, state) =>
+            MaterialPage(child: const DisclaimerScreen()),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

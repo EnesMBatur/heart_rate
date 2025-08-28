@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Mörkt läge",
+        "premium": "Premium",
+        "notification": "Notifikation",
+        "tellafriend": "Berätta för en vän",
+        "rateus": "Betygsätt oss",
+        "contactus": "Kontakta oss",
+        "language": "Byt språk",
+        "delete": "Radera dina data",
+        "share_text": "Med HeartRater kan du mäta din puls, spåra blodsocker och blodtryck, logga ditt BMI och syrenivåer. Upptäck hälsosamma recept och hantera all din hälsodata i en app."
+    },
     "others": {
         "min": "min",
         "hour": "t",

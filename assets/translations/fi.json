@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Tumma tila",
+        "premium": "Premium",
+        "notification": "Ilmoitus",
+        "tellafriend": "Kerro ystävälle",
+        "rateus": "Arvostele meitä",
+        "contactus": "Ota meihin yhteyttä",
+        "language": "Vaihda kieltä",
+        "delete": "Poista tietosi",
+        "share_text": "HeartRaterin avulla voit mitata sykkeesi, seurata verensokeria ja verenpainetta sekä kirjata BMI:n ja happitasot. Löydä terveellisiä reseptejä ja hallitse kaikkia terveysdatanasi yhdessä sovelluksessa."
+    },
     "others": {
         "min": "min",
         "hour": "t",

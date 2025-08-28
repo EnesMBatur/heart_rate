@@ -3,6 +3,16 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const profileitems_darkmode = 'profileitems.darkmode';
+  static const profileitems_premium = 'profileitems.premium';
+  static const profileitems_notification = 'profileitems.notification';
+  static const profileitems_tellafriend = 'profileitems.tellafriend';
+  static const profileitems_rateus = 'profileitems.rateus';
+  static const profileitems_contactus = 'profileitems.contactus';
+  static const profileitems_language = 'profileitems.language';
+  static const profileitems_delete = 'profileitems.delete';
+  static const profileitems_share_text = 'profileitems.share_text';
+  static const profileitems = 'profileitems';
   static const others_min = 'others.min';
   static const others_hour = 'others.hour';
   static const others_servings = 'others.servings';

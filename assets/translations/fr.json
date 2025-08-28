@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Mode sombre",
+        "premium": "Premium",
+        "notification": "Notification",
+        "tellafriend": "Dis à un ami",
+        "rateus": "Notez-nous",
+        "contactus": "Contactez-nous",
+        "language": "Changer de langue",
+        "delete": "Supprimez vos données",
+        "share_text": "Avec HeartRater, mesurez votre fréquence cardiaque, suivez votre glycémie et votre tension artérielle, enregistrez votre IMC et vos niveaux d’oxygène. Découvrez des recettes saines et gérez toutes vos données de santé dans une seule application."
+    },
     "others": {
         "min": "min",
         "hour": "h",

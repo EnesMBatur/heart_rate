@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Donkere modus",
+        "premium": "Premium",
+        "notification": "Melding",
+        "tellafriend": "Vertel een vriend",
+        "rateus": "Beoordeel ons",
+        "contactus": "Neem contact met ons op",
+        "language": "Taal wijzigen",
+        "delete": "Verwijder je gegevens",
+        "share_text": "Met HeartRater meet je je hartslag, volg je bloedsuiker en bloeddruk, en registreer je je BMI en zuurstofniveaus. Ontdek gezonde recepten en beheer al je gezondheidsgegevens in één app."
+    },
     "others": {
         "min": "min",
         "hour": "u",

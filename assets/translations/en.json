@@ -1,4 +1,15 @@
 {
+    "profileitems": {
+        "darkmode": "Dark mode",
+        "premium": "Premium",
+        "notification": "Notification",
+        "tellafriend": "Tell a friend",
+        "rateus": "Rate us",
+        "contactus": "Contact us",
+        "language": "Change language",
+        "delete": "Delete your data",
+        "share_text": "With HeartRater, measure your heart rate, track blood sugar and blood pressure, log your BMI and oxygen levels. Discover healthy recipes and manage all your health data in one app."
+    },
     "others": {
         "min": "min",
         "hour": "hr",
