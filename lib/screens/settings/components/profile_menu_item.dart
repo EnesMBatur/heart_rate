@@ -23,8 +23,9 @@ class ProfileMenuItem extends StatelessWidget {
       onTap: press,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppConst.kDefaultPadding,
-            vertical: AppConst.kDefaultPadding),
+          horizontal: AppConst.kDefaultPadding,
+          vertical: AppConst.kDefaultPadding,
+        ),
         child: Row(
           children: [
             Icon(
@@ -34,15 +35,21 @@ class ProfileMenuItem extends StatelessWidget {
             ),
             const SizedBox(width: AppConst.kDefaultPadding),
             Expanded(
-              child: Text(text,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontSize:
-                          Device.screenType == ScreenType.tablet ? 30 : 17)),
+              child: Text(
+                text,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: Device.screenType == ScreenType.tablet
+                      ? 24.sp
+                      : 16.sp,
+                ),
+              ),
             ),
-            Icon(LineIcons.angleRight,
-                color: AppConst.kPrimaryColor,
-                size: Device.screenType == ScreenType.tablet ? 46 : 32),
+            Icon(
+              LineIcons.angleRight,
+              color: AppConst.kPrimaryColor,
+              size: Device.screenType == ScreenType.tablet ? 46 : 32,
+            ),
           ],
         ),
       ),

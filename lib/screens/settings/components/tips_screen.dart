@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
 import '../../../locale/lang/locale_keys.g.dart';
 
 class TipsScreen extends StatelessWidget {
@@ -8,7 +9,13 @@ class TipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.general_heart_health_tips.tr())),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => context.pop(),
+        ),
+        title: Text(LocaleKeys.general_heart_health_tips.tr()),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,14 +24,15 @@ class TipsScreen extends StatelessWidget {
             // How to measure section
             _buildSectionCard(
               context,
-              'how_to_check_pulse'.tr(),
+
+              LocaleKeys.general_how_to_check_pulse.tr(),
               Icons.fingerprint,
               [
-                'pulse_tip_1'.tr(),
-                'pulse_tip_2'.tr(),
-                'pulse_tip_3'.tr(),
-                'pulse_tip_4'.tr(),
-                'pulse_tip_5'.tr(),
+                LocaleKeys.general_pulse_tip_1.tr(),
+                LocaleKeys.general_pulse_tip_2.tr(),
+                LocaleKeys.general_pulse_tip_3.tr(),
+                LocaleKeys.general_pulse_tip_4.tr(),
+                LocaleKeys.general_pulse_tip_5.tr(),
               ],
             ),
 
@@ -57,18 +65,18 @@ class TipsScreen extends StatelessWidget {
             // Health tips section
             _buildSectionCard(
               context,
-              'keeping_heart_strong'.tr(),
+              LocaleKeys.general_keeping_heart_strong.tr(),
               Icons.favorite,
               [
-                'health_tip_1'.tr(),
-                'health_tip_2'.tr(),
-                'health_tip_3'.tr(),
-                'health_tip_4'.tr(),
-                'health_tip_5'.tr(),
-                'health_tip_6'.tr(),
-                'health_tip_7'.tr(),
-                'health_tip_8'.tr(),
-                'health_tip_9'.tr(),
+                LocaleKeys.general_health_tip_1.tr(),
+                LocaleKeys.general_health_tip_2.tr(),
+                LocaleKeys.general_health_tip_3.tr(),
+                LocaleKeys.general_health_tip_4.tr(),
+                LocaleKeys.general_health_tip_5.tr(),
+                LocaleKeys.general_health_tip_6.tr(),
+                LocaleKeys.general_health_tip_7.tr(),
+                LocaleKeys.general_health_tip_8.tr(),
+                LocaleKeys.general_health_tip_9.tr(),
               ],
             ),
 
@@ -77,19 +85,19 @@ class TipsScreen extends StatelessWidget {
             // Risk factors section
             _buildSectionCard(
               context,
-              'minimizing_risk_factors'.tr(),
+              LocaleKeys.general_minimizing_risk_factors.tr(),
               Icons.warning_outlined,
               [
-                'risk_tip_1'.tr(),
-                'risk_tip_2'.tr(),
-                'risk_tip_3'.tr(),
-                'risk_tip_4'.tr(),
-                'risk_tip_5'.tr(),
-                'risk_tip_6'.tr(),
-                'risk_tip_7'.tr(),
-                'risk_tip_8'.tr(),
-                'risk_tip_9'.tr(),
-                'risk_tip_10'.tr(),
+                LocaleKeys.general_risk_tip_1.tr(),
+                LocaleKeys.general_risk_tip_2.tr(),
+                LocaleKeys.general_risk_tip_3.tr(),
+                LocaleKeys.general_risk_tip_4.tr(),
+                LocaleKeys.general_risk_tip_5.tr(),
+                LocaleKeys.general_risk_tip_6.tr(),
+                LocaleKeys.general_risk_tip_7.tr(),
+                LocaleKeys.general_risk_tip_8.tr(),
+                LocaleKeys.general_risk_tip_9.tr(),
+                LocaleKeys.general_risk_tip_10.tr(),
               ],
             ),
 
@@ -101,14 +109,19 @@ class TipsScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Sharing section
-            _buildSectionCard(context, 'share_with_family'.tr(), Icons.share, [
-              'share_tip_1'.tr(),
-              'share_tip_2'.tr(),
-              'share_tip_3'.tr(),
-              'share_tip_4'.tr(),
-              'share_tip_5'.tr(),
-              'share_tip_6'.tr(),
-            ]),
+            _buildSectionCard(
+              context,
+              LocaleKeys.general_share_with_family.tr(),
+              Icons.share,
+              [
+                LocaleKeys.general_share_tip_1.tr(),
+                LocaleKeys.general_share_tip_2.tr(),
+                LocaleKeys.general_share_tip_3.tr(),
+                LocaleKeys.general_share_tip_4.tr(),
+                LocaleKeys.general_share_tip_5.tr(),
+                LocaleKeys.general_share_tip_6.tr(),
+              ],
+            ),
           ],
         ),
       ),
@@ -180,7 +193,7 @@ class TipsScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'understanding_heart_rate_zones'.tr(),
+                    LocaleKeys.general_understanding_heart_rate_zones.tr(),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -189,30 +202,30 @@ class TipsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildHeartRateZone(
               context,
-              'resting_heart_rate'.tr(),
-              'resting_range'.tr(),
-              'resting_description'.tr(),
+              LocaleKeys.general_resting_heart_rate.tr(),
+              LocaleKeys.general_resting_range.tr(),
+              LocaleKeys.general_resting_description.tr(),
               Colors.green,
             ),
             _buildHeartRateZone(
               context,
-              'low_heart_rate'.tr(),
-              'low_range'.tr(),
-              'low_description'.tr(),
+              LocaleKeys.general_low_heart_rate.tr(),
+              LocaleKeys.general_low_range.tr(),
+              LocaleKeys.general_low_description.tr(),
               Colors.blue,
             ),
             _buildHeartRateZone(
               context,
-              'elevated_heart_rate'.tr(),
-              'elevated_range'.tr(),
-              'elevated_description'.tr(),
+              LocaleKeys.general_elevated_heart_rate.tr(),
+              LocaleKeys.general_elevated_range.tr(),
+              LocaleKeys.general_elevated_description.tr(),
               Colors.orange,
             ),
             _buildHeartRateZone(
               context,
-              'high_heart_rate'.tr(),
-              'high_range'.tr(),
-              'high_description'.tr(),
+              LocaleKeys.general_high_heart_rate.tr(),
+              LocaleKeys.general_high_range.tr(),
+              LocaleKeys.general_high_description.tr(),
               Colors.red,
             ),
             const SizedBox(height: 12),
@@ -229,7 +242,7 @@ class TipsScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'heart_rate_zones_disclaimer'.tr(),
+                      LocaleKeys.general_heart_rate_zones_disclaimer.tr(),
                       style: TextStyle(fontSize: 12, color: Colors.amber[700]),
                     ),
                   ),
@@ -301,7 +314,7 @@ class TipsScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'when_to_see_doctor'.tr(),
+                    LocaleKeys.general_when_to_see_doctor.tr(),
                     style: Theme.of(
                       context,
                     ).textTheme.titleLarge?.copyWith(color: Colors.red[700]),
@@ -311,21 +324,21 @@ class TipsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'consult_healthcare_provider'.tr(),
+              LocaleKeys.general_consult_healthcare_provider.tr(),
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(color: Colors.red[700]),
             ),
             const SizedBox(height: 8),
             ...[
-              'symptom_1'.tr(),
-              'symptom_2'.tr(),
-              'symptom_3'.tr(),
-              'symptom_4'.tr(),
-              'symptom_5'.tr(),
-              'symptom_6'.tr(),
-              'symptom_7'.tr(),
-              'symptom_8'.tr(),
+              LocaleKeys.general_symptom_1.tr(),
+              LocaleKeys.general_symptom_2.tr(),
+              LocaleKeys.general_symptom_3.tr(),
+              LocaleKeys.general_symptom_4.tr(),
+              LocaleKeys.general_symptom_5.tr(),
+              LocaleKeys.general_symptom_6.tr(),
+              LocaleKeys.general_symptom_7.tr(),
+              LocaleKeys.general_symptom_8.tr(),
             ].map(
               (symptom) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -360,7 +373,7 @@ class TipsScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'medical_disclaimer'.tr(),
+                      LocaleKeys.general_medical_disclaimer.tr(),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.red[700],
