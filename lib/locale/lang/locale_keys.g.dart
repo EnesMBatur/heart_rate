@@ -168,6 +168,14 @@ abstract class  LocaleKeys {
   static const measure_screen_instruction = 'measure_screen.instruction';
   static const measure_screen_measurement_completed = 'measure_screen.measurement_completed';
   static const measure_screen_create_report = 'measure_screen.create_report';
+  static const measure_screen_select_status = 'measure_screen.select_status';
+  static const measure_screen_select_mood = 'measure_screen.select_mood';
+  static const measure_screen_rate = 'measure_screen.rate';
+  static const measure_screen_rate_subtitle = 'measure_screen.rate_subtitle';
+  static const measure_screen_maybe = 'measure_screen.maybe';
+  static const measure_screen_submit = 'measure_screen.submit';
+  static const measure_screen_thanks = 'measure_screen.thanks';
+  static const measure_screen_appreciate = 'measure_screen.appreciate';
   static const measure_screen_status_normal = 'measure_screen.status.normal';
   static const measure_screen_status_active = 'measure_screen.status.active';
   static const measure_screen_status_resting = 'measure_screen.status.resting';

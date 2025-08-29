@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../services/app_review_service.dart';
 
 class MeasurementResultsBottomSheet extends StatefulWidget {
@@ -165,7 +167,7 @@ class _MeasurementResultsBottomSheetState
                       const SizedBox(height: 12),
 
                       Text(
-                        'Measurement Completed',
+                        LocaleKeys.measure_screen_measurement_completed.tr(),
                         style: Theme.of(context).textTheme.headlineSmall
                             ?.copyWith(
                               fontWeight: FontWeight.bold,
@@ -198,7 +200,7 @@ class _MeasurementResultsBottomSheetState
                 children: [
                   // 1. Select Your Current Status
                   Text(
-                    '1. Select Your Current Status',
+                    LocaleKeys.measure_screen_select_status.tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -208,11 +210,23 @@ class _MeasurementResultsBottomSheetState
 
                   Row(
                     children: [
-                      _buildStatusCard('Normal', '🧍‍♂️', 'normal'),
+                      _buildStatusCard(
+                        LocaleKeys.measure_screen_status_normal.tr(),
+                        '🧍‍♂️',
+                        'normal',
+                      ),
                       const SizedBox(width: 12),
-                      _buildStatusCard('Active', '🏃‍♂️', 'active'),
+                      _buildStatusCard(
+                        LocaleKeys.measure_screen_status_active.tr(),
+                        '🏃‍♂️',
+                        'active',
+                      ),
                       const SizedBox(width: 12),
-                      _buildStatusCard('Resting', '🧘‍♂️', 'resting'),
+                      _buildStatusCard(
+                        LocaleKeys.measure_screen_status_resting.tr(),
+                        '🧘‍♂️',
+                        'resting',
+                      ),
                     ],
                   ),
 
@@ -220,7 +234,7 @@ class _MeasurementResultsBottomSheetState
 
                   // 2. Select Your Mood
                   Text(
-                    '2. Select Your Mood',
+                    LocaleKeys.measure_screen_select_mood.tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -252,7 +266,7 @@ class _MeasurementResultsBottomSheetState
                         elevation: 2,
                       ),
                       child: Text(
-                        'Create Report',
+                        LocaleKeys.measure_screen_create_report.tr(),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
@@ -347,11 +361,31 @@ class _MeasurementResultsBottomSheetState
 
   Widget _buildMoodBar() {
     final moods = [
-      {'emoji': '😰', 'label': 'Bad', 'value': 1},
-      {'emoji': '😐', 'label': 'Okay', 'value': 2},
-      {'emoji': '😊', 'label': 'Normal', 'value': 3},
-      {'emoji': '😄', 'label': 'Good', 'value': 4},
-      {'emoji': '🤩', 'label': 'Great', 'value': 5},
+      {
+        'emoji': '😰',
+        'label': LocaleKeys.measure_screen_mood_bad.tr(),
+        'value': 1,
+      },
+      {
+        'emoji': '😐',
+        'label': LocaleKeys.measure_screen_mood_okay.tr(),
+        'value': 2,
+      },
+      {
+        'emoji': '😊',
+        'label': LocaleKeys.measure_screen_mood_normal.tr(),
+        'value': 3,
+      },
+      {
+        'emoji': '😄',
+        'label': LocaleKeys.measure_screen_mood_good.tr(),
+        'value': 4,
+      },
+      {
+        'emoji': '🤩',
+        'label': LocaleKeys.measure_screen_mood_great.tr(),
+        'value': 5,
+      },
     ];
 
     return Column(

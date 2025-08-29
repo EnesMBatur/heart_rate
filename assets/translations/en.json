@@ -183,6 +183,14 @@
         "instruction": "Please put your finger on the camera and flashlight",
         "measurement_completed": "Measurement Completed",
         "create_report": "Create Report",
+        "select_status": "1. Select Your Current Status",
+        "select_mood": "2. Select Your Current Mood",
+        "rate": "Rate Your Experience",
+        "rate_subtitle": "How would you rate our heart rate monitoring app?",
+        "maybe": "Maybe Later",
+        "submit": "Submit",
+        "thanks": "Thank You!",
+        "appreciate": "We appreciate your feedback! Your input helps us improve our heart rate monitoring app.",
         "status": {
             "normal": "Normal",
             "active": "Active",
@@ -259,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Health Report",
         "hrv_analysis": "HRV Analysis",
         "health_metrics": "Health Metrics",
         "detailed_metrics": "Detailed Metrics",

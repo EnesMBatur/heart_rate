@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 class AppReviewService {
@@ -121,7 +123,7 @@ class AppReviewService {
 
                     // Title
                     Text(
-                      'Rate Your Experience',
+                      LocaleKeys.measure_screen_rate.tr(),
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -133,7 +135,7 @@ class AppReviewService {
 
                     // Subtitle
                     Text(
-                      'How would you rate our heart rate monitoring app?',
+                      LocaleKeys.measure_screen_rate_subtitle.tr(),
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[600],
@@ -190,7 +192,7 @@ class AppReviewService {
                               ),
                             ),
                             child: Text(
-                              'Maybe Later',
+                              LocaleKeys.measure_screen_maybe.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -215,8 +217,8 @@ class AppReviewService {
                               ),
                               elevation: 2,
                             ),
-                            child: const Text(
-                              'Submit',
+                            child: Text(
+                              LocaleKeys.measure_screen_submit.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -297,7 +299,7 @@ class AppReviewService {
 
                 // Thank you title
                 Text(
-                  'Thank You!',
+                  LocaleKeys.measure_screen_thanks.tr(),
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -309,7 +311,7 @@ class AppReviewService {
 
                 // Thank you message
                 Text(
-                  'We appreciate your feedback! Your input helps us improve our heart rate monitoring app.',
+                  LocaleKeys.measure_screen_appreciate.tr(),
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.green[700],
@@ -333,8 +335,8 @@ class AppReviewService {
                       ),
                       elevation: 2,
                     ),
-                    child: const Text(
-                      'Continue',
+                    child: Text(
+                      LocaleKeys.premium_continue.tr(),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
