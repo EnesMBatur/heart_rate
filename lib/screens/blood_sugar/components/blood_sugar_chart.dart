@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import '../viewmodels/blood_sugar_view_model.dart';
 
 class BloodSugarChart extends StatelessWidget {
@@ -19,10 +21,10 @@ class BloodSugarChart extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDateRangeButton('Today', viewModel),
-                  _buildDateRangeButton('7 Days', viewModel),
-                  _buildDateRangeButton('14 Days', viewModel),
-                  _buildDateRangeButton('30 Days', viewModel),
+                  _buildDateRangeButton(TimeRange.today, viewModel),
+                  _buildDateRangeButton(TimeRange.days7, viewModel),
+                  _buildDateRangeButton(TimeRange.days14, viewModel),
+                  _buildDateRangeButton(TimeRange.days30, viewModel),
                 ],
               ),
             ),
@@ -50,10 +52,13 @@ class BloodSugarChart extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeButton(String label, BloodSugarViewModel viewModel) {
-    final isSelected = viewModel.selectedTimeRange == label;
+  Widget _buildDateRangeButton(
+    TimeRange timeRange,
+    BloodSugarViewModel viewModel,
+  ) {
+    final isSelected = viewModel.selectedTimeRange == timeRange;
     return GestureDetector(
-      onTap: () => viewModel.setTimeRange(label),
+      onTap: () => viewModel.setTimeRange(timeRange),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.8.h),
         decoration: BoxDecoration(
@@ -61,7 +66,7 @@ class BloodSugarChart extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
-          label,
+          timeRange.localizedName,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
@@ -83,7 +88,7 @@ class BloodSugarChart extends StatelessWidget {
             Icon(Icons.bar_chart, size: 64, color: Colors.grey[300]),
             SizedBox(height: 1.h),
             Text(
-              'No data available for selected period',
+              LocaleKeys.blood_sugar_no_data_available.tr(),
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[500],
@@ -98,7 +103,7 @@ class BloodSugarChart extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Blood Sugar (mg/dL)',
+          LocaleKeys.blood_sugar_chart_title.tr(),
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.bold,
@@ -196,7 +201,7 @@ class BloodSugarChart extends StatelessWidget {
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     final measurement = chartData[groupIndex];
                     return BarTooltipItem(
-                      '${measurement.value.toStringAsFixed(1)} mg/dL\n${measurement.state.displayName}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
+                      '${measurement.value.toStringAsFixed(1)} mg/dL\n${measurement.state.localizedName}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
                       TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -214,10 +219,22 @@ class BloodSugarChart extends StatelessWidget {
         Wrap(
           spacing: 3.w,
           children: [
-            _buildLegendItem('Low', const Color(0xFF4ECDC4)),
-            _buildLegendItem('Normal', const Color(0xFF45B7D1)),
-            _buildLegendItem('Pre-diabetes', const Color(0xFFFF9500)),
-            _buildLegendItem('Diabetes', const Color(0xFFFF6B6B)),
+            _buildLegendItem(
+              LocaleKeys.blood_sugar_low.tr(),
+              const Color(0xFF4ECDC4),
+            ),
+            _buildLegendItem(
+              LocaleKeys.heart_rate_normal.tr(),
+              const Color(0xFF45B7D1),
+            ),
+            _buildLegendItem(
+              LocaleKeys.blood_sugar_pre_diabetes.tr(),
+              const Color(0xFFFF9500),
+            ),
+            _buildLegendItem(
+              LocaleKeys.blood_sugar_diabetes.tr(),
+              const Color(0xFFFF6B6B),
+            ),
           ],
         ),
       ],

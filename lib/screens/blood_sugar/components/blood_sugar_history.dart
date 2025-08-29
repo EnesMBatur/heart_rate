@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import '../viewmodels/blood_sugar_view_model.dart';
 import '../../../models/blood_sugar_measurement.dart';
 
@@ -21,7 +22,7 @@ class BloodSugarHistory extends StatelessWidget {
                 Icon(Icons.timeline, size: 64, color: Colors.grey[400]),
                 SizedBox(height: 2.h),
                 Text(
-                  'No measurements yet',
+                  LocaleKeys.history_no_measurements_yet.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -76,7 +77,7 @@ class BloodSugarHistory extends StatelessWidget {
             Icon(Icons.delete_outline, color: Colors.white, size: 32),
             SizedBox(height: 0.5.h),
             Text(
-              'Delete',
+              LocaleKeys.actions_delete.tr(),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12.sp,
@@ -91,19 +92,19 @@ class BloodSugarHistory extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Delete Measurement'),
+              title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
               content: Text(
                 'Are you sure you want to delete this blood sugar measurement?\n\n${measurement.value.toStringAsFixed(1)} mg/dL - ${dateFormatter.format(measurement.timestamp)}',
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(LocaleKeys.actions_cancel.tr()),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
-                  child: const Text('Delete'),
+                  child: Text(LocaleKeys.actions_delete.tr()),
                 ),
               ],
             );
@@ -114,10 +115,10 @@ class BloodSugarHistory extends StatelessWidget {
         viewModel.deleteMeasurement(measurement);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Measurement deleted'),
+            content: Text(LocaleKeys.dialogs_measurement_deleted.tr()),
             backgroundColor: Colors.red,
             action: SnackBarAction(
-              label: 'Undo',
+              label: LocaleKeys.actions_undo.tr(),
               textColor: Colors.white,
               onPressed: () {
                 viewModel.addMeasurement(measurement);
@@ -186,7 +187,7 @@ class BloodSugarHistory extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            measurement.category.displayName,
+                            measurement.category.localizedName,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -196,7 +197,7 @@ class BloodSugarHistory extends StatelessWidget {
                         ),
                         SizedBox(width: 2.w),
                         Text(
-                          measurement.state.displayName,
+                          measurement.state.localizedName,
                           style: TextStyle(
                             fontSize: 16.sp,
                             color: Colors.grey[600],
@@ -282,7 +283,7 @@ class BloodSugarHistory extends StatelessWidget {
                             );
                           },
                           icon: const Icon(Icons.edit_outlined),
-                          label: const Text('Edit'),
+                          label: Text(LocaleKeys.actions_edit.tr()),
                           style: OutlinedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 1.5.h),
                           ),
@@ -296,7 +297,7 @@ class BloodSugarHistory extends StatelessWidget {
                             _deleteMeasurement(context, measurement, viewModel);
                           },
                           icon: const Icon(Icons.delete_outline),
-                          label: const Text('Delete'),
+                          label: Text(LocaleKeys.actions_delete.tr()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,
@@ -327,14 +328,14 @@ class BloodSugarHistory extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete Measurement'),
+          title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
           content: Text(
             'Are you sure you want to delete this blood sugar measurement?\n\n${measurement.value.toStringAsFixed(1)} mg/dL - ${dateFormatter.format(measurement.timestamp)}',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(LocaleKeys.actions_cancel.tr()),
             ),
             TextButton(
               onPressed: () {
@@ -342,10 +343,10 @@ class BloodSugarHistory extends StatelessWidget {
                 viewModel.deleteMeasurement(measurement);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text('Measurement deleted'),
+                    content: Text(LocaleKeys.dialogs_measurement_deleted.tr()),
                     backgroundColor: Colors.red,
                     action: SnackBarAction(
-                      label: 'Undo',
+                      label: LocaleKeys.actions_undo.tr(),
                       textColor: Colors.white,
                       onPressed: () {
                         viewModel.addMeasurement(measurement);
@@ -355,7 +356,7 @@ class BloodSugarHistory extends StatelessWidget {
                 );
               },
               style: TextButton.styleFrom(foregroundColor: Colors.red),
-              child: const Text('Delete'),
+              child: Text(LocaleKeys.actions_delete.tr()),
             ),
           ],
         );

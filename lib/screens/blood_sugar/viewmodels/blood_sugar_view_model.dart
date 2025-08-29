@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/blood_sugar_measurement.dart';
 import '../../../services/blood_sugar_service.dart';
+
+enum TimeRange {
+  today,
+  days7,
+  days14,
+  days30;
+
+  String get localizedName {
+    switch (this) {
+      case TimeRange.today:
+        return LocaleKeys.general_today.tr();
+      case TimeRange.days7:
+        return LocaleKeys.blood_sugar_7_days.tr();
+      case TimeRange.days14:
+        return LocaleKeys.blood_sugar_14_days.tr();
+      case TimeRange.days30:
+        return LocaleKeys.blood_sugar_30_days.tr();
+    }
+  }
+}
 
 class BloodSugarViewModel extends ChangeNotifier {
   final BloodSugarService _service = BloodSugarService();
@@ -9,14 +31,14 @@ class BloodSugarViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool _showStatistics = true;
   String _selectedPeriod = 'Week';
-  String _selectedTimeRange = '7 Days';
+  TimeRange _selectedTimeRange = TimeRange.days7;
   BloodSugarMeasurement? _selectedMeasurement;
 
   List<BloodSugarMeasurement> get measurements => _measurements;
   bool get isLoading => _isLoading;
   bool get showStatistics => _showStatistics;
   String get selectedPeriod => _selectedPeriod;
-  String get selectedTimeRange => _selectedTimeRange;
+  TimeRange get selectedTimeRange => _selectedTimeRange;
   BloodSugarMeasurement? get selectedMeasurement => _selectedMeasurement;
   List<BloodSugarMeasurement> get recentMeasurements => _measurements;
   int get totalRecords => _measurements.length;
@@ -78,7 +100,7 @@ class BloodSugarViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTimeRange(String timeRange) {
+  void setTimeRange(TimeRange timeRange) {
     _selectedTimeRange = timeRange;
     notifyListeners();
   }
@@ -97,20 +119,18 @@ class BloodSugarViewModel extends ChangeNotifier {
     DateTime startDate;
 
     switch (_selectedTimeRange) {
-      case 'Today':
+      case TimeRange.today:
         startDate = DateTime(now.year, now.month, now.day);
         break;
-      case '7 Days':
+      case TimeRange.days7:
         startDate = now.subtract(const Duration(days: 7));
         break;
-      case '14 Days':
+      case TimeRange.days14:
         startDate = now.subtract(const Duration(days: 14));
         break;
-      case '30 Days':
+      case TimeRange.days30:
         startDate = now.subtract(const Duration(days: 30));
         break;
-      default:
-        startDate = now.subtract(const Duration(days: 7));
     }
 
     return _measurements

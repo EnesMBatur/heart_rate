@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 enum BloodSugarState {
   default_('Default'),
@@ -12,6 +14,27 @@ enum BloodSugarState {
 
   const BloodSugarState(this.displayName);
   final String displayName;
+
+  String get localizedName {
+    switch (this) {
+      case BloodSugarState.default_:
+        return LocaleKeys.blood_sugar_states_default.tr();
+      case BloodSugarState.fasting:
+        return LocaleKeys.blood_sugar_states_fasting.tr();
+      case BloodSugarState.beforeEating:
+        return LocaleKeys.blood_sugar_states_before_eating.tr();
+      case BloodSugarState.afterEating1h:
+        return LocaleKeys.blood_sugar_states_after_eating_1h.tr();
+      case BloodSugarState.afterEating2h:
+        return LocaleKeys.blood_sugar_states_after_eating_2h.tr();
+      case BloodSugarState.asleep:
+        return LocaleKeys.blood_sugar_states_asleep.tr();
+      case BloodSugarState.beforeWorkout:
+        return LocaleKeys.blood_sugar_states_before_workout.tr();
+      case BloodSugarState.afterWorkout:
+        return LocaleKeys.blood_sugar_states_after_workout.tr();
+    }
+  }
 }
 
 enum BloodSugarCategory {
@@ -23,6 +46,19 @@ enum BloodSugarCategory {
   const BloodSugarCategory(this.displayName, this.color);
   final String displayName;
   final Color color;
+
+  String get localizedName {
+    switch (this) {
+      case BloodSugarCategory.low:
+        return LocaleKeys.blood_sugar_low.tr();
+      case BloodSugarCategory.normal:
+        return LocaleKeys.heart_rate_normal.tr();
+      case BloodSugarCategory.preDiabetes:
+        return LocaleKeys.blood_sugar_pre_diabetes.tr();
+      case BloodSugarCategory.diabetes:
+        return LocaleKeys.blood_sugar_diabetes.tr();
+    }
+  }
 }
 
 class BloodSugarMeasurement {

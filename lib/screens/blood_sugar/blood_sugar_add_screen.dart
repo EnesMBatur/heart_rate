@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 import '../../models/blood_sugar_measurement.dart';
 import 'viewmodels/blood_sugar_add_view_model.dart';
@@ -116,7 +117,9 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
             title: Consumer<BloodSugarAddViewModel>(
               builder: (context, viewModel, child) {
                 return Text(
-                  viewModel.isEditing ? 'Edit' : 'Add',
+                  viewModel.isEditing
+                      ? LocaleKeys.blood_sugar_edit_title.tr()
+                      : LocaleKeys.blood_sugar_add_title.tr(),
                   style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.black,
@@ -281,7 +284,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                               ),
                               SizedBox(width: 2.w),
                               Text(
-                                'State',
+                                LocaleKeys.blood_sugar_state.tr(),
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.grey[600],
@@ -305,7 +308,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    viewModel.selectedState.displayName,
+                                    viewModel.selectedState.localizedName,
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
@@ -348,7 +351,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                               const Icon(Icons.note, color: Color(0xFFFF6B6B)),
                               SizedBox(width: 2.w),
                               Text(
-                                'Note',
+                                LocaleKeys.blood_sugar_note.tr(),
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.grey[600],
@@ -361,7 +364,8 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                             controller: viewModel.noteController,
                             maxLines: 3,
                             decoration: InputDecoration(
-                              hintText: 'Add your note here ...',
+                              hintText: LocaleKeys.blood_sugar_add_note_hint
+                                  .tr(),
                               hintStyle: TextStyle(color: Colors.grey[400]),
                               border: InputBorder.none,
                             ),
@@ -403,7 +407,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                           ),
                         ),
                         child: Text(
-                          'Cancel',
+                          LocaleKeys.actions_cancel.tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -424,7 +428,9 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                           ),
                         ),
                         child: Text(
-                          viewModel.isEditing ? 'Update' : 'Save',
+                          viewModel.isEditing
+                              ? LocaleKeys.actions_update.tr()
+                              : LocaleKeys.actions_save.tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -509,7 +515,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'State',
+                      LocaleKeys.blood_sugar_state.tr(),
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -540,7 +546,7 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(
-                                  state.displayName,
+                                  state.localizedName,
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -606,8 +612,8 @@ class _BloodSugarAddScreenState extends State<BloodSugarAddScreen> {
           SnackBar(
             content: Text(
               viewModel.isEditing
-                  ? 'Measurement updated successfully'
-                  : 'Measurement saved successfully',
+                  ? LocaleKeys.blood_sugar_updated_successfully.tr()
+                  : LocaleKeys.blood_sugar_saved_successfully.tr(),
             ),
             backgroundColor: Colors.green,
           ),

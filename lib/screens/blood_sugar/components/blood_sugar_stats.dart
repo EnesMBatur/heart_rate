@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../viewmodels/blood_sugar_view_model.dart';
@@ -32,21 +34,21 @@ class BloodSugarStats extends StatelessWidget {
             Expanded(
               child: _buildStatCard(
                 value: avg.toStringAsFixed(1),
-                label: 'Average',
+                label: LocaleKeys.general_average.tr(),
               ),
             ),
             SizedBox(width: 4.w),
             Expanded(
               child: _buildStatCard(
                 value: max.toStringAsFixed(1),
-                label: 'Maximum',
+                label: LocaleKeys.general_maximum.tr(),
               ),
             ),
             SizedBox(width: 4.w),
             Expanded(
               child: _buildStatCard(
                 value: min.toStringAsFixed(1),
-                label: 'Minimum',
+                label: LocaleKeys.general_minimum.tr(),
               ),
             ),
           ],

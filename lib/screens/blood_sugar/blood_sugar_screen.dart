@@ -49,7 +49,7 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
                 children: [
                   // Header with decorative elements
                   Text(
-                    'Lifetime average summary',
+                    LocaleKeys.blood_sugar_lifetime_summary.tr(),
                     style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                   ),
 
@@ -86,9 +86,9 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
         backgroundColor: const Color(0xFFFF6B6B),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
-        label: const Text(
-          'Add',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        label: Text(
+          LocaleKeys.actions_add.tr(),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
