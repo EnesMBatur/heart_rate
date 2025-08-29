@@ -165,6 +165,9 @@
         "start_adding_records": "Füge deinen ersten BMI-Eintrag hinzu",
         "delete_confirmation": "BMI-Eintrag löschen",
         "record_deleted": "BMI-Eintrag gelöscht",
+        "chart_title": "BMI-Diagramm",
+        "category": "Kategorie",
+        "delete_confirmation_message": "Sind Sie sicher, dass Sie diesen BMI-Eintrag löschen möchten?",
         "categories": {
             "very_severe_underweight": "Sehr starkes Untergewicht",
             "severe_underweight": "Starkes Untergewicht",

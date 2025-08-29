@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/bmi_view_model.dart';
 
 class BMIToggleButtons extends StatelessWidget {
@@ -32,7 +34,7 @@ class BMIToggleButtons extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'Statistics',
+                      LocaleKeys.general_statistics.tr(),
                       style: TextStyle(
                         color: vm.showStatistics ? Colors.white : Colors.black,
                         fontSize: 16.sp,
@@ -64,7 +66,7 @@ class BMIToggleButtons extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'History (${vm.totalRecords})',
+                      '${LocaleKeys.general_history.tr()} (${vm.totalRecords})',
                       style: TextStyle(
                         color: !vm.showStatistics ? Colors.white : Colors.black,
                         fontSize: 16.sp,

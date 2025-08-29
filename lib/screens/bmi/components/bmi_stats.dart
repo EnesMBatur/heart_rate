@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/bmi_view_model.dart';
 
 class BMIStats extends StatelessWidget {
@@ -44,7 +46,7 @@ class BMIStats extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Weight',
+                        LocaleKeys.bmi_weight.tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -55,9 +57,21 @@ class BMIStats extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildStatTile('Average', avgWeight, 'kg'),
-                          _buildStatTile('Maximum', maxWeight, 'kg'),
-                          _buildStatTile('Minimum', minWeight, 'kg'),
+                          _buildStatTile(
+                            LocaleKeys.general_average.tr(),
+                            avgWeight,
+                            LocaleKeys.units_kg.tr(),
+                          ),
+                          _buildStatTile(
+                            LocaleKeys.general_maximum.tr(),
+                            maxWeight,
+                            LocaleKeys.units_kg.tr(),
+                          ),
+                          _buildStatTile(
+                            LocaleKeys.general_minimum.tr(),
+                            minWeight,
+                            LocaleKeys.units_kg.tr(),
+                          ),
                         ],
                       ),
                     ],
@@ -85,7 +99,7 @@ class BMIStats extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'BMI',
+                        LocaleKeys.bmi_title.tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -96,9 +110,21 @@ class BMIStats extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildStatTile('Current', currentBMI, ''),
-                          _buildStatTile('Maximum', maxBMI, ''),
-                          _buildStatTile('Minimum', minBMI, ''),
+                          _buildStatTile(
+                            LocaleKeys.general_current.tr(),
+                            currentBMI,
+                            '',
+                          ),
+                          _buildStatTile(
+                            LocaleKeys.general_maximum.tr(),
+                            maxBMI,
+                            '',
+                          ),
+                          _buildStatTile(
+                            LocaleKeys.general_minimum.tr(),
+                            minBMI,
+                            '',
+                          ),
                         ],
                       ),
                     ],

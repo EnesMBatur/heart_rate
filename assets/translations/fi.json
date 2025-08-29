@@ -165,6 +165,9 @@
         "start_adding_records": "Aloita lisäämällä ensimmäinen BMI-tietueesi",
         "delete_confirmation": "Poista BMI-tietue",
         "record_deleted": "BMI-tietue poistettu",
+        "chart_title": "BMI-kaavio",
+        "category": "Kategoria",
+        "delete_confirmation_message": "Haluatko varmasti poistaa tämän BMI-tietueen?",
         "categories": {
             "very_severe_underweight": "Erittäin vaikea alipaino",
             "severe_underweight": "Vaikea alipaino",

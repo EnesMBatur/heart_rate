@@ -165,6 +165,9 @@
         "start_adding_records": "Inizia aggiungendo il tuo primo record BMI",
         "delete_confirmation": "Elimina record BMI",
         "record_deleted": "Record BMI eliminato",
+        "chart_title": "Grafico BMI",
+        "category": "Categoria",
+        "delete_confirmation_message": "Sei sicuro di voler eliminare questo record BMI?",
         "categories": {
             "very_severe_underweight": "Grave sottopeso molto severo",
             "severe_underweight": "Grave sottopeso",

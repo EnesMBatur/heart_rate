@@ -165,6 +165,9 @@
         "start_adding_records": "Comienza añadiendo tu primer registro de IMC",
         "delete_confirmation": "Eliminar registro de IMC",
         "record_deleted": "Registro de IMC eliminado",
+        "chart_title": "Gráfico de IMC",
+        "category": "Categoría",
+        "delete_confirmation_message": "¿Está seguro de que desea eliminar este registro de IMC?",
         "categories": {
             "very_severe_underweight": "Bajo peso muy severo",
             "severe_underweight": "Bajo peso severo",

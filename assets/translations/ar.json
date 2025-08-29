@@ -165,6 +165,9 @@
         "start_adding_records": "ابدأ بإضافة أول سجل لمؤشر كتلة الجسم",
         "delete_confirmation": "حذف سجل مؤشر كتلة الجسم",
         "record_deleted": "تم حذف سجل مؤشر كتلة الجسم",
+        "chart_title": "مخطط مؤشر كتلة الجسم (BMI)",
+        "category": "الفئة",
+        "delete_confirmation_message": "هل أنت متأكد أنك تريد حذف هذا السجل الخاص بمؤشر كتلة الجسم؟",
         "categories": {
             "very_severe_underweight": "نحافة شديدة جدًا",
             "severe_underweight": "نحافة شديدة",

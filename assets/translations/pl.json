@@ -165,6 +165,9 @@
         "start_adding_records": "Dodaj swój pierwszy rekord BMI",
         "delete_confirmation": "Usuń rekord BMI",
         "record_deleted": "Rekord BMI usunięty",
+        "chart_title": "Wykres BMI",
+        "category": "Kategoria",
+        "delete_confirmation_message": "Czy na pewno chcesz usunąć ten rekord BMI?",
         "categories": {
             "very_severe_underweight": "Bardzo ciężka niedowaga",
             "severe_underweight": "Ciężka niedowaga",

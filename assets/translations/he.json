@@ -165,6 +165,9 @@
         "start_adding_records": "התחל בהוספת רשומת BMI ראשונה",
         "delete_confirmation": "מחק רשומת BMI",
         "record_deleted": "רשומת BMI נמחקה",
+        "chart_title": "תרשים BMI",
+        "category": "קטגוריה",
+        "delete_confirmation_message": "האם אתה בטוח שברצונך למחוק רשומת BMI זו?",
         "categories": {
             "very_severe_underweight": "תת-משקל חמור מאוד",
             "severe_underweight": "תת-משקל חמור",

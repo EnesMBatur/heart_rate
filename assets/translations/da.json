@@ -165,6 +165,9 @@
         "start_adding_records": "Begynd med at tilføje din første BMI-post",
         "delete_confirmation": "Slet BMI-post",
         "record_deleted": "BMI-post slettet",
+        "chart_title": "BMI-diagram",
+        "category": "Kategori",
+        "delete_confirmation_message": "Er du sikker på, at du vil slette denne BMI-post?",
         "categories": {
             "very_severe_underweight": "Meget alvorligt undervægtig",
             "severe_underweight": "Alvorligt undervægtig",

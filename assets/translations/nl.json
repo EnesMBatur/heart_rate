@@ -165,6 +165,9 @@
         "start_adding_records": "Begin met het toevoegen van je eerste BMI-record",
         "delete_confirmation": "BMI-record verwijderen",
         "record_deleted": "BMI-record verwijderd",
+        "chart_title": "BMI-grafiek",
+        "category": "Categorie",
+        "delete_confirmation_message": "Weet je zeker dat je dit BMI-record wilt verwijderen?",
         "categories": {
             "very_severe_underweight": "Zeer ernstig ondergewicht",
             "severe_underweight": "Ernstig ondergewicht",

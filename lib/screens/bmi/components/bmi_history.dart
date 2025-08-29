@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/bmi_record.dart';
 import '../viewmodels/bmi_view_model.dart';
 
@@ -19,7 +21,7 @@ class BMIHistory extends StatelessWidget {
                 Icon(Icons.timeline, size: 64, color: Colors.grey[400]),
                 SizedBox(height: 2.h),
                 Text(
-                  'No measurements yet',
+                  LocaleKeys.general_no_measurements_yet.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -28,7 +30,7 @@ class BMIHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 1.h),
                 Text(
-                  'Start by adding your first BMI record',
+                  LocaleKeys.bmi_start_adding_records.tr(),
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
                 SizedBox(height: 10.h),
@@ -61,7 +63,7 @@ class BMIHistory extends StatelessWidget {
             Icon(Icons.delete_outline, color: Colors.white, size: 32),
             SizedBox(height: 0.5.h),
             Text(
-              'Delete',
+              LocaleKeys.actions_delete.tr(),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12.sp,
@@ -76,22 +78,22 @@ class BMIHistory extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Delete BMI Record'),
+              title: Text(LocaleKeys.bmi_delete_confirmation.tr()),
               content: Text(
-                'Are you sure you want to delete this BMI record?\n\n'
-                'Weight: ${r.weightKg.toStringAsFixed(1)} kg\n'
-                'BMI: ${r.bmi.toStringAsFixed(1)}\n'
-                'Category: ${r.category.displayName}',
+                '${LocaleKeys.bmi_delete_confirmation_message.tr()}\n\n'
+                '${LocaleKeys.bmi_weight.tr()}: ${r.weightKg.toStringAsFixed(1)} kg\n'
+                '${LocaleKeys.bmi_title.tr()}: ${r.bmi.toStringAsFixed(1)}\n'
+                '${LocaleKeys.bmi_category.tr()}: ${r.category.localizedName}',
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(LocaleKeys.actions_cancel.tr()),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
-                  child: const Text('Delete'),
+                  child: Text(LocaleKeys.actions_delete.tr()),
                 ),
               ],
             );
@@ -101,8 +103,8 @@ class BMIHistory extends StatelessWidget {
       onDismissed: (direction) {
         vm.deleteRecord(r);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('BMI record deleted'),
+          SnackBar(
+            content: Text(LocaleKeys.bmi_record_deleted.tr()),
             backgroundColor: Colors.red,
           ),
         );
@@ -138,7 +140,7 @@ class BMIHistory extends StatelessWidget {
                   ),
                   SizedBox(height: 0.5.h),
                   Text(
-                    'BMI: ${r.bmi.toStringAsFixed(1)}',
+                    '${LocaleKeys.bmi_title.tr()}: ${r.bmi.toStringAsFixed(1)}',
                     style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                   ),
                 ],

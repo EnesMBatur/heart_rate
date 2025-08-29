@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/bmi_view_model.dart';
 
 class BMIChart extends StatelessWidget {
@@ -39,20 +41,20 @@ class BMIChart extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildDateRangeButton('Today', viewModel),
-          _buildDateRangeButton('7 Days', viewModel),
-          _buildDateRangeButton('14 Days', viewModel),
-          _buildDateRangeButton('30 Days', viewModel),
+          _buildDateRangeButton(TimeRange.today, viewModel),
+          _buildDateRangeButton(TimeRange.days7, viewModel),
+          _buildDateRangeButton(TimeRange.days14, viewModel),
+          _buildDateRangeButton(TimeRange.days30, viewModel),
         ],
       ),
     );
   }
 
-  Widget _buildDateRangeButton(String label, BMIViewModel viewModel) {
-    final isSelected = viewModel.selectedTimeRange == label;
+  Widget _buildDateRangeButton(TimeRange timeRange, BMIViewModel viewModel) {
+    final isSelected = viewModel.selectedTimeRange == timeRange;
 
     return GestureDetector(
-      onTap: () => viewModel.setTimeRange(label),
+      onTap: () => viewModel.setTimeRange(timeRange),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
         decoration: BoxDecoration(
@@ -60,7 +62,7 @@ class BMIChart extends StatelessWidget {
           borderRadius: BorderRadius.circular(2.w),
         ),
         child: Text(
-          label,
+          timeRange.localizedName,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
@@ -117,7 +119,7 @@ class BMIChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Current BMI',
+          LocaleKeys.bmi_current_bmi.tr(),
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
@@ -319,54 +321,27 @@ class BMIChart extends StatelessWidget {
   Widget _buildCategoryLabels(double currentBMI) {
     final categories = [
       {
-        'name': 'Very Severe Underweight',
+        'category': BMICategory.verySevereUnderweight,
         'color': const Color(0xFF1976D2),
-        'range': 'BMI < 16.0',
       },
       {
-        'name': 'Severe Underweight',
+        'category': BMICategory.severeUnderweight,
         'color': const Color(0xFF42A5F5),
-        'range': 'BMI 16.0 - 16.9',
       },
-      {
-        'name': 'Underweight',
-        'color': const Color(0xFF26C6DA),
-        'range': 'BMI 17.0 - 18.4',
-      },
-      {
-        'name': 'Normal',
-        'color': const Color(0xFF4CAF50),
-        'range': 'BMI 18.5 - 24.9',
-      },
-      {
-        'name': 'Overweight',
-        'color': const Color(0xFFFFC107),
-        'range': 'BMI 25.0 - 29.9',
-      },
-      {
-        'name': 'Obese Class I',
-        'color': const Color(0xFFFF9800),
-        'range': 'BMI 30.0 - 34.9',
-      },
-      {
-        'name': 'Obese Class II',
-        'color': const Color(0xFFF44336),
-        'range': 'BMI 35.0 - 39.9',
-      },
-      {
-        'name': 'Obese Class III',
-        'color': const Color(0xFFD32F2F),
-        'range': 'BMI ≥ 40.0',
-      },
+      {'category': BMICategory.underweight, 'color': const Color(0xFF26C6DA)},
+      {'category': BMICategory.normal, 'color': const Color(0xFF4CAF50)},
+      {'category': BMICategory.overweight, 'color': const Color(0xFFFFC107)},
+      {'category': BMICategory.obeseClass1, 'color': const Color(0xFFFF9800)},
+      {'category': BMICategory.obeseClass2, 'color': const Color(0xFFF44336)},
+      {'category': BMICategory.obeseClass3, 'color': const Color(0xFFD32F2F)},
     ];
 
     return Column(
-      children: categories.map((category) {
+      children: categories.map((categoryData) {
+        final category = categoryData['category'] as BMICategory;
         final isCurrentCategory =
-            _getBMICategory(currentBMI)['name'] == category['name'];
-        final categoryColor = category['color'] as Color;
-        final categoryName = category['name'] as String;
-        final categoryRange = category['range'] as String;
+            _getBMICategory(currentBMI)['name'] == category.localizedName;
+        final categoryColor = categoryData['color'] as Color;
 
         return Container(
           margin: EdgeInsets.only(bottom: 1.h),
@@ -397,7 +372,7 @@ class BMIChart extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      categoryName,
+                      category.localizedName,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
@@ -407,7 +382,7 @@ class BMIChart extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      categoryRange,
+                      category.rangeText,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: Colors.grey.shade600,
@@ -594,23 +569,44 @@ class BMIChart extends StatelessWidget {
   Map<String, dynamic> _getBMICategory(double bmi) {
     if (bmi < 16) {
       return {
-        'name': 'Very Severe Underweight',
+        'name': BMICategory.verySevereUnderweight.localizedName,
         'color': const Color(0xFF1976D2),
       };
     } else if (bmi < 17) {
-      return {'name': 'Severe Underweight', 'color': const Color(0xFF42A5F5)};
+      return {
+        'name': BMICategory.severeUnderweight.localizedName,
+        'color': const Color(0xFF42A5F5),
+      };
     } else if (bmi < 18.5) {
-      return {'name': 'Underweight', 'color': const Color(0xFF26C6DA)};
+      return {
+        'name': BMICategory.underweight.localizedName,
+        'color': const Color(0xFF26C6DA),
+      };
     } else if (bmi < 25) {
-      return {'name': 'Normal', 'color': const Color(0xFF4CAF50)};
+      return {
+        'name': BMICategory.normal.localizedName,
+        'color': const Color(0xFF4CAF50),
+      };
     } else if (bmi < 30) {
-      return {'name': 'Overweight', 'color': const Color(0xFFFFC107)};
+      return {
+        'name': BMICategory.overweight.localizedName,
+        'color': const Color(0xFFFFC107),
+      };
     } else if (bmi < 35) {
-      return {'name': 'Obese Class I', 'color': const Color(0xFFFF9800)};
+      return {
+        'name': BMICategory.obeseClass1.localizedName,
+        'color': const Color(0xFFFF9800),
+      };
     } else if (bmi < 40) {
-      return {'name': 'Obese Class II', 'color': const Color(0xFFF44336)};
+      return {
+        'name': BMICategory.obeseClass2.localizedName,
+        'color': const Color(0xFFF44336),
+      };
     } else {
-      return {'name': 'Obese Class III', 'color': const Color(0xFFD32F2F)};
+      return {
+        'name': BMICategory.obeseClass3.localizedName,
+        'color': const Color(0xFFD32F2F),
+      };
     }
   }
 }

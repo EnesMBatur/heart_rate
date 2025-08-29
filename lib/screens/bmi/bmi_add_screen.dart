@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 import 'viewmodels/bmi_add_view_model.dart';
-import 'viewmodels/bmi_view_model.dart';
+import 'viewmodels/bmi_view_model.dart' as bmi_vm;
 import '../../models/bmi_record.dart';
 
 class BMIAddScreen extends StatefulWidget {
@@ -52,7 +54,9 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
             title: Consumer<BMIAddViewModel>(
               builder: (context, vm, child) {
                 return Text(
-                  vm.isEditing ? 'Edit' : 'Add',
+                  vm.isEditing
+                      ? LocaleKeys.actions_edit.tr()
+                      : LocaleKeys.actions_add.tr(),
                   style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.black,
@@ -164,7 +168,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
                           ),
                         ),
                         child: Text(
-                          'Cancel',
+                          LocaleKeys.actions_cancel.tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -185,7 +189,9 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
                           ),
                         ),
                         child: Text(
-                          vm.isEditing ? 'Update' : 'Save',
+                          vm.isEditing
+                              ? LocaleKeys.actions_update.tr()
+                              : LocaleKeys.actions_save.tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -235,7 +241,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
   Future<void> _saveRecord(BuildContext context, BMIAddViewModel vm) async {
     try {
       final record = vm.buildRecord();
-      final mainVm = Provider.of<BMIViewModel>(context, listen: false);
+      final mainVm = Provider.of<bmi_vm.BMIViewModel>(context, listen: false);
 
       // Debug: Print record info
       print(
@@ -262,8 +268,8 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
           SnackBar(
             content: Text(
               vm.isEditing
-                  ? 'Record updated successfully'
-                  : 'Record saved successfully',
+                  ? LocaleKeys.bmi_updated_successfully.tr()
+                  : LocaleKeys.bmi_saved_successfully.tr(),
             ),
             backgroundColor: Colors.green,
           ),
@@ -302,7 +308,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 1.h),
             child: Text(
-              'Weight',
+              LocaleKeys.bmi_weight.tr(),
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -346,7 +352,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
               ),
               SizedBox(width: 4.w),
               Text(
-                'kg',
+                LocaleKeys.units_kg.tr(),
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
@@ -381,7 +387,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 1.h),
             child: Text(
-              'Height',
+              LocaleKeys.bmi_height.tr(),
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -425,7 +431,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
               ),
               SizedBox(width: 4.w),
               Text(
-                'cm',
+                LocaleKeys.units_cm.tr(),
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
@@ -511,7 +517,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
               const Icon(Icons.note, color: Color(0xFFFF6B6B)),
               SizedBox(width: 2.w),
               Text(
-                'Note',
+                LocaleKeys.bmi_note.tr(),
                 style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
               ),
             ],
@@ -521,7 +527,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
             controller: vm.noteController,
             maxLines: 3,
             decoration: InputDecoration(
-              hintText: 'Add your note here ...',
+              hintText: LocaleKeys.blood_sugar_add_note_hint.tr(),
               hintStyle: TextStyle(color: Colors.grey[400]),
               border: InputBorder.none,
             ),
@@ -558,7 +564,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${record.category.displayName} (${bmi.toStringAsFixed(1)})',
+            '${record.category.localizedName} (${bmi.toStringAsFixed(1)})',
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.w700,
@@ -589,33 +595,6 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
           Column(
             children: BMICategory.values.map((cat) {
               final isSelected = cat == record.category;
-              String range;
-              switch (cat) {
-                case BMICategory.verySevereUnderweight:
-                  range = 'BMI < 16.0';
-                  break;
-                case BMICategory.severeUnderweight:
-                  range = 'BMI 16.0 - 16.9';
-                  break;
-                case BMICategory.underweight:
-                  range = 'BMI 17.0 - 18.4';
-                  break;
-                case BMICategory.normal:
-                  range = 'BMI 18.5 - 24.9';
-                  break;
-                case BMICategory.overweight:
-                  range = 'BMI 25.0 - 29.9';
-                  break;
-                case BMICategory.obeseClass1:
-                  range = 'BMI 30.0 - 34.9';
-                  break;
-                case BMICategory.obeseClass2:
-                  range = 'BMI 35.0 - 39.9';
-                  break;
-                case BMICategory.obeseClass3:
-                  range = 'BMI ≥ 40.0';
-                  break;
-              }
 
               return Container(
                 margin: EdgeInsets.only(bottom: 1.h),
@@ -646,7 +625,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            cat.displayName,
+                            cat.localizedName,
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
@@ -654,7 +633,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
                             ),
                           ),
                           Text(
-                            range,
+                            cat.rangeText,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.grey[600],

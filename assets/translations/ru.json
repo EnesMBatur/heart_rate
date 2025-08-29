@@ -165,6 +165,9 @@
         "start_adding_records": "Начните с добавления первой записи ИМТ",
         "delete_confirmation": "Удалить запись ИМТ",
         "record_deleted": "Запись ИМТ удалена",
+        "chart_title": "График ИМТ",
+        "category": "Категория",
+        "delete_confirmation_message": "Вы уверены, что хотите удалить эту запись ИМТ?",
         "categories": {
             "very_severe_underweight": "Крайне выраженный дефицит массы",
             "severe_underweight": "Сильный дефицит массы",

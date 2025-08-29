@@ -165,6 +165,9 @@
         "start_adding_records": "İlk BMI kaydınızı ekleyerek başlayın",
         "delete_confirmation": "BMI Kaydını Sil",
         "record_deleted": "BMI kaydı silindi",
+        "chart_title": "BMI Grafiği",
+        "category": "Kategori",
+        "delete_confirmation_message": "Bu BMI kaydını silmek istediğinizden emin misiniz?",
         "categories": {
             "very_severe_underweight": "Çok Şiddetli Zayıf",
             "severe_underweight": "Şiddetli Zayıf",

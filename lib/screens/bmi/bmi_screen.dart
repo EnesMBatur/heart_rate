@@ -41,7 +41,7 @@ class BMIScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Lifetime summary',
+                    LocaleKeys.bmi_lifetime_summary.tr(),
                     style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
                   ),
                   SizedBox(height: 1.5.h),
@@ -66,9 +66,9 @@ class BMIScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFFF6B6B),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
-        label: const Text(
-          'Add',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        label: Text(
+          LocaleKeys.button_add.tr(),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

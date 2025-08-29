@@ -153,6 +153,9 @@ abstract class  LocaleKeys {
   static const bmi_start_adding_records = 'bmi.start_adding_records';
   static const bmi_delete_confirmation = 'bmi.delete_confirmation';
   static const bmi_record_deleted = 'bmi.record_deleted';
+  static const bmi_chart_title = 'bmi.chart_title';
+  static const bmi_category = 'bmi.category';
+  static const bmi_delete_confirmation_message = 'bmi.delete_confirmation_message';
   static const bmi_categories_very_severe_underweight = 'bmi.categories.very_severe_underweight';
   static const bmi_categories_severe_underweight = 'bmi.categories.severe_underweight';
   static const bmi_categories_underweight = 'bmi.categories.underweight';

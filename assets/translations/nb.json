@@ -165,6 +165,9 @@
         "start_adding_records": "Begynn med å legge til din første BMI-oppføring",
         "delete_confirmation": "Slett BMI-oppføring",
         "record_deleted": "BMI-oppføring slettet",
+        "chart_title": "BMI-diagram",
+        "category": "Kategori",
+        "delete_confirmation_message": "Er du sikker på at du vil slette denne BMI-posten?",
         "categories": {
             "very_severe_underweight": "Svært alvorlig undervekt",
             "severe_underweight": "Alvorlig undervekt",

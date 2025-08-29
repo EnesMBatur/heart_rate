@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 enum BMICategory {
   verySevereUnderweight('Very severely underweight', Color(0xFF2196F3)),
@@ -13,6 +15,48 @@ enum BMICategory {
   const BMICategory(this.displayName, this.color);
   final String displayName;
   final Color color;
+
+  String get localizedName {
+    switch (this) {
+      case BMICategory.verySevereUnderweight:
+        return LocaleKeys.bmi_categories_very_severe_underweight.tr();
+      case BMICategory.severeUnderweight:
+        return LocaleKeys.bmi_categories_severe_underweight.tr();
+      case BMICategory.underweight:
+        return LocaleKeys.bmi_categories_underweight.tr();
+      case BMICategory.normal:
+        return LocaleKeys.bmi_categories_normal.tr();
+      case BMICategory.overweight:
+        return LocaleKeys.bmi_categories_overweight.tr();
+      case BMICategory.obeseClass1:
+        return LocaleKeys.bmi_categories_obese_class_1.tr();
+      case BMICategory.obeseClass2:
+        return LocaleKeys.bmi_categories_obese_class_2.tr();
+      case BMICategory.obeseClass3:
+        return LocaleKeys.bmi_categories_obese_class_3.tr();
+    }
+  }
+
+  String get rangeText {
+    switch (this) {
+      case BMICategory.verySevereUnderweight:
+        return LocaleKeys.bmi_ranges_very_severe_underweight.tr();
+      case BMICategory.severeUnderweight:
+        return LocaleKeys.bmi_ranges_severe_underweight.tr();
+      case BMICategory.underweight:
+        return LocaleKeys.bmi_ranges_underweight.tr();
+      case BMICategory.normal:
+        return LocaleKeys.bmi_ranges_normal.tr();
+      case BMICategory.overweight:
+        return LocaleKeys.bmi_ranges_overweight.tr();
+      case BMICategory.obeseClass1:
+        return LocaleKeys.bmi_ranges_obese_class_1.tr();
+      case BMICategory.obeseClass2:
+        return LocaleKeys.bmi_ranges_obese_class_2.tr();
+      case BMICategory.obeseClass3:
+        return LocaleKeys.bmi_ranges_obese_class_3.tr();
+    }
+  }
 }
 
 class BMIRecord {
