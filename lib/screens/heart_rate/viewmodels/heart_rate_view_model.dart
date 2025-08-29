@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import '../../../models/heart_rate_measurement.dart';
 import '../../../services/event_bus.dart';
+import '../../../locale/lang/locale_keys.g.dart';
+
+enum TimeRange {
+  today,
+  days7,
+  days14,
+  days30;
+
+  String get localizedName {
+    switch (this) {
+      case TimeRange.today:
+        return LocaleKeys.general_today.tr();
+      case TimeRange.days7:
+        return LocaleKeys.blood_sugar_7_days.tr();
+      case TimeRange.days14:
+        return LocaleKeys.blood_sugar_14_days.tr();
+      case TimeRange.days30:
+        return LocaleKeys.blood_sugar_30_days.tr();
+    }
+  }
+}
 
 class HeartRateViewModel extends ChangeNotifier {
   List<HeartRateMeasurement> _measurements = [];
   bool _isLoading = false;
   bool _showStatistics = true;
-  String _selectedTimeRange = '7 Days';
+  TimeRange _selectedTimeRange = TimeRange.days7;
   HeartRateMeasurement? _selectedMeasurement;
 
   // Callback for when data changes (to notify other screens)
@@ -17,7 +39,7 @@ class HeartRateViewModel extends ChangeNotifier {
   List<HeartRateMeasurement> get measurements => _measurements;
   bool get isLoading => _isLoading;
   bool get showStatistics => _showStatistics;
-  String get selectedTimeRange => _selectedTimeRange;
+  TimeRange get selectedTimeRange => _selectedTimeRange;
   HeartRateMeasurement? get selectedMeasurement => _selectedMeasurement;
   List<HeartRateMeasurement> get recentMeasurements => _measurements;
   int get totalRecords => _measurements.length;
@@ -86,7 +108,7 @@ class HeartRateViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTimeRange(String timeRange) {
+  void setTimeRange(TimeRange timeRange) {
     _selectedTimeRange = timeRange;
     notifyListeners();
   }
@@ -101,20 +123,18 @@ class HeartRateViewModel extends ChangeNotifier {
     DateTime filterDate;
 
     switch (_selectedTimeRange) {
-      case 'Today':
+      case TimeRange.today:
         filterDate = DateTime(now.year, now.month, now.day);
         break;
-      case '7 Days':
+      case TimeRange.days7:
         filterDate = now.subtract(const Duration(days: 7));
         break;
-      case '14 Days':
+      case TimeRange.days14:
         filterDate = now.subtract(const Duration(days: 14));
         break;
-      case '30 Days':
+      case TimeRange.days30:
         filterDate = now.subtract(const Duration(days: 30));
         break;
-      default:
-        filterDate = now.subtract(const Duration(days: 7));
     }
 
     return _measurements

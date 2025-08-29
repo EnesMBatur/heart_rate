@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Matala",
         "normal": "Normaali",
+        "concerning": "Huolestuttava",
         "elevated": "Kohonnut",
         "high": "Korkea",
         "trend": "Syke-trendi",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Aloita mittaaminen nähdäksesi historiasi"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Veren happipitoisuus",
         "edit_title": "Muokkaa happipitoisuutta",
         "add_title": "Lisää happipitoisuus",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Haluatko varmasti poistaa tämän happimittauksen?",
         "note": "Huomautus",
         "lifetime_summary": "Elinikäinen keskiarvo",
-        "no_data_available": "Valitulle ajanjaksolle ei ole tietoja"
+        "no_data_available": "Valitulle ajanjaksolle ei ole tietoja",
+        "categories": {
+            "normal": "Normaali (95-100%)",
+            "concerning": "Huolestuttava (90-94%)",
+            "low": "Matala (0-89%)",
+            "normal_text": "Normaali hapen kyllästystaso (95-100%)",
+            "concerning_text": "Alle normaalin, voi viitata lievään hypoksemiaan (90-94%)",
+            "low_text": "Matala happitaso, hakeudu lääkärin hoitoon (0-89%)"
+        }
     },
     "actions": {
         "edit": "Muokkaa",
@@ -68,6 +78,7 @@
         "error": "Virhe"
     },
     "blood_pressure": {
+        "delete_confirmation": "Haluatko varmasti poistaa tämän verenpainemittauksen?",
         "title": "Verenpaine",
         "details": "Tiedot",
         "systolic": "Systolinen",
@@ -79,7 +90,27 @@
         "saved_successfully": "Verenpaine tallennettu!",
         "error_updating": "Virhe päivitettäessä mittausta",
         "error_saving": "Virhe tallennettaessa mittausta",
-        "please_enter_valid_numbers": "Syötä kelvollisia numeroita"
+        "please_enter_valid_numbers": "Syötä kelvollisia numeroita",
+        "chart_title": "Verenpaineen tiedot",
+        "chart_diastolic_legend": "Diastolinen (Alhaalla)",
+        "chart_systolic_legend": "Systolinen (Ylhäällä)",
+        "no_data_available": "Ei tietoja valitulle ajanjaksolle",
+        "categories": {
+            "hypotension": "Hypotensio",
+            "normal": "Normaali",
+            "elevated": "Kohonnut",
+            "hypertension_stage_1": "Hypertensio, Vaihe 1",
+            "hypertension_stage_2": "Hypertensio, Vaihe 2",
+            "hypertensive": "Hypertensiivinen kriisi"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Verensokeri",
@@ -154,6 +185,7 @@
         "disclaimer": "Vastuuvapauslauseke"
     },
     "bmi": {
+        "weight_chart": "Painotrendi",
         "title": "BMI",
         "weight": "Paino",
         "height": "Pituus",
@@ -167,6 +199,7 @@
         "record_deleted": "BMI-tietue poistettu",
         "chart_title": "BMI-kaavio",
         "category": "Kategoria",
+        "error_saving": "Virhe tietueen tallennuksessa",
         "delete_confirmation_message": "Haluatko varmasti poistaa tämän BMI-tietueen?",
         "categories": {
             "very_severe_underweight": "Erittäin vaikea alipaino",
@@ -345,6 +378,7 @@
         "delete": "Poista"
     },
     "general": {
+        "tap_add_first_measurement": "Napauta + -painiketta lisätäksesi ensimmäisen mittauksesi",
         "app_title": "HeartRater - Syke­mittari",
         "home": "Koti",
         "measure": "Mittaa",

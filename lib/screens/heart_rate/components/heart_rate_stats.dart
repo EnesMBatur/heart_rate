@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/heart_rate_view_model.dart';
 
 class HeartRateStats extends StatelessWidget {
@@ -22,7 +24,7 @@ class HeartRateStats extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Statistics for ${viewModel.selectedTimeRange}',
+                  '${LocaleKeys.general_statistics.tr()} ${viewModel.selectedTimeRange.localizedName}',
                   style: TextStyle(
                     fontSize: 16.sp,
                     color: Colors.grey[600],
@@ -34,19 +36,19 @@ class HeartRateStats extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _buildStatItem(
-                      'Average',
+                      LocaleKeys.general_average.tr(),
                       avgHeartRate.toStringAsFixed(0),
-                      'BPM',
+                      LocaleKeys.general_bpm.tr(),
                     ),
                     _buildStatItem(
-                      'Maximum',
+                      LocaleKeys.general_maximum.tr(),
                       maxHeartRate.toStringAsFixed(0),
-                      'BPM',
+                      LocaleKeys.general_bpm.tr(),
                     ),
                     _buildStatItem(
-                      'Minimum',
+                      LocaleKeys.general_minimum.tr(),
                       minHeartRate.toStringAsFixed(0),
-                      'BPM',
+                      LocaleKeys.general_bpm.tr(),
                     ),
                   ],
                 ),

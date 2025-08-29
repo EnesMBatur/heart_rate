@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Basso",
         "normal": "Normale",
+        "concerning": "Preoccupante",
         "elevated": "Elevato",
         "high": "Alto",
         "trend": "Andamento della frequenza cardiaca",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Inizia a misurare per vedere lo storico"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Ossigeno nel sangue",
         "edit_title": "Modifica ossigeno nel sangue",
         "add_title": "Aggiungi ossigeno nel sangue",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Sei sicuro di voler eliminare questa misurazione di ossigeno nel sangue?",
         "note": "Nota",
         "lifetime_summary": "Riepilogo medio a vita",
-        "no_data_available": "Nessun dato disponibile per il periodo selezionato"
+        "no_data_available": "Nessun dato disponibile per il periodo selezionato",
+        "categories": {
+            "normal": "Normale (95-100%)",
+            "concerning": "Preoccupante (90-94%)",
+            "low": "Basso (0-89%)",
+            "normal_text": "Livello normale di saturazione di ossigeno (95-100%)",
+            "concerning_text": "Sotto la norma, può indicare ipossiemia lieve (90-94%)",
+            "low_text": "Basso livello di ossigeno, consultare un medico (0-89%)"
+        }
     },
     "actions": {
         "edit": "Modifica",
@@ -68,6 +78,7 @@
         "error": "Errore"
     },
     "blood_pressure": {
+        "delete_confirmation": "Sei sicuro di voler eliminare questa misurazione della pressione sanguigna?",
         "title": "Pressione sanguigna",
         "details": "Dettagli",
         "systolic": "Sistolica",
@@ -79,7 +90,27 @@
         "saved_successfully": "Pressione sanguigna salvata con successo!",
         "error_updating": "Errore durante l’aggiornamento della misurazione",
         "error_saving": "Errore durante il salvataggio della misurazione",
-        "please_enter_valid_numbers": "Inserisci numeri validi"
+        "please_enter_valid_numbers": "Inserisci numeri validi",
+        "chart_title": "Registrazioni della pressione sanguigna",
+        "chart_diastolic_legend": "Diastolica (Basso)",
+        "chart_systolic_legend": "Sistolica (Alto)",
+        "no_data_available": "Nessun dato disponibile per il periodo selezionato",
+        "categories": {
+            "hypotension": "Ipotensione",
+            "normal": "Normale",
+            "elevated": "Elevato",
+            "hypertension_stage_1": "Ipertensione, Stadio 1",
+            "hypertension_stage_2": "Ipertensione, Stadio 2",
+            "hypertensive": "Crisi ipertensiva"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Glicemia",
@@ -154,6 +185,7 @@
         "disclaimer": "Avvertenza"
     },
     "bmi": {
+        "weight_chart": "Andamento del peso",
         "title": "BMI",
         "weight": "Peso",
         "height": "Altezza",
@@ -167,6 +199,7 @@
         "record_deleted": "Record BMI eliminato",
         "chart_title": "Grafico BMI",
         "category": "Categoria",
+        "error_saving": "Errore durante il salvataggio del record",
         "delete_confirmation_message": "Sei sicuro di voler eliminare questo record BMI?",
         "categories": {
             "very_severe_underweight": "Grave sottopeso molto severo",
@@ -345,6 +378,7 @@
         "delete": "Elimina"
     },
     "general": {
+        "tap_add_first_measurement": "Tocca il pulsante + per aggiungere la tua prima misurazione",
         "app_title": "HeartRater - Monitor della frequenza cardiaca",
         "home": "Home",
         "measure": "Misura",

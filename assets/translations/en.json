@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Low",
         "normal": "Normal",
+        "concerning": "Concerning",
         "elevated": "Elevated",
         "high": "High",
         "trend": "Heart Rate Trend",
@@ -44,10 +45,19 @@
         "record_updated": "Blood oxygen record updated",
         "record_saved": "Blood oxygen record saved",
         "chart_title": "Blood Oxygen (SpO2%)",
+        "spo2": "SpO2",
         "delete_confirmation": "Are you sure you want to delete this blood oxygen measurement?",
         "note": "Note",
         "lifetime_summary": "Lifetime average summary",
-        "no_data_available": "No data available for selected period"
+        "no_data_available": "No data available for selected period",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Concerning (90-94%)",
+            "low": "Low (0-89%)",
+            "normal_text": "Normal oxygen saturation level (95-100%)",
+            "concerning_text": "Below normal, may indicate mild hypoxemia (90-94%)",
+            "low_text": "Low oxygen level, seek medical attention (0-89%)"
+        }
     },
     "actions": {
         "edit": "Edit",
@@ -79,7 +89,28 @@
         "saved_successfully": "Blood pressure saved successfully!",
         "error_updating": "Error updating measurement",
         "error_saving": "Error saving measurement",
-        "please_enter_valid_numbers": "Please enter valid numbers"
+        "delete_confirmation": "Are you sure you want to delete this blood pressure measurement?",
+        "please_enter_valid_numbers": "Please enter valid numbers",
+        "chart_title": "Blood Pressure Records",
+        "chart_diastolic_legend": "Diastolic (Bottom)",
+        "chart_systolic_legend": "Systolic (Top)",
+        "no_data_available": "No data available for selected period",
+        "categories": {
+            "hypotension": "Hypotension",
+            "normal": "Normal",
+            "elevated": "Elevated",
+            "hypertension_stage_1": "Hypertension, Stage 1",
+            "hypertension_stage_2": "Hypertension, Stage 2",
+            "hypertensive": "Hypertensive"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Blood Sugar",
@@ -169,6 +200,7 @@
         "delete_confirmation_message": "Are you sure you want to delete this BMI record?",
         "record_deleted": "BMI record deleted",
         "chart_title": "BMI Chart",
+        "weight_chart": "Weight Trend",
         "categories": {
             "very_severe_underweight": "Very Severe Underweight",
             "severe_underweight": "Severe Underweight",
@@ -395,6 +427,7 @@
         "history_cleared": "History cleared",
         "no_measurements_yet": "No measurements yet",
         "no_measurements_description": "Take your first heart rate measurement to see it here",
+        "tap_add_first_measurement": "Tap the + button to add your first measurement",
         "statistics": "Statistics",
         "average": "Average",
         "lowest": "Lowest",

@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "נמוך",
         "normal": "רגיל",
+        "concerning": "מדאיג",
         "elevated": "מוגבר",
         "high": "גבוה",
         "trend": "מגמת דופק",
@@ -38,6 +39,7 @@
         "start_measuring_history": "התחל למדוד כדי לראות את ההיסטוריה שלך"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "חמצן בדם",
         "edit_title": "ערוך חמצן בדם",
         "add_title": "הוסף חמצן בדם",
@@ -47,7 +49,15 @@
         "delete_confirmation": "האם אתה בטוח שברצונך למחוק מדידת חמצן זו?",
         "note": "הערה",
         "lifetime_summary": "סיכום ממוצע לכל החיים",
-        "no_data_available": "אין נתונים זמינים לתקופה שנבחרה"
+        "no_data_available": "אין נתונים זמינים לתקופה שנבחרה",
+        "categories": {
+            "normal": "נורמלי (95-100%)",
+            "concerning": "מדאיג (90-94%)",
+            "low": "נמוך (0-89%)",
+            "normal_text": "רמת ריווי חמצן תקינה (95-100%)",
+            "concerning_text": "מתחת לנורמלי, עשוי להצביע על היפוקסמיה קלה (90-94%)",
+            "low_text": "רמת חמצן נמוכה, פנה לטיפול רפואי (0-89%)"
+        }
     },
     "actions": {
         "edit": "ערוך",
@@ -68,6 +78,7 @@
         "error": "שגיאה"
     },
     "blood_pressure": {
+        "delete_confirmation": "האם אתה בטוח שברצונך למחוק את מדידת לחץ הדם הזו?",
         "title": "לחץ דם",
         "details": "פרטים",
         "systolic": "סיסטולי",
@@ -79,7 +90,27 @@
         "saved_successfully": "לחץ הדם נשמר בהצלחה!",
         "error_updating": "שגיאה בעדכון המדידה",
         "error_saving": "שגיאה בשמירת המדידה",
-        "please_enter_valid_numbers": "אנא הזן מספרים תקינים"
+        "please_enter_valid_numbers": "אנא הזן מספרים תקינים",
+        "chart_title": "רישומי לחץ דם",
+        "chart_diastolic_legend": "דיאסטולי (תחתון)",
+        "chart_systolic_legend": "סיסטולי (עליון)",
+        "no_data_available": "אין נתונים זמינים עבור התקופה שנבחרה",
+        "categories": {
+            "hypotension": "לחץ דם נמוך",
+            "normal": "נורמלי",
+            "elevated": "מוגבר",
+            "hypertension_stage_1": "יתר לחץ דם, שלב 1",
+            "hypertension_stage_2": "יתר לחץ דם, שלב 2",
+            "hypertensive": "משבר יתר לחץ דם"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "סוכר בדם",
@@ -154,6 +185,7 @@
         "disclaimer": "כתב ויתור"
     },
     "bmi": {
+        "weight_chart": "מגמת משקל",
         "title": "BMI",
         "weight": "משקל",
         "height": "גובה",
@@ -167,6 +199,7 @@
         "record_deleted": "רשומת BMI נמחקה",
         "chart_title": "תרשים BMI",
         "category": "קטגוריה",
+        "error_saving": "שגיאה בשמירת הרשומה",
         "delete_confirmation_message": "האם אתה בטוח שברצונך למחוק רשומת BMI זו?",
         "categories": {
             "very_severe_underweight": "תת-משקל חמור מאוד",
@@ -345,6 +378,7 @@
         "delete": "מחק"
     },
     "general": {
+        "tap_add_first_measurement": "הקש על כפתור + כדי להוסיף את המדידה הראשונה שלך",
         "app_title": "HeartRater - מד דופק",
         "home": "בית",
         "measure": "מדידה",

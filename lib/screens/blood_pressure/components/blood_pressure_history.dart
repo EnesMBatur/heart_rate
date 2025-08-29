@@ -36,7 +36,7 @@ class BloodPressureHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 1.h),
                 Text(
-                  'Tap the + button to add your first measurement',
+                  LocaleKeys.general_tap_add_first_measurement.tr(),
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
               ],
@@ -82,12 +82,8 @@ class BloodPressureHistory extends StatelessWidget {
             Icon(Icons.delete_outline, color: Colors.white, size: 32),
             SizedBox(height: 0.5.h),
             Text(
-              'Delete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-              ),
+              LocaleKeys.actions_delete.tr(),
+              style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ],
         ),
@@ -99,7 +95,7 @@ class BloodPressureHistory extends StatelessWidget {
             return AlertDialog(
               title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
               content: Text(
-                'Are you sure you want to delete this blood pressure measurement?\n\n${measurement.systolic}/${measurement.diastolic} - ${dateFormatter.format(measurement.timestamp)}',
+                '${LocaleKeys.blood_pressure_delete_confirmation.tr()}\n\n${measurement.systolic}/${measurement.diastolic} - ${dateFormatter.format(measurement.timestamp)}',
               ),
               actions: [
                 TextButton(
@@ -123,7 +119,7 @@ class BloodPressureHistory extends StatelessWidget {
             content: Text(LocaleKeys.dialogs_measurement_deleted.tr()),
             backgroundColor: Colors.red,
             action: SnackBarAction(
-              label: 'Undo',
+              label: LocaleKeys.actions_undo.tr(),
               textColor: Colors.white,
               onPressed: () {
                 viewModel.addMeasurement(measurement);

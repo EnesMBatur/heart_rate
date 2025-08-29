@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/blood_oxygen_view_model.dart';
 
 class BloodOxygenToggleButtons extends StatelessWidget {
@@ -36,7 +38,7 @@ class BloodOxygenToggleButtons extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Statistics',
+                        LocaleKeys.general_statistics.tr(),
                         style: TextStyle(
                           color: viewModel.showStatistics
                               ? Colors.white
@@ -72,7 +74,7 @@ class BloodOxygenToggleButtons extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'History (${viewModel.totalRecords})',
+                        '${LocaleKeys.general_history.tr()} (${viewModel.totalRecords})',
                         style: TextStyle(
                           color: !viewModel.showStatistics
                               ? Colors.white

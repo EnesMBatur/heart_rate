@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../locale/lang/locale_keys.g.dart';
 
 class BloodPressureMeasurement {
   final String id;
@@ -119,34 +121,34 @@ enum BloodPressureCategory {
   String get displayName {
     switch (this) {
       case BloodPressureCategory.hypotension:
-        return 'Hypotension';
+        return LocaleKeys.blood_pressure_categories_hypotension.tr();
       case BloodPressureCategory.normal:
-        return 'Normal';
+        return LocaleKeys.blood_pressure_categories_normal.tr();
       case BloodPressureCategory.elevated:
-        return 'Elevated';
+        return LocaleKeys.blood_pressure_categories_elevated.tr();
       case BloodPressureCategory.hypertensionStage1:
-        return 'Hypertension, Stage 1';
+        return LocaleKeys.blood_pressure_categories_hypertension_stage_1.tr();
       case BloodPressureCategory.hypertensionStage2:
-        return 'Hypertension, Stage 2';
+        return LocaleKeys.blood_pressure_categories_hypertension_stage_2.tr();
       case BloodPressureCategory.hypertensive:
-        return 'Hypertensive';
+        return LocaleKeys.blood_pressure_categories_hypertensive.tr();
     }
   }
 
   String get description {
     switch (this) {
       case BloodPressureCategory.hypotension:
-        return 'SYS < 90 & DIA < 60';
+        return LocaleKeys.blood_pressure_descriptions_hypotension.tr();
       case BloodPressureCategory.normal:
-        return 'SYS 90-119 & DIA 60-79';
+        return LocaleKeys.blood_pressure_descriptions_normal.tr();
       case BloodPressureCategory.elevated:
-        return 'SYS 120-129 & DIA 60-79';
+        return LocaleKeys.blood_pressure_descriptions_elevated.tr();
       case BloodPressureCategory.hypertensionStage1:
-        return 'SYS 130-139 & DIA 80-89';
+        return LocaleKeys.blood_pressure_descriptions_hypertension_stage_1.tr();
       case BloodPressureCategory.hypertensionStage2:
-        return 'SYS 140-180 & DIA 90-120';
+        return LocaleKeys.blood_pressure_descriptions_hypertension_stage_2.tr();
       case BloodPressureCategory.hypertensive:
-        return 'SYS > 180 & DIA > 120';
+        return LocaleKeys.blood_pressure_descriptions_hypertensive.tr();
     }
   }
 

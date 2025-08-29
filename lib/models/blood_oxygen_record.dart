@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 enum BloodOxygenCategory {
   normal,
@@ -9,11 +11,11 @@ enum BloodOxygenCategory {
   String get displayName {
     switch (this) {
       case BloodOxygenCategory.low:
-        return 'Low';
+        return LocaleKeys.heart_rate_low.tr();
       case BloodOxygenCategory.concerning:
-        return 'Concerning';
+        return LocaleKeys.heart_rate_concerning.tr();
       case BloodOxygenCategory.normal:
-        return 'Normal';
+        return LocaleKeys.heart_rate_normal.tr();
     }
   }
 

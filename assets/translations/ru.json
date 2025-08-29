@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Низкий",
         "normal": "Нормальный",
+        "concerning": "Niepokojący",
         "elevated": "Повышенный",
         "high": "Высокий",
         "trend": "Тенденция частоты сердечных сокращений",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Начните измерять, чтобы увидеть свою историю"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Кислород в крови",
         "edit_title": "Редактировать уровень кислорода",
         "add_title": "Добавить уровень кислорода",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Вы уверены, что хотите удалить это измерение кислорода?",
         "note": "Примечание",
         "lifetime_summary": "Средние данные за всё время",
-        "no_data_available": "Нет данных за выбранный период"
+        "no_data_available": "Нет данных за выбранный период",
+        "categories": {
+            "normal": "Норма (95-100%)",
+            "concerning": "Вызывает беспокойство (90-94%)",
+            "low": "Низкий (0-89%)",
+            "normal_text": "Нормальный уровень насыщения кислородом (95-100%)",
+            "concerning_text": "Ниже нормы, может указывать на лёгкую гипоксемию (90-94%)",
+            "low_text": "Низкий уровень кислорода, обратитесь за медицинской помощью (0-89%)"
+        }
     },
     "actions": {
         "edit": "Редактировать",
@@ -68,6 +78,7 @@
         "error": "Ошибка"
     },
     "blood_pressure": {
+        "delete_confirmation": "Вы уверены, что хотите удалить это измерение артериального давления?",
         "title": "Кровяное давление",
         "details": "Детали",
         "systolic": "Систолическое",
@@ -79,7 +90,27 @@
         "saved_successfully": "Кровяное давление успешно сохранено!",
         "error_updating": "Ошибка при обновлении измерения",
         "error_saving": "Ошибка при сохранении измерения",
-        "please_enter_valid_numbers": "Пожалуйста, введите корректные значения"
+        "please_enter_valid_numbers": "Пожалуйста, введите корректные значения",
+        "chart_title": "Записи артериального давления",
+        "chart_diastolic_legend": "Диастолическое (Нижнее)",
+        "chart_systolic_legend": "Систолическое (Верхнее)",
+        "no_data_available": "Нет данных за выбранный период",
+        "categories": {
+            "hypotension": "Гипотензия",
+            "normal": "Норма",
+            "elevated": "Повышенное",
+            "hypertension_stage_1": "Гипертония, Стадия 1",
+            "hypertension_stage_2": "Гипертония, Стадия 2",
+            "hypertensive": "Гипертонический криз"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Уровень сахара в крови",
@@ -154,6 +185,7 @@
         "disclaimer": "Отказ от ответственности"
     },
     "bmi": {
+        "weight_chart": "Динамика веса",
         "title": "ИМТ",
         "weight": "Вес",
         "height": "Рост",
@@ -167,6 +199,7 @@
         "record_deleted": "Запись ИМТ удалена",
         "chart_title": "График ИМТ",
         "category": "Категория",
+        "error_saving": "Erro ao salvar o registro",
         "delete_confirmation_message": "Вы уверены, что хотите удалить эту запись ИМТ?",
         "categories": {
             "very_severe_underweight": "Крайне выраженный дефицит массы",
@@ -345,6 +378,7 @@
         "delete": "Удалить"
     },
     "general": {
+        "tap_add_first_measurement": "Нажмите кнопку +, чтобы добавить своё первое измерение",
         "app_title": "HeartRater - Монитор сердечного ритма",
         "home": "Главная",
         "measure": "Измерить",

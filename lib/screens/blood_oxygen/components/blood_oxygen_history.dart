@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/blood_oxygen_record.dart';
 import '../viewmodels/blood_oxygen_view_model.dart';
 
@@ -25,7 +27,7 @@ class BloodOxygenHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  'No measurements yet',
+                  LocaleKeys.general_no_measurements_yet.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -34,7 +36,7 @@ class BloodOxygenHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 1.h),
                 Text(
-                  'Tap the + button to add your first measurement',
+                  LocaleKeys.general_tap_add_first_measurement.tr(),
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
               ],
@@ -80,12 +82,8 @@ class BloodOxygenHistory extends StatelessWidget {
             Icon(Icons.delete_outline, color: Colors.white, size: 32),
             SizedBox(height: 0.5.h),
             Text(
-              'Delete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-              ),
+              LocaleKeys.actions_delete.tr(),
+              style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ],
         ),
@@ -95,19 +93,19 @@ class BloodOxygenHistory extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Delete Measurement'),
+              title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
               content: Text(
-                'Are you sure you want to delete this blood oxygen measurement?\n\n${record.spO2}% - ${dateFormatter.format(record.timestamp)}',
+                '${LocaleKeys.blood_oxygen_delete_confirmation.tr()}\n\n${record.spO2}% - ${dateFormatter.format(record.timestamp)}',
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(LocaleKeys.actions_cancel.tr()),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
-                  child: const Text('Delete'),
+                  child: Text(LocaleKeys.actions_delete.tr()),
                 ),
               ],
             );
@@ -118,10 +116,10 @@ class BloodOxygenHistory extends StatelessWidget {
         viewModel.deleteRecord(record);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Measurement deleted'),
+            content: Text(LocaleKeys.dialogs_measurement_deleted.tr()),
             backgroundColor: Colors.red,
             action: SnackBarAction(
-              label: 'Undo',
+              label: LocaleKeys.actions_undo.tr(),
               textColor: Colors.white,
               onPressed: () {
                 viewModel.add(record);
@@ -169,7 +167,7 @@ class BloodOxygenHistory extends StatelessWidget {
                     ),
                     SizedBox(height: 0.5.h),
                     Text(
-                      'SpO2',
+                      LocaleKeys.blood_oxygen_spo2.tr(),
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: Colors.grey[600],

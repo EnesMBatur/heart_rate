@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Laag",
         "normal": "Normaal",
+        "concerning": "Zorgwekkend",
         "elevated": "Verhoogd",
         "high": "Hoog",
         "trend": "Hartslagtrend",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Begin met meten om je historie te zien"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Bloedzuurstof",
         "edit_title": "Bloedzuurstof bewerken",
         "add_title": "Bloedzuurstof toevoegen",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Weet je zeker dat je deze bloedzuurstofmeting wilt verwijderen?",
         "note": "Notitie",
         "lifetime_summary": "Gemiddeld levensoverzicht",
-        "no_data_available": "Geen gegevens beschikbaar voor de geselecteerde periode"
+        "no_data_available": "Geen gegevens beschikbaar voor de geselecteerde periode",
+        "categories": {
+            "normal": "Normaal (95-100%)",
+            "concerning": "Zorgwekkend (90-94%)",
+            "low": "Laag (0-89%)",
+            "normal_text": "Normaal zuurstofsaturatieniveau (95-100%)",
+            "concerning_text": "Onder normaal, kan wijzen op milde hypoxemie (90-94%)",
+            "low_text": "Laag zuurstofniveau, zoek medische hulp (0-89%)"
+        }
     },
     "actions": {
         "edit": "Bewerken",
@@ -68,6 +78,7 @@
         "error": "Fout"
     },
     "blood_pressure": {
+        "delete_confirmation": "Weet je zeker dat je deze bloeddrukmeting wilt verwijderen?",
         "title": "Bloeddruk",
         "details": "Details",
         "systolic": "Systolisch",
@@ -79,7 +90,27 @@
         "saved_successfully": "Bloeddruk succesvol opgeslagen!",
         "error_updating": "Fout bij bijwerken van meting",
         "error_saving": "Fout bij opslaan van meting",
-        "please_enter_valid_numbers": "Voer alstublieft geldige cijfers in"
+        "please_enter_valid_numbers": "Voer alstublieft geldige cijfers in",
+        "chart_title": "Bloeddrukregistraties",
+        "chart_diastolic_legend": "Diastolisch (Onder)",
+        "chart_systolic_legend": "Systolisch (Boven)",
+        "no_data_available": "Geen gegevens beschikbaar voor de geselecteerde periode",
+        "categories": {
+            "hypotension": "Hypotensie",
+            "normal": "Normaal",
+            "elevated": "Verhoogd",
+            "hypertension_stage_1": "Hypertensie, Fase 1",
+            "hypertension_stage_2": "Hypertensie, Fase 2",
+            "hypertensive": "Hypertensieve crisis"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Bloedsuiker",
@@ -154,6 +185,7 @@
         "disclaimer": "Disclaimer"
     },
     "bmi": {
+        "weight_chart": "Gewichtstrend",
         "title": "BMI",
         "weight": "Gewicht",
         "height": "Lengte",
@@ -167,6 +199,7 @@
         "record_deleted": "BMI-record verwijderd",
         "chart_title": "BMI-grafiek",
         "category": "Categorie",
+        "error_saving": "Fout bij het opslaan van record",
         "delete_confirmation_message": "Weet je zeker dat je dit BMI-record wilt verwijderen?",
         "categories": {
             "very_severe_underweight": "Zeer ernstig ondergewicht",
@@ -345,6 +378,7 @@
         "delete": "Verwijderen"
     },
     "general": {
+        "tap_add_first_measurement": "Tik op de + knop om je eerste meting toe te voegen",
         "app_title": "HeartRater - Hartslagmeter",
         "home": "Home",
         "measure": "Meten",

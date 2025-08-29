@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/heart_rate_view_model.dart';
 import '../../../models/heart_rate_measurement.dart';
 
@@ -21,7 +23,7 @@ class HeartRateHistory extends StatelessWidget {
                 Icon(Icons.favorite_outline, size: 64, color: Colors.grey[400]),
                 SizedBox(height: 2.h),
                 Text(
-                  'No measurements yet',
+                  LocaleKeys.history_no_measurements_yet.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -30,7 +32,7 @@ class HeartRateHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 1.h),
                 Text(
-                  'Tap the Measure button to add your first measurement',
+                  LocaleKeys.heart_rate_tap_measure_button.tr(),
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
               ],
@@ -90,7 +92,7 @@ class HeartRateHistory extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Delete Measurement'),
+              title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
               content: Text(
                 'Are you sure you want to delete this heart rate measurement?\n\n${measurement.heartRate} BPM - ${DateFormat('MMM dd, yyyy').format(measurement.timestamp)}',
               ),

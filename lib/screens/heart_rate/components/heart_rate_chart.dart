@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/heart_rate_view_model.dart';
 
 class HeartRateChart extends StatelessWidget {
@@ -19,10 +21,10 @@ class HeartRateChart extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDateRangeButton('Today', viewModel),
-                  _buildDateRangeButton('7 Days', viewModel),
-                  _buildDateRangeButton('14 Days', viewModel),
-                  _buildDateRangeButton('30 Days', viewModel),
+                  _buildDateRangeButton(TimeRange.today, viewModel),
+                  _buildDateRangeButton(TimeRange.days7, viewModel),
+                  _buildDateRangeButton(TimeRange.days14, viewModel),
+                  _buildDateRangeButton(TimeRange.days30, viewModel),
                 ],
               ),
             ),
@@ -50,10 +52,13 @@ class HeartRateChart extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeButton(String label, HeartRateViewModel viewModel) {
-    final isSelected = viewModel.selectedTimeRange == label;
+  Widget _buildDateRangeButton(
+    TimeRange timeRange,
+    HeartRateViewModel viewModel,
+  ) {
+    final isSelected = viewModel.selectedTimeRange == timeRange;
     return GestureDetector(
-      onTap: () => viewModel.setTimeRange(label),
+      onTap: () => viewModel.setTimeRange(timeRange),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.8.h),
         decoration: BoxDecoration(
@@ -61,7 +66,7 @@ class HeartRateChart extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
-          label,
+          timeRange.localizedName,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
@@ -83,7 +88,7 @@ class HeartRateChart extends StatelessWidget {
             Icon(Icons.favorite, size: 64, color: Colors.grey[300]),
             SizedBox(height: 1.h),
             Text(
-              'No heart rate data available',
+              LocaleKeys.heart_rate_no_data_available.tr(),
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[500],
@@ -99,7 +104,7 @@ class HeartRateChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Heart Rate Trend',
+          LocaleKeys.heart_rate_trend.tr(),
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.bold,
@@ -175,7 +180,7 @@ class HeartRateChart extends StatelessWidget {
                       if (spotIndex >= 0 && spotIndex < chartData.length) {
                         final measurement = chartData[spotIndex];
                         return LineTooltipItem(
-                          '${measurement.heartRate} BPM\n${measurement.heartRateCategory}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
+                          '${measurement.heartRate} ${LocaleKeys.general_bpm.tr()}\n${measurement.heartRateCategory}\n${measurement.timestamp.day}/${measurement.timestamp.month} ${measurement.timestamp.hour}:${measurement.timestamp.minute.toString().padLeft(2, '0')}',
                           TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

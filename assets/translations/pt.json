@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Baixo",
         "normal": "Normal",
+        "concerning": "Niepokojący",
         "elevated": "Elevado",
         "high": "Alto",
         "trend": "Tendência da frequência cardíaca",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Comece a medir para ver seu histórico"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Oxigênio no sangue",
         "edit_title": "Editar oxigênio no sangue",
         "add_title": "Adicionar oxigênio no sangue",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Tem certeza de que deseja excluir esta medição de oxigênio?",
         "note": "Nota",
         "lifetime_summary": "Resumo médio vitalício",
-        "no_data_available": "Nenhum dado disponível para o período selecionado"
+        "no_data_available": "Nenhum dado disponível para o período selecionado",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Preocupante (90-94%)",
+            "low": "Baixo (0-89%)",
+            "normal_text": "Nível normal de saturação de oxigênio (95-100%)",
+            "concerning_text": "Abaixo do normal, pode indicar hipoxemia leve (90-94%)",
+            "low_text": "Baixo nível de oxigênio, procure atendimento médico (0-89%)"
+        }
     },
     "actions": {
         "edit": "Editar",
@@ -68,6 +78,7 @@
         "error": "Erro"
     },
     "blood_pressure": {
+        "delete_confirmation": "Tem certeza de que deseja excluir esta medição da pressão arterial?",
         "title": "Pressão arterial",
         "details": "Detalhes",
         "systolic": "Sistólica",
@@ -79,7 +90,27 @@
         "saved_successfully": "Pressão arterial salva com sucesso!",
         "error_updating": "Erro ao atualizar a medição",
         "error_saving": "Erro ao salvar a medição",
-        "please_enter_valid_numbers": "Por favor insira números válidos"
+        "please_enter_valid_numbers": "Por favor insira números válidos",
+        "chart_title": "Registros de pressão arterial",
+        "chart_diastolic_legend": "Diastólica (Inferior)",
+        "chart_systolic_legend": "Sistólica (Superior)",
+        "no_data_available": "Nenhum dado disponível para o período selecionado",
+        "categories": {
+            "hypotension": "Hipotensão",
+            "normal": "Normal",
+            "elevated": "Elevado",
+            "hypertension_stage_1": "Hipertensão, Estágio 1",
+            "hypertension_stage_2": "Hipertensão, Estágio 2",
+            "hypertensive": "Crise hipertensiva"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Açúcar no sangue",
@@ -154,6 +185,7 @@
         "disclaimer": "Aviso"
     },
     "bmi": {
+        "weight_chart": "Tendência de peso",
         "title": "IMC",
         "weight": "Peso",
         "height": "Altura",
@@ -167,6 +199,7 @@
         "record_deleted": "Registro de IMC excluído",
         "chart_title": "Gráfico de IMC",
         "category": "Categoria",
+        "error_saving": "Erro ao salvar o registro",
         "delete_confirmation_message": "Tem certeza de que deseja excluir este registro de IMC?",
         "categories": {
             "very_severe_underweight": "Baixo peso muito grave",
@@ -345,6 +378,7 @@
         "delete": "Excluir"
     },
     "general": {
+        "tap_add_first_measurement": "Toque no botão + para adicionar sua primeira medição",
         "app_title": "HeartRater - Monitor de Frequência Cardíaca",
         "home": "Início",
         "measure": "Medir",

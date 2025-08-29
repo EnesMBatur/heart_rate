@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Düşük",
         "normal": "Normal",
+        "concerning": "Endişe verici",
         "elevated": "Yüksek",
         "high": "Çok Yüksek",
         "trend": "Kalp Atış Hızı Eğilimi",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Geçmişinizi görmek için ölçüm yapmaya başlayın"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Kan Oksijeni",
         "edit_title": "Kan Oksijenini Düzenle",
         "add_title": "Kan Oksijeni Ekle",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Bu kan oksijen ölçümünü silmek istediğinizden emin misiniz?",
         "note": "Not",
         "lifetime_summary": "Yaşam boyu ortalama özet",
-        "no_data_available": "Seçilen dönem için veri bulunmuyor"
+        "no_data_available": "Seçilen dönem için veri bulunmuyor",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Endişe Verici (90-94%)",
+            "low": "Düşük (0-89%)",
+            "normal_text": "Normal oksijen doygunluk seviyesi (95-100%)",
+            "concerning_text": "Normalin altında, hafif hipoksemi gösterebilir (90-94%)",
+            "low_text": "Düşük oksijen seviyesi, tıbbi yardım alın (0-89%)"
+        }
     },
     "actions": {
         "edit": "Düzenle",
@@ -68,6 +78,7 @@
         "error": "Hata"
     },
     "blood_pressure": {
+        "delete_confirmation": "Bu kan basıncı ölçümünü silmek istediğinizden emin misiniz?",
         "title": "Kan Basıncı",
         "details": "Detaylar",
         "systolic": "Sistolik",
@@ -79,7 +90,27 @@
         "saved_successfully": "Kan basıncı başarıyla kaydedildi!",
         "error_updating": "Ölçüm güncellenirken hata oluştu",
         "error_saving": "Ölçüm kaydedilirken hata oluştu",
-        "please_enter_valid_numbers": "Lütfen geçerli sayılar girin"
+        "please_enter_valid_numbers": "Lütfen geçerli sayılar girin",
+        "chart_title": "Kan Basıncı Kayıtları",
+        "chart_diastolic_legend": "Diyastolik (Alt)",
+        "chart_systolic_legend": "Sistolik (Üst)",
+        "no_data_available": "Seçilen dönem için veri yok",
+        "categories": {
+            "hypotension": "Hipotansiyon",
+            "normal": "Normal",
+            "elevated": "Yüksek",
+            "hypertension_stage_1": "Hipertansiyon, Evre 1",
+            "hypertension_stage_2": "Hipertansiyon, Evre 2",
+            "hypertensive": "Hipertansif kriz"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Kan Şekeri",
@@ -154,6 +185,7 @@
         "disclaimer": "Yasal Uyarı"
     },
     "bmi": {
+        "weight_chart": "Kilo Eğilimi",
         "title": "BMI",
         "weight": "Kilo",
         "height": "Boy",
@@ -171,6 +203,7 @@
         "categories": {
             "very_severe_underweight": "Çok Şiddetli Zayıf",
             "severe_underweight": "Şiddetli Zayıf",
+            "error_saving": "Kayıt kaydedilirken hata oluştu",
             "underweight": "Zayıf",
             "normal": "Normal",
             "overweight": "Fazla Kilolu",
@@ -345,6 +378,7 @@
         "delete": "Sil"
     },
     "general": {
+        "tap_add_first_measurement": "+ düğmesine dokunarak ilk ölçümünüzü ekleyin",
         "app_title": "HeartRater - Kalp Atış Hızı Monitörü",
         "home": "Ana Sayfa",
         "measure": "Ölçüm",

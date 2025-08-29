@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Lav",
         "normal": "Normal",
+        "concerning": "Bekymringsfull",
         "elevated": "Forhøyet",
         "high": "Høy",
         "trend": "Hjertefrekvenstrend",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Begynn å måle for å se historikken din"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Blodoksygen",
         "edit_title": "Rediger blodoksygen",
         "add_title": "Legg til blodoksygen",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Er du sikker på at du vil slette denne blodoksygenmålingen?",
         "note": "Notat",
         "lifetime_summary": "Livstids gjennomsnittlig sammendrag",
-        "no_data_available": "Ingen data tilgjengelig for valgt periode"
+        "no_data_available": "Ingen data tilgjengelig for valgt periode",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Bekymringsfull (90-94%)",
+            "low": "Lav (0-89%)",
+            "normal_text": "Normalt oksygenmetningsnivå (95-100%)",
+            "concerning_text": "Under normalt, kan indikere mild hypoksemi (90-94%)",
+            "low_text": "Lavt oksygennivå, søk legehjelp (0-89%)"
+        }
     },
     "actions": {
         "edit": "Rediger",
@@ -68,6 +78,7 @@
         "error": "Feil"
     },
     "blood_pressure": {
+        "delete_confirmation": "Er du sikker på at du vil slette denne blodtrykksmålingen?",
         "title": "Blodtrykk",
         "details": "Detaljer",
         "systolic": "Systolisk",
@@ -79,7 +90,27 @@
         "saved_successfully": "Blodtrykk lagret!",
         "error_updating": "Feil ved oppdatering av måling",
         "error_saving": "Feil ved lagring av måling",
-        "please_enter_valid_numbers": "Vennligst skriv inn gyldige tall"
+        "please_enter_valid_numbers": "Vennligst skriv inn gyldige tall",
+        "chart_title": "Blodtrykksregistre",
+        "chart_diastolic_legend": "Diastolisk (Nederst)",
+        "chart_systolic_legend": "Systolisk (Øverst)",
+        "no_data_available": "Ingen data tilgjengelig for valgt periode",
+        "categories": {
+            "hypotension": "Hypotensjon",
+            "normal": "Normal",
+            "elevated": "Forhøyet",
+            "hypertension_stage_1": "Hypertensjon, Stadium 1",
+            "hypertension_stage_2": "Hypertensjon, Stadium 2",
+            "hypertensive": "Hypertensiv krise"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Blodsukker",
@@ -154,6 +185,7 @@
         "disclaimer": "Ansvarsfraskrivelse"
     },
     "bmi": {
+        "weight_chart": "Vekttrend",
         "title": "BMI",
         "weight": "Vekt",
         "height": "Høyde",
@@ -167,6 +199,7 @@
         "record_deleted": "BMI-oppføring slettet",
         "chart_title": "BMI-diagram",
         "category": "Kategori",
+        "error_saving": "Feil ved lagring av post",
         "delete_confirmation_message": "Er du sikker på at du vil slette denne BMI-posten?",
         "categories": {
             "very_severe_underweight": "Svært alvorlig undervekt",
@@ -345,6 +378,7 @@
         "delete": "Slett"
     },
     "general": {
+        "tap_add_first_measurement": "Trykk på + knappen for å legge til din første måling",
         "app_title": "HeartRater - Pulsmåler",
         "home": "Hjem",
         "measure": "Mål",

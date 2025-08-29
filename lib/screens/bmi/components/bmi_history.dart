@@ -153,7 +153,7 @@ class BMIHistory extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                r.category.displayName,
+                r.category.localizedName,
                 style: TextStyle(
                   color: r.category.color,
                   fontWeight: FontWeight.w600,

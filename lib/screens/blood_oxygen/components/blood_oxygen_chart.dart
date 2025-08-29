@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/blood_oxygen_record.dart';
 import '../viewmodels/blood_oxygen_view_model.dart';
 
@@ -20,10 +22,10 @@ class BloodOxygenChart extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDateRangeButton('Today', vm),
-                  _buildDateRangeButton('7 Days', vm),
-                  _buildDateRangeButton('14 Days', vm),
-                  _buildDateRangeButton('30 Days', vm),
+                  _buildDateRangeButton(TimeRange.today, vm),
+                  _buildDateRangeButton(TimeRange.days7, vm),
+                  _buildDateRangeButton(TimeRange.days14, vm),
+                  _buildDateRangeButton(TimeRange.days30, vm),
                 ],
               ),
             ),
@@ -51,10 +53,13 @@ class BloodOxygenChart extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeButton(String label, BloodOxygenViewModel viewModel) {
-    final isSelected = viewModel.selectedTimeRange == label;
+  Widget _buildDateRangeButton(
+    TimeRange timeRange,
+    BloodOxygenViewModel viewModel,
+  ) {
+    final isSelected = viewModel.selectedTimeRange == timeRange;
     return GestureDetector(
-      onTap: () => viewModel.setTimeRange(label),
+      onTap: () => viewModel.setTimeRange(timeRange),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.8.h),
         decoration: BoxDecoration(
@@ -62,7 +67,7 @@ class BloodOxygenChart extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
-          label,
+          timeRange.localizedName,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
@@ -84,7 +89,7 @@ class BloodOxygenChart extends StatelessWidget {
             Icon(Icons.bar_chart, size: 64, color: Colors.grey[300]),
             SizedBox(height: 1.h),
             Text(
-              'No data available for selected period',
+              LocaleKeys.blood_oxygen_no_data_available.tr(),
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[500],
@@ -99,7 +104,7 @@ class BloodOxygenChart extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Blood Oxygen (SpO2%)',
+          LocaleKeys.blood_oxygen_chart_title.tr(),
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.bold,
@@ -216,14 +221,17 @@ class BloodOxygenChart extends StatelessWidget {
           spacing: 3.w,
           children: [
             _buildLegendItem(
-              'Normal (95-100%)',
+              LocaleKeys.blood_oxygen_categories_normal.tr(),
               BloodOxygenCategory.normal.color,
             ),
             _buildLegendItem(
-              'Concerning (90-94%)',
+              LocaleKeys.blood_oxygen_categories_concerning.tr(),
               BloodOxygenCategory.concerning.color,
             ),
-            _buildLegendItem('Low (0-89%)', BloodOxygenCategory.low.color),
+            _buildLegendItem(
+              LocaleKeys.blood_oxygen_categories_low.tr(),
+              BloodOxygenCategory.low.color,
+            ),
           ],
         ),
       ],

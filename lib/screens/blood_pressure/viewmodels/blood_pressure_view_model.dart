@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../models/blood_pressure_measurement.dart';
 import '../../../services/blood_pressure_service.dart';
+import '../../../locale/lang/locale_keys.g.dart';
+
+enum TimeRange {
+  today,
+  days7,
+  days14,
+  days30;
+
+  String get localizedName {
+    switch (this) {
+      case TimeRange.today:
+        return LocaleKeys.general_today.tr();
+      case TimeRange.days7:
+        return LocaleKeys.blood_sugar_7_days.tr();
+      case TimeRange.days14:
+        return LocaleKeys.blood_sugar_14_days.tr();
+      case TimeRange.days30:
+        return LocaleKeys.blood_sugar_30_days.tr();
+    }
+  }
+}
 
 class BloodPressureViewModel extends ChangeNotifier {
   final BloodPressureService _service = BloodPressureService();
@@ -9,14 +31,14 @@ class BloodPressureViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool _showStatistics = true;
   String _selectedPeriod = 'Week';
-  String _selectedTimeRange = '7 Days';
+  TimeRange _selectedTimeRange = TimeRange.days7;
   BloodPressureMeasurement? _selectedMeasurement;
 
   List<BloodPressureMeasurement> get measurements => _measurements;
   bool get isLoading => _isLoading;
   bool get showStatistics => _showStatistics;
   String get selectedPeriod => _selectedPeriod;
-  String get selectedTimeRange => _selectedTimeRange;
+  TimeRange get selectedTimeRange => _selectedTimeRange;
   BloodPressureMeasurement? get selectedMeasurement => _selectedMeasurement;
   List<BloodPressureMeasurement> get recentMeasurements => _measurements;
   int get totalRecords => _measurements.length;
@@ -74,7 +96,7 @@ class BloodPressureViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTimeRange(String timeRange) {
+  void setTimeRange(TimeRange timeRange) {
     _selectedTimeRange = timeRange;
     notifyListeners();
   }
@@ -85,20 +107,18 @@ class BloodPressureViewModel extends ChangeNotifier {
     int daysToSubtract;
 
     switch (_selectedTimeRange) {
-      case 'Today':
+      case TimeRange.today:
         daysToSubtract = 0;
         break;
-      case '7 Days':
+      case TimeRange.days7:
         daysToSubtract = 7;
         break;
-      case '14 Days':
+      case TimeRange.days14:
         daysToSubtract = 14;
         break;
-      case '30 Days':
+      case TimeRange.days30:
         daysToSubtract = 30;
         break;
-      default:
-        daysToSubtract = 7;
     }
 
     final startDate = DateTime(now.year, now.month, now.day - daysToSubtract);

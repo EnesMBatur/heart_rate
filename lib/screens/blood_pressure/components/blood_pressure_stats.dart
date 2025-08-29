@@ -18,7 +18,7 @@ class BloodPressureStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Statistics for ${viewModel.selectedTimeRange}',
+              '${LocaleKeys.general_statistics.tr()} ${viewModel.selectedTimeRange.localizedName}',
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[600],

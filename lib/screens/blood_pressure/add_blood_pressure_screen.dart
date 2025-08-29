@@ -77,7 +77,9 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
             onPressed: () => context.pop(),
           ),
           title: Text(
-            isEditMode ? LocaleKeys.actions_edit.tr() : 'Add',
+            isEditMode
+                ? LocaleKeys.actions_edit.tr()
+                : LocaleKeys.actions_add.tr(),
             style: TextStyle(
               color: Colors.black,
               fontSize: 20.sp,
@@ -192,7 +194,9 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
                     ),
                   ),
                   child: Text(
-                    isEditMode ? 'Update' : LocaleKeys.actions_save.tr(),
+                    isEditMode
+                        ? LocaleKeys.actions_update.tr()
+                        : LocaleKeys.actions_save.tr(),
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.white,
@@ -387,7 +391,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
             controller: _noteController,
             maxLines: 3,
             decoration: InputDecoration(
-              hintText: 'Add your note here ...',
+              hintText: LocaleKeys.blood_sugar_add_note_hint.tr(),
               hintStyle: TextStyle(color: Colors.grey[400]),
               border: InputBorder.none,
             ),
@@ -588,15 +592,21 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
           .updateMeasurement(measurement)
           .then((_) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Blood pressure updated successfully!'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.blood_pressure_updated_successfully.tr(),
+                ),
               ),
             );
             context.pop();
           })
           .catchError((error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error updating measurement: $error')),
+              SnackBar(
+                content: Text(
+                  '${LocaleKeys.blood_pressure_error_updating.tr()}: $error',
+                ),
+              ),
             );
           });
     } else {
@@ -605,15 +615,21 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
           .addMeasurement(measurement)
           .then((_) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Blood pressure saved successfully!'),
+              SnackBar(
+                content: Text(
+                  LocaleKeys.blood_pressure_saved_successfully.tr(),
+                ),
               ),
             );
             context.pop();
           })
           .catchError((error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error saving measurement: $error')),
+              SnackBar(
+                content: Text(
+                  '${LocaleKeys.blood_pressure_error_saving.tr()}: $error',
+                ),
+              ),
             );
           });
     }

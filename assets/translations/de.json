@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Niedrig",
         "normal": "Normal",
+        "concerning": "Besorgniserregend",
         "elevated": "Erhöht",
         "high": "Hoch",
         "trend": "Herzfrequenz-Trend",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Beginne mit dem Messen, um deine Historie zu sehen"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Blutsauerstoff",
         "edit_title": "Blutsauerstoff bearbeiten",
         "add_title": "Blutsauerstoff hinzufügen",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Bist du sicher, dass du diese Blutsauerstoffmessung löschen möchtest?",
         "note": "Notiz",
         "lifetime_summary": "Durchschnitt über die gesamte Zeit",
-        "no_data_available": "Keine Daten für den ausgewählten Zeitraum verfügbar"
+        "no_data_available": "Keine Daten für den ausgewählten Zeitraum verfügbar",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Besorgniserregend (90-94%)",
+            "low": "Niedrig (0-89%)",
+            "normal_text": "Normale Sauerstoffsättigung (95-100%)",
+            "concerning_text": "Unter normal, kann auf leichte Hypoxämie hinweisen (90-94%)",
+            "low_text": "Niedriger Sauerstoffgehalt, ärztliche Hilfe erforderlich (0-89%)"
+        }
     },
     "actions": {
         "edit": "Bearbeiten",
@@ -68,6 +78,7 @@
         "error": "Fehler"
     },
     "blood_pressure": {
+        "delete_confirmation": "Sind Sie sicher, dass Sie diese Blutdruckmessung löschen möchten?",
         "title": "Blutdruck",
         "details": "Details",
         "systolic": "Systolisch",
@@ -79,7 +90,27 @@
         "saved_successfully": "Blutdruck erfolgreich gespeichert!",
         "error_updating": "Fehler beim Aktualisieren der Messung",
         "error_saving": "Fehler beim Speichern der Messung",
-        "please_enter_valid_numbers": "Bitte gib gültige Zahlen ein"
+        "please_enter_valid_numbers": "Bitte gib gültige Zahlen ein",
+        "chart_title": "Blutdruckaufzeichnungen",
+        "chart_diastolic_legend": "Diastolisch (Unten)",
+        "chart_systolic_legend": "Systolisch (Oben)",
+        "no_data_available": "Keine Daten für den ausgewählten Zeitraum verfügbar",
+        "categories": {
+            "hypotension": "Hypotonie",
+            "normal": "Normal",
+            "elevated": "Erhöht",
+            "hypertension_stage_1": "Hypertonie, Stadium 1",
+            "hypertension_stage_2": "Hypertonie, Stadium 2",
+            "hypertensive": "Hypertensive Krise"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Blutzucker",
@@ -154,6 +185,7 @@
         "disclaimer": "Haftungsausschluss"
     },
     "bmi": {
+        "weight_chart": "Gewichtstrend",
         "title": "BMI",
         "weight": "Gewicht",
         "height": "Größe",
@@ -167,6 +199,7 @@
         "record_deleted": "BMI-Eintrag gelöscht",
         "chart_title": "BMI-Diagramm",
         "category": "Kategorie",
+        "error_saving": "Fehler beim Speichern des Eintrags",
         "delete_confirmation_message": "Sind Sie sicher, dass Sie diesen BMI-Eintrag löschen möchten?",
         "categories": {
             "very_severe_underweight": "Sehr starkes Untergewicht",
@@ -345,6 +378,7 @@
         "delete": "Löschen"
     },
     "general": {
+        "tap_add_first_measurement": "Tippe auf die + Taste, um deine erste Messung hinzuzufügen",
         "app_title": "HeartRater - Herzfrequenz-Monitor",
         "home": "Startseite",
         "measure": "Messen",

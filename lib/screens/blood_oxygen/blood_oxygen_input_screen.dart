@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 import '../../models/blood_oxygen_record.dart';
 import 'viewmodels/blood_oxygen_view_model.dart';
 
@@ -54,7 +56,9 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
               onPressed: () => context.pop(),
             ),
             title: Text(
-              _isEditing ? 'Edit Blood Oxygen' : 'Add Blood Oxygen',
+              _isEditing
+                  ? LocaleKeys.blood_oxygen_edit_title.tr()
+                  : LocaleKeys.blood_oxygen_add_title.tr(),
               style: TextStyle(
                 fontSize: 20.sp,
                 color: Colors.black,
@@ -145,7 +149,7 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
                               const Icon(Icons.note, color: Color(0xFFFF6B6B)),
                               SizedBox(width: 2.w),
                               Text(
-                                'Note',
+                                LocaleKeys.blood_oxygen_note.tr(),
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.grey[600],
@@ -158,7 +162,8 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
                             controller: _noteController,
                             maxLines: 3,
                             decoration: InputDecoration(
-                              hintText: 'Add your note here ...',
+                              hintText: LocaleKeys.blood_sugar_add_note_hint
+                                  .tr(),
                               hintStyle: TextStyle(color: Colors.grey[400]),
                               border: InputBorder.none,
                             ),
@@ -201,7 +206,7 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
                           ),
                         ),
                         child: Text(
-                          'Cancel',
+                          LocaleKeys.actions_cancel.tr(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -228,7 +233,9 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
                                 color: Colors.white,
                               )
                             : Text(
-                                _isEditing ? 'Update' : 'Save',
+                                _isEditing
+                                    ? LocaleKeys.actions_update.tr()
+                                    : LocaleKeys.actions_save.tr(),
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w600,
@@ -271,8 +278,8 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
         SnackBar(
           content: Text(
             _isEditing
-                ? 'Blood oxygen record updated ($_spO2%)'
-                : 'Blood oxygen record saved ($_spO2%)',
+                ? '${LocaleKeys.blood_oxygen_record_updated.tr()} ($_spO2%)'
+                : '${LocaleKeys.blood_oxygen_record_saved.tr()} ($_spO2%)',
           ),
           backgroundColor: const Color(0xFFFF6B6B),
         ),
@@ -329,7 +336,7 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
         children: [
           // Label
           Text(
-            'SpO2',
+            LocaleKeys.blood_oxygen_spo2.tr(),
             style: TextStyle(fontSize: 18.sp, color: Colors.grey[600]),
           ),
           SizedBox(height: 3.h),
@@ -499,11 +506,11 @@ class _BloodOxygenInputScreenState extends State<BloodOxygenInputScreen> {
   String _getCategoryDescription(BloodOxygenCategory category) {
     switch (category) {
       case BloodOxygenCategory.normal:
-        return 'Normal oxygen saturation level (95-100%)';
+        return LocaleKeys.blood_oxygen_categories_normal_text.tr();
       case BloodOxygenCategory.concerning:
-        return 'Below normal, may indicate mild hypoxemia (90-94%)';
+        return LocaleKeys.blood_oxygen_categories_concerning_text.tr();
       case BloodOxygenCategory.low:
-        return 'Low oxygen level, seek medical attention (0-89%)';
+        return LocaleKeys.blood_oxygen_categories_low_text.tr();
     }
   }
 }

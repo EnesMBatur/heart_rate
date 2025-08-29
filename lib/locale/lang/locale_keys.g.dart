@@ -26,6 +26,7 @@ abstract class  LocaleKeys {
   static const health = 'health';
   static const heart_rate_low = 'heart_rate.low';
   static const heart_rate_normal = 'heart_rate.normal';
+  static const heart_rate_concerning = 'heart_rate.concerning';
   static const heart_rate_elevated = 'heart_rate.elevated';
   static const heart_rate_high = 'heart_rate.high';
   static const heart_rate_trend = 'heart_rate.trend';
@@ -37,6 +38,7 @@ abstract class  LocaleKeys {
   static const history_no_measurements_yet = 'history.no_measurements_yet';
   static const history_start_measuring_history = 'history.start_measuring_history';
   static const history = 'history';
+  static const blood_oxygen_spo2 = 'blood_oxygen.spo2';
   static const blood_oxygen_title = 'blood_oxygen.title';
   static const blood_oxygen_edit_title = 'blood_oxygen.edit_title';
   static const blood_oxygen_add_title = 'blood_oxygen.add_title';
@@ -47,6 +49,13 @@ abstract class  LocaleKeys {
   static const blood_oxygen_note = 'blood_oxygen.note';
   static const blood_oxygen_lifetime_summary = 'blood_oxygen.lifetime_summary';
   static const blood_oxygen_no_data_available = 'blood_oxygen.no_data_available';
+  static const blood_oxygen_categories_normal = 'blood_oxygen.categories.normal';
+  static const blood_oxygen_categories_concerning = 'blood_oxygen.categories.concerning';
+  static const blood_oxygen_categories_low = 'blood_oxygen.categories.low';
+  static const blood_oxygen_categories_normal_text = 'blood_oxygen.categories.normal_text';
+  static const blood_oxygen_categories_concerning_text = 'blood_oxygen.categories.concerning_text';
+  static const blood_oxygen_categories_low_text = 'blood_oxygen.categories.low_text';
+  static const blood_oxygen_categories = 'blood_oxygen.categories';
   static const blood_oxygen = 'blood_oxygen';
   static const actions_edit = 'actions.edit';
   static const actions_add = 'actions.add';
@@ -64,6 +73,7 @@ abstract class  LocaleKeys {
   static const dialogs_success = 'dialogs.success';
   static const dialogs_error = 'dialogs.error';
   static const dialogs = 'dialogs';
+  static const blood_pressure_delete_confirmation = 'blood_pressure.delete_confirmation';
   static const blood_pressure_title = 'blood_pressure.title';
   static const blood_pressure_details = 'blood_pressure.details';
   static const blood_pressure_systolic = 'blood_pressure.systolic';
@@ -76,6 +86,24 @@ abstract class  LocaleKeys {
   static const blood_pressure_error_updating = 'blood_pressure.error_updating';
   static const blood_pressure_error_saving = 'blood_pressure.error_saving';
   static const blood_pressure_please_enter_valid_numbers = 'blood_pressure.please_enter_valid_numbers';
+  static const blood_pressure_chart_title = 'blood_pressure.chart_title';
+  static const blood_pressure_chart_diastolic_legend = 'blood_pressure.chart_diastolic_legend';
+  static const blood_pressure_chart_systolic_legend = 'blood_pressure.chart_systolic_legend';
+  static const blood_pressure_no_data_available = 'blood_pressure.no_data_available';
+  static const blood_pressure_categories_hypotension = 'blood_pressure.categories.hypotension';
+  static const blood_pressure_categories_normal = 'blood_pressure.categories.normal';
+  static const blood_pressure_categories_elevated = 'blood_pressure.categories.elevated';
+  static const blood_pressure_categories_hypertension_stage_1 = 'blood_pressure.categories.hypertension_stage_1';
+  static const blood_pressure_categories_hypertension_stage_2 = 'blood_pressure.categories.hypertension_stage_2';
+  static const blood_pressure_categories_hypertensive = 'blood_pressure.categories.hypertensive';
+  static const blood_pressure_categories = 'blood_pressure.categories';
+  static const blood_pressure_descriptions_hypotension = 'blood_pressure.descriptions.hypotension';
+  static const blood_pressure_descriptions_normal = 'blood_pressure.descriptions.normal';
+  static const blood_pressure_descriptions_elevated = 'blood_pressure.descriptions.elevated';
+  static const blood_pressure_descriptions_hypertension_stage_1 = 'blood_pressure.descriptions.hypertension_stage_1';
+  static const blood_pressure_descriptions_hypertension_stage_2 = 'blood_pressure.descriptions.hypertension_stage_2';
+  static const blood_pressure_descriptions_hypertensive = 'blood_pressure.descriptions.hypertensive';
+  static const blood_pressure_descriptions = 'blood_pressure.descriptions';
   static const blood_pressure = 'blood_pressure';
   static const blood_sugar_title = 'blood_sugar.title';
   static const blood_sugar_edit_title = 'blood_sugar.edit_title';
@@ -142,6 +170,7 @@ abstract class  LocaleKeys {
   static const settings_tips = 'settings.tips';
   static const settings_disclaimer = 'settings.disclaimer';
   static const settings = 'settings';
+  static const bmi_weight_chart = 'bmi.weight_chart';
   static const bmi_title = 'bmi.title';
   static const bmi_weight = 'bmi.weight';
   static const bmi_height = 'bmi.height';
@@ -158,6 +187,7 @@ abstract class  LocaleKeys {
   static const bmi_delete_confirmation_message = 'bmi.delete_confirmation_message';
   static const bmi_categories_very_severe_underweight = 'bmi.categories.very_severe_underweight';
   static const bmi_categories_severe_underweight = 'bmi.categories.severe_underweight';
+  static const bmi_categories_error_saving = 'bmi.categories.error_saving';
   static const bmi_categories_underweight = 'bmi.categories.underweight';
   static const bmi_categories_normal = 'bmi.categories.normal';
   static const bmi_categories_overweight = 'bmi.categories.overweight';
@@ -318,6 +348,7 @@ abstract class  LocaleKeys {
   static const button_deleteall = 'button.deleteall';
   static const button_delete = 'button.delete';
   static const button = 'button';
+  static const general_tap_add_first_measurement = 'general.tap_add_first_measurement';
   static const general_app_title = 'general.app_title';
   static const general_home = 'general.home';
   static const general_measure = 'general.measure';

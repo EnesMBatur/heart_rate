@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Låg",
         "normal": "Normal",
+        "concerning": "Oroväckande",
         "elevated": "Förhöjd",
         "high": "Hög",
         "trend": "Hjärtfrekvenstrend",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Börja mäta för att se din historik"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Blodsyre",
         "edit_title": "Redigera blodsyre",
         "add_title": "Lägg till blodsyre",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Är du säker på att du vill ta bort denna blodsyremätning?",
         "note": "Anteckning",
         "lifetime_summary": "Livstidsgenomsnitt",
-        "no_data_available": "Inga data tillgängliga för vald period"
+        "no_data_available": "Inga data tillgängliga för vald period",
+        "categories": {
+            "normal": "Normal (95-100%)",
+            "concerning": "Oroväckande (90-94%)",
+            "low": "Låg (0-89%)",
+            "normal_text": "Normal syremättnadsnivå (95-100%)",
+            "concerning_text": "Under normalt, kan indikera mild hypoxemi (90-94%)",
+            "low_text": "Låg syrenivå, sök medicinsk hjälp (0-89%)"
+        }
     },
     "actions": {
         "edit": "Redigera",
@@ -68,6 +78,7 @@
         "error": "Fel"
     },
     "blood_pressure": {
+        "delete_confirmation": "Är du säker på att du vill ta bort denna blodtrycksmätning?",
         "title": "Blodtryck",
         "details": "Detaljer",
         "systolic": "Systoliskt",
@@ -79,7 +90,27 @@
         "saved_successfully": "Blodtryck sparat!",
         "error_updating": "Fel vid uppdatering av mätning",
         "error_saving": "Fel vid sparande av mätning",
-        "please_enter_valid_numbers": "Ange giltiga siffror"
+        "please_enter_valid_numbers": "Ange giltiga siffror",
+        "chart_title": "Blodtrycksregister",
+        "chart_diastolic_legend": "Diastoliskt (Nedre)",
+        "chart_systolic_legend": "Systoliskt (Övre)",
+        "no_data_available": "Inga data tillgängliga för vald period",
+        "categories": {
+            "hypotension": "Hypotoni",
+            "normal": "Normal",
+            "elevated": "Förhöjt",
+            "hypertension_stage_1": "Hypertoni, Steg 1",
+            "hypertension_stage_2": "Hypertoni, Steg 2",
+            "hypertensive": "Hypertensiv kris"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Blodsocker",
@@ -154,6 +185,7 @@
         "disclaimer": "Ansvarsfriskrivning"
     },
     "bmi": {
+        "weight_chart": "Vikttrend",
         "title": "BMI",
         "weight": "Vikt",
         "height": "Längd",
@@ -171,6 +203,7 @@
         "categories": {
             "very_severe_underweight": "Mycket allvarlig undervikt",
             "severe_underweight": "Allvarlig undervikt",
+            "error_saving": "Fel vid sparande av post",
             "underweight": "Undervikt",
             "normal": "Normal",
             "overweight": "Övervikt",
@@ -345,6 +378,7 @@
         "delete": "Ta bort"
     },
     "general": {
+        "tap_add_first_measurement": "Tryck på + knappen för att lägga till din första mätning",
         "app_title": "HeartRater - Pulsmätare",
         "home": "Hem",
         "measure": "Mät",

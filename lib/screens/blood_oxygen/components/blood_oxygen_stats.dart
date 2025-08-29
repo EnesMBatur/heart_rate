@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/blood_oxygen_view_model.dart';
 
 class BloodOxygenStats extends StatelessWidget {
@@ -39,7 +41,7 @@ class BloodOxygenStats extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _buildStatCard(
-                        'Average',
+                        LocaleKeys.general_average.tr(),
                         '${stats['avgSpO2']}',
                         Icons.show_chart,
                         const Color(0xFF4CAF50),
@@ -48,7 +50,7 @@ class BloodOxygenStats extends StatelessWidget {
                     SizedBox(width: 4.w),
                     Expanded(
                       child: _buildStatCard(
-                        'Highest',
+                        LocaleKeys.general_highest.tr(),
                         '${stats['maxSpO2']}',
                         Icons.trending_up,
                         const Color(0xFF2196F3),
@@ -57,7 +59,7 @@ class BloodOxygenStats extends StatelessWidget {
                     SizedBox(width: 4.w),
                     Expanded(
                       child: _buildStatCard(
-                        'Lowest',
+                        LocaleKeys.general_lowest.tr(),
                         '${stats['minSpO2']}',
                         Icons.trending_down,
                         const Color(0xFFFF9800),

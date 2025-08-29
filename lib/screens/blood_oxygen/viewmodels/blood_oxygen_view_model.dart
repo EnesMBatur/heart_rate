@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../models/blood_oxygen_record.dart';
 import '../../../services/blood_oxygen_service.dart';
 import '../../../services/event_bus.dart';
+import '../../../locale/lang/locale_keys.g.dart';
+
+enum TimeRange {
+  today,
+  days7,
+  days14,
+  days30;
+
+  String get localizedName {
+    switch (this) {
+      case TimeRange.today:
+        return LocaleKeys.general_today.tr();
+      case TimeRange.days7:
+        return LocaleKeys.blood_sugar_7_days.tr();
+      case TimeRange.days14:
+        return LocaleKeys.blood_sugar_14_days.tr();
+      case TimeRange.days30:
+        return LocaleKeys.blood_sugar_30_days.tr();
+    }
+  }
+}
 
 class BloodOxygenViewModel extends ChangeNotifier {
   final BloodOxygenService _service = BloodOxygenService();
   bool _isLoading = false;
   bool _showStatistics = true;
-  String _selectedTimeRange = '7 Days';
+  TimeRange _selectedTimeRange = TimeRange.days7;
   List<BloodOxygenRecord> _records = [];
 
   bool get isLoading => _isLoading;
   bool get showStatistics => _showStatistics;
-  String get selectedTimeRange => _selectedTimeRange;
+  TimeRange get selectedTimeRange => _selectedTimeRange;
   List<BloodOxygenRecord> get records => _records;
   int get totalRecords => _records.length;
 
@@ -69,7 +91,7 @@ class BloodOxygenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTimeRange(String value) {
+  void setTimeRange(TimeRange value) {
     _selectedTimeRange = value;
     notifyListeners();
   }
@@ -79,20 +101,18 @@ class BloodOxygenViewModel extends ChangeNotifier {
     DateTime startDate;
 
     switch (_selectedTimeRange) {
-      case 'Today':
+      case TimeRange.today:
         startDate = DateTime(now.year, now.month, now.day);
         break;
-      case '7 Days':
+      case TimeRange.days7:
         startDate = now.subtract(const Duration(days: 7));
         break;
-      case '14 Days':
+      case TimeRange.days14:
         startDate = now.subtract(const Duration(days: 14));
         break;
-      case '30 Days':
+      case TimeRange.days30:
         startDate = now.subtract(const Duration(days: 30));
         break;
-      default:
-        startDate = now.subtract(const Duration(days: 7));
     }
 
     final filteredRecords = _records

@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "Niski",
         "normal": "Normalny",
+        "concerning": "Niepokojący",
         "elevated": "Podwyższony",
         "high": "Wysoki",
         "trend": "Trend tętna",
@@ -38,6 +39,7 @@
         "start_measuring_history": "Rozpocznij pomiary, aby zobaczyć historię"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "Tlen we krwi",
         "edit_title": "Edytuj tlen we krwi",
         "add_title": "Dodaj tlen we krwi",
@@ -47,7 +49,15 @@
         "delete_confirmation": "Czy na pewno chcesz usunąć ten pomiar tlenu we krwi?",
         "note": "Notatka",
         "lifetime_summary": "Średnie podsumowanie całkowite",
-        "no_data_available": "Brak danych dla wybranego okresu"
+        "no_data_available": "Brak danych dla wybranego okresu",
+        "categories": {
+            "normal": "Normalny (95-100%)",
+            "concerning": "Niepokojący (90-94%)",
+            "low": "Niski (0-89%)",
+            "normal_text": "Prawidłowy poziom saturacji tlenem (95-100%)",
+            "concerning_text": "Poniżej normy, może wskazywać na łagodną hipoksemię (90-94%)",
+            "low_text": "Niski poziom tlenu, skonsultuj się z lekarzem (0-89%)"
+        }
     },
     "actions": {
         "edit": "Edytuj",
@@ -68,6 +78,7 @@
         "error": "Błąd"
     },
     "blood_pressure": {
+        "delete_confirmation": "Czy na pewno chcesz usunąć ten pomiar ciśnienia krwi?",
         "title": "Ciśnienie krwi",
         "details": "Szczegóły",
         "systolic": "Skurczowe",
@@ -79,7 +90,27 @@
         "saved_successfully": "Ciśnienie krwi zapisane!",
         "error_updating": "Błąd podczas aktualizacji pomiaru",
         "error_saving": "Błąd podczas zapisywania pomiaru",
-        "please_enter_valid_numbers": "Wprowadź prawidłowe liczby"
+        "please_enter_valid_numbers": "Wprowadź prawidłowe liczby",
+        "chart_title": "Rekordy ciśnienia krwi",
+        "chart_diastolic_legend": "Rozkurczowe (Dolne)",
+        "chart_systolic_legend": "Skurczowe (Górne)",
+        "no_data_available": "Brak danych dla wybranego okresu",
+        "categories": {
+            "hypotension": "Niedociśnienie",
+            "normal": "Normalne",
+            "elevated": "Podwyższone",
+            "hypertension_stage_1": "Nadciśnienie, Etap 1",
+            "hypertension_stage_2": "Nadciśnienie, Etap 2",
+            "hypertensive": "Przełom nadciśnieniowy"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "Poziom cukru we krwi",
@@ -154,6 +185,7 @@
         "disclaimer": "Zastrzeżenie"
     },
     "bmi": {
+        "weight_chart": "Trend wagi",
         "title": "BMI",
         "weight": "Waga",
         "height": "Wzrost",
@@ -167,6 +199,7 @@
         "record_deleted": "Rekord BMI usunięty",
         "chart_title": "Wykres BMI",
         "category": "Kategoria",
+        "error_saving": "Błąd podczas zapisywania rekordu",
         "delete_confirmation_message": "Czy na pewno chcesz usunąć ten rekord BMI?",
         "categories": {
             "very_severe_underweight": "Bardzo ciężka niedowaga",
@@ -345,6 +378,7 @@
         "delete": "Usuń"
     },
     "general": {
+        "tap_add_first_measurement": "Naciśnij przycisk +, aby dodać swój pierwszy pomiar",
         "app_title": "HeartRater - Monitor tętna",
         "home": "Strona główna",
         "measure": "Pomiar",

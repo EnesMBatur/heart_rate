@@ -25,6 +25,7 @@
     "heart_rate": {
         "low": "منخفض",
         "normal": "طبيعي",
+        "concerning": "مقلق",
         "elevated": "مرتفع",
         "high": "عالٍ",
         "trend": "اتجاه معدل ضربات القلب",
@@ -38,6 +39,7 @@
         "start_measuring_history": "ابدأ بالقياس لرؤية سجلك"
     },
     "blood_oxygen": {
+        "spo2": "SpO2",
         "title": "الأكسجين في الدم",
         "edit_title": "تعديل الأكسجين في الدم",
         "add_title": "إضافة الأكسجين في الدم",
@@ -47,7 +49,15 @@
         "delete_confirmation": "هل أنت متأكد أنك تريد حذف هذا القياس للأكسجين في الدم؟",
         "note": "ملاحظة",
         "lifetime_summary": "ملخص متوسط العمر",
-        "no_data_available": "لا توجد بيانات للفترة المحددة"
+        "no_data_available": "لا توجد بيانات للفترة المحددة",
+        "categories": {
+            "normal": "طبيعي (95-100%)",
+            "concerning": "مقلق (90-94%)",
+            "low": "منخفض (0-89%)",
+            "normal_text": "مستوى تشبع الأكسجين الطبيعي (95-100%)",
+            "concerning_text": "أقل من الطبيعي، قد يشير إلى نقص تأكسج خفيف (90-94%)",
+            "low_text": "مستوى أكسجين منخفض، اطلب رعاية طبية (0-89%)"
+        }
     },
     "actions": {
         "edit": "تعديل",
@@ -68,6 +78,7 @@
         "error": "خطأ"
     },
     "blood_pressure": {
+        "delete_confirmation": "هل أنت متأكد أنك تريد حذف هذا القياس لضغط الدم؟",
         "title": "ضغط الدم",
         "details": "التفاصيل",
         "systolic": "انقباضي",
@@ -79,7 +90,27 @@
         "saved_successfully": "تم حفظ ضغط الدم بنجاح!",
         "error_updating": "خطأ أثناء تحديث القياس",
         "error_saving": "خطأ أثناء حفظ القياس",
-        "please_enter_valid_numbers": "يرجى إدخال أرقام صالحة"
+        "please_enter_valid_numbers": "يرجى إدخال أرقام صالحة",
+        "chart_title": "سجلات ضغط الدم",
+        "chart_diastolic_legend": "الانبساطي (السفلي)",
+        "chart_systolic_legend": "الانقباضي (العلوي)",
+        "no_data_available": "لا توجد بيانات للفترة المحددة",
+        "categories": {
+            "hypotension": "انخفاض ضغط الدم",
+            "normal": "طبيعي",
+            "elevated": "مرتفع",
+            "hypertension_stage_1": "ارتفاع ضغط الدم، المرحلة 1",
+            "hypertension_stage_2": "ارتفاع ضغط الدم، المرحلة 2",
+            "hypertensive": "فرط ضغط الدم"
+        },
+        "descriptions": {
+            "hypotension": "SYS < 90 & DIA < 60",
+            "normal": "SYS 90-119 & DIA 60-79",
+            "elevated": "SYS 120-129 & DIA 60-79",
+            "hypertension_stage_1": "SYS 130-139 & DIA 80-89",
+            "hypertension_stage_2": "SYS 140-180 & DIA 90-120",
+            "hypertensive": "SYS > 180 & DIA > 120"
+        }
     },
     "blood_sugar": {
         "title": "مستوى السكر في الدم",
@@ -154,6 +185,7 @@
         "disclaimer": "إخلاء المسؤولية"
     },
     "bmi": {
+        "weight_chart": "اتجاه الوزن",
         "title": "مؤشر كتلة الجسم (BMI)",
         "weight": "الوزن",
         "height": "الطول",
@@ -167,6 +199,7 @@
         "record_deleted": "تم حذف سجل مؤشر كتلة الجسم",
         "chart_title": "مخطط مؤشر كتلة الجسم (BMI)",
         "category": "الفئة",
+        "error_saving": "خطأ في حفظ السجل",
         "delete_confirmation_message": "هل أنت متأكد أنك تريد حذف هذا السجل الخاص بمؤشر كتلة الجسم؟",
         "categories": {
             "very_severe_underweight": "نحافة شديدة جدًا",
@@ -345,6 +378,7 @@
         "delete": "حذف"
     },
     "general": {
+        "tap_add_first_measurement": "اضغط على زر + لإضافة قياسك الأول",
         "app_title": "HeartRater - جهاز مراقبة معدل ضربات القلب",
         "home": "الرئيسية",
         "measure": "قياس",

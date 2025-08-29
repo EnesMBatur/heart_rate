@@ -421,7 +421,7 @@ class BMIChart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Weight Trend',
+            LocaleKeys.bmi_weight_chart.tr(),
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,

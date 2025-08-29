@@ -279,7 +279,7 @@ class _BMIAddScreenState extends State<BMIAddScreen> {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error saving record: $e'),
+            content: Text('${LocaleKeys.bmi_categories_error_saving.tr()}: $e'),
             backgroundColor: Colors.red,
           ),
         );
