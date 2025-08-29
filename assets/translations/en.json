@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Start",
+        "tap": "Tap to measure",
+        "how": "How to measure?",
+        "measuring": "Measuring...",
+        "measuring_heart_rate": "Measuring your heart rate. Please hold on..."
+    },
     "navigation": {
         "home": "Home",
         "dashboard": "Dashboard",

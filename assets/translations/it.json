@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Avvia",
+        "tap": "Tocca per misurare",
+        "how": "Come misurare?",
+        "measuring": "Misurazione...",
+        "measuring_heart_rate": "Misurazione della frequenza cardiaca. Attendere prego..."
+    },
     "navigation": {
         "home": "Home",
         "dashboard": "Pannello di controllo",

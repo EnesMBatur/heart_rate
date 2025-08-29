@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "התחל",
+        "tap": "הקש למדידה",
+        "how": "איך למדוד?",
+        "measuring": "מודד...",
+        "measuring_heart_rate": "מודד את קצב הלב שלך. אנא המתן..."
+    },
     "navigation": {
         "home": "בית",
         "dashboard": "לוח מחוונים",

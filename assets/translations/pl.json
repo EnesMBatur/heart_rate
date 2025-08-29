@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Start",
+        "tap": "Dotknij, aby zmierzyć",
+        "how": "Jak mierzyć?",
+        "measuring": "Pomiar...",
+        "measuring_heart_rate": "Mierzenie tętna. Proszę czekać..."
+    },
     "navigation": {
         "home": "Strona główna",
         "dashboard": "Panel",

@@ -100,7 +100,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                             ),
                             SizedBox(height: 1.5.h), // Reduced from 3.h
                             Text(
-                              'Measuring...',
+                              LocaleKeys.measure_measuring.tr(),
                               style: TextStyle(
                                 fontSize: 20.sp, // Reduced from 22.sp
                                 fontWeight: FontWeight.w600,
@@ -253,7 +253,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                           ),
                           SizedBox(height: 1.5.h),
                           Text(
-                            'Measuring... (${(viewModel.progress * 100).toInt()}%)',
+                            '${LocaleKeys.measure_measuring.tr()} (${(viewModel.progress * 100).toInt()}%)',
                             style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w600,
@@ -265,7 +265,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                           SizedBox(height: 0.8.h),
                           Flexible(
                             child: Text(
-                              'Measuring your heart rate. Please hold on...',
+                              LocaleKeys.measure_measuring_heart_rate.tr(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 15.sp,

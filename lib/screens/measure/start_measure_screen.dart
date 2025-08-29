@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_theme.dart';
+import '../../locale/lang/locale_keys.g.dart';
 import 'components/how_to_measure_modal.dart';
 import 'components/medical_disclaimer_modal.dart';
 
@@ -41,7 +43,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Measure',
+          LocaleKeys.health_measure.tr(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.sp,
@@ -70,7 +72,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'How to measure?',
+                            LocaleKeys.measure_how.tr(),
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w500,
@@ -139,7 +141,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
                                     children: [
                                       // START text
                                       Text(
-                                        'START',
+                                        LocaleKeys.measure_Start.tr(),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 24.sp, // Reduced from 24.sp
@@ -162,7 +164,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
                                       ), // Reduced spacing
                                       // Tap to measure text
                                       Text(
-                                        'Tap to measure',
+                                        LocaleKeys.measure_tap.tr(),
                                         style: TextStyle(
                                           color: Colors.white.withValues(
                                             alpha: 0.9,
@@ -209,7 +211,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Medical disclaimer',
+                            LocaleKeys.disclaimer_medical_disclaimer.tr(),
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w400,

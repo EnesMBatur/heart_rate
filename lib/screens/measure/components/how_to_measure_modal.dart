@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../theme/app_theme.dart';
 
 class HowToMeasureModal extends StatelessWidget {
@@ -17,7 +19,7 @@ class HowToMeasureModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80.h,
+      height: 90.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -42,7 +44,7 @@ class HowToMeasureModal extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
             child: Text(
-              'How to measure?',
+              LocaleKeys.general_how_to_check_pulse.tr(),
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
@@ -123,7 +125,7 @@ class HowToMeasureModal extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Got it!',
+                        LocaleKeys.actions_ok.tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,

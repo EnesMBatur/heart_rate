@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Starta",
+        "tap": "Tryck för att mäta",
+        "how": "Hur mäta?",
+        "measuring": "Mäter...",
+        "measuring_heart_rate": "Mäter din hjärtfrekvens. Vänta..."
+    },
     "navigation": {
         "home": "Hem",
         "dashboard": "Instrumentpanel",

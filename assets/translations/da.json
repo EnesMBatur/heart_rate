@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Start",
+        "tap": "Tryk for at måle",
+        "how": "Hvordan måler man?",
+        "measuring": "Måler...",
+        "measuring_heart_rate": "Måler din puls. Vent venligst..."
+    },
     "navigation": {
         "home": "Hjem",
         "dashboard": "Dashboard",

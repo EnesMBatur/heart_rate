@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../theme/app_theme.dart';
 
 class MedicalDisclaimerModal extends StatelessWidget {
@@ -56,7 +58,7 @@ class MedicalDisclaimerModal extends StatelessWidget {
                       ),
                       SizedBox(width: 3.w),
                       Text(
-                        'Medical Disclaimer',
+                        LocaleKeys.disclaimer_medical_disclaimer.tr(),
                         style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
@@ -74,8 +76,8 @@ class MedicalDisclaimerModal extends StatelessWidget {
                       children: [
                         _buildDisclaimerPoint(
                           Icons.info_outline,
-                          'Informational Purpose Only',
-                          'This app is for educational and informational purposes only.',
+                          LocaleKeys.disclaimer_accuracy_title.tr(),
+                          LocaleKeys.disclaimer_accuracy_content.tr(),
                           Colors.blue,
                         ),
 
@@ -83,8 +85,8 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.medical_services_outlined,
-                          'Not Medical Advice',
-                          'It is not intended to be a substitute for professional medical advice, diagnosis, or treatment.',
+                          LocaleKeys.disclaimer_not_medical_device.tr(),
+                          LocaleKeys.disclaimer_not_medical_device_content.tr(),
                           Colors.orange,
                         ),
 
@@ -92,8 +94,8 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.local_hospital_outlined,
-                          'Consult Healthcare Provider',
-                          'Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.',
+                          LocaleKeys.disclaimer_consultation_title.tr(),
+                          LocaleKeys.disclaimer_consultation_content.tr(),
                           Colors.green,
                         ),
 
@@ -101,8 +103,8 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.error_outline,
-                          'Accuracy Limitation',
-                          'The measurements provided by this app may not be accurate and should not be used for medical purposes.',
+                          LocaleKeys.disclaimer_emergency_title.tr(),
+                          LocaleKeys.disclaimer_emergency_content.tr(),
                           Colors.red,
                         ),
 
@@ -110,8 +112,8 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.security_outlined,
-                          'Use at Your Own Risk',
-                          'Use this application at your own discretion and risk. The developers are not responsible for any health decisions made based on this app.',
+                          LocaleKeys.disclaimer_liability_title.tr(),
+                          LocaleKeys.disclaimer_liability_content.tr(),
                           Colors.purple,
                         ),
                       ],
@@ -133,7 +135,7 @@ class MedicalDisclaimerModal extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'I Understand',
+                        LocaleKeys.actions_ok.tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,

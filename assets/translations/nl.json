@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Start",
+        "tap": "Tik om te meten",
+        "how": "Hoe meten?",
+        "measuring": "Meten...",
+        "measuring_heart_rate": "Je hartslag wordt gemeten. Even geduld..."
+    },
     "navigation": {
         "home": "Home",
         "dashboard": "Dashboard",

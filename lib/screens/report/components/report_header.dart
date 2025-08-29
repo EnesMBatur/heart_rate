@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/report/heart_rate_report.dart';
 
 class ReportHeader extends StatelessWidget {
@@ -125,7 +127,7 @@ class ReportHeader extends StatelessWidget {
               ),
               _buildMetricCard(
                 icon: Icons.analytics,
-                label: 'Quality',
+                label: LocaleKeys.report_quality.tr(),
                 value: '${report.signalQualityPercent}%',
                 color: Colors.white,
               ),
@@ -136,7 +138,7 @@ class ReportHeader extends StatelessWidget {
               ),
               _buildMetricCard(
                 icon: Icons.mood,
-                label: 'Mood',
+                label: LocaleKeys.report_mood.tr(),
                 value: _getMoodEmoji(report.mood),
                 color: Colors.white,
               ),
@@ -298,21 +300,7 @@ class ReportHeader extends StatelessWidget {
   }
 
   String _formatDate(DateTime date) {
-    final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
+    return DateFormat('MMM d, yyyy').format(date);
   }
 
   Color _getStatusColor(ReportStatus status) {
@@ -331,25 +319,25 @@ class ReportHeader extends StatelessWidget {
   String _getStatusText(ReportStatus status) {
     switch (status) {
       case ReportStatus.excellent:
-        return 'Excellent';
+        return LocaleKeys.report_health_statuses_excellent.tr();
       case ReportStatus.good:
-        return 'Good';
+        return LocaleKeys.measure_screen_mood_good.tr();
       case ReportStatus.normal:
-        return 'Normal';
+        return LocaleKeys.heart_rate_normal.tr();
       case ReportStatus.concerning:
-        return 'Concerning';
+        return LocaleKeys.heart_rate_concerning.tr();
     }
   }
 
   String _getHeartRateCategory(int heartRate) {
     if (heartRate < 60) {
-      return 'Below Normal Range';
+      return LocaleKeys.general_low_heart_rate.tr();
     } else if (heartRate <= 100) {
-      return 'Normal Heart Rate';
+      return LocaleKeys.general_resting_heart_rate.tr();
     } else if (heartRate <= 120) {
-      return 'Slightly Elevated';
+      return LocaleKeys.general_elevated_heart_rate.tr();
     } else {
-      return 'Elevated Heart Rate';
+      return LocaleKeys.general_high_heart_rate.tr();
     }
   }
 

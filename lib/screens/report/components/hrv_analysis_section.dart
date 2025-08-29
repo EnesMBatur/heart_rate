@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/report/heart_rate_report.dart';
 import '../../../router/app_router.dart';
 import '../utils/metric_detail_data.dart';
@@ -37,7 +39,7 @@ class HRVAnalysisSection extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                'HRV Analysis',
+                LocaleKeys.report_hrv_analysis.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -105,7 +107,7 @@ class HRVAnalysisSection extends StatelessWidget {
 
           // HRV Metrics
           Text(
-            'Detailed Metrics',
+            LocaleKeys.report_detailed_metrics.tr(),
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
@@ -256,11 +258,11 @@ class HRVAnalysisSection extends StatelessWidget {
   String _getStatusText(HRVStatus status) {
     switch (status) {
       case HRVStatus.high:
-        return 'Excellent HRV';
+        return LocaleKeys.report_hrv_metrics_excellent_hrv.tr();
       case HRVStatus.normal:
-        return 'Normal HRV';
+        return LocaleKeys.report_hrv_metrics_normal_hrv.tr();
       case HRVStatus.low:
-        return 'Low HRV';
+        return LocaleKeys.report_hrv_metrics_low_hrv.tr();
     }
   }
 }

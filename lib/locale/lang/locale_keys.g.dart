@@ -3,6 +3,12 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const measure_Start = 'measure.Start';
+  static const measure_tap = 'measure.tap';
+  static const measure_how = 'measure.how';
+  static const measure_measuring = 'measure.measuring';
+  static const measure_measuring_heart_rate = 'measure.measuring_heart_rate';
+  static const measure = 'measure';
   static const navigation_home = 'navigation.home';
   static const navigation_dashboard = 'navigation.dashboard';
   static const navigation_settings = 'navigation.settings';

@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Aloita",
+        "tap": "Napauta mitataksesi",
+        "how": "Kuinka mitata?",
+        "measuring": "Mitataan...",
+        "measuring_heart_rate": "Mitataan sykkeesi. Odota hetki..."
+    },
     "navigation": {
         "home": "Etusivu",
         "dashboard": "Hallintapaneeli",

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/report/heart_rate_report.dart';
 import '../../../router/app_router.dart';
 import '../utils/metric_detail_data.dart';
@@ -38,7 +40,7 @@ class HealthMetricsSection extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                'Health Metrics',
+                LocaleKeys.report_health_metrics.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -123,7 +125,7 @@ class HealthMetricsSection extends StatelessWidget {
 
             // Metric Name
             Text(
-              metric.name,
+              _getLocalizedMetricName(metric.name),
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
@@ -181,6 +183,29 @@ class HealthMetricsSection extends StatelessWidget {
     }
 
     context.push(AppRouter.metricDetail, extra: detailData);
+  }
+
+  String _getLocalizedMetricName(String metricName) {
+    switch (metricName.toLowerCase()) {
+      case 'stress level':
+        return LocaleKeys.report_health_statuses_stress_level.tr();
+      case 'energy level':
+        return LocaleKeys.report_health_statuses_energy_level.tr();
+      case 'physical tension':
+        return LocaleKeys.report_health_statuses_physical_tension.tr();
+      case 'hrv score':
+        return LocaleKeys.report_health_statuses_hrv_score.tr();
+      case 'heart rate zone':
+        return LocaleKeys.report_health_statuses_heart_rate_zone.tr();
+      case 'recovery status':
+        return LocaleKeys.report_health_statuses_recovery_status.tr();
+      case 'sleep quality':
+        return LocaleKeys.report_health_statuses_sleep_quality.tr();
+      case 'fitness level':
+        return LocaleKeys.report_health_statuses_fitness_level.tr();
+      default:
+        return metricName;
+    }
   }
 
   IconData _getMetricIcon(String metricName) {
@@ -255,11 +280,11 @@ class HealthMetricsSection extends StatelessWidget {
   String _getStatusText(MetricStatus status) {
     switch (status) {
       case MetricStatus.high:
-        return 'Excellent';
+        return LocaleKeys.report_health_statuses_excellent.tr();
       case MetricStatus.normal:
-        return 'Normal';
+        return LocaleKeys.report_health_statuses_normal.tr();
       case MetricStatus.low:
-        return 'Needs Attention';
+        return LocaleKeys.report_health_statuses_needs_attention.tr();
     }
   }
 
@@ -268,22 +293,28 @@ class HealthMetricsSection extends StatelessWidget {
     if (metric.name.toLowerCase().contains('tension')) {
       switch (metric.status) {
         case MetricStatus.high:
-          return 'Very Relaxed'; // Low tension value = Very Relaxed
+          return LocaleKeys.report_health_statuses_very_relaxed
+              .tr(); // Low tension value = Very Relaxed
         case MetricStatus.normal:
-          return 'Relaxed'; // Moderate tension value = Relaxed
+          return LocaleKeys.report_health_statuses_relaxed
+              .tr(); // Moderate tension value = Relaxed
         case MetricStatus.low:
-          return 'Tense'; // High tension value = Tense
+          return LocaleKeys.report_health_statuses_tense
+              .tr(); // High tension value = Tense
       }
     }
 
     if (metric.name.toLowerCase().contains('stress')) {
       switch (metric.status) {
         case MetricStatus.high:
-          return 'Very Calm'; // Low stress value = Very Calm
+          return LocaleKeys.report_health_statuses_very_calm
+              .tr(); // Low stress value = Very Calm
         case MetricStatus.normal:
-          return 'Calm'; // Moderate stress value = Calm
+          return LocaleKeys.report_health_statuses_calm
+              .tr(); // Moderate stress value = Calm
         case MetricStatus.low:
-          return 'Stressed'; // High stress value = Stressed
+          return LocaleKeys.report_health_statuses_stressed
+              .tr(); // High stress value = Stressed
       }
     }
 

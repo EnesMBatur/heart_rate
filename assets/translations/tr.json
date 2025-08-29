@@ -1,4 +1,11 @@
 {
+    "measure": {
+        "Start": "Başlat",
+        "tap": "Ölçmek için dokun",
+        "how": "Nasıl ölçülür?",
+        "measuring": "Ölçülüyor...",
+        "measuring_heart_rate": "Kalp atış hızınız ölçülüyor. Lütfen bekleyin..."
+    },
     "navigation": {
         "home": "Ana Sayfa",
         "dashboard": "Kontrol Paneli",
