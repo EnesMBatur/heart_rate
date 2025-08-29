@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Etusivu",
+        "dashboard": "Hallintapaneeli",
+        "settings": "Asetukset",
+        "recipes": "Reseptit",
+        "disclaimer": "Vastuuvapauslauseke",
+        "error": "Virhe",
+        "go_home": "Siirry etusivulle",
+        "page_not_found": "Sivua ei löydy"
+    },
+    "health": {
+        "blood_pressure": "Verenpaine",
+        "blood_sugar": "Veren sokeri",
+        "blood_oxygen": "Veren happi",
+        "weight_bmi": "Paino & BMI",
+        "heart_rate": "Syke",
+        "ai": "AI",
+        "chat_with_ai": "Keskustele AI:n kanssa",
+        "healthy_meal_ideas": "Terveellisiä ateriaideoita",
+        "measure": "Mittaa",
+        "bpm": "BPM",
+        "records": "tallenteet"
+    },
+    "heart_rate": {
+        "low": "Matala",
+        "normal": "Normaali",
+        "elevated": "Kohonnut",
+        "high": "Korkea"
+    },
+    "history": {
+        "check_up_history": "Tarkistushistoria",
+        "view_all": "Näytä kaikki",
+        "no_measurements_yet": "Ei vielä mittauksia",
+        "start_measuring_history": "Aloita mittaaminen nähdäksesi historiasi"
+    },
+    "blood_oxygen": {
+        "title": "Veren happi",
+        "edit_title": "Muokkaa veren happiarvoa",
+        "add_title": "Lisää veren happiarvo",
+        "record_updated": "Veren happiarvo päivitetty",
+        "record_saved": "Veren happiarvo tallennettu",
+        "chart_title": "Veren happi (SpO2%)",
+        "delete_confirmation": "Haluatko varmasti poistaa tämän happimittauksen?"
+    },
+    "actions": {
+        "edit": "Muokkaa",
+        "add": "Lisää",
+        "update": "Päivitä",
+        "delete": "Poista",
+        "cancel": "Peruuta",
+        "save": "Tallenna",
+        "ok": "OK",
+        "share": "Jaa",
+        "close": "Sulje"
+    },
+    "dialogs": {
+        "delete_measurement": "Poista mittaus",
+        "measurement_deleted": "Mittaus poistettu",
+        "success": "Onnistui",
+        "error": "Virhe"
+    },
+    "blood_pressure": {
+        "title": "Verenpaine",
+        "details": "Tiedot",
+        "systolic": "Systolinen",
+        "diastolic": "Diastolinen",
+        "pulse": "Pulssi",
+        "note": "Huomautus",
+        "no_measurement_selected": "Mittaus ei valittuna",
+        "updated_successfully": "Verenpaine päivitetty onnistuneesti!",
+        "saved_successfully": "Verenpaine tallennettu onnistuneesti!",
+        "error_updating": "Virhe päivitettäessä mittausta",
+        "error_saving": "Virhe tallennettaessa mittausta",
+        "please_enter_valid_numbers": "Syötä kelvollisia numeroita"
+    },
+    "blood_sugar": {
+        "title": "Veren sokeri",
+        "error_saving": "Virhe tallennettaessa mittausta"
+    },
+    "measure_screen": {
+        "title": "Mittaa",
+        "instruction": "Aseta sormesi kameran ja taskulampun päälle"
+    },
+    "disclaimer": {
+        "title": "Vastuuvapauslauseke",
+        "medical_disclaimer": "Lääketieteellinen vastuuvapaus",
+        "medical_disclaimer_content": "Tämä sovellus on tarkoitettu vain tiedotus- ja opetuskäyttöön. Sitä ei ole tarkoitettu tarjoamaan lääketieteellistä neuvontaa, diagnoosia tai hoitoa. Tämän sovelluksen tarjoamia terveystietoja ja mittauksia ei tule käyttää ammattimaisen lääkärin konsultoinnin, diagnoosin tai hoidon korvikkeena.",
+        "accuracy_title": "Mittauksen tarkkuus",
+        "accuracy_content": "Vaikka pyrimme tarjoamaan tarkkoja mittauksia, tulokset voivat vaihdella esimerkiksi laitteen rajoitusten, käyttäjän tilan ja ympäristötekijöiden vuoksi. Käänny aina terveydenhuollon ammattilaisen puoleen saadaksesi tarkkoja mittauksia ja tulkintoja.",
+        "not_medical_device": "Ei lääketieteellinen laite",
+        "not_medical_device_content": "Tämä sovellus ja sen tarjoamat mittaukset eivät ole sertifioituja lääkinnällisiä laitteita. Niihin ei pidä luottaa lääketieteellisissä päätöksissä. Käytä tarkkoihin mittauksiin asianmukaisia lääkinnällisiä laitteita terveydenhuollon ammattilaisen valvonnassa.",
+        "consultation_title": "Konsultaatiosuositus",
+        "consultation_content": "Kysy aina lääkäriltäsi tai muulta pätevältä terveydenhuollon tarjoajalta, jos sinulla on kysymyksiä terveydentilaasi liittyen. Älä koskaan sivuuta ammattilaisen neuvoja äläkä viivyttele niiden hakemista tämän sovelluksen tietojen tai mittausten perusteella.",
+        "emergency_title": "Hätätilanteet",
+        "emergency_content": "Lääketieteellisessä hätätilanteessa ota välittömästi yhteyttä paikallisiin hätäpalveluihin. Älä luota tähän sovellukseen hätätilanteissa.",
+        "privacy_title": "Tietosuoja",
+        "privacy_content": "Terveystietosi tallennetaan paikallisesti laitteellesi. Olemme sitoutuneet suojaamaan yksityisyytesi emmekä jaa henkilökohtaisia tietojasi kolmansille osapuolille ilman nimenomaista suostumustasi.",
+        "liability_title": "Vastuunrajoitus",
+        "liability_content": "Tämän sovelluksen kehittäjät eivät ole vastuussa suorista, epäsuorista, satunnaisista, erityisistä tai välillisistä vahingoista, jotka johtuvat tämän sovelluksen käytöstä tai sen mittauksiin luottamisesta.",
+        "important_notice": "Tärkeä huomautus",
+        "important_notice_content": "Käyttämällä tätä sovellusta vahvistat, että olet lukenut, ymmärtänyt ja hyväksynyt tämän vastuuvapauslausekkeen. Ymmärrät, ettei tämä sovellus korvaa ammattilaisten antamaa hoitoa ja että sinun tulisi kääntyä lääkärin puoleen kaikissa terveyshuolissa."
+    },
+    "settings": {
+        "title": "Asetukset",
+        "tips": "Vinkit",
+        "disclaimer": "Vastuuvapauslauseke"
+    },
     "premium": {
         "3free": "Kokeile 3 päivää ilmaiseksi",
         "restore": "Palauta ostot",

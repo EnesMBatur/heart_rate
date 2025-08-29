@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 class HeartRateHeader extends StatelessWidget implements PreferredSizeWidget {
   const HeartRateHeader({super.key});
@@ -13,7 +15,7 @@ class HeartRateHeader extends StatelessWidget implements PreferredSizeWidget {
         icon: const Icon(Icons.arrow_back, color: Colors.black),
         onPressed: () => context.pop(),
       ),
-      title: Text('Heart Rate Tracker'),
+      title: Text(LocaleKeys.health_heart_rate.tr()),
     );
   }
 

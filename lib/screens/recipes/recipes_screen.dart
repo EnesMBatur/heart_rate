@@ -8,6 +8,8 @@ import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:heart_rate/core/enums/svg_general_enum.dart';
 import 'package:heart_rate/provider/recipe_provider.dart';
 import 'package:heart_rate/screens/recipes/components/body.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/screens/recipes/components/custom_bottom_sheet.dart';
 import 'package:heart_rate/screens/recipes/components/custom_search.dart';
 import 'package:heart_rate/screens/recipes/components/custom_search_delegate.dart';
@@ -39,7 +41,7 @@ class RecipesScreenState extends ConsumerState<RecipesScreen> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       //TODO: Localization
-      title: Text('Recipes'),
+      title: Text(LocaleKeys.navigation_recipes.tr()),
       actions: [
         buildBadge(filtersCount, context),
         buildSearchButton(context),

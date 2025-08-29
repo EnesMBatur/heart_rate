@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 
 class BloodPressureHeader extends StatelessWidget
     implements PreferredSizeWidget {
@@ -14,7 +16,7 @@ class BloodPressureHeader extends StatelessWidget
         icon: const Icon(Icons.arrow_back, color: Colors.black),
         onPressed: () => context.pop(),
       ),
-      title: Text('Blood Pressure'),
+      title: Text(LocaleKeys.health_blood_pressure.tr()),
       // actions: [
       //   IconButton(
       //     icon: const Icon(Icons.more_vert, color: Colors.black),

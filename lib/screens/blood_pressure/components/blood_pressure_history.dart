@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../viewmodels/blood_pressure_view_model.dart';
 import '../../../models/blood_pressure_measurement.dart';
 
@@ -25,7 +27,7 @@ class BloodPressureHistory extends StatelessWidget {
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  'No measurements yet',
+                  LocaleKeys.history_no_measurements_yet.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -95,19 +97,19 @@ class BloodPressureHistory extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Delete Measurement'),
+              title: Text(LocaleKeys.dialogs_delete_measurement.tr()),
               content: Text(
                 'Are you sure you want to delete this blood pressure measurement?\n\n${measurement.systolic}/${measurement.diastolic} - ${dateFormatter.format(measurement.timestamp)}',
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(LocaleKeys.actions_cancel.tr()),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
-                  child: const Text('Delete'),
+                  child: Text(LocaleKeys.actions_delete.tr()),
                 ),
               ],
             );
@@ -118,7 +120,7 @@ class BloodPressureHistory extends StatelessWidget {
         viewModel.deleteMeasurement(measurement);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Measurement deleted'),
+            content: Text(LocaleKeys.dialogs_measurement_deleted.tr()),
             backgroundColor: Colors.red,
             action: SnackBarAction(
               label: 'Undo',
@@ -286,7 +288,7 @@ class BloodPressureHistory extends StatelessWidget {
                             );
                           },
                           icon: const Icon(Icons.edit_outlined),
-                          label: const Text('Edit'),
+                          label: Text(LocaleKeys.actions_edit.tr()),
                           style: OutlinedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 1.5.h),
                           ),
@@ -300,7 +302,7 @@ class BloodPressureHistory extends StatelessWidget {
                             _deleteMeasurement(context, measurement, viewModel);
                           },
                           icon: const Icon(Icons.delete_outline),
-                          label: const Text('Delete'),
+                          label: Text(LocaleKeys.actions_delete.tr()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,

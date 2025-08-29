@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Strona główna",
+        "dashboard": "Panel",
+        "settings": "Ustawienia",
+        "recipes": "Przepisy",
+        "disclaimer": "Zastrzeżenie",
+        "error": "Błąd",
+        "go_home": "Przejdź do strony głównej",
+        "page_not_found": "Strony nie znaleziono"
+    },
+    "health": {
+        "blood_pressure": "Ciśnienie krwi",
+        "blood_sugar": "Poziom cukru we krwi",
+        "blood_oxygen": "Tlen we krwi",
+        "weight_bmi": "Waga i BMI",
+        "heart_rate": "Tętno",
+        "ai": "AI",
+        "chat_with_ai": "Czat z AI",
+        "healthy_meal_ideas": "Pomysły na zdrowe posiłki",
+        "measure": "Zmierz",
+        "bpm": "BPM",
+        "records": "zapisy"
+    },
+    "heart_rate": {
+        "low": "Niskie",
+        "normal": "Normalne",
+        "elevated": "Podwyższone",
+        "high": "Wysokie"
+    },
+    "history": {
+        "check_up_history": "Historia badań",
+        "view_all": "Zobacz wszystko",
+        "no_measurements_yet": "Brak pomiarów",
+        "start_measuring_history": "Rozpocznij pomiar, aby zobaczyć historię"
+    },
+    "blood_oxygen": {
+        "title": "Tlen we krwi",
+        "edit_title": "Edytuj tlen we krwi",
+        "add_title": "Dodaj tlen we krwi",
+        "record_updated": "Zapis tlenu został zaktualizowany",
+        "record_saved": "Zapis tlenu został zapisany",
+        "chart_title": "Tlen we krwi (SpO2%)",
+        "delete_confirmation": "Czy na pewno chcesz usunąć ten pomiar tlenu we krwi?"
+    },
+    "actions": {
+        "edit": "Edytuj",
+        "add": "Dodaj",
+        "update": "Zaktualizuj",
+        "delete": "Usuń",
+        "cancel": "Anuluj",
+        "save": "Zapisz",
+        "ok": "OK",
+        "share": "Udostępnij",
+        "close": "Zamknij"
+    },
+    "dialogs": {
+        "delete_measurement": "Usuń pomiar",
+        "measurement_deleted": "Pomiar usunięty",
+        "success": "Sukces",
+        "error": "Błąd"
+    },
+    "blood_pressure": {
+        "title": "Ciśnienie krwi",
+        "details": "Szczegóły",
+        "systolic": "Skurczowe",
+        "diastolic": "Rozkurczowe",
+        "pulse": "Puls",
+        "note": "Notatka",
+        "no_measurement_selected": "Nie wybrano pomiaru",
+        "updated_successfully": "Ciśnienie krwi zostało pomyślnie zaktualizowane!",
+        "saved_successfully": "Ciśnienie krwi zostało pomyślnie zapisane!",
+        "error_updating": "Błąd podczas aktualizacji pomiaru",
+        "error_saving": "Błąd podczas zapisywania pomiaru",
+        "please_enter_valid_numbers": "Proszę wprowadzić prawidłowe liczby"
+    },
+    "blood_sugar": {
+        "title": "Poziom cukru we krwi",
+        "error_saving": "Błąd podczas zapisywania pomiaru"
+    },
+    "measure_screen": {
+        "title": "Zmierz",
+        "instruction": "Proszę położyć palec na aparacie i latarce"
+    },
+    "disclaimer": {
+        "title": "Zastrzeżenie",
+        "medical_disclaimer": "Zastrzeżenie medyczne",
+        "medical_disclaimer_content": "Ta aplikacja została zaprojektowana wyłącznie w celach informacyjnych i edukacyjnych. Nie jest przeznaczona do udzielania porad medycznych, diagnozy ani leczenia. Pomiary i dane zdrowotne dostarczane przez tę aplikację nie powinny być używane jako substytut profesjonalnej konsultacji medycznej, diagnozy ani leczenia.",
+        "accuracy_title": "Dokładność pomiarów",
+        "accuracy_content": "Chociaż staramy się dostarczać dokładne pomiary zdrowotne, wyniki mogą się różnić z powodu różnych czynników, w tym ograniczeń urządzenia, warunków użytkownika i czynników środowiskowych. Zawsze konsultuj się z pracownikiem służby zdrowia w celu uzyskania dokładnych pomiarów i interpretacji medycznych.",
+        "not_medical_device": "Nie jest urządzeniem medycznym",
+        "not_medical_device_content": "Ta aplikacja i wszelkie pomiary, które dostarcza, nie są certyfikowanymi urządzeniami medycznymi. Nie powinny być używane jako podstawa do podejmowania decyzji medycznych. Aby uzyskać dokładne pomiary medyczne, używaj odpowiedniego sprzętu medycznego pod nadzorem profesjonalistów służby zdrowia.",
+        "consultation_title": "Zalecenie konsultacji",
+        "consultation_content": "Zawsze zasięgaj porady swojego lekarza lub innego wykwalifikowanego pracownika służby zdrowia, jeśli masz pytania dotyczące stanu zdrowia. Nigdy nie ignoruj profesjonalnej porady medycznej ani nie opóźniaj jej poszukiwania z powodu czegoś, co przeczytałeś lub zmierzyłeś za pomocą tej aplikacji.",
+        "emergency_title": "Sytuacje awaryjne",
+        "emergency_content": "W przypadku nagłego przypadku medycznego natychmiast skontaktuj się z lokalnymi służbami ratunkowymi. Nie polegaj na tej aplikacji w nagłych sytuacjach medycznych.",
+        "privacy_title": "Prywatność danych",
+        "privacy_content": "Twoje dane zdrowotne są przechowywane lokalnie na Twoim urządzeniu. Zobowiązujemy się do ochrony Twojej prywatności i nie udostępniamy Twoich danych zdrowotnych stronom trzecim bez Twojej wyraźnej zgody.",
+        "liability_title": "Ograniczenie odpowiedzialności",
+        "liability_content": "Deweloperzy tej aplikacji nie ponoszą odpowiedzialności za jakiekolwiek bezpośrednie, pośrednie, przypadkowe, szczególne lub wynikowe szkody wynikające z korzystania z tej aplikacji lub polegania na jej pomiarach.",
+        "important_notice": "Ważna uwaga",
+        "important_notice_content": "Korzystając z tej aplikacji, potwierdzasz, że przeczytałeś, zrozumiałeś i zaakceptowałeś to zastrzeżenie. Rozumiesz, że ta aplikacja nie zastępuje profesjonalnej opieki medycznej i że powinieneś skonsultować się z pracownikiem służby zdrowia w przypadku jakichkolwiek problemów zdrowotnych."
+    },
+    "settings": {
+        "title": "Ustawienia",
+        "tips": "Wskazówki",
+        "disclaimer": "Zastrzeżenie"
+    },
     "premium": {
         "3free": "Wypróbuj 3 dni za darmo",
         "restore": "Przywróć zakupy",

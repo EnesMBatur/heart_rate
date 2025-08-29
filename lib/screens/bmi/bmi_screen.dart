@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -20,7 +22,7 @@ class BMIScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: Text('Weight & BMI'),
+        title: Text(LocaleKeys.health_weight_bmi.tr()),
         centerTitle: true,
       ),
       body: Consumer<BMIViewModel>(

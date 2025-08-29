@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Ana Sayfa",
+        "dashboard": "Kontrol Paneli",
+        "settings": "Ayarlar",
+        "recipes": "Tarifler",
+        "disclaimer": "Yasal Uyarı",
+        "error": "Hata",
+        "go_home": "Ana Sayfaya Git",
+        "page_not_found": "Sayfa bulunamadı"
+    },
+    "health": {
+        "blood_pressure": "Tansiyon",
+        "blood_sugar": "Kan Şekeri",
+        "blood_oxygen": "Kandaki Oksijen",
+        "weight_bmi": "Kilo & BMI",
+        "heart_rate": "Nabız",
+        "ai": "Yapay Zeka",
+        "chat_with_ai": "Yapay Zeka ile Sohbet",
+        "healthy_meal_ideas": "Sağlıklı Yemek Fikirleri",
+        "measure": "Ölç",
+        "bpm": "BPM",
+        "records": "kayıtlar"
+    },
+    "heart_rate": {
+        "low": "Düşük",
+        "normal": "Normal",
+        "elevated": "Yüksek",
+        "high": "Çok Yüksek"
+    },
+    "history": {
+        "check_up_history": "Kontrol Geçmişi",
+        "view_all": "Tümünü Gör",
+        "no_measurements_yet": "Henüz ölçüm yok",
+        "start_measuring_history": "Geçmişini görmek için ölçüme başla"
+    },
+    "blood_oxygen": {
+        "title": "Kandaki Oksijen",
+        "edit_title": "Kandaki Oksijeni Düzenle",
+        "add_title": "Kandaki Oksijen Ekle",
+        "record_updated": "Kandaki oksijen kaydı güncellendi",
+        "record_saved": "Kandaki oksijen kaydı kaydedildi",
+        "chart_title": "Kandaki Oksijen (SpO2%)",
+        "delete_confirmation": "Bu kandaki oksijen ölçümünü silmek istediğine emin misin?"
+    },
+    "actions": {
+        "edit": "Düzenle",
+        "add": "Ekle",
+        "update": "Güncelle",
+        "delete": "Sil",
+        "cancel": "İptal",
+        "save": "Kaydet",
+        "ok": "Tamam",
+        "share": "Paylaş",
+        "close": "Kapat"
+    },
+    "dialogs": {
+        "delete_measurement": "Ölçümü Sil",
+        "measurement_deleted": "Ölçüm silindi",
+        "success": "Başarılı",
+        "error": "Hata"
+    },
+    "blood_pressure": {
+        "title": "Tansiyon",
+        "details": "Detaylar",
+        "systolic": "Sistolik",
+        "diastolic": "Diyastolik",
+        "pulse": "Nabız",
+        "note": "Not",
+        "no_measurement_selected": "Herhangi bir ölçüm seçilmedi",
+        "updated_successfully": "Tansiyon başarıyla güncellendi!",
+        "saved_successfully": "Tansiyon başarıyla kaydedildi!",
+        "error_updating": "Ölçüm güncellenirken hata oluştu",
+        "error_saving": "Ölçüm kaydedilirken hata oluştu",
+        "please_enter_valid_numbers": "Lütfen geçerli sayılar giriniz"
+    },
+    "blood_sugar": {
+        "title": "Kan Şekeri",
+        "error_saving": "Ölçüm kaydedilirken hata oluştu"
+    },
+    "measure_screen": {
+        "title": "Ölç",
+        "instruction": "Lütfen parmağınızı kamera ve flaş üzerine koyun"
+    },
+    "disclaimer": {
+        "title": "Yasal Uyarı",
+        "medical_disclaimer": "Tıbbi Uyarı",
+        "medical_disclaimer_content": "Bu uygulama yalnızca bilgilendirme ve eğitim amaçlıdır. Tıbbi tavsiye, tanı veya tedavi sağlamak amacıyla tasarlanmamıştır. Bu uygulamanın sunduğu sağlık ölçümleri ve veriler, profesyonel tıbbi danışma, tanı veya tedavinin yerine geçmemelidir.",
+        "accuracy_title": "Ölçümlerin Doğruluğu",
+        "accuracy_content": "Doğru sağlık ölçümleri sağlamaya çalışsak da, sonuçlar cihaz sınırlamaları, kullanıcı koşulları ve çevresel faktörler gibi sebeplerle değişebilir. Her zaman doğru tıbbi ölçümler ve yorumlar için bir sağlık uzmanına danışın.",
+        "not_medical_device": "Tıbbi Cihaz Değildir",
+        "not_medical_device_content": "Bu uygulama ve sağladığı ölçümler sertifikalı tıbbi cihaz değildir. Tıbbi kararlar için temel alınmamalıdır. Doğru tıbbi ölçümler için uygun tıbbi ekipmanı sağlık profesyonelleri gözetiminde kullanın.",
+        "consultation_title": "Danışma Önerisi",
+        "consultation_content": "Herhangi bir sağlık durumuyla ilgili sorularınız olduğunda daima doktorunuza veya nitelikli bir sağlık uzmanına danışın. Profesyonel tıbbi tavsiyeleri asla göz ardı etmeyin veya bu uygulamada okuduklarınıza ya da ölçümlerinize dayanarak ertelemeyin.",
+        "emergency_title": "Acil Durumlar",
+        "emergency_content": "Tıbbi bir acil durumda derhal yerel acil servislerle iletişime geçin. Bu uygulamaya acil tıbbi durumlarda güvenmeyin.",
+        "privacy_title": "Veri Gizliliği",
+        "privacy_content": "Sağlık verileriniz cihazınızda yerel olarak saklanır. Gizliliğinizi korumayı taahhüt ediyoruz ve açık rızanız olmadan kişisel sağlık bilgilerinizi üçüncü kişilerle paylaşmıyoruz.",
+        "liability_title": "Sorumluluk Reddi",
+        "liability_content": "Bu uygulamanın geliştiricileri, bu uygulamanın kullanımından veya ölçümlerine güvenilmesinden kaynaklanan doğrudan, dolaylı, tesadüfi, özel veya sonuç olarak doğan zararlardan sorumlu değildir.",
+        "important_notice": "Önemli Uyarı",
+        "important_notice_content": "Bu uygulamayı kullanarak bu yasal uyarıyı okuduğunuzu, anladığınızı ve kabul ettiğinizi onaylıyorsunuz. Bu uygulamanın profesyonel tıbbi bakımın yerine geçmediğini ve herhangi bir sağlık endişeniz için bir sağlık uzmanına danışmanız gerektiğini anlıyorsunuz."
+    },
+    "settings": {
+        "title": "Ayarlar",
+        "tips": "İpuçları",
+        "disclaimer": "Yasal Uyarı"
+    },
     "premium": {
         "3free": "3 Gün Ücretsiz Deneyin",
         "restore": "Satın Alımları Geri Yükle",

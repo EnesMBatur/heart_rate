@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Hem",
+        "dashboard": "Instrumentpanel",
+        "settings": "Inställningar",
+        "recipes": "Recept",
+        "disclaimer": "Ansvarsfriskrivning",
+        "error": "Fel",
+        "go_home": "Gå till Hem",
+        "page_not_found": "Sidan hittades inte"
+    },
+    "health": {
+        "blood_pressure": "Blodtryck",
+        "blood_sugar": "Blodsocker",
+        "blood_oxygen": "Blodsyre",
+        "weight_bmi": "Vikt & BMI",
+        "heart_rate": "Puls",
+        "ai": "AI",
+        "chat_with_ai": "Chatta med AI",
+        "healthy_meal_ideas": "Hälsosamma måltidsidéer",
+        "measure": "Mät",
+        "bpm": "BPM",
+        "records": "registreringar"
+    },
+    "heart_rate": {
+        "low": "Låg",
+        "normal": "Normal",
+        "elevated": "Förhöjd",
+        "high": "Hög"
+    },
+    "history": {
+        "check_up_history": "Kontrollhistorik",
+        "view_all": "Visa alla",
+        "no_measurements_yet": "Inga mätningar ännu",
+        "start_measuring_history": "Börja mäta för att se din historik"
+    },
+    "blood_oxygen": {
+        "title": "Blodsyre",
+        "edit_title": "Redigera blodsyre",
+        "add_title": "Lägg till blodsyre",
+        "record_updated": "Blodsyrepost uppdaterad",
+        "record_saved": "Blodsyrepost sparad",
+        "chart_title": "Blodsyre (SpO2%)",
+        "delete_confirmation": "Är du säker på att du vill ta bort denna blodsyremätning?"
+    },
+    "actions": {
+        "edit": "Redigera",
+        "add": "Lägg till",
+        "update": "Uppdatera",
+        "delete": "Radera",
+        "cancel": "Avbryt",
+        "save": "Spara",
+        "ok": "OK",
+        "share": "Dela",
+        "close": "Stäng"
+    },
+    "dialogs": {
+        "delete_measurement": "Radera mätning",
+        "measurement_deleted": "Mätning raderad",
+        "success": "Lyckades",
+        "error": "Fel"
+    },
+    "blood_pressure": {
+        "title": "Blodtryck",
+        "details": "Detaljer",
+        "systolic": "Systoliskt",
+        "diastolic": "Diastoliskt",
+        "pulse": "Puls",
+        "note": "Anteckning",
+        "no_measurement_selected": "Ingen mätning vald",
+        "updated_successfully": "Blodtrycket har uppdaterats!",
+        "saved_successfully": "Blodtrycket har sparats!",
+        "error_updating": "Fel vid uppdatering av mätning",
+        "error_saving": "Fel vid sparande av mätning",
+        "please_enter_valid_numbers": "Vänligen ange giltiga siffror"
+    },
+    "blood_sugar": {
+        "title": "Blodsocker",
+        "error_saving": "Fel vid sparande av mätning"
+    },
+    "measure_screen": {
+        "title": "Mät",
+        "instruction": "Placera ditt finger på kameran och ficklampan"
+    },
+    "disclaimer": {
+        "title": "Ansvarsfriskrivning",
+        "medical_disclaimer": "Medicinsk ansvarsfriskrivning",
+        "medical_disclaimer_content": "Denna applikation är endast avsedd för informations- och utbildningssyfte. Den är inte avsedd att ge medicinsk rådgivning, diagnos eller behandling. De hälsomätningar och data som tillhandahålls av denna app bör inte användas som ersättning för professionell medicinsk konsultation, diagnos eller behandling.",
+        "accuracy_title": "Noggrannhet i mätningar",
+        "accuracy_content": "Även om vi strävar efter att tillhandahålla noggranna hälsomätningar kan resultaten variera på grund av olika faktorer, inklusive enhetsbegränsningar, användarförhållanden och miljöfaktorer. Rådgör alltid med en vårdpersonal för exakta medicinska mätningar och tolkningar.",
+        "not_medical_device": "Inte en medicinsk enhet",
+        "not_medical_device_content": "Denna applikation och de mätningar den tillhandahåller är inte certifierade medicinska enheter. De bör inte användas som grund för medicinska beslut. För exakta medicinska mätningar, använd lämplig medicinsk utrustning under övervakning av vårdpersonal.",
+        "consultation_title": "Rekommendation om konsultation",
+        "consultation_content": "Sök alltid råd från din läkare eller annan kvalificerad vårdgivare om du har frågor om ett medicinskt tillstånd. Ignorera aldrig professionell medicinsk rådgivning eller försena att söka den på grund av något du har läst eller mätt med denna applikation.",
+        "emergency_title": "Akutsituationer",
+        "emergency_content": "Vid en medicinsk nödsituation, kontakta omedelbart lokala räddningstjänster. Förlita dig inte på denna applikation i medicinska nödsituationer.",
+        "privacy_title": "Dataskydd",
+        "privacy_content": "Dina hälsodata lagras lokalt på din enhet. Vi är engagerade i att skydda din integritet och delar inte din personliga hälsodata med tredje part utan ditt uttryckliga samtycke.",
+        "liability_title": "Ansvarsbegränsning",
+        "liability_content": "Utvecklarna av denna applikation är inte ansvariga för direkta, indirekta, tillfälliga, speciella eller följdskador som uppstår från användningen av denna applikation eller tilliten till dess mätningar.",
+        "important_notice": "Viktigt meddelande",
+        "important_notice_content": "Genom att använda denna applikation bekräftar du att du har läst, förstått och accepterat denna ansvarsfriskrivning. Du förstår att denna app inte är en ersättning för professionell sjukvård och att du bör rådfråga vårdpersonal för eventuella hälsoproblem."
+    },
+    "settings": {
+        "title": "Inställningar",
+        "tips": "Tips",
+        "disclaimer": "Ansvarsfriskrivning"
+    },
     "premium": {
         "3free": "Prova 3 dagar gratis",
         "restore": "Återställ köp",

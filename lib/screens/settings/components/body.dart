@@ -91,12 +91,12 @@ class Body extends StatelessWidget
                     ),
                     ProfileMenuItem(
                       icon: LineIcons.lightbulb,
-                      text: 'Tips',
+                      text: LocaleKeys.settings_tips.tr(),
                       press: () => context.push(AppRouter.tips),
                     ),
                     ProfileMenuItem(
                       icon: LineIcons.info,
-                      text: 'Disclaimer',
+                      text: LocaleKeys.navigation_disclaimer.tr(),
                       press: () => context.push(AppRouter.disclaimer),
                     ),
                   ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 
 class HealthCardsGrid extends StatelessWidget {
   final int heartRateRecords;
@@ -47,8 +49,9 @@ class HealthCardsGrid extends StatelessWidget {
           children: [
             Expanded(
               child: _buildSecondaryCard(
-                title: 'Blood Pressure',
-                records: '$bloodPressureRecords records',
+                title: LocaleKeys.health_blood_pressure.tr(),
+                records:
+                    '$bloodPressureRecords ${LocaleKeys.health_records.tr()}',
                 imagePath: 'assets/images/home/blood_pressure.png',
                 backgroundColor: const Color(0xFFE3F2FD),
                 onPressed: onBloodPressurePressed,
@@ -57,8 +60,8 @@ class HealthCardsGrid extends StatelessWidget {
             SizedBox(width: 3.w),
             Expanded(
               child: _buildSecondaryCard(
-                title: 'Blood Sugar',
-                records: '$bloodSugarRecords records',
+                title: LocaleKeys.health_blood_sugar.tr(),
+                records: '$bloodSugarRecords ${LocaleKeys.health_records.tr()}',
                 imagePath: 'assets/images/home/blood_sugar.png',
                 backgroundColor: const Color(0xFFF3E5F5),
                 onPressed: onBloodSugarPressed,
@@ -74,8 +77,9 @@ class HealthCardsGrid extends StatelessWidget {
           children: [
             Expanded(
               child: _buildSecondaryCard(
-                title: 'Blood Oxygen',
-                records: '$bloodOxygenRecords records',
+                title: LocaleKeys.health_blood_oxygen.tr(),
+                records:
+                    '$bloodOxygenRecords ${LocaleKeys.health_records.tr()}',
                 imagePath: 'assets/images/home/blood_oxygen.png',
                 backgroundColor: const Color(0xFFF3F1F1),
                 onPressed: onBloodOxygenPressed,
@@ -85,8 +89,8 @@ class HealthCardsGrid extends StatelessWidget {
 
             Expanded(
               child: _buildSecondaryCard(
-                title: 'Weight & BMI',
-                records: '$weightBmiRecords records',
+                title: LocaleKeys.health_weight_bmi.tr(),
+                records: '$weightBmiRecords ${LocaleKeys.health_records.tr()}',
                 imagePath: 'assets/images/home/bmi.png',
                 backgroundColor: const Color(0xFFFFF8E1),
                 onPressed: onWeightBmiPressed,
@@ -102,8 +106,8 @@ class HealthCardsGrid extends StatelessWidget {
           children: [
             Expanded(
               child: _buildSecondaryCard(
-                title: 'AI',
-                records: 'Chat with AI',
+                title: LocaleKeys.health_ai.tr(),
+                records: LocaleKeys.health_chat_with_ai.tr(),
                 imagePath: 'assets/images/home/ai.png',
                 backgroundColor: const Color(0xFFE8F5E8),
                 onPressed: onAiDoctorPressed,
@@ -112,8 +116,8 @@ class HealthCardsGrid extends StatelessWidget {
             SizedBox(width: 3.w),
             Expanded(
               child: _buildSecondaryCard(
-                title: 'Recipes',
-                records: 'Healthy meal ideas',
+                title: LocaleKeys.navigation_recipes.tr(),
+                records: LocaleKeys.health_healthy_meal_ideas.tr(),
                 imagePath: 'assets/images/home/recipes.png',
                 backgroundColor: const Color(0xFFFFF3E0),
                 onPressed: onRecipesPressed,
@@ -147,7 +151,7 @@ class HealthCardsGrid extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Heart Rate',
+                    LocaleKeys.health_heart_rate.tr(),
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
@@ -156,7 +160,7 @@ class HealthCardsGrid extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '$heartRateRecords records',
+                    '$heartRateRecords ${LocaleKeys.health_records.tr()}',
                     style: TextStyle(fontSize: 16.sp, color: Colors.black54),
                   ),
                   const SizedBox(height: 16),
@@ -172,7 +176,7 @@ class HealthCardsGrid extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        'Measure',
+                        LocaleKeys.health_measure.tr(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17.sp,

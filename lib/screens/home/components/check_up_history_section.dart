@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/heart_rate_measurement.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +24,7 @@ class CheckUpHistorySection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Check up History',
+              LocaleKeys.history_check_up_history.tr(),
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
@@ -34,7 +36,7 @@ class CheckUpHistorySection extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'View All',
+                    LocaleKeys.history_view_all.tr(),
                     style: TextStyle(
                       fontSize: 17.sp,
                       color: const Color(0xFFFF6B6B),
@@ -107,7 +109,7 @@ class CheckUpHistorySection extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'BPM',
+                  LocaleKeys.health_bpm.tr(),
                   style: TextStyle(fontSize: 12.sp, color: Colors.white),
                 ),
               ],
@@ -171,7 +173,7 @@ class CheckUpHistorySection extends StatelessWidget {
           Icon(Icons.history, size: 42, color: Colors.grey[400]),
           const SizedBox(height: 12),
           Text(
-            'No measurements yet',
+            LocaleKeys.history_no_measurements_yet.tr(),
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -180,7 +182,7 @@ class CheckUpHistorySection extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Start measuring to see your history',
+            LocaleKeys.history_start_measuring_history.tr(),
             style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
             textAlign: TextAlign.center,
           ),
@@ -190,24 +192,17 @@ class CheckUpHistorySection extends StatelessWidget {
   }
 
   String _getHeartRateStatus(int heartRate) {
-    if (heartRate < 60) return 'Low';
-    if (heartRate <= 100) return 'Normal';
-    if (heartRate <= 120) return 'Elevated';
-    return 'High';
+    if (heartRate < 60) return LocaleKeys.heart_rate_low.tr();
+    if (heartRate <= 100) return LocaleKeys.heart_rate_normal.tr();
+    if (heartRate <= 120) return LocaleKeys.heart_rate_elevated.tr();
+    return LocaleKeys.heart_rate_high.tr();
   }
 
   Color _getStatusColor(String status) {
-    switch (status) {
-      case 'Low':
-        return Colors.blue;
-      case 'Normal':
-        return Colors.green;
-      case 'Elevated':
-        return Colors.orange;
-      case 'High':
-        return Colors.red;
-      default:
-        return Colors.grey;
-    }
+    if (status == LocaleKeys.heart_rate_low.tr()) return Colors.blue;
+    if (status == LocaleKeys.heart_rate_normal.tr()) return Colors.green;
+    if (status == LocaleKeys.heart_rate_elevated.tr()) return Colors.orange;
+    if (status == LocaleKeys.heart_rate_high.tr()) return Colors.red;
+    return Colors.grey;
   }
 }

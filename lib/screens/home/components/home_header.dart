@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onProButtonPressed;
@@ -16,7 +18,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
-      title: Text('Dashboard'),
+      title: Text(LocaleKeys.navigation_dashboard.tr()),
       actions: [
         //TODO: Pro
         // PRO Button

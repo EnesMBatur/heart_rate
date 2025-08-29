@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Inicio",
+        "dashboard": "Panel de control",
+        "settings": "Configuración",
+        "recipes": "Recetas",
+        "disclaimer": "Aviso legal",
+        "error": "Error",
+        "go_home": "Ir al inicio",
+        "page_not_found": "Página no encontrada"
+    },
+    "health": {
+        "blood_pressure": "Presión arterial",
+        "blood_sugar": "Glucosa en sangre",
+        "blood_oxygen": "Oxígeno en sangre",
+        "weight_bmi": "Peso e IMC",
+        "heart_rate": "Frecuencia cardíaca",
+        "ai": "IA",
+        "chat_with_ai": "Chatear con IA",
+        "healthy_meal_ideas": "Ideas de comidas saludables",
+        "measure": "Medir",
+        "bpm": "PPM",
+        "records": "registros"
+    },
+    "heart_rate": {
+        "low": "Bajo",
+        "normal": "Normal",
+        "elevated": "Elevado",
+        "high": "Alto"
+    },
+    "history": {
+        "check_up_history": "Historial de chequeos",
+        "view_all": "Ver todo",
+        "no_measurements_yet": "Aún no hay mediciones",
+        "start_measuring_history": "Comienza a medir para ver tu historial"
+    },
+    "blood_oxygen": {
+        "title": "Oxígeno en sangre",
+        "edit_title": "Editar oxígeno en sangre",
+        "add_title": "Agregar oxígeno en sangre",
+        "record_updated": "Registro de oxígeno actualizado",
+        "record_saved": "Registro de oxígeno guardado",
+        "chart_title": "Oxígeno en sangre (SpO2%)",
+        "delete_confirmation": "¿Estás seguro de que deseas eliminar esta medición de oxígeno en sangre?"
+    },
+    "actions": {
+        "edit": "Editar",
+        "add": "Agregar",
+        "update": "Actualizar",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "ok": "OK",
+        "share": "Compartir",
+        "close": "Cerrar"
+    },
+    "dialogs": {
+        "delete_measurement": "Eliminar medición",
+        "measurement_deleted": "Medición eliminada",
+        "success": "Éxito",
+        "error": "Error"
+    },
+    "blood_pressure": {
+        "title": "Presión arterial",
+        "details": "Detalles",
+        "systolic": "Sistólica",
+        "diastolic": "Diastólica",
+        "pulse": "Pulso",
+        "note": "Nota",
+        "no_measurement_selected": "No se seleccionó ninguna medición",
+        "updated_successfully": "¡Presión arterial actualizada con éxito!",
+        "saved_successfully": "¡Presión arterial guardada con éxito!",
+        "error_updating": "Error al actualizar la medición",
+        "error_saving": "Error al guardar la medición",
+        "please_enter_valid_numbers": "Por favor, ingrese números válidos"
+    },
+    "blood_sugar": {
+        "title": "Glucosa en sangre",
+        "error_saving": "Error al guardar la medición"
+    },
+    "measure_screen": {
+        "title": "Medir",
+        "instruction": "Por favor, coloca tu dedo sobre la cámara y la linterna"
+    },
+    "disclaimer": {
+        "title": "Aviso legal",
+        "medical_disclaimer": "Aviso médico",
+        "medical_disclaimer_content": "Esta aplicación está diseñada únicamente con fines informativos y educativos. No pretende proporcionar consejos médicos, diagnóstico o tratamiento. Las mediciones y datos de salud proporcionados por esta aplicación no deben utilizarse como sustituto de la consulta, diagnóstico o tratamiento médico profesional.",
+        "accuracy_title": "Precisión de las mediciones",
+        "accuracy_content": "Aunque nos esforzamos por proporcionar mediciones precisas de salud, los resultados pueden variar debido a diversos factores, incluidas las limitaciones del dispositivo, las condiciones del usuario y los factores ambientales. Consulte siempre a un profesional de la salud para obtener mediciones e interpretaciones médicas precisas.",
+        "not_medical_device": "No es un dispositivo médico",
+        "not_medical_device_content": "Esta aplicación y las mediciones que proporciona no son dispositivos médicos certificados. No deben utilizarse como base para decisiones médicas. Para mediciones médicas precisas, utilice el equipo adecuado bajo la supervisión de profesionales de la salud.",
+        "consultation_title": "Recomendación de consulta",
+        "consultation_content": "Busque siempre el consejo de su médico u otro proveedor de salud calificado si tiene alguna pregunta sobre una condición médica. Nunca ignore el consejo médico profesional ni retrase su búsqueda debido a algo que haya leído o medido con esta aplicación.",
+        "emergency_title": "Situaciones de emergencia",
+        "emergency_content": "En caso de una emergencia médica, contacte de inmediato con los servicios de emergencia locales. No confíe en esta aplicación para situaciones médicas de emergencia.",
+        "privacy_title": "Privacidad de los datos",
+        "privacy_content": "Sus datos de salud se almacenan localmente en su dispositivo. Estamos comprometidos a proteger su privacidad y no compartimos su información de salud personal con terceros sin su consentimiento expreso.",
+        "liability_title": "Limitación de responsabilidad",
+        "liability_content": "Los desarrolladores de esta aplicación no serán responsables de ningún daño directo, indirecto, incidental, especial o consecuente que surja del uso de esta aplicación o de la confianza en sus mediciones.",
+        "important_notice": "Aviso importante",
+        "important_notice_content": "Al usar esta aplicación, usted reconoce que ha leído, comprendido y aceptado este aviso legal. Usted entiende que esta aplicación no sustituye la atención médica profesional y que debe consultar con un proveedor de atención médica para cualquier problema de salud."
+    },
+    "settings": {
+        "title": "Configuración",
+        "tips": "Consejos",
+        "disclaimer": "Aviso legal"
+    },
     "premium": {
         "3free": "Prueba 3 días gratis",
         "restore": "Restaurar compras",

@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Startseite",
+        "dashboard": "Dashboard",
+        "settings": "Einstellungen",
+        "recipes": "Rezepte",
+        "disclaimer": "Haftungsausschluss",
+        "error": "Fehler",
+        "go_home": "Zur Startseite",
+        "page_not_found": "Seite nicht gefunden"
+    },
+    "health": {
+        "blood_pressure": "Blutdruck",
+        "blood_sugar": "Blutzucker",
+        "blood_oxygen": "Blutsauerstoff",
+        "weight_bmi": "Gewicht & BMI",
+        "heart_rate": "Herzfrequenz",
+        "ai": "KI",
+        "chat_with_ai": "Chat mit KI",
+        "healthy_meal_ideas": "Gesunde Mahlzeitenideen",
+        "measure": "Messen",
+        "bpm": "BPM",
+        "records": "Aufzeichnungen"
+    },
+    "heart_rate": {
+        "low": "Niedrig",
+        "normal": "Normal",
+        "elevated": "Erhöht",
+        "high": "Hoch"
+    },
+    "history": {
+        "check_up_history": "Untersuchungshistorie",
+        "view_all": "Alle anzeigen",
+        "no_measurements_yet": "Noch keine Messungen",
+        "start_measuring_history": "Beginnen Sie mit dem Messen, um Ihre Historie anzuzeigen"
+    },
+    "blood_oxygen": {
+        "title": "Blutsauerstoff",
+        "edit_title": "Blutsauerstoff bearbeiten",
+        "add_title": "Blutsauerstoff hinzufügen",
+        "record_updated": "Blutsauerstoff-Aufzeichnung aktualisiert",
+        "record_saved": "Blutsauerstoff-Aufzeichnung gespeichert",
+        "chart_title": "Blutsauerstoff (SpO2%)",
+        "delete_confirmation": "Sind Sie sicher, dass Sie diese Blutsauerstoffmessung löschen möchten?"
+    },
+    "actions": {
+        "edit": "Bearbeiten",
+        "add": "Hinzufügen",
+        "update": "Aktualisieren",
+        "delete": "Löschen",
+        "cancel": "Abbrechen",
+        "save": "Speichern",
+        "ok": "OK",
+        "share": "Teilen",
+        "close": "Schließen"
+    },
+    "dialogs": {
+        "delete_measurement": "Messung löschen",
+        "measurement_deleted": "Messung gelöscht",
+        "success": "Erfolg",
+        "error": "Fehler"
+    },
+    "blood_pressure": {
+        "title": "Blutdruck",
+        "details": "Details",
+        "systolic": "Systolisch",
+        "diastolic": "Diastolisch",
+        "pulse": "Puls",
+        "note": "Notiz",
+        "no_measurement_selected": "Keine Messung ausgewählt",
+        "updated_successfully": "Blutdruck erfolgreich aktualisiert!",
+        "saved_successfully": "Blutdruck erfolgreich gespeichert!",
+        "error_updating": "Fehler beim Aktualisieren der Messung",
+        "error_saving": "Fehler beim Speichern der Messung",
+        "please_enter_valid_numbers": "Bitte geben Sie gültige Zahlen ein"
+    },
+    "blood_sugar": {
+        "title": "Blutzucker",
+        "error_saving": "Fehler beim Speichern der Messung"
+    },
+    "measure_screen": {
+        "title": "Messen",
+        "instruction": "Bitte legen Sie Ihren Finger auf die Kamera und das Blitzlicht"
+    },
+    "disclaimer": {
+        "title": "Haftungsausschluss",
+        "medical_disclaimer": "Medizinischer Haftungsausschluss",
+        "medical_disclaimer_content": "Diese Anwendung ist nur für Informations- und Bildungszwecke bestimmt. Sie ist nicht dazu gedacht, medizinische Beratung, Diagnose oder Behandlung bereitzustellen. Die von dieser App bereitgestellten Gesundheitsmessungen und Daten dürfen nicht als Ersatz für eine professionelle medizinische Beratung, Diagnose oder Behandlung verwendet werden.",
+        "accuracy_title": "Genauigkeit der Messungen",
+        "accuracy_content": "Obwohl wir uns bemühen, genaue Gesundheitsmessungen bereitzustellen, können die Ergebnisse aufgrund verschiedener Faktoren wie Gerätebeschränkungen, Benutzerbedingungen und Umwelteinflüsse variieren. Konsultieren Sie immer einen Arzt für genaue medizinische Messungen und Interpretationen.",
+        "not_medical_device": "Kein medizinisches Gerät",
+        "not_medical_device_content": "Diese Anwendung und die von ihr bereitgestellten Messungen sind keine zertifizierten medizinischen Geräte. Sie sollten nicht als Grundlage für medizinische Entscheidungen verwendet werden. Für genaue medizinische Messungen verwenden Sie bitte geeignete medizinische Geräte unter Aufsicht von medizinischem Fachpersonal.",
+        "consultation_title": "Empfehlung zur Konsultation",
+        "consultation_content": "Suchen Sie immer den Rat Ihres Arztes oder eines anderen qualifizierten Gesundheitsdienstleisters, wenn Sie Fragen zu einer Erkrankung haben. Ignorieren Sie niemals professionelle medizinische Beratung oder zögern Sie nicht, diese einzuholen, aufgrund von Informationen, die Sie in dieser Anwendung gelesen oder gemessen haben.",
+        "emergency_title": "Notfälle",
+        "emergency_content": "Im Falle eines medizinischen Notfalls wenden Sie sich sofort an die örtlichen Notdienste. Verlassen Sie sich nicht auf diese Anwendung in medizinischen Notfällen.",
+        "privacy_title": "Datenschutz",
+        "privacy_content": "Ihre Gesundheitsdaten werden lokal auf Ihrem Gerät gespeichert. Wir verpflichten uns, Ihre Privatsphäre zu schützen und geben Ihre persönlichen Gesundheitsinformationen nicht ohne Ihre ausdrückliche Zustimmung an Dritte weiter.",
+        "liability_title": "Haftungsbeschränkung",
+        "liability_content": "Die Entwickler dieser Anwendung haften nicht für direkte, indirekte, zufällige, besondere oder Folgeschäden, die sich aus der Nutzung dieser Anwendung oder dem Vertrauen auf deren Messungen ergeben.",
+        "important_notice": "Wichtiger Hinweis",
+        "important_notice_content": "Durch die Nutzung dieser Anwendung bestätigen Sie, dass Sie diesen Haftungsausschluss gelesen, verstanden und akzeptiert haben. Sie verstehen, dass diese App kein Ersatz für professionelle medizinische Versorgung ist und dass Sie sich bei gesundheitlichen Problemen an einen Arzt wenden sollten."
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "tips": "Tipps",
+        "disclaimer": "Haftungsausschluss"
+    },
     "premium": {
         "3free": "3 Tage kostenlos testen",
         "restore": "Käufe wiederherstellen",

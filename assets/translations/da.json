@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Hjem",
+        "dashboard": "Dashboard",
+        "settings": "Indstillinger",
+        "recipes": "Opskrifter",
+        "disclaimer": "Ansvarsfraskrivelse",
+        "error": "Fejl",
+        "go_home": "Gå til Hjem",
+        "page_not_found": "Siden blev ikke fundet"
+    },
+    "health": {
+        "blood_pressure": "Blodtryk",
+        "blood_sugar": "Blodsukker",
+        "blood_oxygen": "Blodilt",
+        "weight_bmi": "Vægt & BMI",
+        "heart_rate": "Puls",
+        "ai": "AI",
+        "chat_with_ai": "Chat med AI",
+        "healthy_meal_ideas": "Sunde måltidsidéer",
+        "measure": "Mål",
+        "bpm": "BPM",
+        "records": "registreringer"
+    },
+    "heart_rate": {
+        "low": "Lav",
+        "normal": "Normal",
+        "elevated": "Forhøjet",
+        "high": "Høj"
+    },
+    "history": {
+        "check_up_history": "Tjekhistorik",
+        "view_all": "Se alle",
+        "no_measurements_yet": "Ingen målinger endnu",
+        "start_measuring_history": "Start måling for at se din historik"
+    },
+    "blood_oxygen": {
+        "title": "Blodilt",
+        "edit_title": "Rediger blodilt",
+        "add_title": "Tilføj blodilt",
+        "record_updated": "Blodiltsregistrering opdateret",
+        "record_saved": "Blodiltsregistrering gemt",
+        "chart_title": "Blodilt (SpO2%)",
+        "delete_confirmation": "Er du sikker på, at du vil slette denne blodiltmåling?"
+    },
+    "actions": {
+        "edit": "Rediger",
+        "add": "Tilføj",
+        "update": "Opdater",
+        "delete": "Slet",
+        "cancel": "Annuller",
+        "save": "Gem",
+        "ok": "OK",
+        "share": "Del",
+        "close": "Luk"
+    },
+    "dialogs": {
+        "delete_measurement": "Slet måling",
+        "measurement_deleted": "Måling slettet",
+        "success": "Succes",
+        "error": "Fejl"
+    },
+    "blood_pressure": {
+        "title": "Blodtryk",
+        "details": "Detaljer",
+        "systolic": "Systolisk",
+        "diastolic": "Diastolisk",
+        "pulse": "Puls",
+        "note": "Note",
+        "no_measurement_selected": "Ingen måling valgt",
+        "updated_successfully": "Blodtryk opdateret med succes!",
+        "saved_successfully": "Blodtryk gemt med succes!",
+        "error_updating": "Fejl under opdatering af måling",
+        "error_saving": "Fejl under lagring af måling",
+        "please_enter_valid_numbers": "Indtast venligst gyldige tal"
+    },
+    "blood_sugar": {
+        "title": "Blodsukker",
+        "error_saving": "Fejl under lagring af måling"
+    },
+    "measure_screen": {
+        "title": "Mål",
+        "instruction": "Placer venligst din finger på kameraet og lommelygten"
+    },
+    "disclaimer": {
+        "title": "Ansvarsfraskrivelse",
+        "medical_disclaimer": "Medicinsk ansvarsfraskrivelse",
+        "medical_disclaimer_content": "Denne applikation er kun beregnet til informations- og uddannelsesformål. Den er ikke beregnet til at give medicinsk rådgivning, diagnose eller behandling. De sundhedsmålinger og data, der leveres af denne app, bør ikke bruges som erstatning for professionel medicinsk rådgivning, diagnose eller behandling.",
+        "accuracy_title": "Nøjagtighed af målinger",
+        "accuracy_content": "Selvom vi bestræber os på at levere nøjagtige sundhedsmålinger, kan resultaterne variere på grund af forskellige faktorer, herunder enhedens begrænsninger, brugerens forhold og miljømæssige faktorer. Konsulter altid en sundhedsprofessionel for nøjagtige medicinske målinger og fortolkninger.",
+        "not_medical_device": "Ikke et medicinsk udstyr",
+        "not_medical_device_content": "Denne applikation og de målinger, den giver, er ikke certificerede medicinske enheder. De bør ikke bruges som grundlag for medicinske beslutninger. For nøjagtige medicinske målinger skal du bruge korrekt medicinsk udstyr under opsyn af sundhedsprofessionelle.",
+        "consultation_title": "Anbefaling om konsultation",
+        "consultation_content": "Søg altid råd hos din læge eller en anden kvalificeret sundhedsudbyder, hvis du har spørgsmål vedrørende en medicinsk tilstand. Ignorer aldrig professionel medicinsk rådgivning eller udsæt at søge den på grund af noget, du har læst eller målt med denne applikation.",
+        "emergency_title": "Nødsituationer",
+        "emergency_content": "I tilfælde af en medicinsk nødsituation skal du straks kontakte dine lokale alarmtjenester. Stol ikke på denne applikation i medicinske nødsituationer.",
+        "privacy_title": "Databeskyttelse",
+        "privacy_content": "Dine sundhedsdata gemmes lokalt på din enhed. Vi er forpligtet til at beskytte dit privatliv og deler ikke dine personlige sundhedsoplysninger med tredjeparter uden dit udtrykkelige samtykke.",
+        "liability_title": "Begrænsning af ansvar",
+        "liability_content": "Udviklerne af denne applikation er ikke ansvarlige for direkte, indirekte, tilfældige, særlige eller følgeskader, der opstår som følge af brugen af denne applikation eller tillid til dens målinger.",
+        "important_notice": "Vigtig meddelelse",
+        "important_notice_content": "Ved at bruge denne applikation anerkender du, at du har læst, forstået og accepteret denne ansvarsfraskrivelse. Du forstår, at denne app ikke er en erstatning for professionel medicinsk behandling, og at du bør konsultere en sundhedsudbyder for eventuelle helbredsproblemer."
+    },
+    "settings": {
+        "title": "Indstillinger",
+        "tips": "Tips",
+        "disclaimer": "Ansvarsfraskrivelse"
+    },
     "premium": {
         "3free": "Prøv 3 dage gratis",
         "restore": "Gendan køb",

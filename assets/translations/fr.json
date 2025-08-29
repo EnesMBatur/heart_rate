@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Accueil",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres",
+        "recipes": "Recettes",
+        "disclaimer": "Avertissement",
+        "error": "Erreur",
+        "go_home": "Aller à l'accueil",
+        "page_not_found": "Page non trouvée"
+    },
+    "health": {
+        "blood_pressure": "Pression artérielle",
+        "blood_sugar": "Glycémie",
+        "blood_oxygen": "Oxygène sanguin",
+        "weight_bmi": "Poids & IMC",
+        "heart_rate": "Fréquence cardiaque",
+        "ai": "IA",
+        "chat_with_ai": "Discuter avec l’IA",
+        "healthy_meal_ideas": "Idées de repas sains",
+        "measure": "Mesurer",
+        "bpm": "BPM",
+        "records": "enregistrements"
+    },
+    "heart_rate": {
+        "low": "Bas",
+        "normal": "Normal",
+        "elevated": "Élevé",
+        "high": "Haut"
+    },
+    "history": {
+        "check_up_history": "Historique des examens",
+        "view_all": "Voir tout",
+        "no_measurements_yet": "Aucune mesure pour le moment",
+        "start_measuring_history": "Commencez à mesurer pour voir votre historique"
+    },
+    "blood_oxygen": {
+        "title": "Oxygène sanguin",
+        "edit_title": "Modifier l’oxygène sanguin",
+        "add_title": "Ajouter l’oxygène sanguin",
+        "record_updated": "Enregistrement de l’oxygène sanguin mis à jour",
+        "record_saved": "Enregistrement de l’oxygène sanguin sauvegardé",
+        "chart_title": "Oxygène sanguin (SpO2%)",
+        "delete_confirmation": "Êtes-vous sûr de vouloir supprimer cette mesure d’oxygène sanguin ?"
+    },
+    "actions": {
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "update": "Mettre à jour",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "ok": "OK",
+        "share": "Partager",
+        "close": "Fermer"
+    },
+    "dialogs": {
+        "delete_measurement": "Supprimer la mesure",
+        "measurement_deleted": "Mesure supprimée",
+        "success": "Succès",
+        "error": "Erreur"
+    },
+    "blood_pressure": {
+        "title": "Pression artérielle",
+        "details": "Détails",
+        "systolic": "Systolique",
+        "diastolic": "Diastolique",
+        "pulse": "Pouls",
+        "note": "Remarque",
+        "no_measurement_selected": "Aucune mesure sélectionnée",
+        "updated_successfully": "Pression artérielle mise à jour avec succès !",
+        "saved_successfully": "Pression artérielle enregistrée avec succès !",
+        "error_updating": "Erreur lors de la mise à jour de la mesure",
+        "error_saving": "Erreur lors de l’enregistrement de la mesure",
+        "please_enter_valid_numbers": "Veuillez entrer des nombres valides"
+    },
+    "blood_sugar": {
+        "title": "Glycémie",
+        "error_saving": "Erreur lors de l’enregistrement de la mesure"
+    },
+    "measure_screen": {
+        "title": "Mesurer",
+        "instruction": "Veuillez placer votre doigt sur la caméra et le flash"
+    },
+    "disclaimer": {
+        "title": "Avertissement",
+        "medical_disclaimer": "Avertissement médical",
+        "medical_disclaimer_content": "Cette application est conçue uniquement à des fins d’information et d’éducation. Elle n’a pas pour but de fournir des conseils médicaux, un diagnostic ou un traitement. Les mesures et données de santé fournies par cette application ne doivent pas être utilisées comme substitut à une consultation médicale professionnelle, un diagnostic ou un traitement.",
+        "accuracy_title": "Précision des mesures",
+        "accuracy_content": "Bien que nous nous efforcions de fournir des mesures de santé précises, les résultats peuvent varier en raison de divers facteurs, notamment les limitations de l’appareil, les conditions de l’utilisateur et les facteurs environnementaux. Consultez toujours un professionnel de santé pour obtenir des mesures et interprétations médicales précises.",
+        "not_medical_device": "Pas un dispositif médical",
+        "not_medical_device_content": "Cette application et les mesures qu’elle fournit ne sont pas des dispositifs médicaux certifiés. Elles ne doivent pas être utilisées comme base de décisions médicales. Pour des mesures médicales précises, veuillez utiliser un équipement médical approprié sous la supervision de professionnels de santé.",
+        "consultation_title": "Recommandation de consultation",
+        "consultation_content": "Demandez toujours l’avis de votre médecin ou d’un autre professionnel de santé qualifié pour toute question concernant un problème médical. Ne négligez jamais un avis médical professionnel et ne retardez pas sa recherche en raison de quelque chose que vous avez lu ou mesuré avec cette application.",
+        "emergency_title": "Situations d’urgence",
+        "emergency_content": "En cas d’urgence médicale, contactez immédiatement les services d’urgence locaux. Ne vous fiez pas à cette application dans les situations médicales d’urgence.",
+        "privacy_title": "Confidentialité des données",
+        "privacy_content": "Vos données de santé sont stockées localement sur votre appareil. Nous nous engageons à protéger votre vie privée et ne partageons pas vos informations de santé personnelles avec des tiers sans votre consentement explicite.",
+        "liability_title": "Limitation de responsabilité",
+        "liability_content": "Les développeurs de cette application ne seront pas responsables de tout dommage direct, indirect, accidentel, spécial ou consécutif résultant de l’utilisation de cette application ou de la confiance accordée à ses mesures.",
+        "important_notice": "Avis important",
+        "important_notice_content": "En utilisant cette application, vous reconnaissez avoir lu, compris et accepté cet avertissement. Vous comprenez que cette application ne remplace pas les soins médicaux professionnels et que vous devez consulter un professionnel de santé pour toute préoccupation médicale."
+    },
+    "settings": {
+        "title": "Paramètres",
+        "tips": "Conseils",
+        "disclaimer": "Avertissement"
+    },
     "premium": {
         "3free": "Essayez 3 jours gratuits",
         "restore": "Restaurer les achats",

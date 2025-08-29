@@ -1,4 +1,111 @@
 {
+    "navigation": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "settings": "Instellingen",
+        "recipes": "Recepten",
+        "disclaimer": "Disclaimer",
+        "error": "Fout",
+        "go_home": "Ga naar Home",
+        "page_not_found": "Pagina niet gevonden"
+    },
+    "health": {
+        "blood_pressure": "Bloeddruk",
+        "blood_sugar": "Bloedsuiker",
+        "blood_oxygen": "Bloedzuurstof",
+        "weight_bmi": "Gewicht & BMI",
+        "heart_rate": "Hartslag",
+        "ai": "AI",
+        "chat_with_ai": "Chat met AI",
+        "healthy_meal_ideas": "Gezonde maaltijdideeën",
+        "measure": "Meten",
+        "bpm": "BPM",
+        "records": "registraties"
+    },
+    "heart_rate": {
+        "low": "Laag",
+        "normal": "Normaal",
+        "elevated": "Verhoogd",
+        "high": "Hoog"
+    },
+    "history": {
+        "check_up_history": "Onderzoeksgeschiedenis",
+        "view_all": "Alles bekijken",
+        "no_measurements_yet": "Nog geen metingen",
+        "start_measuring_history": "Begin met meten om je geschiedenis te bekijken"
+    },
+    "blood_oxygen": {
+        "title": "Bloedzuurstof",
+        "edit_title": "Bloedzuurstof bewerken",
+        "add_title": "Bloedzuurstof toevoegen",
+        "record_updated": "Bloedzuurstofrecord bijgewerkt",
+        "record_saved": "Bloedzuurstofrecord opgeslagen",
+        "chart_title": "Bloedzuurstof (SpO2%)",
+        "delete_confirmation": "Weet je zeker dat je deze bloedzuurstofmeting wilt verwijderen?"
+    },
+    "actions": {
+        "edit": "Bewerken",
+        "add": "Toevoegen",
+        "update": "Bijwerken",
+        "delete": "Verwijderen",
+        "cancel": "Annuleren",
+        "save": "Opslaan",
+        "ok": "OK",
+        "share": "Delen",
+        "close": "Sluiten"
+    },
+    "dialogs": {
+        "delete_measurement": "Meting verwijderen",
+        "measurement_deleted": "Meting verwijderd",
+        "success": "Succes",
+        "error": "Fout"
+    },
+    "blood_pressure": {
+        "title": "Bloeddruk",
+        "details": "Details",
+        "systolic": "Systolisch",
+        "diastolic": "Diastolisch",
+        "pulse": "Pols",
+        "note": "Notitie",
+        "no_measurement_selected": "Geen meting geselecteerd",
+        "updated_successfully": "Bloeddruk succesvol bijgewerkt!",
+        "saved_successfully": "Bloeddruk succesvol opgeslagen!",
+        "error_updating": "Fout bij het bijwerken van de meting",
+        "error_saving": "Fout bij het opslaan van de meting",
+        "please_enter_valid_numbers": "Voer alstublieft geldige nummers in"
+    },
+    "blood_sugar": {
+        "title": "Bloedsuiker",
+        "error_saving": "Fout bij het opslaan van de meting"
+    },
+    "measure_screen": {
+        "title": "Meten",
+        "instruction": "Plaats je vinger op de camera en de zaklamp"
+    },
+    "disclaimer": {
+        "title": "Disclaimer",
+        "medical_disclaimer": "Medische disclaimer",
+        "medical_disclaimer_content": "Deze applicatie is uitsluitend bedoeld voor informatieve en educatieve doeleinden. Het is niet bedoeld om medisch advies, diagnose of behandeling te bieden. De gezondheidsmetingen en gegevens die door deze app worden verstrekt, mogen niet worden gebruikt als vervanging voor professioneel medisch advies, diagnose of behandeling.",
+        "accuracy_title": "Nauwkeurigheid van metingen",
+        "accuracy_content": "Hoewel we ons best doen om nauwkeurige gezondheidsmetingen te leveren, kunnen de resultaten variëren door verschillende factoren, waaronder apparaatbeperkingen, gebruikersomstandigheden en omgevingsfactoren. Raadpleeg altijd een zorgprofessional voor nauwkeurige medische metingen en interpretaties.",
+        "not_medical_device": "Geen medisch apparaat",
+        "not_medical_device_content": "Deze applicatie en de metingen die het verstrekt, zijn geen gecertificeerde medische apparaten. Ze mogen niet worden gebruikt als basis voor medische beslissingen. Voor nauwkeurige medische metingen, gebruik geschikte medische apparatuur onder toezicht van zorgprofessionals.",
+        "consultation_title": "Consultatie-aanbeveling",
+        "consultation_content": "Vraag altijd advies aan je arts of een andere gekwalificeerde zorgverlener als je vragen hebt over een medische aandoening. Negeer nooit professioneel medisch advies en stel het zoeken ervan niet uit vanwege iets dat je hebt gelezen of gemeten met deze applicatie.",
+        "emergency_title": "Noodsituaties",
+        "emergency_content": "Neem in geval van een medisch noodgeval onmiddellijk contact op met de lokale hulpdiensten. Vertrouw niet op deze applicatie voor medische noodsituaties.",
+        "privacy_title": "Gegevensprivacy",
+        "privacy_content": "Je gezondheidsgegevens worden lokaal op je apparaat opgeslagen. We zetten ons in om je privacy te beschermen en delen je persoonlijke gezondheidsinformatie niet met derden zonder jouw uitdrukkelijke toestemming.",
+        "liability_title": "Beperking van aansprakelijkheid",
+        "liability_content": "De ontwikkelaars van deze applicatie zijn niet aansprakelijk voor enige directe, indirecte, incidentele, speciale of gevolgschade die voortvloeit uit het gebruik van deze applicatie of het vertrouwen op de metingen ervan.",
+        "important_notice": "Belangrijke mededeling",
+        "important_notice_content": "Door deze applicatie te gebruiken, erken je dat je deze disclaimer hebt gelezen, begrepen en geaccepteerd. Je begrijpt dat deze app geen vervanging is voor professionele medische zorg en dat je een zorgprofessional moet raadplegen voor gezondheidsproblemen."
+    },
+    "settings": {
+        "title": "Instellingen",
+        "tips": "Tips",
+        "disclaimer": "Disclaimer"
+    },
     "premium": {
         "3free": "Probeer 3 dagen gratis",
         "restore": "Aankopen herstellen",

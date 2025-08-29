@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -25,7 +27,7 @@ class _BloodSugarScreenState extends State<BloodSugarScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: Text('Blood Sugar'),
+        title: Text(LocaleKeys.health_blood_sugar.tr()),
         centerTitle: true,
       ),
       body: Consumer<BloodSugarViewModel>(

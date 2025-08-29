@@ -83,7 +83,7 @@ class _AiScreenState extends AiModelview {
         icon: const Icon(Icons.arrow_back, color: Colors.black),
         onPressed: () => context.pop(),
       ),
-      title: Text('AI'),
+      title: Text(LocaleKeys.health_ai.tr()),
       centerTitle: true,
       automaticallyImplyLeading: false,
       //TODO: proLeading

@@ -4,6 +4,8 @@ import 'package:heart_rate/screens/measure/components/start_ring.dart';
 import 'package:heart_rate/screens/measure/modelview/starting_rate_model_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -24,7 +26,7 @@ class _HeartRateScreenState extends StartingRateModelView {
           },
         ),
         title: Text(
-          'Measure',
+          LocaleKeys.health_measure.tr(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.sp,
@@ -111,7 +113,7 @@ class _HeartRateScreenState extends StartingRateModelView {
                             Flexible(
                               // Add Flexible to prevent overflow
                               child: Text(
-                                'Please put your finger on the camera and flashlight',
+                                LocaleKeys.measure_screen_instruction.tr(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 15.sp, // Reduced from 14.sp

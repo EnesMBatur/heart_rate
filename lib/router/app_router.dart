@@ -5,6 +5,8 @@ import 'package:heart_rate/screens/home/home_screen.dart';
 import 'package:heart_rate/screens/measure/start_measure_screen.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../locale/lang/locale_keys.g.dart';
 import '../screens/measure/heart_rate_screen.dart';
 import '../screens/heart_rate/heart_rate_screen.dart' as heart_rate_tracker;
 import '../screens/settings/settings_screen.dart';
@@ -244,18 +246,18 @@ class AppRouter {
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
-      appBar: AppBar(title: const Text('Error')),
+      appBar: AppBar(title: Text(LocaleKeys.navigation_error.tr())),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.error, size: 64, color: Colors.red),
             const SizedBox(height: 16),
-            Text('Page not found: ${state.uri}'),
+            Text('${LocaleKeys.navigation_page_not_found.tr()}: ${state.uri}'),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.go(home),
-              child: const Text('Go Home'),
+              child: Text(LocaleKeys.navigation_go_home.tr()),
             ),
           ],
         ),
@@ -290,7 +292,10 @@ class AppShell extends StatelessWidget {
         itemCount: 2,
         tabBuilder: (int index, bool isActive) {
           final icons = [LineIcons.medicalBook, LineIcons.userCog];
-          final labels = ['Dashboard', 'Settings'];
+          final labels = [
+            LocaleKeys.navigation_dashboard.tr(),
+            LocaleKeys.navigation_settings.tr(),
+          ];
 
           return Column(
             mainAxisSize: MainAxisSize.min,

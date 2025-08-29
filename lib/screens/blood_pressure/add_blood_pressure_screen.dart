@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 import '../../models/blood_pressure_measurement.dart';
 import 'viewmodels/blood_pressure_view_model.dart';
 
@@ -75,7 +77,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
             onPressed: () => context.pop(),
           ),
           title: Text(
-            isEditMode ? 'Edit' : 'Add',
+            isEditMode ? LocaleKeys.actions_edit.tr() : 'Add',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20.sp,
@@ -169,7 +171,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
                     ),
                   ),
                   child: Text(
-                    'Cancel',
+                    LocaleKeys.actions_cancel.tr(),
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.grey[700],
@@ -190,7 +192,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
                     ),
                   ),
                   child: Text(
-                    isEditMode ? 'Update' : 'Save',
+                    isEditMode ? 'Update' : LocaleKeys.actions_save.tr(),
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.white,
@@ -227,9 +229,9 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildLabel('Systolic'),
-              _buildLabel('Diastolic'),
-              _buildLabel('Pulse'),
+              _buildLabel(LocaleKeys.blood_pressure_systolic.tr()),
+              _buildLabel(LocaleKeys.blood_pressure_diastolic.tr()),
+              _buildLabel(LocaleKeys.blood_pressure_pulse.tr()),
             ],
           ),
           SizedBox(height: 3.h),
@@ -375,7 +377,7 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
               const Icon(Icons.note, color: Color(0xFFFF6B6B)),
               SizedBox(width: 2.w),
               Text(
-                'Note',
+                LocaleKeys.blood_pressure_note.tr(),
                 style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
               ),
             ],
@@ -550,7 +552,11 @@ class _AddBloodPressureScreenState extends State<AddBloodPressureScreen> {
 
     if (systolic == null || diastolic == null || pulse == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter valid numbers')),
+        SnackBar(
+          content: Text(
+            LocaleKeys.blood_pressure_please_enter_valid_numbers.tr(),
+          ),
+        ),
       );
       return;
     }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../locale/lang/locale_keys.g.dart';
 
 class DisclaimerScreen extends StatelessWidget {
   const DisclaimerScreen({super.key});
@@ -16,7 +18,7 @@ class DisclaimerScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: Text('Disclaimer'),
+        title: Text(LocaleKeys.disclaimer_title.tr()),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -26,51 +28,44 @@ class DisclaimerScreen extends StatelessWidget {
           children: [
             _buildSection(
               context,
-              title: 'Medical Disclaimer',
-              content:
-                  'This application is designed for informational and educational purposes only. It is not intended to provide medical advice, diagnosis, or treatment. The health measurements and data provided by this app should not be used as a substitute for professional medical consultation, diagnosis, or treatment.',
+              title: LocaleKeys.disclaimer_medical_disclaimer.tr(),
+              content: LocaleKeys.disclaimer_medical_disclaimer_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Accuracy of Measurements',
-              content:
-                  'While we strive to provide accurate health measurements, the results may vary due to various factors including device limitations, user conditions, and environmental factors. Always consult with a healthcare professional for accurate medical measurements and interpretations.',
+              title: LocaleKeys.disclaimer_accuracy_title.tr(),
+              content: LocaleKeys.disclaimer_accuracy_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Not a Medical Device',
-              content:
-                  'This application and any measurements it provides are not certified medical devices. They should not be relied upon for medical decisions. For accurate medical measurements, please use proper medical equipment under the supervision of healthcare professionals.',
+              title: LocaleKeys.disclaimer_not_medical_device.tr(),
+              content: LocaleKeys.disclaimer_not_medical_device_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Consultation Recommendation',
-              content:
-                  'Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read or measured using this application.',
+              title: LocaleKeys.disclaimer_consultation_title.tr(),
+              content: LocaleKeys.disclaimer_consultation_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Emergency Situations',
-              content:
-                  'In case of a medical emergency, immediately contact your local emergency services. Do not rely on this application for emergency medical situations.',
+              title: LocaleKeys.disclaimer_emergency_title.tr(),
+              content: LocaleKeys.disclaimer_emergency_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Data Privacy',
-              content:
-                  'Your health data is stored locally on your device. We are committed to protecting your privacy and do not share your personal health information with third parties without your explicit consent.',
+              title: LocaleKeys.disclaimer_privacy_title.tr(),
+              content: LocaleKeys.disclaimer_privacy_content.tr(),
             ),
             SizedBox(height: 2.h),
             _buildSection(
               context,
-              title: 'Limitation of Liability',
-              content:
-                  'The developers of this application shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of this application or reliance on its measurements.',
+              title: LocaleKeys.disclaimer_liability_title.tr(),
+              content: LocaleKeys.disclaimer_liability_content.tr(),
             ),
             SizedBox(height: 2.h),
             Container(
@@ -87,7 +82,7 @@ class DisclaimerScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Important Notice',
+                    LocaleKeys.disclaimer_important_notice.tr(),
                     style: TextStyle(
                       fontSize: Device.screenType == ScreenType.tablet
                           ? 20
@@ -98,7 +93,7 @@ class DisclaimerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    'By using this application, you acknowledge that you have read, understood, and agreed to this disclaimer. You understand that this app is not a substitute for professional medical care and that you should consult with a healthcare provider for any health concerns.',
+                    LocaleKeys.disclaimer_important_notice_content.tr(),
                     style: TextStyle(
                       fontSize: Device.screenType == ScreenType.tablet
                           ? 16
