@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Kuinka mitata",
+        "instructions": {
+            "1": "Aseta sormesi kameran päälle, jossa on salama",
+            "1_text": "Peitä takakamera kokonaan sormellasi ja varmista, että salama on päällä",
+            "2": "Varmista, että salama on päällä",
+            "2_text": "Salama valaisee sormesi",
+            "3": "Pidä sormesi vakaana",
+            "3_text": "Vältä liikettä mittauksen aikana",
+            "4": "Odota valmistumista",
+            "4_text": "Mittaus kestää noin 15–30 sekuntia",
+            "5": "Pysy rauhallisena ja hengitä normaalisti",
+            "5_text": "Rentoudu saadaksesi tarkimman tuloksen"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Vain tiedotustarkoituksiin",
+            "1_text": "Tämä sovellus on tarkoitettu vain koulutus- ja tiedotustarkoituksiin.",
+            "2": "Ei lääketieteellinen laite",
+            "2_text": "Sitä ei ole tarkoitettu korvaamaan ammattilaisen antamaa lääketieteellistä neuvontaa, diagnoosia tai hoitoa.",
+            "3": "Käänny terveydenhuollon ammattilaisen puoleen",
+            "3_text": "Hakeudu aina lääkärin tai muun pätevän terveydenhuollon tarjoajan neuvoihin terveysongelmissa.",
+            "4": "Tarkkuusrajoitus",
+            "4_text": "Sovelluksen antamat mittaukset eivät välttämättä ole tarkkoja, eikä niitä tule käyttää lääketieteellisiin tarkoituksiin.",
+            "5": "Käytä omalla vastuulla",
+            "5_text": "Käytä tätä sovellusta harkiten ja omalla vastuullasi. Kehittäjät eivät ole vastuussa tämän sovelluksen perusteella tehdyistä terveyspäätöksistä."
+        }
+    },
     "measure": {
         "Start": "Aloita",
         "tap": "Napauta mitataksesi",

@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Hoe te meten",
+        "instructions": {
+            "1": "Plaats je vinger op de camera met flits",
+            "1_text": "Bedek de achtercamera volledig met je vinger en zorg dat de flits is ingeschakeld",
+            "2": "Zorg ervoor dat de flits aan staat",
+            "2_text": "De zaklamp verlicht je vinger",
+            "3": "Houd je vinger stil",
+            "3_text": "Vermijd beweging tijdens de meting",
+            "4": "Wacht tot voltooiing",
+            "4_text": "De meting duurt ongeveer 15-30 seconden",
+            "5": "Blijf kalm en adem normaal",
+            "5_text": "Ontspan om de meest nauwkeurige meting te krijgen"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Alleen voor informatieve doeleinden",
+            "1_text": "Deze app is uitsluitend bedoeld voor educatieve en informatieve doeleinden.",
+            "2": "Geen medisch hulpmiddel",
+            "2_text": "Het is niet bedoeld als vervanging voor professioneel medisch advies, diagnose of behandeling.",
+            "3": "Raadpleeg een zorgverlener",
+            "3_text": "Vraag altijd advies aan uw arts of een andere gekwalificeerde zorgverlener bij medische vragen.",
+            "4": "Beperkingen in nauwkeurigheid",
+            "4_text": "De metingen die deze app verstrekt, zijn mogelijk niet nauwkeurig en mogen niet voor medische doeleinden worden gebruikt.",
+            "5": "Gebruik op eigen risico",
+            "5_text": "Gebruik deze app naar eigen inzicht en risico. De ontwikkelaars zijn niet verantwoordelijk voor gezondheidsbeslissingen die op basis van deze app worden genomen."
+        }
+    },
     "measure": {
         "Start": "Start",
         "tap": "Tik om te meten",

@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Hvordan måle",
+        "instructions": {
+            "1": "Plasser fingeren din på kameraet med blits",
+            "1_text": "Dekk hele bakkameraet med fingeren og sørg for at blitsen er på",
+            "2": "Sørg for at blitsen er på",
+            "2_text": "Lommelykten vil lyse opp fingeren din",
+            "3": "Hold fingeren stødig",
+            "3_text": "Unngå bevegelser under målingen",
+            "4": "Vent til fullført",
+            "4_text": "Målingen tar omtrent 15–30 sekunder",
+            "5": "Hold deg rolig og pust normalt",
+            "5_text": "Slapp av for å få den mest nøyaktige målingen"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Kun for informasjonsformål",
+            "1_text": "Denne appen er kun for utdannings- og informasjonsformål.",
+            "2": "Ikke et medisinsk utstyr",
+            "2_text": "Det er ikke ment som en erstatning for profesjonell medisinsk rådgivning, diagnose eller behandling.",
+            "3": "Rådfør deg med helsepersonell",
+            "3_text": "Søk alltid råd fra lege eller annet kvalifisert helsepersonell angående helsetilstand.",
+            "4": "Begrenset nøyaktighet",
+            "4_text": "Målingene som gis av denne appen er kanskje ikke nøyaktige og bør ikke brukes til medisinske formål.",
+            "5": "Bruk på egen risiko",
+            "5_text": "Bruk denne applikasjonen etter eget skjønn og på egen risiko. Utviklerne er ikke ansvarlige for helsemessige beslutninger tatt basert på denne appen."
+        }
+    },
     "measure": {
         "Start": "Start",
         "tap": "Trykk for å måle",

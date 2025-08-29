@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Come misurare",
+        "instructions": {
+            "1": "Posiziona il dito sulla fotocamera con il flash",
+            "1_text": "Copri completamente la fotocamera posteriore con il dito e assicurati che il flash sia attivo",
+            "2": "Assicurati che il flash sia acceso",
+            "2_text": "La torcia illuminerà il dito",
+            "3": "Tieni il dito fermo",
+            "3_text": "Evita qualsiasi movimento durante la misurazione",
+            "4": "Attendi il completamento",
+            "4_text": "La misurazione dura circa 15-30 secondi",
+            "5": "Rimani calmo e respira normalmente",
+            "5_text": "Rilassati per ottenere la lettura più accurata"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Solo a scopo informativo",
+            "1_text": "Questa app è solo a scopo educativo e informativo.",
+            "2": "Non è un dispositivo medico",
+            "2_text": "Non è destinata a sostituire consigli, diagnosi o trattamenti medici professionali.",
+            "3": "Consulta un medico",
+            "3_text": "Rivolgiti sempre al tuo medico o a un altro operatore sanitario qualificato per qualsiasi problema di salute.",
+            "4": "Limitazione di accuratezza",
+            "4_text": "Le misurazioni fornite da questa app potrebbero non essere accurate e non devono essere utilizzate per scopi medici.",
+            "5": "Uso a proprio rischio",
+            "5_text": "Utilizza questa applicazione a tua discrezione e a tuo rischio. Gli sviluppatori non sono responsabili per decisioni sanitarie prese basandosi su questa app."
+        }
+    },
     "measure": {
         "Start": "Avvia",
         "tap": "Tocca per misurare",

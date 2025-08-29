@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "So messen Sie",
+        "instructions": {
+            "1": "Legen Sie Ihren Finger auf die Kamera mit Blitz",
+            "1_text": "Bedecken Sie die Rückkamera vollständig mit Ihrem Finger und stellen Sie sicher, dass der Blitz eingeschaltet ist",
+            "2": "Stellen Sie sicher, dass der Blitz eingeschaltet ist",
+            "2_text": "Die Taschenlampe beleuchtet Ihren Finger",
+            "3": "Halten Sie den Finger ruhig",
+            "3_text": "Vermeiden Sie Bewegungen während der Messung",
+            "4": "Warten Sie auf die Fertigstellung",
+            "4_text": "Die Messung dauert etwa 15-30 Sekunden",
+            "5": "Bleiben Sie ruhig und atmen Sie normal",
+            "5_text": "Entspannen Sie sich, um das genaueste Ergebnis zu erhalten"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Nur zu Informationszwecken",
+            "1_text": "Diese App dient ausschließlich Bildungs- und Informationszwecken.",
+            "2": "Kein medizinisches Gerät",
+            "2_text": "Sie ist nicht als Ersatz für professionelle medizinische Beratung, Diagnose oder Behandlung gedacht.",
+            "3": "Arzt konsultieren",
+            "3_text": "Fragen Sie bei gesundheitlichen Problemen immer Ihren Arzt oder einen anderen qualifizierten Gesundheitsdienstleister.",
+            "4": "Genauigkeitsbeschränkung",
+            "4_text": "Die durch diese App bereitgestellten Messungen sind möglicherweise ungenau und sollten nicht für medizinische Zwecke verwendet werden.",
+            "5": "Verwendung auf eigenes Risiko",
+            "5_text": "Die Verwendung dieser App erfolgt auf eigene Gefahr. Die Entwickler übernehmen keine Verantwortung für Gesundheitsentscheidungen, die auf dieser App basieren."
+        }
+    },
     "measure": {
         "Start": "Start",
         "tap": "Tippen zum Messen",

@@ -3,6 +3,31 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const how_to_measure_title = 'how_to_measure.title';
+  static const how_to_measure_instructions_1 = 'how_to_measure.instructions.1';
+  static const how_to_measure_instructions_1_text = 'how_to_measure.instructions.1_text';
+  static const how_to_measure_instructions_2 = 'how_to_measure.instructions.2';
+  static const how_to_measure_instructions_2_text = 'how_to_measure.instructions.2_text';
+  static const how_to_measure_instructions_3 = 'how_to_measure.instructions.3';
+  static const how_to_measure_instructions_3_text = 'how_to_measure.instructions.3_text';
+  static const how_to_measure_instructions_4 = 'how_to_measure.instructions.4';
+  static const how_to_measure_instructions_4_text = 'how_to_measure.instructions.4_text';
+  static const how_to_measure_instructions_5 = 'how_to_measure.instructions.5';
+  static const how_to_measure_instructions_5_text = 'how_to_measure.instructions.5_text';
+  static const how_to_measure_instructions = 'how_to_measure.instructions';
+  static const how_to_measure = 'how_to_measure';
+  static const medical_disclaimer_instructions_1 = 'medical_disclaimer.instructions.1';
+  static const medical_disclaimer_instructions_1_text = 'medical_disclaimer.instructions.1_text';
+  static const medical_disclaimer_instructions_2 = 'medical_disclaimer.instructions.2';
+  static const medical_disclaimer_instructions_2_text = 'medical_disclaimer.instructions.2_text';
+  static const medical_disclaimer_instructions_3 = 'medical_disclaimer.instructions.3';
+  static const medical_disclaimer_instructions_3_text = 'medical_disclaimer.instructions.3_text';
+  static const medical_disclaimer_instructions_4 = 'medical_disclaimer.instructions.4';
+  static const medical_disclaimer_instructions_4_text = 'medical_disclaimer.instructions.4_text';
+  static const medical_disclaimer_instructions_5 = 'medical_disclaimer.instructions.5';
+  static const medical_disclaimer_instructions_5_text = 'medical_disclaimer.instructions.5_text';
+  static const medical_disclaimer_instructions = 'medical_disclaimer.instructions';
+  static const medical_disclaimer = 'medical_disclaimer';
   static const measure_Start = 'measure.Start';
   static const measure_tap = 'measure.tap';
   static const measure_how = 'measure.how';

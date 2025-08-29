@@ -19,7 +19,7 @@ class MedicalDisclaimerModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -76,8 +76,9 @@ class MedicalDisclaimerModal extends StatelessWidget {
                       children: [
                         _buildDisclaimerPoint(
                           Icons.info_outline,
-                          LocaleKeys.disclaimer_accuracy_title.tr(),
-                          LocaleKeys.disclaimer_accuracy_content.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_1.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_1_text
+                              .tr(),
                           Colors.blue,
                         ),
 
@@ -85,8 +86,9 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.medical_services_outlined,
-                          LocaleKeys.disclaimer_not_medical_device.tr(),
-                          LocaleKeys.disclaimer_not_medical_device_content.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_2.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_2_text
+                              .tr(),
                           Colors.orange,
                         ),
 
@@ -94,8 +96,9 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.local_hospital_outlined,
-                          LocaleKeys.disclaimer_consultation_title.tr(),
-                          LocaleKeys.disclaimer_consultation_content.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_3.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_3_text
+                              .tr(),
                           Colors.green,
                         ),
 
@@ -103,8 +106,9 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.error_outline,
-                          LocaleKeys.disclaimer_emergency_title.tr(),
-                          LocaleKeys.disclaimer_emergency_content.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_4.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_4_text
+                              .tr(),
                           Colors.red,
                         ),
 
@@ -112,8 +116,9 @@ class MedicalDisclaimerModal extends StatelessWidget {
 
                         _buildDisclaimerPoint(
                           Icons.security_outlined,
-                          LocaleKeys.disclaimer_liability_title.tr(),
-                          LocaleKeys.disclaimer_liability_content.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_5.tr(),
+                          LocaleKeys.medical_disclaimer_instructions_5_text
+                              .tr(),
                           Colors.purple,
                         ),
                       ],
@@ -123,29 +128,28 @@ class MedicalDisclaimerModal extends StatelessWidget {
                   SizedBox(height: 2.h),
 
                   // I Understand button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        LocaleKeys.actions_ok.tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 3.h),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     onPressed: () => Navigator.of(context).pop(),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: AppTheme.primaryColor,
+                  //       padding: EdgeInsets.symmetric(vertical: 2.h),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //     ),
+                  //     child: Text(
+                  //       'I Understand',
+                  //       style: TextStyle(
+                  //         fontSize: 16.sp,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(height: 6.h),
                 ],
               ),
             ),

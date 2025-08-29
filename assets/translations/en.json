@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "How to Measure",
+        "instructions": {
+            "1": "Place your finger on the camera with flash",
+            "1_text": "Cover the rear camera completely with your finger and ensure flash is enabled",
+            "2": "Make sure the flash is on",
+            "2_text": "The flashlight will illuminate your finger",
+            "3": "Keep your finger steady",
+            "3_text": "Avoid any movement during measurement",
+            "4": "Wait for completion",
+            "4_text": "The measurement takes about 15-30 seconds",
+            "5": "Stay calm and breathe normally",
+            "5_text": "Relax to get the most accurate reading"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Information Purpose Only",
+            "1_text": "This app is for educational and informational purposes only.",
+            "2": "Not a Medical Device",
+            "2_text": "It is not intended to be a substitute for professional medical advice, diagnosis, or treatment.",
+            "3": "Consult Healthcare Provider",
+            "3_text": "Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.",
+            "4": "Accuracy Limitation",
+            "4_text": "The measurements provided by this app may not be accurate and should not be used for medical purposes.",
+            "5": "Use at Your Own Risk",
+            "5_text": "Use this application at your own discretion and risk. The developers are not responsible for any health decisions made based on this app."
+        }
+    },
     "measure": {
         "Start": "Start",
         "tap": "Tap to measure",

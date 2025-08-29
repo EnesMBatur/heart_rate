@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Hur man mäter",
+        "instructions": {
+            "1": "Placera fingret på kameran med blixt",
+            "1_text": "Täck bakre kameran helt med fingret och se till att blixten är på",
+            "2": "Se till att blixten är på",
+            "2_text": "Ficklampan lyser upp ditt finger",
+            "3": "Håll fingret stadigt",
+            "3_text": "Undvik rörelse under mätningen",
+            "4": "Vänta tills det är klart",
+            "4_text": "Mätningen tar cirka 15–30 sekunder",
+            "5": "Håll dig lugn och andas normalt",
+            "5_text": "Slappna av för att få den mest exakta avläsningen"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Endast i informationssyfte",
+            "1_text": "Denna app är endast avsedd för utbildnings- och informationsändamål.",
+            "2": "Inte en medicinsk enhet",
+            "2_text": "Den är inte avsedd att ersätta professionell medicinsk rådgivning, diagnos eller behandling.",
+            "3": "Konsultera vårdgivare",
+            "3_text": "Sök alltid råd från din läkare eller annan kvalificerad vårdgivare för medicinska frågor.",
+            "4": "Begränsad noggrannhet",
+            "4_text": "Mätningarna från denna app kanske inte är exakta och bör inte användas för medicinska ändamål.",
+            "5": "Använd på egen risk",
+            "5_text": "Använd denna applikation efter eget gottfinnande och på egen risk. Utvecklarna ansvarar inte för hälsobeslut som fattas baserat på denna app."
+        }
+    },
     "measure": {
         "Start": "Starta",
         "tap": "Tryck för att mäta",

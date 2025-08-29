@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Comment mesurer",
+        "instructions": {
+            "1": "Placez votre doigt sur la caméra avec le flash",
+            "1_text": "Couvrez complètement la caméra arrière avec votre doigt et assurez-vous que le flash est activé",
+            "2": "Assurez-vous que le flash est activé",
+            "2_text": "La lampe de poche éclairera votre doigt",
+            "3": "Gardez votre doigt immobile",
+            "3_text": "Évitez tout mouvement pendant la mesure",
+            "4": "Attendez la fin",
+            "4_text": "La mesure prend environ 15 à 30 secondes",
+            "5": "Restez calme et respirez normalement",
+            "5_text": "Détendez-vous pour obtenir le résultat le plus précis"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "À des fins d'information uniquement",
+            "1_text": "Cette application est uniquement destinée à des fins éducatives et informatives.",
+            "2": "Pas un dispositif médical",
+            "2_text": "Elle n'est pas destinée à remplacer un avis médical, un diagnostic ou un traitement professionnel.",
+            "3": "Consulter un professionnel de santé",
+            "3_text": "Demandez toujours l'avis de votre médecin ou d'un autre professionnel de santé qualifié pour toute question médicale.",
+            "4": "Limitation de précision",
+            "4_text": "Les mesures fournies par cette application peuvent ne pas être précises et ne doivent pas être utilisées à des fins médicales.",
+            "5": "Utilisation à vos risques",
+            "5_text": "Utilisez cette application à votre propre discrétion et à vos risques. Les développeurs ne sont pas responsables des décisions de santé prises sur la base de cette application."
+        }
+    },
     "measure": {
         "Start": "Démarrer",
         "tap": "Appuyez pour mesurer",

@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Nasıl Ölçülür",
+        "instructions": {
+            "1": "Parmağınızı flaşlı kameranın üzerine koyun",
+            "1_text": "Arka kamerayı tamamen parmağınızla kapatın ve flaşın açık olduğundan emin olun",
+            "2": "Flaşın açık olduğundan emin olun",
+            "2_text": "Flaş ışığı parmağınızı aydınlatacaktır",
+            "3": "Parmağınızı sabit tutun",
+            "3_text": "Ölçüm sırasında hareketten kaçının",
+            "4": "Tamamlanmasını bekleyin",
+            "4_text": "Ölçüm yaklaşık 15–30 saniye sürer",
+            "5": "Sakin olun ve normal nefes alın",
+            "5_text": "En doğru sonucu almak için rahatlayın"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Sadece Bilgilendirme Amaçlı",
+            "1_text": "Bu uygulama yalnızca eğitim ve bilgilendirme amaçlıdır.",
+            "2": "Tıbbi Cihaz Değildir",
+            "2_text": "Profesyonel tıbbi tavsiye, tanı veya tedavinin yerine geçmesi amaçlanmamıştır.",
+            "3": "Sağlık Uzmanına Danışın",
+            "3_text": "Herhangi bir sağlık sorununuz için daima doktorunuza veya başka bir yetkin sağlık uzmanına danışın.",
+            "4": "Doğruluk Sınırlaması",
+            "4_text": "Bu uygulamanın sunduğu ölçümler doğru olmayabilir ve tıbbi amaçlarla kullanılmamalıdır.",
+            "5": "Kendi Riskinizde Kullanın",
+            "5_text": "Bu uygulamayı kendi takdiriniz ve riskiniz doğrultusunda kullanın. Geliştiriciler, bu uygulamaya dayanarak verilen sağlık kararlarından sorumlu değildir."
+        }
+    },
     "measure": {
         "Start": "Başlat",
         "tap": "Ölçmek için dokun",

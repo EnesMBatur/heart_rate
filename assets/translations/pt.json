@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Como medir",
+        "instructions": {
+            "1": "Coloque o dedo na câmera com flash",
+            "1_text": "Cubra completamente a câmera traseira com o dedo e certifique-se de que o flash esteja ativado",
+            "2": "Verifique se o flash está ligado",
+            "2_text": "A lanterna iluminará seu dedo",
+            "3": "Mantenha o dedo firme",
+            "3_text": "Evite qualquer movimento durante a medição",
+            "4": "Aguarde a conclusão",
+            "4_text": "A medição leva cerca de 15–30 segundos",
+            "5": "Mantenha-se calmo e respire normalmente",
+            "5_text": "Relaxe para obter a leitura mais precisa"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Apenas para fins informativos",
+            "1_text": "Este aplicativo é apenas para fins educativos e informativos.",
+            "2": "Não é um dispositivo médico",
+            "2_text": "Não se destina a substituir conselhos, diagnósticos ou tratamentos médicos profissionais.",
+            "3": "Consulte um profissional de saúde",
+            "3_text": "Procure sempre o conselho de seu médico ou outro profissional de saúde qualificado para qualquer condição médica.",
+            "4": "Limitação de precisão",
+            "4_text": "As medições fornecidas por este aplicativo podem não ser precisas e não devem ser usadas para fins médicos.",
+            "5": "Uso por sua conta e risco",
+            "5_text": "Use este aplicativo a seu critério e risco. Os desenvolvedores não são responsáveis por decisões de saúde tomadas com base neste aplicativo."
+        }
+    },
     "measure": {
         "Start": "Iniciar",
         "tap": "Toque para medir",

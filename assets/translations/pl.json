@@ -1,4 +1,33 @@
 {
+    "how_to_measure": {
+        "title": "Jak mierzyć",
+        "instructions": {
+            "1": "Umieść palec na aparacie z lampą błyskową",
+            "1_text": "Całkowicie zakryj tylny aparat palcem i upewnij się, że lampa błyskowa jest włączona",
+            "2": "Upewnij się, że lampa błyskowa jest włączona",
+            "2_text": "Latarka oświetli twój palec",
+            "3": "Trzymaj palec nieruchomo",
+            "3_text": "Unikaj ruchu podczas pomiaru",
+            "4": "Poczekaj na zakończenie",
+            "4_text": "Pomiar trwa około 15–30 sekund",
+            "5": "Zachowaj spokój i oddychaj normalnie",
+            "5_text": "Zrelaksuj się, aby uzyskać najdokładniejszy wynik"
+        }
+    },
+    "medical_disclaimer": {
+        "instructions": {
+            "1": "Tylko w celach informacyjnych",
+            "1_text": "Ta aplikacja jest przeznaczona wyłącznie do celów edukacyjnych i informacyjnych.",
+            "2": "Nie jest urządzeniem medycznym",
+            "2_text": "Nie jest przeznaczona jako substytut profesjonalnej porady, diagnozy czy leczenia medycznego.",
+            "3": "Skonsultuj się z lekarzem",
+            "3_text": "Zawsze szukaj porady swojego lekarza lub innego wykwalifikowanego pracownika służby zdrowia w przypadku problemów zdrowotnych.",
+            "4": "Ograniczona dokładność",
+            "4_text": "Pomiary dostarczane przez tę aplikację mogą nie być dokładne i nie powinny być używane do celów medycznych.",
+            "5": "Używasz na własne ryzyko",
+            "5_text": "Korzystasz z tej aplikacji na własną odpowiedzialność. Deweloperzy nie ponoszą odpowiedzialności za decyzje zdrowotne podjęte na podstawie tej aplikacji."
+        }
+    },
     "measure": {
         "Start": "Start",
         "tap": "Dotknij, aby zmierzyć",

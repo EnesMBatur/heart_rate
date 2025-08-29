@@ -19,7 +19,7 @@ class HowToMeasureModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90.h,
+      height: 85.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -44,7 +44,7 @@ class HowToMeasureModal extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
             child: Text(
-              LocaleKeys.general_how_to_check_pulse.tr(),
+              LocaleKeys.how_to_measure_title.tr(),
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
@@ -79,63 +79,68 @@ class HowToMeasureModal extends StatelessWidget {
                       children: [
                         _buildInstructionStep(
                           '1',
-                          'Place your finger on the camera with flash',
-                          'Cover the rear camera completely with your finger and ensure flash is enabled',
+                          LocaleKeys.how_to_measure_instructions_1.tr(),
+                          LocaleKeys.how_to_measure_instructions_1_text.tr(),
                         ),
                         SizedBox(height: 2.h),
                         _buildInstructionStep(
                           '2',
-                          'Make sure the flash is on',
-                          'The flashlight will illuminate your finger',
+                          LocaleKeys.how_to_measure_instructions_2.tr(),
+                          LocaleKeys.how_to_measure_instructions_2_text.tr(),
                         ),
                         SizedBox(height: 2.h),
                         _buildInstructionStep(
                           '3',
-                          'Keep your finger steady',
-                          'Avoid any movement during measurement',
+                          LocaleKeys.how_to_measure_instructions_3.tr(),
+                          LocaleKeys.how_to_measure_instructions_3_text.tr(),
                         ),
                         SizedBox(height: 2.h),
                         _buildInstructionStep(
                           '4',
-                          'Wait for completion',
-                          'The measurement takes about 15-30 seconds',
+                          LocaleKeys.how_to_measure_instructions_4.tr(),
+                          LocaleKeys.how_to_measure_instructions_4_text.tr(),
                         ),
                         SizedBox(height: 2.h),
                         _buildInstructionStep(
                           '5',
-                          'Stay calm and breathe normally',
-                          'Relax to get the most accurate reading',
+                          LocaleKeys.how_to_measure_instructions_5.tr(),
+                          LocaleKeys.how_to_measure_instructions_5_text.tr(),
                         ),
+                        SizedBox(height: 6.h),
                       ],
                     ),
                   ),
 
-                  SizedBox(height: 2.h),
-
                   // Got it button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        LocaleKeys.actions_ok.tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 3.h),
+                  // Padding(
+                  //   padding: EdgeInsets.only(
+                  //     bottom:
+                  //         MediaQuery.of(context).viewInsets.bottom +
+                  //         MediaQuery.of(context).padding.bottom +
+                  //         2.h,
+                  //   ),
+                  //   child: SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //       onPressed: () => Navigator.of(context).pop(),
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor: AppTheme.primaryColor,
+                  //         padding: EdgeInsets.symmetric(vertical: 2.h),
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(12),
+                  //         ),
+                  //       ),
+                  //       child: Text(
+                  //         LocaleKeys.actions_ok.tr(),
+                  //         style: TextStyle(
+                  //           fontSize: 16.sp,
+                  //           fontWeight: FontWeight.bold,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
