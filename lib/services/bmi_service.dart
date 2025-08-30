@@ -30,6 +30,11 @@ class BMIService {
     await _persist(list);
   }
 
+  Future<void> clearAllRecords() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_storageKey);
+  }
+
   Future<Map<String, dynamic>> getStatistics() async {
     final list = await getRecords();
     if (list.isEmpty) {

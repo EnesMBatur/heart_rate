@@ -236,4 +236,28 @@ class HeartRateViewModel extends ChangeNotifier {
       debugPrint('Error deleting heart rate measurement: $e');
     }
   }
+
+  /// Clear all heart rate measurements
+  Future<void> clearAllMeasurements() async {
+    try {
+      _measurements.clear();
+      notifyListeners();
+
+      final prefs = await SharedPreferences.getInstance();
+
+      // Remove all heart rate related data
+      await prefs.remove('heart_rate_measurements');
+      await prefs.remove('heart_rate_history');
+      await prefs.remove('last_heart_rate');
+      await prefs.remove('last_timestamp');
+
+      // Notify other screens that data has changed
+      onDataChanged?.call();
+
+      // Fire global event for home screen to refresh
+      EventBus().fire(Events.heartRateDataChanged);
+    } catch (e) {
+      debugPrint('Error clearing all heart rate measurements: $e');
+    }
+  }
 }

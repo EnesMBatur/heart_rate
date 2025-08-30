@@ -51,6 +51,15 @@ class BloodSugarService {
     }
   }
 
+  Future<void> clearAllMeasurements() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_storageKey);
+    } catch (e) {
+      throw Exception('Failed to clear all blood sugar measurements: $e');
+    }
+  }
+
   Future<void> _saveMeasurements(
     List<BloodSugarMeasurement> measurements,
   ) async {

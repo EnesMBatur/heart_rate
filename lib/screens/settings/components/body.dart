@@ -9,8 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
 import 'package:heart_rate/locale/l10n.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
+import 'package:heart_rate/provider/revenuecat.dart';
 import 'package:heart_rate/router/app_router.dart';
 import 'package:heart_rate/screens/settings/components/custom_shape.dart';
+import 'package:heart_rate/screens/settings/components/premium_card.dart';
 import 'package:heart_rate/screens/settings/components/profile_menu_item.dart';
 import 'package:heart_rate/utils/dialog_manager.dart';
 import 'package:heart_rate/utils/id_manager.dart';
@@ -18,6 +20,7 @@ import 'package:heart_rate/utils/launch_manager.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:open_store/open_store.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -36,73 +39,77 @@ class Body extends StatelessWidget
             padding: const EdgeInsets.only(left: 6, right: 8),
             child:
                 //TODO: Revenuecat
-                // Consumer<RevenueCatProvider>(
-                //   builder: (context, revenueCatProvider, child) {
-                //     final entitlement = revenueCatProvider.entitlement;
-                //     return
-                Column(
-                  children: [
-                    // if (entitlement == Entitlement.free)
-                    //   const PremiumCard()
-                    // else
-                    const SizedBox.shrink(),
-                    const SizedBox(height: 6),
-                    ProfileMenuItem(
-                      icon: LineIcons.globe,
-                      text: LocaleKeys.profileitems_language.tr(
-                        context: context,
-                      ),
-                      press: () => _showLanguagePicker(context),
-                    ),
-                    const SizedBox(height: 6),
-                    ProfileMenuItem(
-                      icon: LineIcons.alternateShareSquare,
-                      text: LocaleKeys.profileitems_tellafriend.tr(
-                        context: context,
-                      ),
-                      press: _buildShare,
-                    ),
-                    const SizedBox(height: 6),
-                    ProfileMenuItem(
-                      icon: LineIcons.star,
-                      text: LocaleKeys.profileitems_rateus.tr(context: context),
-                      press: _buildOpenStore,
-                    ),
-                    const SizedBox(height: 6),
-                    ProfileMenuItem(
-                      icon: LineIcons.envelope,
-                      text: LocaleKeys.profileitems_contactus.tr(
-                        context: context,
-                      ),
-                      press: () async {
-                        final packageInfo = await PackageInfo.fromPlatform();
+                Consumer<RevenueCatProvider>(
+                  builder: (context, revenueCatProvider, child) {
+                    final entitlement = revenueCatProvider.entitlement;
+                    return Column(
+                      children: [
+                        if (entitlement == Entitlement.free)
+                          const PremiumCard()
+                        else
+                          const SizedBox.shrink(),
+                        const SizedBox(height: 6),
+                        ProfileMenuItem(
+                          icon: LineIcons.globe,
+                          text: LocaleKeys.profileitems_language.tr(
+                            context: context,
+                          ),
+                          press: () => _showLanguagePicker(context),
+                        ),
+                        const SizedBox(height: 6),
+                        ProfileMenuItem(
+                          icon: LineIcons.alternateShareSquare,
+                          text: LocaleKeys.profileitems_tellafriend.tr(
+                            context: context,
+                          ),
+                          press: _buildShare,
+                        ),
+                        const SizedBox(height: 6),
+                        ProfileMenuItem(
+                          icon: LineIcons.star,
+                          text: LocaleKeys.profileitems_rateus.tr(
+                            context: context,
+                          ),
+                          press: _buildOpenStore,
+                        ),
+                        const SizedBox(height: 6),
+                        ProfileMenuItem(
+                          icon: LineIcons.envelope,
+                          text: LocaleKeys.profileitems_contactus.tr(
+                            context: context,
+                          ),
+                          press: () async {
+                            final packageInfo =
+                                await PackageInfo.fromPlatform();
 
-                        sendEposta(packageInfo.version);
-                      },
-                    ),
-                    const SizedBox(height: 6),
-                    ProfileMenuItem(
-                      icon: LineIcons.alternateTrashAlt,
-                      text: LocaleKeys.profileitems_delete.tr(context: context),
-                      press: () async {
-                        final basePath = await getUuid();
-                        deleteDataDialog(context, basePath);
-                      },
-                    ),
-                    ProfileMenuItem(
-                      icon: LineIcons.lightbulb,
-                      text: LocaleKeys.settings_tips.tr(),
-                      press: () => context.push(AppRouter.tips),
-                    ),
-                    ProfileMenuItem(
-                      icon: LineIcons.info,
-                      text: LocaleKeys.navigation_disclaimer.tr(),
-                      press: () => context.push(AppRouter.disclaimer),
-                    ),
-                  ],
+                            sendEposta(packageInfo.version);
+                          },
+                        ),
+                        const SizedBox(height: 6),
+                        ProfileMenuItem(
+                          icon: LineIcons.alternateTrashAlt,
+                          text: LocaleKeys.profileitems_delete.tr(
+                            context: context,
+                          ),
+                          press: () async {
+                            final basePath = await getUuid();
+                            deleteDataDialog(context, basePath);
+                          },
+                        ),
+                        ProfileMenuItem(
+                          icon: LineIcons.lightbulb,
+                          text: LocaleKeys.settings_tips.tr(),
+                          press: () => context.push(AppRouter.tips),
+                        ),
+                        ProfileMenuItem(
+                          icon: LineIcons.info,
+                          text: LocaleKeys.navigation_disclaimer.tr(),
+                          press: () => context.push(AppRouter.disclaimer),
+                        ),
+                      ],
+                    );
+                  },
                 ),
-            //   },
-            // ),
           ),
         ],
       ),

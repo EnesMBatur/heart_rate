@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/services/chat_crud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../services/bmi_service.dart';
+import '../services/blood_sugar_service.dart';
+import '../services/blood_oxygen_service.dart';
+import '../services/blood_pressure_service.dart';
 
 mixin DialogManager {
   void chatDialog(BuildContext buildContext, String basePath) {
@@ -69,13 +74,41 @@ mixin DialogManager {
           adaptiveAction(
             context: context,
             onPressed: () async {
-              await ChatCrud(basePath).deleteChatData();
-              //TODO: delete
-              // HiveTransactions.deleteAllBloodGlucose();
-              // HiveTransactions.deleteAllWeightRecord();
-              // HiveTransactions.favRecipeDeleteAll();
-              // HiveTransactions.foodFavDeleteAll();
-              // HiveTransactions.shoppingListDeleteAll();
+              // Clear AI Chat data first
+              await ChatCrud(basePath).deleteAllUserChatData();
+
+              // Clear all health data using services directly
+              try {
+                // Heart Rate data - clear SharedPreferences directly
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('heart_rate_measurements');
+                await prefs.remove('heart_rate_history');
+                await prefs.remove('last_heart_rate');
+                await prefs.remove('last_timestamp');
+
+                // BMI data
+                final bmiService = BMIService();
+                await bmiService.clearAllRecords();
+
+                // Blood Sugar data
+                final bloodSugarService = BloodSugarService();
+                await bloodSugarService.clearAllMeasurements();
+
+                // Blood Oxygen data
+                final bloodOxygenService = BloodOxygenService();
+                await bloodOxygenService.clearAllRecords();
+
+                // Blood Pressure data
+                final bloodPressureService = BloodPressureService();
+                await bloodPressureService.clearAllMeasurements();
+
+                debugPrint(
+                  'All user data including AI chat history has been successfully cleared',
+                );
+              } catch (e) {
+                debugPrint('Error clearing user data: $e');
+              }
+
               context.pop();
             },
             child: Text(

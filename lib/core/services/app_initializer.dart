@@ -7,12 +7,15 @@ import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:heart_rate/core/hive/initialize.dart';
 import 'package:heart_rate/core/hive/secure_storage.dart';
 import 'package:heart_rate/services/firebase_options.dart';
+import 'package:heart_rate/services/purchase_api.dart';
 
 class AppInitializer {
   /// Uygulamanın başlangıç süreçlerini yönetir
   static Future<void> initialize() async {
     // Flutter binding'leri başlat
     WidgetsFlutterBinding.ensureInitialized();
+
+    await PurchaseApi.init();
 
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

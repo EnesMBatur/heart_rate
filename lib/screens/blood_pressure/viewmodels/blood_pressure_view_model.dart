@@ -159,6 +159,15 @@ class BloodPressureViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> clearAllMeasurements() async {
+    try {
+      await _service.clearAllMeasurements();
+      await loadMeasurements(); // Refresh the list
+    } catch (e) {
+      debugPrint('Error clearing all measurements: $e');
+    }
+  }
+
   // Stats calculations
   Map<String, dynamic> getStats() {
     final filteredMeasurements = getFilteredMeasurements();

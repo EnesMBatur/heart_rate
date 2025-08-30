@@ -84,6 +84,15 @@ class BloodOxygenViewModel extends ChangeNotifier {
     EventBus().fire('blood_oxygen_data_changed');
   }
 
+  Future<void> clearAllRecords() async {
+    await _service.clearAllRecords();
+    await load();
+    notifyListeners();
+
+    // Home screen'i güncellemek için event gönder
+    EventBus().fire('blood_oxygen_data_changed');
+  }
+
   Future<Map<String, dynamic>> stats() => _service.getStatistics();
 
   void toggleView() {

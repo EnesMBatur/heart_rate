@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/constants.dart';
-import 'package:heart_rate/core/enums/svg_general_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:heart_rate/models/chat_history.dart';
 import 'package:heart_rate/screens/ai/components/chat_history.dart';
@@ -37,16 +36,10 @@ class AiDietitianHistory extends StatelessWidget with DialogManager {
               return const CustomLoading();
             }
             if (snapshot.hasError) {
-              return EmptyList(
-                svgPath: SvgGeneralEnum.notFound.svgPath,
-                text: LocaleKeys.aiChat_notFound.tr(),
-              );
+              return EmptyList(text: LocaleKeys.aiChat_notFound.tr());
             }
             if (snapshot.data == null || snapshot.data?.length == 0) {
-              return EmptyList(
-                svgPath: SvgGeneralEnum.notFound.svgPath,
-                text: LocaleKeys.aiChat_notFound.tr(),
-              );
+              return EmptyList(text: LocaleKeys.aiChat_notFound.tr());
             }
             return ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 12),

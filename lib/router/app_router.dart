@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:heart_rate/screens/home/home_screen.dart';
 import 'package:heart_rate/screens/measure/start_measure_screen.dart';
+import 'package:heart_rate/screens/premium/paywall.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -80,6 +81,13 @@ class AppRouter {
                 NoTransitionPage(child: const SettingsScreen()),
           ),
         ],
+      ),
+      // Full-screen route for paywall (outside shell to hide bottom nav)
+      GoRoute(
+        path: paywall,
+        name: 'paywall',
+        pageBuilder: (context, state) =>
+            MaterialPage(fullscreenDialog: true, child: const PaywallScreen()),
       ),
       // Full-screen route for heart rate measurement
       GoRoute(

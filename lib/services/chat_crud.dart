@@ -215,6 +215,12 @@ class ChatCrud {
     await ref.remove();
   }
 
+  /// Delete all chat data for the user (all chat sessions)
+  Future<void> deleteAllUserChatData() async {
+    // If this is already the root path for the user, just remove it
+    await ref.remove();
+  }
+
   Future<void> deleteLastMessage() async {
     final lastMessageQuery = ref.orderByChild('timestamp').limitToLast(1);
     try {

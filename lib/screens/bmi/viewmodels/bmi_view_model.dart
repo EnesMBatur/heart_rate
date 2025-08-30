@@ -154,6 +154,14 @@ class BMIViewModel extends ChangeNotifier {
     EventBus().fire('bmi_data_changed');
   }
 
+  Future<void> clearAllRecords() async {
+    await _service.clearAllRecords();
+    await load();
+
+    // Home screen'i güncellemek için event gönder
+    EventBus().fire('bmi_data_changed');
+  }
+
   Future<Map<String, dynamic>> stats() => _service.getStatistics();
 
   void toggleView() {

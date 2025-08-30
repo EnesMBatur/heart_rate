@@ -73,6 +73,21 @@ class _PaywallScreenState extends State<PaywallScreen> {
                 Platform.isIOS
                     ? buildIOSLayout(context)
                     : buildAndroidScrollableLayout(context),
+                // Kapatma butonu
+                Positioned(
+                  top: MediaQuery.of(context).padding.top + 16,
+                  right: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: Colors.white),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                ),
               ],
             );
           },

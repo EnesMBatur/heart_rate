@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:heart_rate/core/constants/duration_items.dart';
 import 'package:heart_rate/core/enums/lottie_items_enum.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
@@ -79,7 +78,7 @@ class _CustomElevatedButtonState extends ConsumerState<CustomElevatedButton>
           if (isTrue ?? false) {
             await showDoneDialog();
             if (!context.mounted) return;
-            context.pop();
+            Navigator.of(context).pop();
           }
           state.setLoading(isLoading: true);
         },

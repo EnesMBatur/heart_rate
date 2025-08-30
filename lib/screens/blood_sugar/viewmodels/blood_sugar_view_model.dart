@@ -90,6 +90,15 @@ class BloodSugarViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> clearAllMeasurements() async {
+    try {
+      await _service.clearAllMeasurements();
+      await loadMeasurements(); // Refresh the list
+    } catch (e) {
+      debugPrint('Error clearing all measurements: $e');
+    }
+  }
+
   void toggleView() {
     _showStatistics = !_showStatistics;
     notifyListeners();
