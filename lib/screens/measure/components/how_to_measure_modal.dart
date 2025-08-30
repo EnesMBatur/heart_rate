@@ -46,7 +46,7 @@ class HowToMeasureModal extends StatelessWidget {
             child: Text(
               LocaleKeys.how_to_measure_title.tr(),
               style: TextStyle(
-                fontSize: 24.sp,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 color: AppTheme.primaryColor,
               ),

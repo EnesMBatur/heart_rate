@@ -349,6 +349,32 @@
             "medical": "Médical",
             "stress": "Gestion du stress"
         },
+        "export_options": {
+            "title": "Options de partage et d'exportation",
+            "export_pdf": "Exporter en PDF",
+            "export_pdf_desc": "Générer un rapport PDF complet",
+            "save_image": "Enregistrer en tant qu'image",
+            "save_image_desc": "Capturer le rapport en image de haute qualité",
+            "share_doctor": "Partager avec le médecin",
+            "share_doctor_desc": "Envoyer le rapport au professionnel de santé",
+            "quick_share": "Partage rapide",
+            "quick_share_desc": "Partager le résumé du rapport via des applications",
+            "success": "Succès",
+            "error": "Erreur",
+            "pdf_saved": "PDF enregistré avec succès !",
+            "image_saved": "Image enregistrée avec succès !",
+            "saved_to": "Enregistré dans :",
+            "share": "Partager",
+            "ok": "OK",
+            "failed_pdf": "Échec de la génération du PDF",
+            "failed_image": "Échec de l'enregistrement de l'image",
+            "unable_capture": "Impossible de capturer l'image"
+        },
+        "metric_detail": {
+            "reference_ranges": "Plages de référence",
+            "interpretation": "Interprétation",
+            "recommendations": "Recommandations"
+        },
         "heart_rate_categories": {
             "low": "Bas",
             "normal": "Normal",

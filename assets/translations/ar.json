@@ -349,6 +349,32 @@
             "medical": "طبي",
             "stress": "إدارة التوتر"
         },
+        "export_options": {
+            "title": "خيارات المشاركة والتصدير",
+            "export_pdf": "تصدير كملف PDF",
+            "export_pdf_desc": "إنشاء تقرير PDF شامل",
+            "save_image": "حفظ كصورة",
+            "save_image_desc": "التقاط التقرير كصورة عالية الجودة",
+            "share_doctor": "مشاركة مع الطبيب",
+            "share_doctor_desc": "إرسال التقرير إلى مقدم الرعاية الصحية",
+            "quick_share": "مشاركة سريعة",
+            "quick_share_desc": "مشاركة ملخص التقرير عبر التطبيقات",
+            "success": "نجاح",
+            "error": "خطأ",
+            "pdf_saved": "تم حفظ ملف PDF بنجاح!",
+            "image_saved": "تم حفظ الصورة بنجاح!",
+            "saved_to": "تم الحفظ في:",
+            "share": "مشاركة",
+            "ok": "موافق",
+            "failed_pdf": "فشل في إنشاء ملف PDF",
+            "failed_image": "فشل في حفظ الصورة",
+            "unable_capture": "تعذر التقاط الصورة"
+        },
+        "metric_detail": {
+            "reference_ranges": "النطاقات المرجعية",
+            "interpretation": "تفسير",
+            "recommendations": "توصيات"
+        },
         "heart_rate_categories": {
             "low": "منخفض",
             "normal": "طبيعي",

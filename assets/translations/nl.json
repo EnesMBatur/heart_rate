@@ -349,6 +349,32 @@
             "medical": "Medisch",
             "stress": "Stressmanagement"
         },
+        "export_options": {
+            "title": "Deel- en exportopties",
+            "export_pdf": "Exporteren als PDF",
+            "export_pdf_desc": "Uitgebreid PDF-rapport genereren",
+            "save_image": "Opslaan als afbeelding",
+            "save_image_desc": "Rapport opslaan als hoogwaardige afbeelding",
+            "share_doctor": "Delen met arts",
+            "share_doctor_desc": "Rapport naar zorgverlener sturen",
+            "quick_share": "Snel delen",
+            "quick_share_desc": "Rapport samenvatting delen via apps",
+            "success": "Succes",
+            "error": "Fout",
+            "pdf_saved": "PDF succesvol opgeslagen!",
+            "image_saved": "Afbeelding succesvol opgeslagen!",
+            "saved_to": "Opgeslagen in:",
+            "share": "Delen",
+            "ok": "OK",
+            "failed_pdf": "PDF genereren mislukt",
+            "failed_image": "Afbeelding opslaan mislukt",
+            "unable_capture": "Afbeelding kon niet worden vastgelegd"
+        },
+        "metric_detail": {
+            "reference_ranges": "Referentiewaarden",
+            "interpretation": "Interpretatie",
+            "recommendations": "Aanbevelingen"
+        },
         "heart_rate_categories": {
             "low": "Laag",
             "normal": "Normaal",

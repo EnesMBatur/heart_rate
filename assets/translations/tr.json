@@ -349,6 +349,32 @@
             "medical": "TIBBİ",
             "stress": "STRES YÖNETİMİ"
         },
+        "export_options": {
+            "title": "Paylaşım ve Dışa Aktarım Seçenekleri",
+            "export_pdf": "PDF Olarak Dışa Aktar",
+            "export_pdf_desc": "Kapsamlı PDF raporu oluştur",
+            "save_image": "Resim Olarak Kaydet",
+            "save_image_desc": "Raporu yüksek kaliteli resim olarak kaydet",
+            "share_doctor": "Doktorla Paylaş",
+            "share_doctor_desc": "Raporu sağlık uzmanına gönder",
+            "quick_share": "Hızlı Paylaş",
+            "quick_share_desc": "Rapor özetini uygulamalar aracılığıyla paylaş",
+            "success": "Başarılı",
+            "error": "Hata",
+            "pdf_saved": "PDF başarıyla kaydedildi!",
+            "image_saved": "Resim başarıyla kaydedildi!",
+            "saved_to": "Şuraya kaydedildi:",
+            "share": "Paylaş",
+            "ok": "Tamam",
+            "failed_pdf": "PDF oluşturulamadı",
+            "failed_image": "Resim kaydedilemedi",
+            "unable_capture": "Resim yakalanamadı"
+        },
+        "metric_detail": {
+            "reference_ranges": "Referans Aralıkları",
+            "interpretation": "Yorumlama",
+            "recommendations": "Öneriler"
+        },
         "heart_rate_categories": {
             "low": "Düşük",
             "normal": "Normal",

@@ -349,6 +349,32 @@
             "medical": "MEDICAL",
             "stress": "STRESS MANAGEMENT"
         },
+        "export_options": {
+            "title": "Share & Export Options",
+            "export_pdf": "Export as PDF",
+            "export_pdf_desc": "Generate comprehensive PDF report",
+            "save_image": "Save as Image",
+            "save_image_desc": "Capture report as high-quality image",
+            "share_doctor": "Share with Doctor",
+            "share_doctor_desc": "Send report to healthcare provider",
+            "quick_share": "Quick Share",
+            "quick_share_desc": "Share report summary via apps",
+            "success": "Success",
+            "error": "Error",
+            "pdf_saved": "PDF saved successfully!",
+            "image_saved": "Image saved successfully!",
+            "saved_to": "Saved to:",
+            "share": "Share",
+            "ok": "OK",
+            "failed_pdf": "Failed to generate PDF",
+            "failed_image": "Failed to save image",
+            "unable_capture": "Unable to capture image"
+        },
+        "metric_detail": {
+            "reference_ranges": "Reference Ranges",
+            "interpretation": "Interpretation",
+            "recommendations": "Recommendations"
+        },
         "heart_rate_categories": {
             "low": "Low",
             "normal": "Normal",

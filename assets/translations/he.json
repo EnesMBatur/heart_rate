@@ -349,6 +349,32 @@
             "medical": "רפואי",
             "stress": "ניהול לחץ"
         },
+        "export_options": {
+            "title": "אפשרויות שיתוף וייצוא",
+            "export_pdf": "ייצוא כ-PDF",
+            "export_pdf_desc": "צור דוח PDF מקיף",
+            "save_image": "שמור כתמונה",
+            "save_image_desc": "שמור את הדוח כתמונה באיכות גבוהה",
+            "share_doctor": "שתף עם רופא",
+            "share_doctor_desc": "שלח את הדוח לספק שירותי בריאות",
+            "quick_share": "שיתוף מהיר",
+            "quick_share_desc": "שתף תקציר דוח דרך אפליקציות",
+            "success": "הצלחה",
+            "error": "שגיאה",
+            "pdf_saved": "PDF נשמר בהצלחה!",
+            "image_saved": "התמונה נשמרה בהצלחה!",
+            "saved_to": "נשמר ל:",
+            "share": "שתף",
+            "ok": "אישור",
+            "failed_pdf": "נכשל ביצירת PDF",
+            "failed_image": "נכשל בשמירת התמונה",
+            "unable_capture": "לא ניתן ללכוד את התמונה"
+        },
+        "metric_detail": {
+            "reference_ranges": "טווחי ייחוס",
+            "interpretation": "פרשנות",
+            "recommendations": "המלצות"
+        },
         "heart_rate_categories": {
             "low": "נמוך",
             "normal": "נורמלי",

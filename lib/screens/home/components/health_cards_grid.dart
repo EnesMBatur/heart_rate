@@ -153,7 +153,7 @@ class HealthCardsGrid extends StatelessWidget {
                   Text(
                     LocaleKeys.health_heart_rate.tr(),
                     style: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: 19.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
                     ),
@@ -189,7 +189,7 @@ class HealthCardsGrid extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(width: 16),
+            const SizedBox(width: 8),
 
             // Heart Rate Image
             SizedBox(

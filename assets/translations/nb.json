@@ -349,6 +349,32 @@
             "medical": "Medisinsk",
             "stress": "Stresshåndtering"
         },
+        "export_options": {
+            "title": "Delings- og eksportalternativer",
+            "export_pdf": "Eksporter som PDF",
+            "export_pdf_desc": "Generer omfattende PDF-rapport",
+            "save_image": "Lagre som bilde",
+            "save_image_desc": "Lagre rapport som bilde i høy kvalitet",
+            "share_doctor": "Del med lege",
+            "share_doctor_desc": "Send rapport til helsepersonell",
+            "quick_share": "Hurtigdeling",
+            "quick_share_desc": "Del rapportoppsummering via apper",
+            "success": "Vellykket",
+            "error": "Feil",
+            "pdf_saved": "PDF lagret!",
+            "image_saved": "Bilde lagret!",
+            "saved_to": "Lagret i:",
+            "share": "Del",
+            "ok": "OK",
+            "failed_pdf": "Kunne ikke generere PDF",
+            "failed_image": "Kunne ikke lagre bilde",
+            "unable_capture": "Kunne ikke fange bilde"
+        },
+        "metric_detail": {
+            "reference_ranges": "Referanseområder",
+            "interpretation": "Tolkning",
+            "recommendations": "Anbefalinger"
+        },
         "heart_rate_categories": {
             "low": "Lav",
             "normal": "Normal",

@@ -349,6 +349,32 @@
             "medical": "Medyczny",
             "stress": "Zarządzanie stresem"
         },
+        "export_options": {
+            "title": "Opcje udostępniania i eksportu",
+            "export_pdf": "Eksportuj jako PDF",
+            "export_pdf_desc": "Wygeneruj kompleksowy raport PDF",
+            "save_image": "Zapisz jako obraz",
+            "save_image_desc": "Zapisz raport jako obraz w wysokiej jakości",
+            "share_doctor": "Udostępnij lekarzowi",
+            "share_doctor_desc": "Wyślij raport do świadczeniodawcy opieki zdrowotnej",
+            "quick_share": "Szybkie udostępnianie",
+            "quick_share_desc": "Udostępnij podsumowanie raportu przez aplikacje",
+            "success": "Sukces",
+            "error": "Błąd",
+            "pdf_saved": "Plik PDF zapisany pomyślnie!",
+            "image_saved": "Obraz zapisany pomyślnie!",
+            "saved_to": "Zapisano w:",
+            "share": "Udostępnij",
+            "ok": "OK",
+            "failed_pdf": "Nie udało się wygenerować pliku PDF",
+            "failed_image": "Nie udało się zapisać obrazu",
+            "unable_capture": "Nie można uchwycić obrazu"
+        },
+        "metric_detail": {
+            "reference_ranges": "Zakresy referencyjne",
+            "interpretation": "Interpretacja",
+            "recommendations": "Zalecenia"
+        },
         "heart_rate_categories": {
             "low": "Niskie",
             "normal": "Normalne",

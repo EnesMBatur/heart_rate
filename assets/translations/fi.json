@@ -349,6 +349,32 @@
             "medical": "Lääketieteellinen",
             "stress": "Stressinhallinta"
         },
+        "export_options": {
+            "title": "Jako- ja vientivaihtoehdot",
+            "export_pdf": "Vie PDF-muodossa",
+            "export_pdf_desc": "Luo kattava PDF-raportti",
+            "save_image": "Tallenna kuvana",
+            "save_image_desc": "Tallenna raportti korkealaatuisena kuvana",
+            "share_doctor": "Jaa lääkärin kanssa",
+            "share_doctor_desc": "Lähetä raportti terveydenhuollon ammattilaiselle",
+            "quick_share": "Pikajako",
+            "quick_share_desc": "Jaa raportin yhteenveto sovellusten kautta",
+            "success": "Onnistui",
+            "error": "Virhe",
+            "pdf_saved": "PDF tallennettu onnistuneesti!",
+            "image_saved": "Kuva tallennettu onnistuneesti!",
+            "saved_to": "Tallennettu kohteeseen:",
+            "share": "Jaa",
+            "ok": "OK",
+            "failed_pdf": "PDF:n luominen epäonnistui",
+            "failed_image": "Kuvan tallennus epäonnistui",
+            "unable_capture": "Kuvan tallennus epäonnistui"
+        },
+        "metric_detail": {
+            "reference_ranges": "Viitearvot",
+            "interpretation": "Tulkinta",
+            "recommendations": "Suositukset"
+        },
         "heart_rate_categories": {
             "low": "Matala",
             "normal": "Normaali",

@@ -349,6 +349,32 @@
             "medical": "Медицинский",
             "stress": "Управление стрессом"
         },
+        "export_options": {
+            "title": "Параметры обмена и экспорта",
+            "export_pdf": "Экспорт в PDF",
+            "export_pdf_desc": "Создать подробный PDF-отчет",
+            "save_image": "Сохранить как изображение",
+            "save_image_desc": "Сохранить отчет как изображение высокого качества",
+            "share_doctor": "Поделиться с врачом",
+            "share_doctor_desc": "Отправить отчет врачу",
+            "quick_share": "Быстрая отправка",
+            "quick_share_desc": "Поделиться кратким отчетом через приложения",
+            "success": "Успех",
+            "error": "Ошибка",
+            "pdf_saved": "PDF успешно сохранен!",
+            "image_saved": "Изображение успешно сохранено!",
+            "saved_to": "Сохранено в:",
+            "share": "Поделиться",
+            "ok": "ОК",
+            "failed_pdf": "Не удалось создать PDF",
+            "failed_image": "Не удалось сохранить изображение",
+            "unable_capture": "Не удалось захватить изображение"
+        },
+        "metric_detail": {
+            "reference_ranges": "Референсные диапазоны",
+            "interpretation": "Интерпретация",
+            "recommendations": "Рекомендации"
+        },
         "heart_rate_categories": {
             "low": "Низкий",
             "normal": "Нормальный",

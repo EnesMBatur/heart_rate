@@ -152,14 +152,14 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
             ),
             Text(
-              'Share & Export Options',
+              LocaleKeys.report_export_options_title.tr(),
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 3.h),
             _shareOption(
               icon: Icons.picture_as_pdf,
-              title: 'Export as PDF',
-              subtitle: 'Generate comprehensive PDF report',
+              title: LocaleKeys.report_export_options_export_pdf.tr(),
+              subtitle: LocaleKeys.report_export_options_export_pdf_desc.tr(),
               onTap: () async {
                 Navigator.pop(context);
                 try {
@@ -168,9 +168,14 @@ class _ReportScreenState extends State<ReportScreen> {
                   );
 
                   if (filePath != null) {
-                    _showSuccessDialog('PDF saved successfully!', filePath);
+                    _showSuccessDialog(
+                      LocaleKeys.report_export_options_pdf_saved.tr(),
+                      filePath,
+                    );
                   } else {
-                    _showErrorDialog('Failed to generate PDF');
+                    _showErrorDialog(
+                      LocaleKeys.report_export_options_failed_pdf.tr(),
+                    );
                   }
                 } catch (e) {
                   _showErrorDialog('Error: $e');
@@ -179,8 +184,8 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
             _shareOption(
               icon: Icons.image,
-              title: 'Save as Image',
-              subtitle: 'Capture report as high-quality image',
+              title: LocaleKeys.report_export_options_save_image.tr(),
+              subtitle: LocaleKeys.report_export_options_save_image_desc.tr(),
               onTap: () async {
                 Navigator.pop(context);
                 if (_repaintBoundaryKey.currentContext != null) {
@@ -189,22 +194,29 @@ class _ReportScreenState extends State<ReportScreen> {
                         .saveReportAsImage(_repaintBoundaryKey);
 
                     if (filePath != null) {
-                      _showSuccessDialog('Image saved successfully!', filePath);
+                      _showSuccessDialog(
+                        LocaleKeys.report_export_options_image_saved.tr(),
+                        filePath,
+                      );
                     } else {
-                      _showErrorDialog('Failed to save image');
+                      _showErrorDialog(
+                        LocaleKeys.report_export_options_failed_image.tr(),
+                      );
                     }
                   } catch (e) {
                     _showErrorDialog('Error: $e');
                   }
                 } else {
-                  _showErrorDialog('Unable to capture image');
+                  _showErrorDialog(
+                    LocaleKeys.report_export_options_unable_capture.tr(),
+                  );
                 }
               },
             ),
             _shareOption(
               icon: Icons.local_hospital,
-              title: 'Share with Doctor',
-              subtitle: 'Send report to healthcare provider',
+              title: LocaleKeys.report_export_options_share_doctor.tr(),
+              subtitle: LocaleKeys.report_export_options_share_doctor_desc.tr(),
               onTap: () async {
                 Navigator.pop(context);
                 try {
@@ -219,8 +231,8 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
             _shareOption(
               icon: Icons.share,
-              title: 'Quick Share',
-              subtitle: 'Share report summary via apps',
+              title: LocaleKeys.report_export_options_quick_share.tr(),
+              subtitle: LocaleKeys.report_export_options_quick_share_desc.tr(),
               onTap: () async {
                 Navigator.pop(context);
                 try {
@@ -252,10 +264,13 @@ class _ReportScreenState extends State<ReportScreen> {
         ),
         child: Icon(icon, color: Theme.of(context).primaryColor, size: 24),
       ),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+      ),
       subtitle: Text(
         subtitle,
-        style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
+        style: TextStyle(color: Colors.grey[600], fontSize: 13.sp),
       ),
       onTap: onTap,
     );
@@ -265,11 +280,11 @@ class _ReportScreenState extends State<ReportScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.check_circle, color: Colors.green),
-            SizedBox(width: 8),
-            Text('Success'),
+            const Icon(Icons.check_circle, color: Colors.green),
+            const SizedBox(width: 8),
+            Text(LocaleKeys.report_export_options_success.tr()),
           ],
         ),
         content: Column(
@@ -279,7 +294,7 @@ class _ReportScreenState extends State<ReportScreen> {
             Text(message),
             SizedBox(height: 2.h),
             Text(
-              'Saved to: ${filePath.split('/').last}',
+              '${LocaleKeys.report_export_options_saved_to.tr()} ${filePath.split('/').last}',
               style: TextStyle(fontSize: 12.sp, color: Colors.grey[600]),
             ),
           ],
@@ -287,7 +302,7 @@ class _ReportScreenState extends State<ReportScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text(LocaleKeys.report_export_options_ok.tr()),
           ),
           TextButton(
             onPressed: () async {
@@ -299,7 +314,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 filePath: filePath,
               );
             },
-            child: const Text('Share'),
+            child: Text(LocaleKeys.report_export_options_share.tr()),
           ),
         ],
       ),
@@ -310,18 +325,18 @@ class _ReportScreenState extends State<ReportScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.error, color: Colors.red),
-            SizedBox(width: 8),
-            Text('Error'),
+            const Icon(Icons.error, color: Colors.red),
+            const SizedBox(width: 8),
+            Text(LocaleKeys.report_export_options_error.tr()),
           ],
         ),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text(LocaleKeys.report_export_options_ok.tr()),
           ),
         ],
       ),

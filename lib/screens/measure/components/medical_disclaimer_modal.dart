@@ -54,13 +54,13 @@ class MedicalDisclaimerModal extends StatelessWidget {
                       Icon(
                         Icons.warning_amber_rounded,
                         color: Colors.orange,
-                        size: 28.sp,
+                        size: 24.sp,
                       ),
                       SizedBox(width: 3.w),
                       Text(
                         LocaleKeys.disclaimer_medical_disclaimer.tr(),
                         style: TextStyle(
-                          fontSize: 22.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                           color: AppTheme.primaryColor,
                         ),

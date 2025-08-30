@@ -349,6 +349,32 @@
             "medical": "Medizinisch",
             "stress": "Stressbewältigung"
         },
+        "export_options": {
+            "title": "Teilen- & Exportoptionen",
+            "export_pdf": "Als PDF exportieren",
+            "export_pdf_desc": "Umfassenden PDF-Bericht erstellen",
+            "save_image": "Als Bild speichern",
+            "save_image_desc": "Bericht als hochauflösendes Bild speichern",
+            "share_doctor": "Mit Arzt teilen",
+            "share_doctor_desc": "Bericht an Gesundheitsdienstleister senden",
+            "quick_share": "Schnell teilen",
+            "quick_share_desc": "Berichtszusammenfassung über Apps teilen",
+            "success": "Erfolg",
+            "error": "Fehler",
+            "pdf_saved": "PDF erfolgreich gespeichert!",
+            "image_saved": "Bild erfolgreich gespeichert!",
+            "saved_to": "Gespeichert in:",
+            "share": "Teilen",
+            "ok": "OK",
+            "failed_pdf": "Fehler beim Erstellen der PDF",
+            "failed_image": "Fehler beim Speichern des Bildes",
+            "unable_capture": "Bild konnte nicht erfasst werden"
+        },
+        "metric_detail": {
+            "reference_ranges": "Referenzbereiche",
+            "interpretation": "Interpretation",
+            "recommendations": "Empfehlungen"
+        },
         "heart_rate_categories": {
             "low": "Niedrig",
             "normal": "Normal",

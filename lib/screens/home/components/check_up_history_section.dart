@@ -3,16 +3,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/heart_rate_measurement.dart';
-import 'package:intl/intl.dart';
 
 class CheckUpHistorySection extends StatelessWidget {
   final HeartRateMeasurement? lastMeasurement;
   final VoidCallback? onViewAllPressed;
+  final VoidCallback? onLastMeasurementTap;
 
   const CheckUpHistorySection({
     super.key,
     this.lastMeasurement,
     this.onViewAllPressed,
+    this.onLastMeasurementTap,
   });
 
   @override
@@ -26,7 +27,7 @@ class CheckUpHistorySection extends StatelessWidget {
             Text(
               LocaleKeys.history_check_up_history.tr(),
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
@@ -73,88 +74,91 @@ class CheckUpHistorySection extends StatelessWidget {
     final status = _getHeartRateStatus(measurement.heartRate);
     final statusColor = _getStatusColor(status);
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
-            spreadRadius: 1,
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Heart Rate Circle
-          Container(
-            width: 62,
-            height: 62,
-            decoration: BoxDecoration(
-              color: const Color(0xFFFF6B6B),
-              shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: onLastMeasurementTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.1),
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: const Offset(0, 2),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${measurement.heartRate}',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          ],
+        ),
+        child: Row(
+          children: [
+            // Heart Rate Circle
+            Container(
+              width: 62,
+              height: 62,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF6B6B),
+                shape: BoxShape.circle,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${measurement.heartRate}',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Text(
-                  LocaleKeys.health_bpm.tr(),
-                  style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(width: 2.h),
-
-          // Measurement Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  DateFormat(
-                    'MMM dd, yyyy • h:mm a',
-                  ).format(measurement.timestamp),
-                  style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
-                ),
-                // const SizedBox(height: 4),
-                // Text(
-                //   DateFormat('h:mm a').format(measurement.timestamp),
-                //   style: TextStyle(fontSize: 14.sp, color: Colors.black54),
-                // ),
-              ],
-            ),
-          ),
-
-          // Status Badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: statusColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              status,
-              style: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+                  Text(
+                    LocaleKeys.health_bpm.tr(),
+                    style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+
+            SizedBox(width: 2.h),
+
+            // Measurement Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    DateFormat(
+                      'MMM dd, yyyy • h:mm a',
+                    ).format(measurement.timestamp),
+                    style: TextStyle(fontSize: 16.sp, color: Colors.grey[600]),
+                  ),
+                  // const SizedBox(height: 4),
+                  // Text(
+                  //   DateFormat('h:mm a').format(measurement.timestamp),
+                  //   style: TextStyle(fontSize: 14.sp, color: Colors.black54),
+                  // ),
+                ],
+              ),
+            ),
+
+            // Status Badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: statusColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                status,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

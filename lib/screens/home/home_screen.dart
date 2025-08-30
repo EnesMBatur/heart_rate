@@ -106,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     CheckUpHistorySection(
                       lastMeasurement: viewModel.lastMeasurement,
                       onViewAllPressed: _onViewAllHistoryPressed,
+                      onLastMeasurementTap: _onLastMeasurementTap,
                     ),
 
                     // Bottom padding for better scrolling
@@ -182,5 +183,30 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   void _onViewAllHistoryPressed() {
     context.push(AppRouter.heartRateTracker);
+  }
+
+  void _onLastMeasurementTap() {
+    final lastMeasurement = _viewModel.lastMeasurement;
+    if (lastMeasurement != null) {
+      // Navigate to report screen with last measurement data
+      context.push(
+        AppRouter.report,
+        extra: {
+          'heartRate': lastMeasurement.heartRate,
+          'hrv': lastMeasurement.hrv ?? 30.0, // Default HRV if not available
+          'signalQualityPercent':
+              ((lastMeasurement.signalQuality ?? 0.95) * 100).toInt(),
+          'status': _getStatusFromHeartRate(lastMeasurement.heartRate),
+          'mood': lastMeasurement.mood ?? 3, // Use actual mood or default
+        },
+      );
+    }
+  }
+
+  String _getStatusFromHeartRate(int heartRate) {
+    if (heartRate < 60) return 'low';
+    if (heartRate <= 100) return 'normal';
+    if (heartRate <= 120) return 'elevated';
+    return 'high';
   }
 }

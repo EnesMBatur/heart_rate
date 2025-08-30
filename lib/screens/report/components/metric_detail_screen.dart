@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 
 class MetricDetailScreen extends StatelessWidget {
   final String title;
@@ -292,7 +294,7 @@ class MetricDetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Referans Aralıkları',
+            LocaleKeys.report_metric_detail_reference_ranges.tr(),
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
@@ -389,7 +391,7 @@ class MetricDetailScreen extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                'Yorumlama',
+                LocaleKeys.report_metric_detail_interpretation.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -447,7 +449,7 @@ class MetricDetailScreen extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                'Öneriler',
+                LocaleKeys.report_metric_detail_recommendations.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
