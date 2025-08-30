@@ -169,7 +169,7 @@ class _StartMeasureScreenState extends State<StartMeasureScreen> {
                                           color: Colors.white.withValues(
                                             alpha: 0.9,
                                           ),
-                                          fontSize: 14.sp, // Reduced from 14.sp
+                                          fontSize: 13.sp, // Reduced from 14.sp
                                           fontWeight: FontWeight.w400,
                                           shadows: [
                                             Shadow(

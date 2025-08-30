@@ -57,12 +57,14 @@ class MedicalDisclaimerModal extends StatelessWidget {
                         size: 24.sp,
                       ),
                       SizedBox(width: 3.w),
-                      Text(
-                        LocaleKeys.disclaimer_medical_disclaimer.tr(),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.primaryColor,
+                      Expanded(
+                        child: Text(
+                          LocaleKeys.disclaimer_medical_disclaimer.tr(),
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                          ),
                         ),
                       ),
                     ],

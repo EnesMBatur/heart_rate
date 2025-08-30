@@ -89,7 +89,8 @@ class BloodPressureChart extends StatelessWidget {
             SizedBox(height: 1.h),
             Text(
               LocaleKeys.blood_pressure_no_data_available.tr(),
-              maxLines: 1,
+              textAlign: TextAlign.center,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 16.sp,

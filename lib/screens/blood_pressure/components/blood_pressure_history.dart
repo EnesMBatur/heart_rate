@@ -28,6 +28,7 @@ class BloodPressureHistory extends StatelessWidget {
                 SizedBox(height: 2.h),
                 Text(
                   LocaleKeys.history_no_measurements_yet.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -37,6 +38,7 @@ class BloodPressureHistory extends StatelessWidget {
                 SizedBox(height: 1.h),
                 Text(
                   LocaleKeys.general_tap_add_first_measurement.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
               ],

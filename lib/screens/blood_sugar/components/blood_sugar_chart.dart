@@ -89,6 +89,7 @@ class BloodSugarChart extends StatelessWidget {
             SizedBox(height: 1.h),
             Text(
               LocaleKeys.blood_sugar_no_data_available.tr(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[500],

@@ -22,6 +22,7 @@ class BMIHistory extends StatelessWidget {
                 SizedBox(height: 2.h),
                 Text(
                   LocaleKeys.general_no_measurements_yet.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -31,6 +32,7 @@ class BMIHistory extends StatelessWidget {
                 SizedBox(height: 1.h),
                 Text(
                   LocaleKeys.bmi_start_adding_records.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
                 SizedBox(height: 10.h),

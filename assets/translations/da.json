@@ -267,7 +267,7 @@
         }
     },
     "report": {
-        "title": "تقرير صحي",
+        "title": "Sundhedsrapport",
         "hrv_analysis": "HRV-analyse",
         "health_metrics": "Sundhedsindikatorer",
         "detailed_metrics": "Detaljerede indikatorer",

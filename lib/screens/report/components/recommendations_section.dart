@@ -35,12 +35,15 @@ class RecommendationsSection extends StatelessWidget {
                 size: 24,
               ),
               SizedBox(width: 2.w),
-              Text(
-                LocaleKeys.report_personalized_recommendations.tr(),
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+              Expanded(
+                child: Text(
+                  LocaleKeys.report_personalized_recommendations.tr(),
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
             ],

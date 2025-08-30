@@ -24,6 +24,7 @@ class HeartRateHistory extends StatelessWidget {
                 SizedBox(height: 2.h),
                 Text(
                   LocaleKeys.history_no_measurements_yet.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.grey[600],
@@ -33,6 +34,7 @@ class HeartRateHistory extends StatelessWidget {
                 SizedBox(height: 1.h),
                 Text(
                   LocaleKeys.heart_rate_tap_measure_button.tr(),
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                 ),
               ],
