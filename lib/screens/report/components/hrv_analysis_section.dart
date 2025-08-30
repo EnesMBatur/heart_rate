@@ -94,7 +94,7 @@ class HRVAnalysisSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              hrvAnalysis.interpretation,
+              hrvAnalysis.interpretation.tr(),
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[700],

@@ -8,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../models/report/heart_rate_report.dart';
 
 class ExportService {
@@ -177,7 +178,7 @@ class ExportService {
                 '${report.signalQualityPercent}%',
               ),
               _buildPDFDataRow('Status', _getStatusText(report.status)),
-              _buildPDFDataRow('Mood', report.moodDescription),
+              _buildPDFDataRow('Mood', report.moodDescriptionKey.tr()),
             ],
           ),
         ),

@@ -44,21 +44,21 @@ class HeartRateReport {
     return HeartRateCategory.high;
   }
 
-  /// Get mood description
-  String get moodDescription {
+  /// Get mood description key (to be translated in UI)
+  String get moodDescriptionKey {
     switch (mood) {
       case 1:
-        return 'Feeling down';
+        return 'report.mood_descriptions.feeling_down';
       case 2:
-        return 'Could be better';
+        return 'report.mood_descriptions.could_be_better';
       case 3:
-        return 'Feeling okay';
+        return 'report.mood_descriptions.feeling_okay';
       case 4:
-        return 'Feeling good';
+        return 'report.mood_descriptions.feeling_good';
       case 5:
-        return 'Feeling great';
+        return 'report.mood_descriptions.feeling_great';
       default:
-        return 'Unknown';
+        return 'report.mood_descriptions.unknown';
     }
   }
 
@@ -102,20 +102,18 @@ class HRVAnalysis {
     final cov = hrv * 0.4;
 
     HRVStatus status;
-    String interpretation;
+    String interpretationKey;
 
     if (hrv < 20) {
       status = HRVStatus.low;
-      interpretation =
-          'Your HRV is below expected, indicating possible stress or insufficient recovery.';
+      interpretationKey = 'report.hrv_interpretations.low_stress_recovery';
     } else if (hrv < 50) {
       status = HRVStatus.normal;
-      interpretation =
-          'Your HRV is within normal range, indicating good autonomic balance.';
+      interpretationKey = 'report.hrv_interpretations.normal_autonomic_balance';
     } else {
       status = HRVStatus.high;
-      interpretation =
-          'Your HRV is excellent, indicating strong cardiovascular health and good recovery.';
+      interpretationKey =
+          'report.hrv_interpretations.excellent_cardiovascular_health';
     }
 
     return HRVAnalysis(
@@ -124,7 +122,7 @@ class HRVAnalysis {
       pnn50: pnn50,
       cov: cov,
       status: status,
-      interpretation: interpretation,
+      interpretation: interpretationKey,
     );
   }
 }

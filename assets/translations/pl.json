@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Raport zdrowotny",
         "hrv_analysis": "Analiza HRV",
         "health_metrics": "Wskaźniki zdrowotne",
         "detailed_metrics": "Szczegółowe wskaźniki",
@@ -313,6 +314,162 @@
             "very_calm": "Bardzo spokojny",
             "calm": "Spokojny",
             "stressed": "Zestresowany"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Czuję się przygnębiony",
+            "could_be_better": "Mogłoby być lepiej",
+            "feeling_okay": "Czuję się w porządku",
+            "feeling_good": "Czuję się dobrze",
+            "feeling_great": "Czuję się świetnie",
+            "unknown": "Nieznany"
+        },
+        "overall_health_status": {
+            "excellent": "Doskonały",
+            "good": "Dobry",
+            "moderate": "Umiarkowany",
+            "needs_attention": "Wymaga uwagi"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "Twoje HRV jest poniżej oczekiwań, co może wskazywać na stres lub niewystarczającą regenerację.",
+            "normal_autonomic_balance": "Twoje HRV mieści się w normie, co wskazuje na dobrą równowagę autonomiczną.",
+            "excellent_cardiovascular_health": "Twoje HRV jest doskonałe, co wskazuje na silne zdrowie sercowo-naczyniowe i dobrą regenerację."
+        },
+        "personalized_recommendations": "Spersonalizowane rekomendacje",
+        "recommendations": {
+            "stress_management": "Zarządzanie stresem",
+            "energy_boost": "Zastrzyk energii",
+            "relaxation": "Relaksacja",
+            "heart_rate_monitoring": "Monitorowanie tętna",
+            "high_heart_rate_desc": "Twoje tętno jest podwyższone. Rozważ konsultację z lekarzem, jeśli to się utrzymuje."
+        },
+        "recommendation_types": {
+            "exercise": "Ćwiczenia",
+            "nutrition": "Odżywianie",
+            "lifestyle": "Styl życia",
+            "medical": "Medyczny",
+            "stress": "Zarządzanie stresem"
+        },
+        "heart_rate_categories": {
+            "low": "Niskie",
+            "normal": "Normalne",
+            "elevated": "Podwyższone",
+            "high": "Wysokie"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Poziom Stresu",
+                "description": "Twój poziom stresu jest obliczany na podstawie analizy zmienności rytmu serca (HRV). Wartość ta pokazuje dzienne obciążenie stresem w skali do 5.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Twój poziom stresu jest niski ({value}/5). Oznacza to, że jesteś ogólnie w stanie relaksu i równowagi. Kontynuuj obecny styl życia.",
+                "interpretation_normal": "Twój poziom stresu mieści się w normie ({value}/5). Dobrze radzisz sobie ze stresem codziennego życia, ale wciąż wprowadzaj działania redukujące stres.",
+                "interpretation_high": "Twój poziom stresu jest wysoki ({value}/5). Oznacza to, że twój organizm jest zestresowany i potrzebuje technik relaksacyjnych.",
+                "recommendations_low": "Kontynuuj obecne zdrowe nawyki|Utrzymuj regularną rutynę ćwiczeń|Wzmacniaj relacje społeczne|Znajdź czas na hobby",
+                "recommendations_normal": "Medytuj 10–15 minut dziennie|Ćwicz głębokie oddychanie|Śpij odpowiednio (7–9 godzin)|Chodź na regularne spacery|Identyfikuj i ograniczaj źródła stresu",
+                "recommendations_high": "Uzyskaj profesjonalne wsparcie w zarządzaniu stresem|Praktykuj codziennie uważność|Przejrzyj swoje obciążenie pracą|Naucz się technik relaksacyjnych|Wzmacniaj system wsparcia społecznego|Zwiększ aktywność fizyczną"
+            },
+            "energy_level": {
+                "title": "Poziom Energii",
+                "description": "Twój poziom energii jest obliczany na podstawie analizy HRV i danych tętna. Wartość ta pokazuje ogólny stan witalności w skali do 5.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Twój poziom energii jest niski ({value}/5). Może to wynikać ze zmęczenia, niewystarczającego snu lub niedoborów żywieniowych. Warto przeanalizować styl życia.",
+                "interpretation_normal": "Twój poziom energii jest w normie ({value}/5). Ogólnie masz dobrą witalność, ale małe poprawki mogą ją zwiększyć.",
+                "interpretation_high": "Twój poziom energii jest wysoki ({value}/5). Jesteś w świetnej formie! Kontynuuj obecne zdrowe nawyki, aby utrzymać ten stan.",
+                "recommendations_low": "Popraw jakość snu|Przeanalizuj swój plan żywieniowy|Sprawdź poziom żelaza i witaminy B12|Rozpocznij lekki program ćwiczeń|Zwiększ spożycie wody|Zredukuj poziom stresu",
+                "recommendations_normal": "Stwórz regularną rutynę ćwiczeń|Optymalizuj spożycie białka|Nie pomijaj śniadania|Spędzaj czas na świeżym powietrzu|Wykonuj aktywności dodające energii",
+                "recommendations_high": "Kontynuuj obecne nawyki|Utrzymuj wydajność|Unikaj nadmiernego zmęczenia|Nie zapominaj o dniach odpoczynku|Utrzymuj jakość diety"
+            },
+            "physical_tension": {
+                "title": "Napięcie Fizyczne",
+                "description": "Twój poziom napięcia fizycznego jest określany na podstawie analizy HRV i nieregularności tętna. Wartość ta jest podawana w skali do 5.",
+                "low": "Niskie",
+                "normal": "Normalne",
+                "high": "Wysokie",
+                "interpretation_low": "Twój poziom napięcia fizycznego jest niski ({value}/5). Mięśnie są rozluźnione, a organizm jest ogólnie w równowadze. To doskonały stan!",
+                "interpretation_normal": "Twój poziom napięcia fizycznego jest w normie ({value}/5). Lekki poziom napięcia jest normalny, ale warto stosować techniki relaksacyjne.",
+                "interpretation_high": "Twój poziom napięcia fizycznego jest wysoki ({value}/5). W mięśniach występuje napięcie, co może powodować dyskomfort. Techniki relaksacyjne są istotne.",
+                "recommendations_low": "Kontynuuj obecną relaksującą rutynę|Regularnie rozciągaj mięśnie|Kontroluj swoją postawę|Utrzymuj aktywny tryb życia",
+                "recommendations_normal": "Codziennie wykonuj ćwiczenia rozciągające|Wypróbuj masaż|Rozpocznij jogę lub pilates|Popraw ergonomię pracy|Rób regularne przerwy",
+                "recommendations_high": "Skorzystaj z profesjonalnego wsparcia fizjoterapeuty|20 minut codziennych ćwiczeń relaksacyjnych|Korzystaj z ciepłych kąpieli lub sauny|Ogranicz źródła stresu|Regularnie korzystaj z masażu|Stwórz ergonomiczne środowisko pracy"
+            },
+            "hrv_score": {
+                "title": "Wynik HRV",
+                "description": "Wynik HRV to ogólna ocena zmienności rytmu serca. Wysoka wartość wskazuje na lepszą równowagę autonomicznego układu nerwowego.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Twój wynik HRV jest niski. Może to wskazywać, że twój autonomiczny układ nerwowy jest pod wpływem stresu. Należy wdrożyć podejście nastawione na regenerację i relaks.",
+                "interpretation_normal": "Twój wynik HRV jest w normie. Twój autonomiczny układ nerwowy działa w równowadze. Kontynuuj zdrowe nawyki.",
+                "interpretation_high": "Twój wynik HRV jest wysoki. Doskonała równowaga autonomiczna! Twoja zmienność rytmu serca jest w świetnej kondycji i stanowi doskonały wskaźnik zdrowia.",
+                "recommendations_low": "Ćwicz oddychanie skupione na HRV|Dbaj o jakość snu|Unikaj zbyt intensywnych treningów|Naucz się technik zarządzania stresem|Regularnie medytuj|Ogranicz alkohol i kofeinę",
+                "recommendations_normal": "Kontynuuj obecną rutynę|Rozwijaj nawyk monitorowania HRV|Ćwicz różnorodnie|Popraw jakość odżywiania|Wzmacniaj więzi społeczne",
+                "recommendations_high": "Utrzymuj wysoką wydajność|Słuchaj sygnałów swojego ciała|Unikaj przetrenowania|Dbaj o trwałość sukcesów|Inspiruj innych"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "SDNN (odchylenie standardowe odstępów NN) to odchylenie standardowe odstępów między uderzeniami serca. Jest to ogólny wskaźnik aktywności autonomicznego układu nerwowego.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Niska wartość SDNN wskazuje na stres lub zmęczenie autonomicznego układu nerwowego. Potrzebny jest odpoczynek i redukcja stresu.",
+                "interpretation_normal": "Normalna wartość SDNN wskazuje, że twój autonomiczny układ nerwowy działa prawidłowo. Możesz kontynuować obecny styl życia.",
+                "interpretation_high": "Wysoka wartość SDNN wskazuje na doskonałą równowagę autonomiczną. To odzwierciedla optymalny stan zdrowia i kondycji.",
+                "recommendations_low": "Ćwicz głębokie oddychanie|Rozpocznij medytację|Popraw jakość snu (7–9 godzin)|Ogranicz kofeinę|Ćwicz lekko|Identyfikuj źródła stresu",
+                "recommendations_normal": "Kontynuuj obecne zdrowe nawyki|Utrzymuj regularną rutynę treningową|Stosuj zbilansowaną dietę|Dbaj o nawodnienie|Angażuj się w aktywności społeczne",
+                "recommendations_high": "Utrzymuj doskonałą kondycję|Możesz ćwiczyć z naciskiem na wyniki|Możesz pomagać innym|Unikaj przetrenowania|Słuchaj sygnałów swojego ciała"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "RMSSD to ważny wskaźnik aktywności układu przywspółczulnego. Odzwierciedla krótkoterminowy komponent zmienności rytmu serca.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Niska wartość RMSSD wskazuje na obniżoną aktywność przywspółczulną. Twój organizm ma trudności z wejściem w tryb odpoczynku.",
+                "interpretation_normal": "Normalna wartość RMSSD pokazuje, że układ przywspółczulny działa zdrowo. Istnieje dobra równowaga między odpoczynkiem a aktywnością.",
+                "interpretation_high": "Wysoka wartość RMSSD wskazuje na doskonałą aktywność przywspółczulną. Twój organizm bardzo dobrze radzi sobie ze stresem.",
+                "recommendations_low": "Ćwicz jogę lub tai chi|Medytuj regularnie|Weź ciepłą kąpiel|Słuchaj muzyki klasycznej|Spędzaj czas na łonie natury|Stosuj techniki głębokiego oddychania",
+                "recommendations_normal": "Wspieraj aktywność przywspółczulną|Wykonuj relaksujące czynności|Dbaj o jakość snu|Wykonuj lekkie ćwiczenia rozciągające|Praktykuj uważność",
+                "recommendations_high": "Utrzymuj doskonałą kondycję|Możesz trenować na wysokim poziomie|Optymalizuj czas regeneracji|Możesz pomagać innym|Kontynuuj zrównoważony styl życia"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "pNN50 to wskaźnik aktywności przywspółczulnej. Pokazuje procent różnic większych niż 50 ms między kolejnymi odstępami RR.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Niska wartość pNN50 wskazuje na obniżoną aktywność przywspółczulną i zwiększony poziom stresu.",
+                "interpretation_normal": "Normalna wartość pNN50 wskazuje, że serce dobrze radzi sobie z codziennym stresem, a równowaga autonomiczna jest zdrowa.",
+                "interpretation_high": "Wysoka wartość pNN50 wskazuje na doskonałą aktywność przywspółczulną i optymalne zdrowie serca.",
+                "recommendations_low": "Stosuj techniki redukcji stresu|Regularnie ćwicz oddychanie|Popraw jakość snu|Ogranicz spożycie kofeiny|Rób relaksujące aktywności|Skorzystaj z pomocy specjalisty",
+                "recommendations_normal": "Kontynuuj obecne zdrowe nawyki|Stosuj zbilansowaną dietę|Przestrzegaj regularnych godzin snu|Lekka aktywność cardio|Angażuj się w aktywności społeczne",
+                "recommendations_high": "Utrzymuj doskonałą kondycję|Ćwiczenia na wysokim poziomie|Bądź przykładem dla innych|Unikaj przetrenowania|Kontynuuj optymalny styl życia"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "CoV (współczynnik zmienności) to znormalizowana miara zmienności rytmu serca. Pokazuje HRV dostosowane do średniego tętna.",
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki",
+                "interpretation_low": "Niska wartość CoV pokazuje spadek znormalizowanej zmienności rytmu serca. Może to być oznaką stresu lub zmęczenia.",
+                "interpretation_normal": "Normalna wartość CoV wskazuje, że twoja zmienność rytmu serca jest na zdrowym poziomie. Twoja równowaga autonomiczna jest dobra.",
+                "interpretation_high": "Wysoka wartość CoV pokazuje doskonałą zmienność rytmu serca. Jest to oznaka optymalnego zdrowia sercowo-naczyniowego.",
+                "recommendations_low": "Ćwicz podnoszące HRV aktywności|Wypróbuj trening interwałowy|Stosuj techniki zarządzania stresem|Optymalizuj jakość snu|Przeanalizuj plan żywieniowy|Regularne badania kontrolne",
+                "recommendations_normal": "Utrzymuj obecną rutynę|Kontynuuj ćwiczenia cardio|Prowadź zrównoważony tryb życia|Dbaj o nawodnienie|Stosuj regularny plan treningowy",
+                "recommendations_high": "Utrzymuj wysoką wydajność|Trening nastawiony na optymalizację|Słuchaj sygnałów swojego ciała|Unikaj przetrenowania|Utrzymuj sukces na dłużej"
+            },
+            "status_labels": {
+                "low": "Niski",
+                "normal": "Normalny",
+                "high": "Wysoki"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {

@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Rapport de santé",
         "hrv_analysis": "Analyse HRV",
         "health_metrics": "Indicateurs de santé",
         "detailed_metrics": "Indicateurs détaillés",
@@ -313,6 +314,162 @@
             "very_calm": "Très calme",
             "calm": "Calme",
             "stressed": "Stressé"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Se sentir déprimé",
+            "could_be_better": "Pourrait être mieux",
+            "feeling_okay": "Se sentir bien",
+            "feeling_good": "Se sentir bien",
+            "feeling_great": "Se sentir super",
+            "unknown": "Inconnu"
+        },
+        "overall_health_status": {
+            "excellent": "Excellent",
+            "good": "Bon",
+            "moderate": "Modéré",
+            "needs_attention": "Nécessite une attention"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "Votre HRV est inférieur aux attentes, ce qui peut indiquer un stress ou une récupération insuffisante.",
+            "normal_autonomic_balance": "Votre HRV est dans la plage normale, ce qui indique un bon équilibre autonome.",
+            "excellent_cardiovascular_health": "Votre HRV est excellent, indiquant une bonne santé cardiovasculaire et une bonne récupération."
+        },
+        "personalized_recommendations": "Recommandations personnalisées",
+        "recommendations": {
+            "stress_management": "Gestion du stress",
+            "energy_boost": "Augmentation d'énergie",
+            "relaxation": "Relaxation",
+            "heart_rate_monitoring": "Surveillance de la fréquence cardiaque",
+            "high_heart_rate_desc": "Votre rythme cardiaque est élevé. Envisagez de consulter un professionnel de santé si cela persiste."
+        },
+        "recommendation_types": {
+            "exercise": "Exercice",
+            "nutrition": "Nutrition",
+            "lifestyle": "Mode de vie",
+            "medical": "Médical",
+            "stress": "Gestion du stress"
+        },
+        "heart_rate_categories": {
+            "low": "Bas",
+            "normal": "Normal",
+            "elevated": "Élevé",
+            "high": "Haut"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Niveau de Stress",
+                "description": "Votre niveau de stress est calculé sur la base de l'analyse de la variabilité de la fréquence cardiaque. Cette valeur montre votre charge de stress quotidienne sur 5.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Votre niveau de stress est faible ({value}/5). Cela indique que vous êtes généralement dans un état détendu et équilibré. Continuez à maintenir votre style de vie actuel.",
+                "interpretation_normal": "Votre niveau de stress est dans la plage normale ({value}/5). Vous gérez bien le stress de la vie quotidienne, mais continuez à intégrer des activités de réduction du stress.",
+                "interpretation_high": "Votre niveau de stress est élevé ({value}/5). Cela indique que votre corps est sous stress et a besoin de techniques de relaxation.",
+                "recommendations_low": "Poursuivez vos habitudes saines actuelles|Maintenez votre routine d'exercice régulière|Renforcez vos relations sociales|Consacrez du temps à vos loisirs",
+                "recommendations_normal": "Méditez 10 à 15 minutes par jour|Pratiquez des exercices de respiration profonde|Dormez suffisamment (7–9 heures)|Faites des promenades régulières|Identifiez et réduisez les sources de stress",
+                "recommendations_high": "Obtenez un soutien professionnel en gestion du stress|Pratiquez la pleine conscience quotidiennement|Révisez votre charge de travail|Apprenez des techniques de relaxation|Renforcez votre réseau de soutien social|Augmentez votre activité physique"
+            },
+            "energy_level": {
+                "title": "Niveau d'Énergie",
+                "description": "Votre niveau d'énergie est calculé sur la base de l'analyse HRV et des données de fréquence cardiaque. Cette valeur montre votre état général de vitalité sur 5.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Votre niveau d'énergie est faible ({value}/5). Cela peut être causé par la fatigue, un sommeil insuffisant ou une carence nutritionnelle. Il peut être utile de revoir votre mode de vie.",
+                "interpretation_normal": "Votre niveau d'énergie est dans la plage normale ({value}/5). Vous avez généralement une bonne vitalité, mais de petites améliorations peuvent augmenter votre niveau d'énergie.",
+                "interpretation_high": "Votre niveau d'énergie est élevé ({value}/5). Vous êtes en excellente vitalité ! Continuez vos habitudes saines actuelles pour maintenir cette condition.",
+                "recommendations_low": "Améliorez la qualité du sommeil|Révisez votre plan nutritionnel|Vérifiez vos niveaux de fer et de vitamine B12|Commencez un programme d'exercices légers|Augmentez la consommation d'eau|Réduisez les niveaux de stress",
+                "recommendations_normal": "Créez une routine d'exercice régulière|Optimisez votre apport en protéines|Ne sautez pas le petit-déjeuner|Passez du temps à l'extérieur|Faites des activités énergisantes",
+                "recommendations_high": "Poursuivez vos habitudes actuelles|Maintenez vos performances|Évitez la fatigue excessive|Ne négligez pas les jours de repos|Maintenez la qualité de votre alimentation"
+            },
+            "physical_tension": {
+                "title": "Tension Physique",
+                "description": "Votre niveau de tension physique est déterminé par la variabilité de la fréquence cardiaque et l'analyse des irrégularités du pouls. Cette valeur est présentée sur 5.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Votre niveau de tension physique est faible ({value}/5). Vos muscles sont détendus et votre corps est généralement en équilibre. C'est une excellente condition !",
+                "interpretation_normal": "Votre niveau de tension physique est dans la plage normale ({value}/5). Une légère tension est normale, mais il peut être utile d'intégrer des techniques de relaxation.",
+                "interpretation_high": "Votre niveau de tension physique est élevé ({value}/5). Vos muscles sont tendus, ce qui peut provoquer de l'inconfort. Les techniques de relaxation sont importantes.",
+                "recommendations_low": "Poursuivez votre routine relaxante actuelle|Faites des étirements réguliers|Vérifiez votre posture|Maintenez un mode de vie actif",
+                "recommendations_normal": "Faites des exercices d'étirement quotidiens|Essayez la massothérapie|Commencez le yoga ou le pilates|Améliorez votre posture de travail|Prenez des pauses régulières",
+                "recommendations_high": "Obtenez un soutien professionnel en physiothérapie|20 minutes d'exercices de relaxation quotidiens|Utilisez un bain chaud ou un sauna|Réduisez les sources de stress|Recevez des massages réguliers|Créez un environnement de travail ergonomique"
+            },
+            "hrv_score": {
+                "title": "Score HRV",
+                "description": "Le score HRV est l'évaluation globale de votre variabilité de fréquence cardiaque. Un score élevé indique un meilleur équilibre du système nerveux autonome.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Votre score HRV est faible. Cela peut indiquer que votre système nerveux autonome est soumis à un stress. Des approches axées sur la récupération et la relaxation doivent être adoptées.",
+                "interpretation_normal": "Votre score HRV est dans la plage normale. Votre système nerveux autonome fonctionne en équilibre. Continuez vos habitudes saines pour maintenir cette condition.",
+                "interpretation_high": "Votre score HRV est élevé. Excellent équilibre autonome ! Votre variabilité de fréquence cardiaque est en très bon état et c'est un excellent indicateur de santé.",
+                "recommendations_low": "Faites des exercices de respiration axés sur le HRV|Priorisez un sommeil de qualité|Évitez les exercices trop intenses|Apprenez des techniques de gestion du stress|Pratiquez la méditation régulièrement|Réduisez la consommation d'alcool et de caféine",
+                "recommendations_normal": "Continuez votre routine actuelle|Développez l'habitude de surveiller le HRV|Faites des exercices axés sur la variation|Améliorez la qualité de votre alimentation|Renforcez vos liens sociaux",
+                "recommendations_high": "Maintenez vos hautes performances|Écoutez les signaux de votre corps|Évitez le surentraînement|Rendez votre succès durable|Inspirez les autres"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "Le SDNN (écart-type des intervalles NN) est l'écart-type des intervalles entre les battements de cœur. C'est un indicateur général de l'activité du système nerveux autonome.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Une valeur faible de SDNN indique un stress ou une fatigue de votre système nerveux autonome. Le repos et les techniques de réduction du stress sont nécessaires.",
+                "interpretation_normal": "Une valeur normale de SDNN montre que votre système nerveux autonome fonctionne sainement. Vous pouvez continuer votre mode de vie actuel.",
+                "interpretation_high": "Une valeur élevée de SDNN montre un excellent équilibre autonome. Cela reflète un état de santé et de condition physique optimal.",
+                "recommendations_low": "Faites des exercices de respiration profonde|Commencez la méditation|Améliorez la qualité du sommeil (7–9 heures)|Réduisez la consommation de caféine|Faites de l'exercice léger|Identifiez les sources de stress",
+                "recommendations_normal": "Continuez vos habitudes saines actuelles|Maintenez une routine d'exercice régulière|Gardez un plan nutritionnel équilibré|Assurez une hydratation adéquate|Participez à des activités sociales",
+                "recommendations_high": "Maintenez votre excellente condition|Vous pouvez faire un entraînement axé sur la performance|Vous pouvez guider les autres|Évitez le surentraînement|Écoutez les signaux de votre corps"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "Le RMSSD est un indicateur important de l'activité du système nerveux parasympathique. Il reflète la composante à court terme de la variabilité de la fréquence cardiaque.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Une valeur faible de RMSSD indique une diminution de l'activité parasympathique. Votre corps a du mal à entrer en mode repos.",
+                "interpretation_normal": "Une valeur normale de RMSSD montre que votre système nerveux parasympathique fonctionne sainement. L'équilibre repos-activité est bon.",
+                "interpretation_high": "Une valeur élevée de RMSSD montre une excellente activité parasympathique. Votre corps gère très bien le stress.",
+                "recommendations_low": "Pratiquez le yoga ou le tai-chi|Faites de la méditation régulière|Prenez des bains chauds|Écoutez de la musique classique|Passez du temps dans la nature|Appliquez des techniques de respiration profonde",
+                "recommendations_normal": "Soutenez l'activité parasympathique|Faites des activités relaxantes|Maintenez la qualité du sommeil|Faites des étirements légers|Pratiquez la pleine conscience",
+                "recommendations_high": "Maintenez votre excellente condition|Vous pouvez faire un entraînement de haute performance|Optimisez vos temps de récupération|Vous pouvez guider les autres|Continuez votre mode de vie équilibré"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "Le pNN50 est un indicateur de l'activité du système nerveux parasympathique. Il montre le pourcentage de différences supérieures à 50 ms entre intervalles RR consécutifs.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Une valeur faible de pNN50 indique une diminution de l'activité parasympathique et une augmentation du niveau de stress.",
+                "interpretation_normal": "Une valeur normale de pNN50 montre que votre cœur gère bien le stress quotidien et qu'il existe un équilibre autonome sain.",
+                "interpretation_high": "Une valeur élevée de pNN50 montre une excellente activité parasympathique et une santé cardiaque optimale.",
+                "recommendations_low": "Appliquez des techniques de réduction du stress|Faites des exercices de respiration réguliers|Améliorez la qualité du sommeil|Réduisez la consommation de caféine|Faites des activités relaxantes|Obtenez un soutien professionnel",
+                "recommendations_normal": "Continuez vos habitudes saines actuelles|Gardez un plan nutritionnel équilibré|Respectez des heures de sommeil régulières|Faites des exercices cardiovasculaires légers|Participez à des activités sociales",
+                "recommendations_high": "Maintenez votre excellente condition|Entraînement de haute performance|Soyez un exemple pour les autres|Évitez le surentraînement|Continuez votre style de vie optimal"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "Le CoV (coefficient de variation) est une mesure normalisée de la variabilité de la fréquence cardiaque. Il montre le HRV ajusté en fonction de la fréquence cardiaque moyenne.",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "interpretation_low": "Une valeur faible de CoV montre une diminution de la mesure normalisée de la variabilité de la fréquence cardiaque. Cela peut être un signe de stress ou de fatigue.",
+                "interpretation_normal": "Une valeur normale de CoV montre que votre variabilité de fréquence cardiaque est à un niveau sain. Votre équilibre autonome est bon.",
+                "interpretation_high": "Une valeur élevée de CoV montre une excellente variabilité de la fréquence cardiaque. C'est un signe de santé cardiovasculaire optimale.",
+                "recommendations_low": "Faites des exercices augmentant le HRV|Essayez l'entraînement par intervalles|Techniques de gestion du stress|Optimisez la qualité du sommeil|Revoyez votre plan nutritionnel|Examen de santé régulier",
+                "recommendations_normal": "Gardez votre routine actuelle|Poursuivez les exercices cardiovasculaires|Continuez un mode de vie équilibré|Maintenez un bon niveau d'hydratation|Programme d'exercices réguliers",
+                "recommendations_high": "Maintenez vos hautes performances|Entraînement axé sur l'optimisation|Écoutez les signaux de votre corps|Évitez le surentraînement|Rendez votre succès durable"
+            },
+            "status_labels": {
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {

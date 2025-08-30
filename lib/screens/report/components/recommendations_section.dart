@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/report/heart_rate_report.dart';
 
 class RecommendationsSection extends StatelessWidget {
@@ -34,7 +36,7 @@ class RecommendationsSection extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                'Personalized Recommendations',
+                LocaleKeys.report_personalized_recommendations.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -179,15 +181,15 @@ class RecommendationsSection extends StatelessWidget {
   String _getTypeText(RecommendationType type) {
     switch (type) {
       case RecommendationType.exercise:
-        return 'EXERCISE';
+        return LocaleKeys.report_recommendation_types_exercise.tr();
       case RecommendationType.nutrition:
-        return 'NUTRITION';
+        return LocaleKeys.report_recommendation_types_nutrition.tr();
       case RecommendationType.lifestyle:
-        return 'LIFESTYLE';
+        return LocaleKeys.report_recommendation_types_lifestyle.tr();
       case RecommendationType.medical:
-        return 'MEDICAL';
+        return LocaleKeys.report_recommendation_types_medical.tr();
       case RecommendationType.stress:
-        return 'STRESS MANAGEMENT';
+        return LocaleKeys.report_recommendation_types_stress.tr();
     }
   }
 

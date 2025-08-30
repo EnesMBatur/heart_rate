@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "تقرير صحي",
         "hrv_analysis": "HRV-analyse",
         "health_metrics": "Sundhedsindikatorer",
         "detailed_metrics": "Detaljerede indikatorer",
@@ -313,6 +314,162 @@
             "very_calm": "Meget rolig",
             "calm": "Rolig",
             "stressed": "Stresset"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Føler mig nede",
+            "could_be_better": "Kunne være bedre",
+            "feeling_okay": "Føler mig okay",
+            "feeling_good": "Føler mig godt tilpas",
+            "feeling_great": "Føler mig fantastisk",
+            "unknown": "Ukendt"
+        },
+        "overall_health_status": {
+            "excellent": "Fremragende",
+            "good": "God",
+            "moderate": "Moderat",
+            "needs_attention": "Kræver opmærksomhed"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "Din HRV er under det forventede, hvilket indikerer mulig stress eller utilstrækkelig restitution.",
+            "normal_autonomic_balance": "Din HRV er inden for det normale interval, hvilket indikerer god autonom balance.",
+            "excellent_cardiovascular_health": "Din HRV er fremragende, hvilket indikerer stærk hjerte-kar-sundhed og god restitution."
+        },
+        "personalized_recommendations": "Personlige anbefalinger",
+        "recommendations": {
+            "stress_management": "Stresshåndtering",
+            "energy_boost": "Energi boost",
+            "relaxation": "Afslapning",
+            "heart_rate_monitoring": "Overvågning af puls",
+            "high_heart_rate_desc": "Din puls er forhøjet. Overvej at konsultere en sundhedsudbyder, hvis dette fortsætter."
+        },
+        "recommendation_types": {
+            "exercise": "Motion",
+            "nutrition": "Ernæring",
+            "lifestyle": "Livsstil",
+            "medical": "Medicinsk",
+            "stress": "Stresshåndtering"
+        },
+        "heart_rate_categories": {
+            "low": "Lav",
+            "normal": "Normal",
+            "elevated": "Forhøjet",
+            "high": "Høj"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Stressniveau",
+                "description": "Dit stressniveau beregnes ud fra analyse af hjertefrekvensvariabilitet. Denne værdi viser din daglige stressbelastning ud af 5.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "Dit stressniveau er lavt ({value}/5). Dette indikerer, at du generelt er afslappet og i balance. Fortsæt med at opretholde din nuværende livsstil.",
+                "interpretation_normal": "Dit stressniveau er i det normale område ({value}/5). Du håndterer dagligdagens stress godt, men fortsæt med at indarbejde stressreducerende aktiviteter.",
+                "interpretation_high": "Dit stressniveau er højt ({value}/5). Dette indikerer, at din krop er under stress og har brug for afslapningsteknikker.",
+                "recommendations_low": "Fortsæt med dine nuværende sunde vaner|Fortsæt din regelmæssige træningsrutine|Styrk dine sociale relationer|Sæt tid af til dine hobbyer",
+                "recommendations_normal": "Meditér 10-15 minutter dagligt|Øv dybe vejrtrækningsøvelser|Få tilstrækkelig søvn (7-9 timer)|Tag regelmæssige gåture|Identificér og reducer stresskilder",
+                "recommendations_high": "Få professionel støtte til stresshåndtering|Praktisér daglig mindfulness|Gennemgå din arbejdsbyrde|Lær afslapningsteknikker|Styrk dit sociale støttesystem|Øg fysisk aktivitet"
+            },
+            "energy_level": {
+                "title": "Energiveau",
+                "description": "Dit energiniveau beregnes ud fra HRV-analyse og pulsdata. Denne værdi viser din generelle vitalitetsstatus ud af 5.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "Dit energiniveau er lavt ({value}/5). Dette kan skyldes træthed, utilstrækkelig søvn eller ernæringsmangel. Det kan være nyttigt at gennemgå din livsstil.",
+                "interpretation_normal": "Dit energiniveau er i det normale område ({value}/5). Du har generelt god vitalitet, men du kan lave små forbedringer for at øge dit energiniveau.",
+                "interpretation_high": "Dit energiniveau er højt ({value}/5). Du er i fremragende vitalitet! Fortsæt med dine nuværende sunde vaner for at bevare denne tilstand.",
+                "recommendations_low": "Forbedr søvnkvaliteten|Gennemgå din ernæringsplan|Tjek jern- og B12-vitamin niveauer|Start et let træningsprogram|Øg vandindtaget|Reducer stressniveauer",
+                "recommendations_normal": "Skab en regelmæssig træningsrutine|Optimer proteinindtaget|Spring ikke morgenmaden over|Tilbring tid udendørs|Lav energigivende aktiviteter",
+                "recommendations_high": "Fortsæt med dine nuværende vaner|Oprethold din præstation|Undgå overdreven træthed|Forsøm ikke hviledage|Bevar ernæringskvaliteten"
+            },
+            "physical_tension": {
+                "title": "Fysisk spænding",
+                "description": "Dit niveau af fysisk spænding bestemmes af hjertefrekvensvariabilitet og analyse af pulsuregelmæssigheder. Denne værdi vises ud af 5.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "Dit niveau af fysisk spænding er lavt ({value}/5). Dine muskler er afslappede, og din krop er generelt i balance. Dette er en fantastisk tilstand!",
+                "interpretation_normal": "Dit niveau af fysisk spænding er i det normale område ({value}/5). Let spænding er normalt, men det kan være nyttigt at indarbejde afslapningsteknikker.",
+                "interpretation_high": "Dit niveau af fysisk spænding er højt ({value}/5). Der er spændinger i dine muskler, og det kan forårsage ubehag. Afslapningsteknikker er vigtige.",
+                "recommendations_low": "Fortsæt din nuværende afslappende rutine|Lav regelmæssig udstrækning|Tjek din kropsholdning|Oprethold en aktiv livsstil",
+                "recommendations_normal": "Lav daglige udstrækningsøvelser|Prøv massagebehandling|Begynd på yoga eller pilates|Forbedr din arbejdsstilling|Tag regelmæssige pauser",
+                "recommendations_high": "Få professionel fysioterapeutisk støtte|20 minutters daglige afslapningsøvelser|Brug varmt bad eller sauna|Reducer stresskilder|Få regelmæssige massager|Skab et ergonomisk arbejdsmiljø"
+            },
+            "hrv_score": {
+                "title": "HRV-score",
+                "description": "HRV-score er den samlede vurdering af din hjertefrekvensvariabilitet. En høj score indikerer bedre balance i det autonome nervesystem.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "Din HRV-score er lav. Dette kan indikere, at dit autonome nervesystem er under stress. Restitution og afslapningsfokuserede tilgange bør anvendes.",
+                "interpretation_normal": "Din HRV-score er i det normale område. Dit autonome nervesystem fungerer i balance. Fortsæt med dine sunde vaner for at bevare denne tilstand.",
+                "interpretation_high": "Din HRV-score er høj. Fremragende autonom balance! Din hjertefrekvensvariabilitet er i meget god tilstand, og dette er en stærk sundhedsindikator.",
+                "recommendations_low": "Lav HRV-fokuserede vejrtrækningsøvelser|Prioritér kvalitetssøvn|Undgå for hård træning|Lær stresshåndteringsteknikker|Regelmæssig meditation|Reducer alkohol- og koffeinforbrug",
+                "recommendations_normal": "Fortsæt din nuværende rutine|Udvikl en vane med at overvåge HRV|Lav variationsfokuserede øvelser|Forbedr ernæringskvaliteten|Styrk sociale forbindelser",
+                "recommendations_high": "Oprethold din høje præstation|Lyt til din krops signaler|Undgå overtræning|Gør din succes bæredygtig|Inspirer andre"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "SDNN (Standardafvigelse for NN-intervaller) er standardafvigelsen for hjerteslagsintervaller. Det er en generel indikator for aktivitet i det autonome nervesystem.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "En lav SDNN-værdi indikerer stress eller træthed i dit autonome nervesystem. Hvile og stressreduktion er nødvendigt.",
+                "interpretation_normal": "En normal SDNN-værdi viser, at dit autonome nervesystem fungerer sundt. Du kan fortsætte med din nuværende livsstil.",
+                "interpretation_high": "En høj SDNN-værdi viser fremragende autonom balance. Dette afspejler optimal sundhed og kondition.",
+                "recommendations_low": "Lav dybe vejrtrækningsøvelser|Begynd at meditere|Forbedr søvnkvaliteten (7-9 timer)|Reducer koffeinindtaget|Lav let træning|Identificér stresskilder",
+                "recommendations_normal": "Fortsæt med dine nuværende sunde vaner|Vedligehold en regelmæssig træningsrutine|Hold en afbalanceret ernæringsplan|Sørg for tilstrækkelig hydrering|Deltag i sociale aktiviteter",
+                "recommendations_high": "Bevar din fremragende tilstand|Du kan lave præstationsfokuseret træning|Du kan vejlede andre|Undgå overtræning|Lyt til din krops signaler"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "RMSSD er en vigtig indikator for det parasympatiske nervesystems aktivitet. Det afspejler den kortsigtede komponent af hjertefrekvensvariabiliteten.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "En lav RMSSD-værdi indikerer reduceret aktivitet i det parasympatiske nervesystem. Din krop har svært ved at komme i hviletilstand.",
+                "interpretation_normal": "En normal RMSSD-værdi viser, at dit parasympatiske nervesystem fungerer sundt. Der er en god balance mellem hvile og aktivitet.",
+                "interpretation_high": "En høj RMSSD-værdi viser fremragende parasympatisk aktivitet. Din krop håndterer stress meget godt.",
+                "recommendations_low": "Lav yoga eller tai chi|Regelmæssig meditation|Tag varme bade|Lyt til klassisk musik|Tilbring tid i naturen|Anvend dyb vejrtrækning",
+                "recommendations_normal": "Støt parasympatisk aktivitet|Lav afslappende aktiviteter|Vedligehold søvnkvalitet|Lette udstrækningsøvelser|Praktisér mindfulness",
+                "recommendations_high": "Bevar din fremragende tilstand|Du kan lave højtydende træning|Optimer dine restitutionstider|Du kan vejlede andre|Fortsæt din afbalancerede livsstil"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "pNN50 er en indikator for aktivitet i det parasympatiske nervesystem. Den viser procentdelen af forskelle større end 50 ms mellem på hinanden følgende RR-intervaller.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "En lav pNN50-værdi indikerer reduceret parasympatisk aktivitet og øget stressniveau.",
+                "interpretation_normal": "En normal pNN50-værdi viser, at dit hjerte håndterer daglig stress godt, og at der er en sund autonom balance.",
+                "interpretation_high": "En høj pNN50-værdi viser fremragende parasympatisk aktivitet og optimal hjertehelse.",
+                "recommendations_low": "Anvend stressreducerende teknikker|Regelmæssige vejrtrækningsøvelser|Forbedr søvnkvaliteten|Reducer koffeinindtaget|Lav afslappende aktiviteter|Få professionel støtte",
+                "recommendations_normal": "Fortsæt med dine nuværende sunde vaner|Hold en afbalanceret kostplan|Overhold regelmæssige sovetider|Lette kredsløbsøvelser|Deltag i sociale aktiviteter",
+                "recommendations_high": "Bevar din fremragende tilstand|Højtydende træning|Vær et eksempel for andre|Undgå overtræning|Fortsæt din optimale livsstil"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "CoV (Variationskoefficient) er et normaliseret mål for hjertefrekvensvariabilitet. Det viser HRV justeret efter gennemsnitlig puls.",
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj",
+                "interpretation_low": "En lav CoV-værdi viser et fald i den normaliserede måling af hjertefrekvensvariabilitet. Dette kan være et tegn på stress eller træthed.",
+                "interpretation_normal": "En normal CoV-værdi viser, at din hjertefrekvensvariabilitet er på et sundt niveau. Din autonome balance er god.",
+                "interpretation_high": "En høj CoV-værdi viser fremragende hjertefrekvensvariabilitet. Dette er et tegn på optimal kardiovaskulær sundhed.",
+                "recommendations_low": "Lav HRV-øgende øvelser|Prøv intervaltræning|Stresshåndteringsteknikker|Optimer søvnkvaliteten|Gennemgå din kostplan|Regelmæssigt sundhedstjek",
+                "recommendations_normal": "Behold din nuværende rutine|Fortsæt med kredsløbstræning|Fortsæt med en afbalanceret livsstil|Oprethold hydrering|Regelmæssigt træningsprogram",
+                "recommendations_high": "Oprethold din høje præstation|Optimeringsfokuseret træning|Lyt til din krops signaler|Undgå overtræning|Gør din succes bæredygtig"
+            },
+            "status_labels": {
+                "low": "Lav",
+                "normal": "Normal",
+                "high": "Høj"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {

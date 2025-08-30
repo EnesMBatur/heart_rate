@@ -29,23 +29,13 @@ class MetricDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20.sp,
-            color: Colors.black,
-          ),
-        ),
+        title: Text(title),
         centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -597,11 +587,11 @@ class MetricDetailScreen extends StatelessWidget {
   double _getResponsiveFontSize() {
     final valueStr = _formatValue(value);
     if (valueStr.length <= 3) {
-      return 32.sp; // Short values (like "85" or "1.2")
+      return 28.sp; // Short values (like "85" or "1.2")
     } else if (valueStr.length <= 5) {
-      return 28.sp; // Medium values (like "137.5")
+      return 24.sp; // Medium values (like "137.5")
     } else {
-      return 24.sp; // Long values
+      return 22.sp; // Long values
     }
   }
 }

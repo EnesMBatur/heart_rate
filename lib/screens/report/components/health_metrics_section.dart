@@ -165,17 +165,18 @@ class HealthMetricsSection extends StatelessWidget {
   void _onMetricTap(BuildContext context, HealthMetric metric) {
     Map<String, dynamic>? detailData;
 
-    switch (metric.name.toLowerCase()) {
-      case 'stress level':
+    // Use shortName instead of name to avoid localization issues
+    switch (metric.shortName.toLowerCase()) {
+      case 'stress':
         detailData = MetricDetailData.getStressLevelDetail(metric.value);
         break;
-      case 'energy level':
+      case 'energy':
         detailData = MetricDetailData.getEnergyLevelDetail(metric.value);
         break;
-      case 'physical tension':
+      case 'tension':
         detailData = MetricDetailData.getPhysicalTensionDetail(metric.value);
         break;
-      case 'hrv score':
+      case 'hrv':
         detailData = MetricDetailData.getHRVScoreDetail(metric.value);
         break;
       default:
@@ -184,151 +185,151 @@ class HealthMetricsSection extends StatelessWidget {
 
     context.push(AppRouter.metricDetail, extra: detailData);
   }
+}
 
-  String _getLocalizedMetricName(String metricName) {
-    switch (metricName.toLowerCase()) {
-      case 'stress level':
-        return LocaleKeys.report_health_statuses_stress_level.tr();
-      case 'energy level':
-        return LocaleKeys.report_health_statuses_energy_level.tr();
-      case 'physical tension':
-        return LocaleKeys.report_health_statuses_physical_tension.tr();
-      case 'hrv score':
-        return LocaleKeys.report_health_statuses_hrv_score.tr();
-      case 'heart rate zone':
-        return LocaleKeys.report_health_statuses_heart_rate_zone.tr();
-      case 'recovery status':
-        return LocaleKeys.report_health_statuses_recovery_status.tr();
-      case 'sleep quality':
-        return LocaleKeys.report_health_statuses_sleep_quality.tr();
-      case 'fitness level':
-        return LocaleKeys.report_health_statuses_fitness_level.tr();
-      default:
-        return metricName;
-    }
+String _getLocalizedMetricName(String metricName) {
+  switch (metricName.toLowerCase()) {
+    case 'stress level':
+      return LocaleKeys.report_health_statuses_stress_level.tr();
+    case 'energy level':
+      return LocaleKeys.report_health_statuses_energy_level.tr();
+    case 'physical tension':
+      return LocaleKeys.report_health_statuses_physical_tension.tr();
+    case 'hrv score':
+      return LocaleKeys.report_health_statuses_hrv_score.tr();
+    case 'heart rate zone':
+      return LocaleKeys.report_health_statuses_heart_rate_zone.tr();
+    case 'recovery status':
+      return LocaleKeys.report_health_statuses_recovery_status.tr();
+    case 'sleep quality':
+      return LocaleKeys.report_health_statuses_sleep_quality.tr();
+    case 'fitness level':
+      return LocaleKeys.report_health_statuses_fitness_level.tr();
+    default:
+      return metricName;
   }
+}
 
-  IconData _getMetricIcon(String metricName) {
-    switch (metricName.toLowerCase()) {
-      case 'stress level':
-        return Icons.psychology;
-      case 'energy level':
-        return Icons.battery_charging_full;
-      case 'physical tension':
-        return Icons.fitness_center;
-      case 'heart rate zone':
-        return Icons.favorite;
-      case 'recovery status':
-        return Icons.healing;
-      case 'sleep quality':
-        return Icons.bedtime;
-      case 'fitness level':
-        return Icons.directions_run;
-      case 'hrv score':
-        return Icons.timeline;
-      default:
-        return Icons.analytics;
-    }
+IconData _getMetricIcon(String metricName) {
+  switch (metricName.toLowerCase()) {
+    case 'stress level':
+      return Icons.psychology;
+    case 'energy level':
+      return Icons.battery_charging_full;
+    case 'physical tension':
+      return Icons.fitness_center;
+    case 'heart rate zone':
+      return Icons.favorite;
+    case 'recovery status':
+      return Icons.healing;
+    case 'sleep quality':
+      return Icons.bedtime;
+    case 'fitness level':
+      return Icons.directions_run;
+    case 'hrv score':
+      return Icons.timeline;
+    default:
+      return Icons.analytics;
   }
+}
 
-  Color _getMetricColor(MetricStatus status) {
-    switch (status) {
+Color _getMetricColor(MetricStatus status) {
+  switch (status) {
+    case MetricStatus.high:
+      return Colors.green;
+    case MetricStatus.normal:
+      return Colors.orange;
+    case MetricStatus.low:
+      return Colors.red;
+  }
+}
+
+// Special color handling for Physical Tension and Stress Level
+Color _getMetricColorForCard(HealthMetric metric) {
+  if (metric.name.toLowerCase().contains('tension')) {
+    // For Physical Tension, we want to show the color based on the actual meaning
+    // MetricStatus.high means low tension (good) = green
+    // MetricStatus.normal means moderate tension (okay) = orange
+    // MetricStatus.low means high tension (bad) = red
+    switch (metric.status) {
       case MetricStatus.high:
-        return Colors.green;
+        return Colors.green; // Low tension = Good
       case MetricStatus.normal:
-        return Colors.orange;
+        return Colors.orange; // Moderate tension = Okay
       case MetricStatus.low:
-        return Colors.red;
+        return Colors.red; // High tension = Bad
     }
   }
 
-  // Special color handling for Physical Tension and Stress Level
-  Color _getMetricColorForCard(HealthMetric metric) {
-    if (metric.name.toLowerCase().contains('tension')) {
-      // For Physical Tension, we want to show the color based on the actual meaning
-      // MetricStatus.high means low tension (good) = green
-      // MetricStatus.normal means moderate tension (okay) = orange
-      // MetricStatus.low means high tension (bad) = red
-      switch (metric.status) {
-        case MetricStatus.high:
-          return Colors.green; // Low tension = Good
-        case MetricStatus.normal:
-          return Colors.orange; // Moderate tension = Okay
-        case MetricStatus.low:
-          return Colors.red; // High tension = Bad
-      }
-    }
-
-    if (metric.name.toLowerCase().contains('stress')) {
-      // For Stress Level, we want to show the color based on the actual meaning
-      // MetricStatus.high means low stress (good) = green
-      // MetricStatus.normal means moderate stress (okay) = orange
-      // MetricStatus.low means high stress (bad) = red
-      switch (metric.status) {
-        case MetricStatus.high:
-          return Colors.green; // Low stress = Good
-        case MetricStatus.normal:
-          return Colors.orange; // Moderate stress = Okay
-        case MetricStatus.low:
-          return Colors.red; // High stress = Bad
-      }
-    }
-
-    return _getMetricColor(metric.status);
-  }
-
-  String _getStatusText(MetricStatus status) {
-    switch (status) {
+  if (metric.name.toLowerCase().contains('stress')) {
+    // For Stress Level, we want to show the color based on the actual meaning
+    // MetricStatus.high means low stress (good) = green
+    // MetricStatus.normal means moderate stress (okay) = orange
+    // MetricStatus.low means high stress (bad) = red
+    switch (metric.status) {
       case MetricStatus.high:
-        return LocaleKeys.report_health_statuses_excellent.tr();
+        return Colors.green; // Low stress = Good
       case MetricStatus.normal:
-        return LocaleKeys.report_health_statuses_normal.tr();
+        return Colors.orange; // Moderate stress = Okay
       case MetricStatus.low:
-        return LocaleKeys.report_health_statuses_needs_attention.tr();
+        return Colors.red; // High stress = Bad
     }
   }
 
-  // Special status text for Physical Tension and Stress Level (context-aware)
-  String _getStatusTextForMetric(HealthMetric metric) {
-    if (metric.name.toLowerCase().contains('tension')) {
-      switch (metric.status) {
-        case MetricStatus.high:
-          return LocaleKeys.report_health_statuses_very_relaxed
-              .tr(); // Low tension value = Very Relaxed
-        case MetricStatus.normal:
-          return LocaleKeys.report_health_statuses_relaxed
-              .tr(); // Moderate tension value = Relaxed
-        case MetricStatus.low:
-          return LocaleKeys.report_health_statuses_tense
-              .tr(); // High tension value = Tense
-      }
-    }
+  return _getMetricColor(metric.status);
+}
 
-    if (metric.name.toLowerCase().contains('stress')) {
-      switch (metric.status) {
-        case MetricStatus.high:
-          return LocaleKeys.report_health_statuses_very_calm
-              .tr(); // Low stress value = Very Calm
-        case MetricStatus.normal:
-          return LocaleKeys.report_health_statuses_calm
-              .tr(); // Moderate stress value = Calm
-        case MetricStatus.low:
-          return LocaleKeys.report_health_statuses_stressed
-              .tr(); // High stress value = Stressed
-      }
-    }
+String _getStatusText(MetricStatus status) {
+  switch (status) {
+    case MetricStatus.high:
+      return LocaleKeys.report_health_statuses_excellent.tr();
+    case MetricStatus.normal:
+      return LocaleKeys.report_health_statuses_normal.tr();
+    case MetricStatus.low:
+      return LocaleKeys.report_health_statuses_needs_attention.tr();
+  }
+}
 
-    return _getStatusText(metric.status);
+// Special status text for Physical Tension and Stress Level (context-aware)
+String _getStatusTextForMetric(HealthMetric metric) {
+  if (metric.name.toLowerCase().contains('tension')) {
+    switch (metric.status) {
+      case MetricStatus.high:
+        return LocaleKeys.report_health_statuses_very_relaxed
+            .tr(); // Low tension value = Very Relaxed
+      case MetricStatus.normal:
+        return LocaleKeys.report_health_statuses_relaxed
+            .tr(); // Moderate tension value = Relaxed
+      case MetricStatus.low:
+        return LocaleKeys.report_health_statuses_tense
+            .tr(); // High tension value = Tense
+    }
   }
 
-  String _getMetricValueText(HealthMetric metric) {
-    // For 5-point scale metrics, show as X/5 format
-    if (metric.name.toLowerCase().contains('stress') ||
-        metric.name.toLowerCase().contains('energy') ||
-        metric.name.toLowerCase().contains('tension')) {
-      return '${metric.value.toStringAsFixed(1)}/5';
+  if (metric.name.toLowerCase().contains('stress')) {
+    switch (metric.status) {
+      case MetricStatus.high:
+        return LocaleKeys.report_health_statuses_very_calm
+            .tr(); // Low stress value = Very Calm
+      case MetricStatus.normal:
+        return LocaleKeys.report_health_statuses_calm
+            .tr(); // Moderate stress value = Calm
+      case MetricStatus.low:
+        return LocaleKeys.report_health_statuses_stressed
+            .tr(); // High stress value = Stressed
     }
-    // For other metrics, show with unit
-    return '${metric.value.toStringAsFixed(1)} ${metric.unit}';
   }
+
+  return _getStatusText(metric.status);
+}
+
+String _getMetricValueText(HealthMetric metric) {
+  // For 5-point scale metrics, show as X/5 format
+  if (metric.name.toLowerCase().contains('stress') ||
+      metric.name.toLowerCase().contains('energy') ||
+      metric.name.toLowerCase().contains('tension')) {
+    return '${metric.value.toStringAsFixed(1)}/5';
+  }
+  // For other metrics, show with unit
+  return '${metric.value.toStringAsFixed(1)} ${metric.unit}';
 }

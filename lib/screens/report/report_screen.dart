@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_rate/locale/lang/locale_keys.g.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -53,7 +54,6 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
@@ -67,17 +67,8 @@ class _ReportScreenState extends State<ReportScreen> {
             }
           },
         ),
-        title: Text(
-          LocaleKeys.report_title.tr(),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20.sp,
-            color: Colors.black,
-          ),
-        ),
+        title: Text(LocaleKeys.report_title.tr()),
         centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             icon: const Icon(Icons.share, color: Colors.black),

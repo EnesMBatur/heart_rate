@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Gezondheidsrapport",
         "hrv_analysis": "HRV-analyse",
         "health_metrics": "Gezondheidsstatistieken",
         "detailed_metrics": "Gedetailleerde statistieken",
@@ -313,6 +314,162 @@
             "very_calm": "Zeer kalm",
             "calm": "Kalm",
             "stressed": "Gestrest"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Voel me neerslachtig",
+            "could_be_better": "Zou beter kunnen zijn",
+            "feeling_okay": "Voel me oké",
+            "feeling_good": "Voel me goed",
+            "feeling_great": "Voel me geweldig",
+            "unknown": "Onbekend"
+        },
+        "overall_health_status": {
+            "excellent": "Uitstekend",
+            "good": "Goed",
+            "moderate": "Gemiddeld",
+            "needs_attention": "Heeft aandacht nodig"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "Je HRV is lager dan verwacht, wat kan wijzen op stress of onvoldoende herstel.",
+            "normal_autonomic_balance": "Je HRV ligt binnen het normale bereik, wat duidt op een goede autonome balans.",
+            "excellent_cardiovascular_health": "Je HRV is uitstekend, wat duidt op een sterke cardiovasculaire gezondheid en goed herstel."
+        },
+        "personalized_recommendations": "Gepersonaliseerde aanbevelingen",
+        "recommendations": {
+            "stress_management": "Stressmanagement",
+            "energy_boost": "Energieboost",
+            "relaxation": "Ontspanning",
+            "heart_rate_monitoring": "Hartslagbewaking",
+            "high_heart_rate_desc": "Je hartslag is verhoogd. Overweeg een zorgverlener te raadplegen als dit aanhoudt."
+        },
+        "recommendation_types": {
+            "exercise": "Beweging",
+            "nutrition": "Voeding",
+            "lifestyle": "Levensstijl",
+            "medical": "Medisch",
+            "stress": "Stressmanagement"
+        },
+        "heart_rate_categories": {
+            "low": "Laag",
+            "normal": "Normaal",
+            "elevated": "Verhoogd",
+            "high": "Hoog"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Stressniveau",
+                "description": "Je stressniveau wordt berekend op basis van een analyse van de hartslagvariabiliteit (HRV). Deze waarde toont je dagelijkse stressbelasting uit 5.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Je stressniveau is laag ({value}/5). Dit geeft aan dat je over het algemeen in een ontspannen en evenwichtige toestand verkeert. Blijf je huidige levensstijl behouden.",
+                "interpretation_normal": "Je stressniveau bevindt zich in het normale bereik ({value}/5). Je gaat goed om met de stress van het dagelijks leven, maar blijf stressverlagende activiteiten opnemen.",
+                "interpretation_high": "Je stressniveau is hoog ({value}/5). Dit geeft aan dat je lichaam onder stress staat en ontspanningstechnieken nodig heeft.",
+                "recommendations_low": "Blijf je huidige gezonde gewoonten volgen|Blijf je regelmatige trainingsroutine behouden|Versterk je sociale relaties|Maak tijd voor je hobby's",
+                "recommendations_normal": "Mediteer dagelijks 10–15 minuten|Oefen diepe ademhalingsoefeningen|Krijg voldoende slaap (7–9 uur)|Maak regelmatige wandelingen|Identificeer en verminder stressbronnen",
+                "recommendations_high": "Zoek professionele hulp voor stressmanagement|Beoefen dagelijkse mindfulness|Evalueer je werklast|Leer ontspanningstechnieken|Versterk je sociale ondersteuningssysteem|Verhoog je fysieke activiteit"
+            },
+            "energy_level": {
+                "title": "Energieniveau",
+                "description": "Je energieniveau wordt berekend op basis van HRV-analyse en hartslaggegevens. Deze waarde toont je algemene vitaliteitsstatus uit 5.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Je energieniveau is laag ({value}/5). Dit kan worden veroorzaakt door vermoeidheid, onvoldoende slaap of voedingstekorten. Het kan nuttig zijn je levensstijl te herzien.",
+                "interpretation_normal": "Je energieniveau bevindt zich in het normale bereik ({value}/5). Je hebt over het algemeen een goede vitaliteit, maar kleine verbeteringen kunnen je energieniveau verhogen.",
+                "interpretation_high": "Je energieniveau is hoog ({value}/5). Je hebt een uitstekende vitaliteit! Blijf je huidige gezonde gewoonten volgen om deze conditie te behouden.",
+                "recommendations_low": "Verbeter de slaapkwaliteit|Herzie je voedingsplan|Controleer ijzer- en B12-waarden|Begin een licht trainingsprogramma|Verhoog je waterinname|Verlaag stressniveaus",
+                "recommendations_normal": "Maak een regelmatige trainingsroutine|Optimaliseer je eiwitinname|Sla het ontbijt niet over|Breng tijd buiten door|Doe energiegevende activiteiten",
+                "recommendations_high": "Blijf je huidige gewoonten volgen|Behoud je prestaties|Vermijd overmatige vermoeidheid|Vergeet geen rustdagen|Behoud de kwaliteit van je voeding"
+            },
+            "physical_tension": {
+                "title": "Lichamelijke Spanning",
+                "description": "Je niveau van lichamelijke spanning wordt bepaald door hartslagvariabiliteit en analyse van polsonregelmatigheden. Deze waarde wordt weergegeven uit 5.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Je lichamelijke spanning is laag ({value}/5). Je spieren zijn ontspannen en je lichaam is over het algemeen in balans. Dit is een uitstekende conditie!",
+                "interpretation_normal": "Je lichamelijke spanning bevindt zich in het normale bereik ({value}/5). Een lichte spanning is normaal, maar ontspanningstechnieken kunnen nuttig zijn.",
+                "interpretation_high": "Je lichamelijke spanning is hoog ({value}/5). Er is spanning in je spieren en dit kan ongemak veroorzaken. Ontspanningstechnieken zijn belangrijk.",
+                "recommendations_low": "Blijf je huidige ontspanningsroutine volgen|Doe regelmatige stretch oefeningen|Controleer je houding|Behoud een actieve levensstijl",
+                "recommendations_normal": "Doe dagelijkse stretchoefeningen|Probeer massagetherapie|Begin met yoga of pilates|Verbeter je werkhouding|Neem regelmatige pauzes",
+                "recommendations_high": "Zoek professionele fysiotherapeutische ondersteuning|20 minuten dagelijkse ontspanningsoefeningen|Gebruik een warm bad of sauna|Verminder stressbronnen|Neem regelmatige massages|Creëer een ergonomische werkomgeving"
+            },
+            "hrv_score": {
+                "title": "HRV-score",
+                "description": "De HRV-score is de algemene beoordeling van je hartslagvariabiliteit. Een hoge score wijst op een betere balans van het autonome zenuwstelsel.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Je HRV-score is laag. Dit kan erop wijzen dat je autonome zenuwstelsel onder stress staat. Focus op herstel- en ontspanningsgerichte benaderingen moet worden aangenomen.",
+                "interpretation_normal": "Je HRV-score bevindt zich in het normale bereik. Je autonome zenuwstelsel werkt in balans. Blijf je gezonde gewoonten volgen.",
+                "interpretation_high": "Je HRV-score is hoog. Uitstekende autonome balans! Je hartslagvariabiliteit is in zeer goede conditie en dit is een uitstekende gezondheidsindicator.",
+                "recommendations_low": "Doe HRV-gerichte ademhalingsoefeningen|Geef prioriteit aan kwaliteitsslaap|Vermijd te intensieve trainingen|Leer stressmanagementtechnieken|Mediteer regelmatig|Verminder alcohol- en cafeïne-inname",
+                "recommendations_normal": "Blijf je huidige routine volgen|Ontwikkel de gewoonte HRV te monitoren|Doe variatiegerichte oefeningen|Verbeter de kwaliteit van je voeding|Versterk sociale relaties",
+                "recommendations_high": "Behoud je hoge prestaties|Luister naar de signalen van je lichaam|Vermijd overtraining|Maak je succes duurzaam|Inspireer anderen"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "SDNN (standaardafwijking van NN-intervallen) is de standaardafwijking van hartslagintervallen. Het is een algemene indicator van activiteit van het autonome zenuwstelsel.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Een lage SDNN-waarde duidt op stress of vermoeidheid in je autonome zenuwstelsel. Rust en stressvermindering zijn nodig.",
+                "interpretation_normal": "Een normale SDNN-waarde laat zien dat je autonome zenuwstelsel gezond functioneert. Je kunt je huidige levensstijl voortzetten.",
+                "interpretation_high": "Een hoge SDNN-waarde laat een uitstekende autonome balans zien. Dit weerspiegelt optimale gezondheid en conditie.",
+                "recommendations_low": "Doe diepe ademhalingsoefeningen|Begin met meditatie|Verbeter de slaapkwaliteit (7–9 uur)|Verminder cafeïne-inname|Doe lichte training|Identificeer stressbronnen",
+                "recommendations_normal": "Blijf je huidige gezonde gewoonten volgen|Behoud een regelmatige trainingsroutine|Volg een gebalanceerd voedingsplan|Zorg voor voldoende hydratatie|Doe mee aan sociale activiteiten",
+                "recommendations_high": "Behoud je uitstekende conditie|Je kunt prestatiegerichte training doen|Je kunt anderen begeleiden|Vermijd overtraining|Luister naar de signalen van je lichaam"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "RMSSD is een belangrijke indicator van de activiteit van het parasympathische zenuwstelsel. Het weerspiegelt de kortetermijncomponent van hartslagvariabiliteit.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Een lage RMSSD-waarde duidt op verminderde parasympathische activiteit. Je lichaam heeft moeite om in rustmodus te komen.",
+                "interpretation_normal": "Een normale RMSSD-waarde laat zien dat je parasympathische zenuwstelsel gezond functioneert. Er is een goede balans tussen rust en activiteit.",
+                "interpretation_high": "Een hoge RMSSD-waarde laat uitstekende parasympathische activiteit zien. Je lichaam gaat heel goed om met stress.",
+                "recommendations_low": "Doe yoga of tai chi|Mediteer regelmatig|Neem warme baden|Luister naar klassieke muziek|Breng tijd door in de natuur|Pas diepe ademhalingstechnieken toe",
+                "recommendations_normal": "Ondersteun parasympathische activiteit|Doe ontspannende activiteiten|Behoud slaapkwaliteit|Doe lichte stretch oefeningen|Beoefen mindfulness",
+                "recommendations_high": "Behoud je uitstekende conditie|Je kunt trainingen met hoge prestaties doen|Optimaliseer hersteltijden|Je kunt anderen begeleiden|Blijf je evenwichtige levensstijl volgen"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "pNN50 is een indicator van de activiteit van het parasympathische zenuwstelsel. Het toont het percentage verschillen groter dan 50 ms tussen opeenvolgende RR-intervallen.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Een lage pNN50-waarde duidt op verminderde parasympathische activiteit en verhoogd stressniveau.",
+                "interpretation_normal": "Een normale pNN50-waarde laat zien dat je hart goed omgaat met dagelijkse stress en dat er een gezonde autonome balans is.",
+                "interpretation_high": "Een hoge pNN50-waarde laat uitstekende parasympathische activiteit en optimale hartgezondheid zien.",
+                "recommendations_low": "Pas stressverminderingstechnieken toe|Doe regelmatige ademhalingsoefeningen|Verbeter slaapkwaliteit|Verminder cafeïne-inname|Doe ontspannende activiteiten|Zoek professionele ondersteuning",
+                "recommendations_normal": "Blijf je huidige gezonde gewoonten volgen|Volg een evenwichtig voedingsplan|Let op regelmatige slaaptijden|Doe lichte cardiovasculaire oefeningen|Doe mee aan sociale activiteiten",
+                "recommendations_high": "Behoud je uitstekende conditie|Hoog prestatietraining|Wees een voorbeeld voor anderen|Vermijd overtraining|Blijf je optimale levensstijl volgen"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "CoV (coëfficiënt van variatie) is een genormaliseerde maat voor hartslagvariabiliteit. Het toont HRV aangepast aan de gemiddelde hartslag.",
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog",
+                "interpretation_low": "Een lage CoV-waarde laat een afname zien in de genormaliseerde meting van hartslagvariabiliteit. Dit kan een teken zijn van stress of vermoeidheid.",
+                "interpretation_normal": "Een normale CoV-waarde laat zien dat je hartslagvariabiliteit op een gezond niveau is. Je autonome balans is goed.",
+                "interpretation_high": "Een hoge CoV-waarde laat uitstekende hartslagvariabiliteit zien. Dit is een teken van optimale cardiovasculaire gezondheid.",
+                "recommendations_low": "Doe HRV-verhogende oefeningen|Probeer intervaltraining|Stressmanagementtechnieken|Optimaliseer slaapkwaliteit|Herzie je voedingsplan|Regelmatige gezondheidscontrole",
+                "recommendations_normal": "Behoud je huidige routine|Blijf cardiovasculaire oefeningen doen|Blijf een evenwichtige levensstijl volgen|Behoud hydratatieniveau|Regelmatig trainingsprogramma",
+                "recommendations_high": "Behoud je hoge prestaties|Optimalisatiegerichte training|Luister naar de signalen van je lichaam|Vermijd overtraining|Maak je succes duurzaam"
+            },
+            "status_labels": {
+                "low": "Laag",
+                "normal": "Normaal",
+                "high": "Hoog"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'dart:math';
+import '../../../locale/lang/locale_keys.g.dart';
 import '../../../models/report/heart_rate_report.dart';
 
 class ReportViewModel extends ChangeNotifier {
@@ -202,18 +205,19 @@ class ReportViewModel extends ChangeNotifier {
   ) {
     return [
       HealthMetric(
-        name: 'Stress Level',
+        name: LocaleKeys.report_metric_details_stress_level_title.tr(),
         shortName: 'Stress',
         value: _calculateStressLevel(heartRate, hrv).toDouble(),
         unit: '/5',
         status: _getStressMetricStatus(
           _calculateStressLevel(heartRate, hrv).toDouble(),
         ),
-        description: 'Current stress level based on heart rate and HRV',
+        description: LocaleKeys.report_metric_details_stress_level_description
+            .tr(),
         emoji: '😰',
       ),
       HealthMetric(
-        name: 'Energy Level',
+        name: LocaleKeys.report_metric_details_energy_level_title.tr(),
         shortName: 'Energy',
         value: _calculateEnergyLevel(heartRate, 'normal', 3).toDouble(),
         unit: '/5',
@@ -222,27 +226,31 @@ class ReportViewModel extends ChangeNotifier {
           2,
           4,
         ),
-        description: 'Current energy level assessment',
+        description: LocaleKeys.report_metric_details_energy_level_description
+            .tr(),
         emoji: '⚡',
       ),
       HealthMetric(
-        name: 'Physical Tension',
+        name: LocaleKeys.report_metric_details_physical_tension_title.tr(),
         shortName: 'Tension',
         value: _calculateTensionLevel(heartRate, hrv).toDouble(),
         unit: '/5',
         status: _getTensionMetricStatus(
           _calculateTensionLevel(heartRate, hrv).toDouble(),
         ),
-        description: 'Physical tension and relaxation level',
+        description: LocaleKeys
+            .report_metric_details_physical_tension_description
+            .tr(),
         emoji: '💪',
       ),
       HealthMetric(
-        name: 'HRV Score',
+        name: LocaleKeys.report_metric_details_hrv_score_title.tr(),
         shortName: 'HRV',
         value: hrv,
         unit: 'ms',
         status: _getMetricStatus(hrv, 20, 40),
-        description: 'Heart Rate Variability indicates autonomic balance',
+        description: LocaleKeys.report_metric_details_hrv_score_description
+            .tr(),
         emoji: '💗',
       ),
     ];
@@ -295,64 +303,53 @@ class ReportViewModel extends ChangeNotifier {
   ) {
     List<RecommendationItem> recommendations = [];
 
-    // Stress-based recommendations
-    if (stressLevel >= 4) {
+    // Add localized recommendations based on stress level
+    final stressRecommendations = _getStressRecommendations(
+      stressLevel.toDouble(),
+    );
+    if (stressRecommendations.isNotEmpty) {
+      final randomIndex = Random().nextInt(stressRecommendations.length);
       recommendations.add(
-        const RecommendationItem(
-          title: 'Practice Deep Breathing',
-          description:
-              'Try 4-7-8 breathing technique: Inhale for 4 counts, hold for 7, exhale for 8. Repeat 4 times.',
-          emoji: '🫁',
+        RecommendationItem(
+          title: LocaleKeys.report_recommendations_stress_management.tr(),
+          description: stressRecommendations[randomIndex],
+          emoji: '😌',
           type: RecommendationType.stress,
-          priority: 1,
-        ),
-      );
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Take a Break',
-          description:
-              'Step away from stressful activities for 10-15 minutes. Go for a short walk or practice mindfulness.',
-          emoji: '⏸️',
-          type: RecommendationType.lifestyle,
-          priority: 2,
+          priority: stressLevel >= 4 ? 1 : 3,
         ),
       );
     }
 
-    // Tension-based recommendations
-    if (tensionLevel >= 4) {
+    // Add localized recommendations based on energy level
+    final energyRecommendations = _getEnergyRecommendations(
+      energyLevel.toDouble(),
+    );
+    if (energyRecommendations.isNotEmpty) {
+      final randomIndex = Random().nextInt(energyRecommendations.length);
       recommendations.add(
-        const RecommendationItem(
-          title: 'Stretch Your Muscles',
-          description:
-              'Perform gentle neck, shoulder, and back stretches to release physical tension.',
+        RecommendationItem(
+          title: LocaleKeys.report_recommendations_energy_boost.tr(),
+          description: energyRecommendations[randomIndex],
+          emoji: '⚡',
+          type: RecommendationType.lifestyle,
+          priority: energyLevel <= 2 ? 1 : 4,
+        ),
+      );
+    }
+
+    // Add localized recommendations based on tension level
+    final tensionRecommendations = _getTensionRecommendations(
+      tensionLevel.toDouble(),
+    );
+    if (tensionRecommendations.isNotEmpty) {
+      final randomIndex = Random().nextInt(tensionRecommendations.length);
+      recommendations.add(
+        RecommendationItem(
+          title: LocaleKeys.report_recommendations_relaxation.tr(),
+          description: tensionRecommendations[randomIndex],
           emoji: '🧘‍♀️',
           type: RecommendationType.exercise,
-          priority: 2,
-        ),
-      );
-    }
-
-    // Energy-based recommendations
-    if (energyLevel <= 2) {
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Get Quality Sleep',
-          description:
-              'Aim for 7-9 hours of sleep tonight. Consider going to bed 30 minutes earlier.',
-          emoji: '😴',
-          type: RecommendationType.lifestyle,
-          priority: 1,
-        ),
-      );
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Eat Nutrient-Dense Foods',
-          description:
-              'Include complex carbohydrates, lean proteins, and healthy fats in your next meal.',
-          emoji: '🥗',
-          type: RecommendationType.nutrition,
-          priority: 3,
+          priority: tensionLevel >= 4 ? 2 : 4,
         ),
       );
     }
@@ -360,76 +357,13 @@ class ReportViewModel extends ChangeNotifier {
     // Heart rate specific recommendations
     if (heartRate > 100) {
       recommendations.add(
-        const RecommendationItem(
-          title: 'Monitor Heart Rate',
-          description:
-              'Your heart rate is elevated. Consider consulting a healthcare provider if this persists.',
+        RecommendationItem(
+          title: LocaleKeys.report_recommendations_heart_rate_monitoring.tr(),
+          description: LocaleKeys.report_recommendations_high_heart_rate_desc
+              .tr(),
           emoji: '🏥',
           type: RecommendationType.medical,
           priority: 1,
-        ),
-      );
-    } else if (heartRate < 60) {
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Light Physical Activity',
-          description:
-              'Engage in light exercise to boost circulation and energy levels.',
-          emoji: '🚶‍♀️',
-          type: RecommendationType.exercise,
-          priority: 3,
-        ),
-      );
-    }
-
-    // HRV specific recommendations
-    if (hrv < 20) {
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Focus on Recovery',
-          description:
-              'Prioritize rest, hydration, and stress management to improve your autonomic balance.',
-          emoji: '🔄',
-          type: RecommendationType.lifestyle,
-          priority: 2,
-        ),
-      );
-    }
-
-    // Mood-based recommendations
-    if (mood <= 2) {
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Practice Gratitude',
-          description:
-              'Write down 3 things you\'re grateful for today. This can help improve your mood and reduce stress.',
-          emoji: '🙏',
-          type: RecommendationType.lifestyle,
-          priority: 3,
-        ),
-      );
-    }
-
-    // General wellness recommendations
-    if (recommendations.length < 3) {
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Stay Hydrated',
-          description:
-              'Drink at least 8 glasses of water throughout the day to maintain optimal health.',
-          emoji: '💧',
-          type: RecommendationType.lifestyle,
-          priority: 4,
-        ),
-      );
-      recommendations.add(
-        const RecommendationItem(
-          title: 'Regular Exercise',
-          description:
-              'Aim for 30 minutes of moderate exercise most days of the week to improve cardiovascular health.',
-          emoji: '🏃‍♂️',
-          type: RecommendationType.exercise,
-          priority: 4,
         ),
       );
     }
@@ -437,5 +371,58 @@ class ReportViewModel extends ChangeNotifier {
     // Sort by priority and return top 5
     recommendations.sort((a, b) => a.priority.compareTo(b.priority));
     return recommendations.take(5).toList();
+  }
+
+  List<String> _getStressRecommendations(double value) {
+    if (value <= 2.0) {
+      return LocaleKeys.report_metric_details_stress_level_recommendations_low
+          .tr()
+          .split('|');
+    } else if (value <= 3.5) {
+      return LocaleKeys
+          .report_metric_details_stress_level_recommendations_normal
+          .tr()
+          .split('|');
+    } else {
+      return LocaleKeys.report_metric_details_stress_level_recommendations_high
+          .tr()
+          .split('|');
+    }
+  }
+
+  List<String> _getEnergyRecommendations(double value) {
+    if (value <= 2.0) {
+      return LocaleKeys.report_metric_details_energy_level_recommendations_low
+          .tr()
+          .split('|');
+    } else if (value <= 3.5) {
+      return LocaleKeys
+          .report_metric_details_energy_level_recommendations_normal
+          .tr()
+          .split('|');
+    } else {
+      return LocaleKeys.report_metric_details_energy_level_recommendations_high
+          .tr()
+          .split('|');
+    }
+  }
+
+  List<String> _getTensionRecommendations(double value) {
+    if (value <= 2.0) {
+      return LocaleKeys
+          .report_metric_details_physical_tension_recommendations_low
+          .tr()
+          .split('|');
+    } else if (value <= 3.5) {
+      return LocaleKeys
+          .report_metric_details_physical_tension_recommendations_normal
+          .tr()
+          .split('|');
+    } else {
+      return LocaleKeys
+          .report_metric_details_physical_tension_recommendations_high
+          .tr()
+          .split('|');
+    }
   }
 }

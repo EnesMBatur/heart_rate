@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Terveysraportti",
         "hrv_analysis": "HRV-analyysi",
         "health_metrics": "Terveysmittarit",
         "detailed_metrics": "Yksityiskohtaiset mittarit",
@@ -313,6 +314,162 @@
             "very_calm": "Erittäin rauhallinen",
             "calm": "Rauhallinen",
             "stressed": "Stressaantunut"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Tuntee olonsa alakuloiseksi",
+            "could_be_better": "Voisi olla parempi",
+            "feeling_okay": "Tuntee olonsa ihan okei",
+            "feeling_good": "Tuntee olonsa hyväksi",
+            "feeling_great": "Tuntee olonsa loistavaksi",
+            "unknown": "Tuntematon"
+        },
+        "overall_health_status": {
+            "excellent": "Erinomainen",
+            "good": "Hyvä",
+            "moderate": "Kohtalainen",
+            "needs_attention": "Vaatii huomiota"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "HRV-arvosi on odotettua alhaisempi, mikä voi viitata stressiin tai riittämättömään palautumiseen.",
+            "normal_autonomic_balance": "HRV-arvosi on normaalialueella, mikä viittaa hyvään autonomiseen tasapainoon.",
+            "excellent_cardiovascular_health": "HRV-arvosi on erinomainen, mikä viittaa vahvaan sydän- ja verenkiertoelimistön terveyteen ja hyvään palautumiseen."
+        },
+        "personalized_recommendations": "Henkilökohtaiset suositukset",
+        "recommendations": {
+            "stress_management": "Stressinhallinta",
+            "energy_boost": "Energian lisäys",
+            "relaxation": "Rentoutuminen",
+            "heart_rate_monitoring": "Sykkeen seuranta",
+            "high_heart_rate_desc": "Syke on koholla. Harkitse terveydenhuollon ammattilaisen konsultointia, jos tämä jatkuu."
+        },
+        "recommendation_types": {
+            "exercise": "Liikunta",
+            "nutrition": "Ravitsemus",
+            "lifestyle": "Elämäntapa",
+            "medical": "Lääketieteellinen",
+            "stress": "Stressinhallinta"
+        },
+        "heart_rate_categories": {
+            "low": "Matala",
+            "normal": "Normaali",
+            "elevated": "Kohonnut",
+            "high": "Korkea"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Stressitaso",
+                "description": "Stressitasosi lasketaan sykevälivaihtelun analyysin perusteella. Tämä arvo näyttää päivittäisen stressikuormasi asteikolla 1–5.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Stressitasosi on matala ({value}/5). Tämä osoittaa, että olet yleensä rentoutunut ja tasapainossa. Jatka nykyisen elämäntyylisi ylläpitämistä.",
+                "interpretation_normal": "Stressitasosi on normaalialueella ({value}/5). Hallitset arjen stressiä hyvin, mutta jatka stressiä vähentävien toimintojen sisällyttämistä.",
+                "interpretation_high": "Stressitasosi on korkea ({value}/5). Tämä osoittaa, että kehosi on stressaantunut ja tarvitsee rentoutumistekniikoita.",
+                "recommendations_low": "Jatka nykyisiä terveellisiä tapojasi|Jatka säännöllistä liikuntarutiinia|Vahvista sosiaalisia suhteitasi|Varaa aikaa harrastuksillesi",
+                "recommendations_normal": "Meditoi 10–15 minuuttia päivässä|Harjoittele syvähengitystä|Nuku riittävästi (7–9 tuntia)|Käy säännöllisesti kävelyllä|Tunnista ja vähennä stressin lähteitä",
+                "recommendations_high": "Hanki ammatillista tukea stressinhallintaan|Harjoita päivittäin mindfulnessia|Arvioi työkuormasi|Opettele rentoutumistekniikoita|Vahvista sosiaalista tukiverkostoa|Lisää fyysistä aktiivisuutta"
+            },
+            "energy_level": {
+                "title": "Energiataso",
+                "description": "Energiatasosi lasketaan HRV-analyysin ja syketietojen perusteella. Tämä arvo näyttää yleisen elinvoimaisuutesi asteikolla 1–5.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Energiatasosi on matala ({value}/5). Tämä voi johtua väsymyksestä, univajeesta tai ravitsemuksellisesta puutteesta. Elämäntapojen tarkistaminen voi olla hyödyllistä.",
+                "interpretation_normal": "Energiatasosi on normaalialueella ({value}/5). Yleisesti ottaen sinulla on hyvä elinvoimaisuus, mutta pienet parannukset voivat nostaa energiatasoasi.",
+                "interpretation_high": "Energiatasosi on korkea ({value}/5). Olet erinomaisessa vireessä! Jatka terveellisiä tapojasi ylläpitääksesi tämän tilan.",
+                "recommendations_low": "Paranna unen laatua|Tarkista ravitsemussuunnitelmasi|Tarkista raudan ja B12-vitamiinin tasot|Aloita kevyt liikuntaohjelma|Lisää vedenkulutusta|Vähennä stressitasoa",
+                "recommendations_normal": "Luo säännöllinen liikuntarutiini|Optimoi proteiinin saanti|Älä jätä aamiaista väliin|Vietä aikaa ulkona|Tee energiaa lisääviä aktiviteetteja",
+                "recommendations_high": "Jatka nykyisiä tapojasi|Säilytä suorituskykysi|Vältä liiallista uupumusta|Älä unohda lepopäiviä|Säilytä ravinnon laatu"
+            },
+            "physical_tension": {
+                "title": "Fyysinen jännitys",
+                "description": "Fyysisen jännityksen tasosi määritetään sykevälivaihtelun ja pulssin epäsäännöllisyyksien analyysin perusteella. Tämä arvo esitetään asteikolla 1–5.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Fyysisen jännityksen tasosi on matala ({value}/5). Lihaksesi ovat rentoutuneet ja kehosi on tasapainossa. Tämä on erinomainen tila!",
+                "interpretation_normal": "Fyysisen jännityksen tasosi on normaalialueella ({value}/5). Lievä jännitys on normaalia, mutta rentoutumistekniikoiden sisällyttäminen voi olla hyödyllistä.",
+                "interpretation_high": "Fyysisen jännityksen tasosi on korkea ({value}/5). Lihaksissasi on jännitystä, mikä voi aiheuttaa epämukavuutta. Rentoutumistekniikat ovat tärkeitä.",
+                "recommendations_low": "Jatka nykyistä rentouttavaa rutiinia|Tee säännöllisesti venyttelyä|Tarkista ryhtisi|Pidä aktiivinen elämäntyyli",
+                "recommendations_normal": "Tee päivittäisiä venyttelyharjoituksia|Kokeile hierontahoitoa|Aloita jooga tai pilates|Paranna työasentoasi|Pidä säännöllisiä taukoja",
+                "recommendations_high": "Hanki ammattimaista fysioterapeuttista tukea|20 minuuttia päivittäisiä rentoutumisharjoituksia|Käytä kuumaa kylpyä tai saunaa|Vähennä stressin lähteitä|Käy säännöllisesti hieronnassa|Luo ergonominen työympäristö"
+            },
+            "hrv_score": {
+                "title": "HRV-pisteet",
+                "description": "HRV-pisteet ovat kokonaisarvio sykevälivaihtelustasi. Korkea pistemäärä osoittaa paremman autonomisen hermoston tasapainon.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "HRV-pisteesi ovat matalat. Tämä voi osoittaa, että autonominen hermostosi on stressaantunut. Elvytys- ja rentoutumiskeskeisiä lähestymistapoja tulisi käyttää.",
+                "interpretation_normal": "HRV-pisteesi ovat normaalialueella. Autonominen hermostosi toimii tasapainossa. Jatka terveellisiä tapojasi ylläpitääksesi tämän tilan.",
+                "interpretation_high": "HRV-pisteesi ovat korkeat. Erinomainen autonominen tasapaino! Sykevälivaihtelusi on erittäin hyvässä kunnossa, ja tämä on loistava terveysindikaattori.",
+                "recommendations_low": "Tee HRV:hen keskittyviä hengitysharjoituksia|Priorisoi laadukas uni|Vältä liian intensiivistä harjoittelua|Opettele stressinhallintatekniikoita|Harjoittele säännöllisesti meditaatiota|Vähennä alkoholin ja kofeiinin kulutusta",
+                "recommendations_normal": "Jatka nykyistä rutiiniasi|Kehitä HRV:n seurannan tapa|Tee vaihteluun perustuvia harjoituksia|Paranna ravinnon laatua|Vahvista sosiaalisia yhteyksiä",
+                "recommendations_high": "Säilytä korkea suorituskykysi|Kuuntele kehosi signaaleja|Vältä ylirasitusta|Tee menestyksestäsi kestävää|Inspiroidu ja inspiroi muita"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "SDNN (NN-intervallien keskihajonta) on sydämen sykevälien vaihtelun keskihajonta. Se on yleinen mittari autonomisen hermoston toiminnasta.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Matala SDNN-arvo osoittaa stressiä tai väsymystä autonomisessa hermostossa. Lepo ja stressin vähennystekniikat ovat tarpeen.",
+                "interpretation_normal": "Normaali SDNN-arvo osoittaa, että autonominen hermostosi toimii terveellisesti. Voit jatkaa nykyistä elämäntapaasi.",
+                "interpretation_high": "Korkea SDNN-arvo osoittaa erinomaista autonomista tasapainoa. Tämä heijastaa optimaalista terveyttä ja kuntoa.",
+                "recommendations_low": "Tee syvähengitysharjoituksia|Aloita meditaatioharjoittelu|Paranna unen laatua (7–9 tuntia)|Vähennä kofeiinin saantia|Tee kevyttä liikuntaa|Tunnista stressin lähteet",
+                "recommendations_normal": "Jatka terveellisiä tapojasi|Pidä säännöllinen liikuntarutiini|Noudata tasapainoista ruokavaliota|Huolehdi riittävästä nesteytyksestä|Osallistu sosiaalisiin aktiviteetteihin",
+                "recommendations_high": "Säilytä erinomainen tilasi|Voit tehdä suorituskykyyn keskittyvää harjoittelua|Voit ohjata muita|Vältä ylirasitusta|Kuuntele kehosi signaaleja"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "RMSSD on tärkeä mittari parasympaattisen hermoston toiminnasta. Se kuvaa lyhytaikaista sykevälivaihtelua.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Matala RMSSD-arvo osoittaa heikentynyttä parasympaattista aktiivisuutta. Kehollasi on vaikeuksia siirtyä lepotilaan.",
+                "interpretation_normal": "Normaali RMSSD-arvo osoittaa, että parasympaattinen hermostosi toimii terveellisesti. Lepo–aktiivisuus-tasapaino on hyvä.",
+                "interpretation_high": "Korkea RMSSD-arvo osoittaa erinomaista parasympaattista toimintaa. Kehosi selviytyy stressistä hyvin.",
+                "recommendations_low": "Harjoita joogaa tai tai chi:tä|Säännöllinen meditaatio|Käy lämpimissä kylvyissä|Kuuntele klassista musiikkia|Vietä aikaa luonnossa|Harjoittele syvähengitystä",
+                "recommendations_normal": "Tue parasympaattista toimintaa|Tee rentouttavia aktiviteetteja|Säilytä unen laatu|Tee kevyitä venyttelyharjoituksia|Harjoita mindfulnessia",
+                "recommendations_high": "Säilytä erinomainen tilasi|Voit tehdä korkean suorituskyvyn harjoittelua|Optimoi palautumisajat|Voit ohjata muita|Jatka tasapainoista elämäntapaa"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "pNN50 on parasympaattisen hermoston toiminnan mittari. Se näyttää yli 50 ms erojen prosenttiosuuden peräkkäisten RR-intervallien välillä.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Matala pNN50-arvo osoittaa heikentynyttä parasympaattista toimintaa ja kohonnutta stressitasoa.",
+                "interpretation_normal": "Normaali pNN50-arvo osoittaa, että sydämesi selviytyy hyvin päivittäisestä stressistä ja autonominen tasapaino on terve.",
+                "interpretation_high": "Korkea pNN50-arvo osoittaa erinomaista parasympaattista toimintaa ja optimaalista sydänterveyttä.",
+                "recommendations_low": "Käytä stressiä vähentäviä tekniikoita|Harjoittele säännöllisesti hengitystä|Paranna unen laatua|Vähennä kofeiinin käyttöä|Tee rentouttavia aktiviteetteja|Hanki ammatillista tukea",
+                "recommendations_normal": "Jatka nykyisiä terveellisiä tapojasi|Noudata tasapainoista ruokavaliota|Pidä kiinni säännöllisistä nukkuma-ajoista|Kevyttä kestävyysliikuntaa|Osallistu sosiaalisiin aktiviteetteihin",
+                "recommendations_high": "Säilytä erinomainen tilasi|Korkean suorituskyvyn harjoittelu|Ole esimerkki muille|Vältä ylirasitusta|Jatka optimaalista elämäntapaasi"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "CoV (vaihtelukerroin) on normalisoitu mitta sykevälivaihtelusta. Se näyttää HRV:n, joka on mukautettu keskimääräisen sykkeen mukaan.",
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea",
+                "interpretation_low": "Matala CoV-arvo osoittaa sykevälivaihtelun normalisoidun mittauksen laskua. Tämä voi olla merkki stressistä tai väsymyksestä.",
+                "interpretation_normal": "Normaali CoV-arvo osoittaa, että sykevälivaihtelusi on terveellä tasolla. Autonominen tasapaino on hyvä.",
+                "interpretation_high": "Korkea CoV-arvo osoittaa erinomaista sykevälivaihtelua. Tämä on merkki optimaalisesta sydän- ja verisuoniterveydestä.",
+                "recommendations_low": "Tee HRV:tä lisääviä harjoituksia|Kokeile intervalliharjoittelua|Käytä stressinhallintatekniikoita|Optimoi unen laatu|Tarkista ruokavaliosi|Säännöllinen terveystarkastus",
+                "recommendations_normal": "Pidä nykyinen rutiinisi|Jatka kestävyysliikuntaa|Jatka tasapainoista elämäntapaa|Säilytä nestetasapaino|Noudata säännöllistä liikuntaohjelmaa",
+                "recommendations_high": "Säilytä korkea suorituskykysi|Optimointiin keskittyvä harjoittelu|Kuuntele kehosi signaaleja|Vältä ylirasitusta|Tee menestyksestäsi kestävää"
+            },
+            "status_labels": {
+                "low": "Matala",
+                "normal": "Normaali",
+                "high": "Korkea"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {

@@ -267,6 +267,7 @@
         }
     },
     "report": {
+        "title": "Sağlık Raporu",
         "hrv_analysis": "HRV Analizi",
         "health_metrics": "Sağlık Göstergeleri",
         "detailed_metrics": "Detaylı Göstergeler",
@@ -313,6 +314,162 @@
             "very_calm": "Çok Sakin",
             "calm": "Sakin",
             "stressed": "Stresli"
+        },
+        "mood_descriptions": {
+            "feeling_down": "Kendini kötü hissetmek",
+            "could_be_better": "Daha iyi olabilirdi",
+            "feeling_okay": "Kendini idare eder hissetmek",
+            "feeling_good": "Kendini iyi hissetmek",
+            "feeling_great": "Kendini harika hissetmek",
+            "unknown": "Bilinmiyor"
+        },
+        "overall_health_status": {
+            "excellent": "Mükemmel",
+            "good": "İyi",
+            "moderate": "Orta",
+            "needs_attention": "Dikkat Gerekiyor"
+        },
+        "hrv_interpretations": {
+            "low_stress_recovery": "HRV’niz beklenenin altında, bu durum stres veya yetersiz toparlanmaya işaret edebilir.",
+            "normal_autonomic_balance": "HRV’niz normal aralıkta, bu da iyi bir otonom dengeyi gösterir.",
+            "excellent_cardiovascular_health": "HRV’niz mükemmel, bu da güçlü bir kardiyovasküler sağlık ve iyi toparlanmaya işaret eder."
+        },
+        "personalized_recommendations": "Kişiselleştirilmiş Öneriler",
+        "recommendations": {
+            "stress_management": "Stres Yönetimi",
+            "energy_boost": "Enerji Artırma",
+            "relaxation": "Gevşeme",
+            "heart_rate_monitoring": "Kalp Ritmi İzleme",
+            "high_heart_rate_desc": "Kalp ritminiz yüksek. Bu durum devam ederse bir sağlık uzmanına danışmayı düşünün."
+        },
+        "recommendation_types": {
+            "exercise": "EGZERSİZ",
+            "nutrition": "BESLENME",
+            "lifestyle": "YAŞAM TARZI",
+            "medical": "TIBBİ",
+            "stress": "STRES YÖNETİMİ"
+        },
+        "heart_rate_categories": {
+            "low": "Düşük",
+            "normal": "Normal",
+            "elevated": "Yüksek",
+            "high": "Çok Yüksek"
+        },
+        "metric_details": {
+            "stress_level": {
+                "title": "Stres Seviyesi",
+                "description": "Stres seviyeniz kalp atım hızı değişkenliği (HRV) analizine göre hesaplanır. Bu değer günlük stres yükünüzü 5 üzerinden gösterir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Stres seviyeniz düşük ({value}/5). Bu, genellikle rahat ve dengeli bir durumda olduğunuzu gösterir. Mevcut yaşam tarzınızı sürdürmeye devam edin.",
+                "interpretation_normal": "Stres seviyeniz normal aralıkta ({value}/5). Günlük yaşamın stresini iyi yönetiyorsunuz ancak stres azaltıcı aktiviteleri dahil etmeye devam edin.",
+                "interpretation_high": "Stres seviyeniz yüksek ({value}/5). Bu, vücudunuzun stres altında olduğunu ve gevşeme tekniklerine ihtiyaç duyduğunu gösterir.",
+                "recommendations_low": "Mevcut sağlıklı alışkanlıklarınıza devam edin|Düzenli egzersiz rutininizi sürdürün|Sosyal ilişkilerinizi güçlendirin|Hobilerinize zaman ayırın",
+                "recommendations_normal": "Her gün 10–15 dakika meditasyon yapın|Derin nefes egzersizleri uygulayın|Yeterli uyku alın (7–9 saat)|Düzenli yürüyüşler yapın|Stres kaynaklarını belirleyin ve azaltın",
+                "recommendations_high": "Profesyonel stres yönetimi desteği alın|Günlük farkındalık (mindfulness) pratiği yapın|İş yükünüzü gözden geçirin|Gevşeme tekniklerini öğrenin|Sosyal destek sisteminizi güçlendirin|Fiziksel aktivitenizi artırın"
+            },
+            "energy_level": {
+                "title": "Enerji Seviyesi",
+                "description": "Enerji seviyeniz HRV analizi ve kalp atış hızı verilerine göre hesaplanır. Bu değer genel canlılık durumunuzu 5 üzerinden gösterir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Enerji seviyeniz düşük ({value}/5). Bu durum yorgunluk, yetersiz uyku veya beslenme eksikliğinden kaynaklanabilir. Yaşam tarzınızı gözden geçirmeniz faydalı olabilir.",
+                "interpretation_normal": "Enerji seviyeniz normal aralıkta ({value}/5). Genel olarak iyi bir canlılık seviyesine sahipsiniz, ancak küçük iyileştirmeler enerji seviyenizi artırabilir.",
+                "interpretation_high": "Enerji seviyeniz yüksek ({value}/5). Mükemmel bir canlılık içindesiniz! Bu durumu sürdürmek için mevcut sağlıklı alışkanlıklarınıza devam edin.",
+                "recommendations_low": "Uyku kalitesini artırın|Beslenme planınızı gözden geçirin|Demir ve B12 seviyelerinizi kontrol edin|Hafif bir egzersiz programına başlayın|Su tüketimini artırın|Stres seviyenizi azaltın",
+                "recommendations_normal": "Düzenli bir egzersiz rutini oluşturun|Protein alımınızı optimize edin|Kahvaltıyı atlamayın|Açık havada zaman geçirin|Enerji verici aktiviteler yapın",
+                "recommendations_high": "Mevcut alışkanlıklarınıza devam edin|Performansınızı koruyun|Aşırı yorgunluktan kaçının|Dinlenme günlerini ihmal etmeyin|Beslenme kalitesini sürdürün"
+            },
+            "physical_tension": {
+                "title": "Fiziksel Gerginlik",
+                "description": "Fiziksel gerginlik seviyeniz HRV ve nabız düzensizliği analizine göre belirlenir. Bu değer 5 üzerinden gösterilir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Fiziksel gerginlik seviyeniz düşük ({value}/5). Kaslarınız gevşemiş ve vücudunuz dengeli durumda. Harika bir durum!",
+                "interpretation_normal": "Fiziksel gerginlik seviyeniz normal aralıkta ({value}/5). Hafif gerginlik normaldir, ancak gevşeme teknikleri faydalı olabilir.",
+                "interpretation_high": "Fiziksel gerginlik seviyeniz yüksek ({value}/5). Kaslarınızda gerginlik var ve bu rahatsızlık verebilir. Gevşeme teknikleri önemlidir.",
+                "recommendations_low": "Mevcut rahatlatıcı rutininize devam edin|Düzenli esneme yapın|Duruşunuza dikkat edin|Aktif bir yaşam tarzı sürdürün",
+                "recommendations_normal": "Günlük esneme egzersizleri yapın|Masaj terapisi deneyin|Yoga veya pilatese başlayın|Çalışma duruşunuzu iyileştirin|Düzenli molalar verin",
+                "recommendations_high": "Profesyonel fizyoterapi desteği alın|Günde 20 dakika gevşeme egzersizi yapın|Sıcak banyo veya sauna kullanın|Stres kaynaklarını azaltın|Düzenli masaj yaptırın|Ergonomik bir çalışma ortamı oluşturun"
+            },
+            "hrv_score": {
+                "title": "HRV Skoru",
+                "description": "HRV skoru kalp atış hızı değişkenliğinizin genel değerlendirmesidir. Yüksek skor otonom sinir sistemi dengesinin daha iyi olduğunu gösterir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "HRV skorunuz düşük. Bu, otonom sinir sisteminizin stres altında olduğunu gösterebilir. Dinlenme ve gevşemeye odaklanan yöntemler benimsenmelidir.",
+                "interpretation_normal": "HRV skorunuz normal aralıkta. Otonom sinir sisteminiz dengeli çalışıyor. Bu durumu sürdürmek için sağlıklı alışkanlıklarınıza devam edin.",
+                "interpretation_high": "HRV skorunuz yüksek. Mükemmel otonom denge! Kalp atış hızı değişkenliğiniz çok iyi durumda ve bu harika bir sağlık göstergesidir.",
+                "recommendations_low": "HRV odaklı nefes egzersizleri yapın|Kaliteli uykuya öncelik verin|Aşırı yoğun egzersizlerden kaçının|Stres yönetimi teknikleri öğrenin|Düzenli meditasyon yapın|Alkol ve kafein tüketimini azaltın",
+                "recommendations_normal": "Mevcut rutininize devam edin|HRV takibi alışkanlığı kazanın|Çeşitliliğe odaklanan egzersizler yapın|Beslenme kalitesini artırın|Sosyal bağlarınızı güçlendirin",
+                "recommendations_high": "Yüksek performansınızı koruyun|Vücudunuzun sinyallerini dinleyin|Aşırı antrenmandan kaçının|Başarınızı sürdürülebilir hale getirin|Başkalarına ilham verin"
+            },
+            "sdnn": {
+                "title": "SDNN",
+                "description": "SDNN (NN aralıklarının standart sapması), kalp atış aralıklarının standart sapmasıdır. Otonom sinir sistemi aktivitesinin genel bir göstergesidir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Düşük SDNN değeri, otonom sinir sisteminizde stres veya yorgunluğu gösterir. Dinlenme ve stres azaltma tekniklerine ihtiyaç vardır.",
+                "interpretation_normal": "Normal SDNN değeri, otonom sinir sisteminizin sağlıklı çalıştığını gösterir. Mevcut yaşam tarzınıza devam edebilirsiniz.",
+                "interpretation_high": "Yüksek SDNN değeri mükemmel otonom dengeyi gösterir. Bu, optimal sağlık ve kondisyon seviyesini yansıtır.",
+                "recommendations_low": "Derin nefes egzersizleri yapın|Meditasyona başlayın|Uyku kalitesini artırın (7–9 saat)|Kafein tüketimini azaltın|Hafif egzersiz yapın|Stres kaynaklarını belirleyin",
+                "recommendations_normal": "Mevcut sağlıklı alışkanlıklarınıza devam edin|Düzenli egzersiz rutininizi koruyun|Dengeli bir beslenme planı uygulayın|Yeterli sıvı alın|Sosyal aktivitelere katılın",
+                "recommendations_high": "Mükemmel durumunuzu koruyun|Performansa odaklı antrenman yapabilirsiniz|Başkalarına rehberlik edebilirsiniz|Aşırı antrenmandan kaçının|Vücudunuzun sinyallerini dinleyin"
+            },
+            "rmssd": {
+                "title": "RMSSD",
+                "description": "RMSSD, parasempatik sinir sistemi aktivitesinin önemli bir göstergesidir. Kalp atış hızı değişkenliğinin kısa vadeli bileşenini yansıtır.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Düşük RMSSD değeri, parasempatik sinir sistemi aktivitesinde azalmayı gösterir. Vücudunuz dinlenme moduna geçmekte zorlanıyor.",
+                "interpretation_normal": "Normal RMSSD değeri, parasempatik sinir sisteminizin sağlıklı çalıştığını gösterir. Dinlenme-aktivite dengesi iyidir.",
+                "interpretation_high": "Yüksek RMSSD değeri, mükemmel parasempatik aktiviteyi gösterir. Vücudunuz stresle çok iyi başa çıkıyor.",
+                "recommendations_low": "Yoga veya tai chi yapın|Düzenli meditasyon yapın|Sıcak banyolar yapın|Klasik müzik dinleyin|Doğada vakit geçirin|Derin nefes teknikleri uygulayın",
+                "recommendations_normal": "Parasempatik aktiviteyi destekleyin|Rahatlatıcı aktiviteler yapın|Uyku kalitesini koruyun|Hafif esneme egzersizleri yapın|Farkındalık (mindfulness) pratiği yapın",
+                "recommendations_high": "Mükemmel durumunuzu koruyun|Yüksek performans antrenmanları yapabilirsiniz|Dinlenme sürelerinizi optimize edin|Başkalarına rehberlik edebilirsiniz|Dengeli yaşam tarzınızı sürdürün"
+            },
+            "pnn50": {
+                "title": "PNN50",
+                "description": "pNN50, parasempatik sinir sistemi aktivitesinin bir göstergesidir. Ardışık RR aralıkları arasındaki farkların %50 ms’den büyük olduğu oranı gösterir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Düşük pNN50 değeri, parasempatik aktivitenin azaldığını ve stres seviyesinin arttığını gösterir.",
+                "interpretation_normal": "Normal pNN50 değeri, kalbinizin günlük stresle iyi başa çıktığını ve sağlıklı bir otonom denge olduğunu gösterir.",
+                "interpretation_high": "Yüksek pNN50 değeri, mükemmel parasempatik aktiviteyi ve optimal kalp sağlığını gösterir.",
+                "recommendations_low": "Stres azaltma teknikleri uygulayın|Düzenli nefes egzersizleri yapın|Uyku kalitesini artırın|Kafein tüketimini azaltın|Rahatlatıcı aktiviteler yapın|Profesyonel destek alın",
+                "recommendations_normal": "Mevcut sağlıklı alışkanlıklarınıza devam edin|Dengeli beslenme planı uygulayın|Düzenli uyku saatlerine dikkat edin|Hafif kardiyo egzersizleri yapın|Sosyal aktivitelere katılın",
+                "recommendations_high": "Mükemmel durumunuzu koruyun|Yüksek performans antrenmanları yapın|Başkalarına örnek olun|Aşırı antrenmandan kaçının|Optimal yaşam tarzınızı sürdürün"
+            },
+            "cov": {
+                "title": "CoV",
+                "description": "CoV (Varyasyon Katsayısı), kalp atış hızı değişkenliğinin normalize edilmiş ölçüsüdür. Ortalama kalp atış hızına göre ayarlanmış HRV’yi gösterir.",
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek",
+                "interpretation_low": "Düşük CoV değeri, HRV’nin normalize edilmiş ölçümünde bir azalma olduğunu gösterir. Bu stres veya yorgunluk belirtisi olabilir.",
+                "interpretation_normal": "Normal CoV değeri, kalp atış hızı değişkenliğinizin sağlıklı seviyede olduğunu gösterir. Otonom dengeniz iyidir.",
+                "interpretation_high": "Yüksek CoV değeri, mükemmel kalp atış hızı değişkenliğini gösterir. Bu optimal kardiyovasküler sağlığın bir işaretidir.",
+                "recommendations_low": "HRV artırıcı egzersizler yapın|Interval antrenman deneyin|Stres yönetimi teknikleri uygulayın|Uyku kalitesini optimize edin|Beslenme planınızı gözden geçirin|Düzenli sağlık kontrolü yaptırın",
+                "recommendations_normal": "Mevcut rutininizi sürdürün|Kardiyo egzersizlerine devam edin|Dengeli yaşam tarzınızı sürdürün|Sıvı alımına dikkat edin|Düzenli egzersiz programı uygulayın",
+                "recommendations_high": "Yüksek performansınızı koruyun|Optimizasyon odaklı antrenmanlar yapın|Vücudunuzun sinyallerini dinleyin|Aşırı antrenmandan kaçının|Başarınızı sürdürülebilir kılın"
+            },
+            "status_labels": {
+                "low": "Düşük",
+                "normal": "Normal",
+                "high": "Yüksek"
+            },
+            "ranges": {
+                "low_range": "{min} - {max}",
+                "normal_range": "{min} - {max}",
+                "high_range": "> {min}"
+            }
         }
     },
     "ai": {
