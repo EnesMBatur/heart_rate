@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
+import 'package:heart_rate/provider/revenuecat.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:heart_rate/core/services/app_initializer.dart';
@@ -30,6 +31,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => BloodSugarViewModel()),
           ChangeNotifierProvider(create: (context) => BloodOxygenViewModel()),
           ChangeNotifierProvider(create: (context) => BMIViewModel()),
+          ChangeNotifierProvider(create: (context) => RevenueCatProvider()),
         ],
         child: const riverpod.ProviderScope(child: HeartRaterApp()),
       ),

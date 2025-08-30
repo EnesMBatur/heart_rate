@@ -13,6 +13,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  #revenuecat
+  purchases_flutter: ^9.3.0
+
   #Firebase
   firebase_core: ^4.0.0
   firebase_analytics: ^12.0.0
@@ -79,6 +82,7 @@ dependencies:
   top_snackbar_flutter: ^3.3.0
   animated_text_kit: ^4.2.3
   flutter_custom_clippers: ^2.1.0
+  auto_size_text: ^3.0.0
 
   #splash
   flutter_native_splash: ^2.4.6

@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Limited Offer:",
+        "special_offer": "🎉 SPECIAL OFFER! 🎉",
+        "lifetime": "Lifetime Access",
+        "limited_time": "Limited Time Offer!",
+        "join": "🎉 Join 50,000+ users taking control of their heart & health today!",
+        "unlock": "✨ Unlock All Premium Features Today!"
+    },
+    "paywall": {
+        "title": "Unlock Your Health Power!",
+        "subtitle": "Take full control of your heart & wellness journey with unlimited access.",
+        "text_1": "Full AI Health Coach Access",
+        "text_2": "Heart Rate & Blood Pressure Tracking",
+        "text_3": "Blood Sugar & Oxygen Monitoring",
+        "text_4": "BMI Insights & Progress",
+        "text_5": "Healthy Recipes & Meal Tips",
+        "text_6": "Advanced Analytics & Trends",
+        "text_7": "Ad-Free Experience",
+        "try": "Try For Free",
+        "try_text": "Try for 3 days",
+        "congratulation": "Congratulations, you are now premium!",
+        "subscribe": "Try Free & Subscribe",
+        "subscribe_now": "Subscribe"
+    },
     "how_to_measure": {
         "title": "How to Measure",
         "instructions": {

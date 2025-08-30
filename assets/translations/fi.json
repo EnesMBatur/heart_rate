@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Rajoitettu tarjous:",
+        "special_offer": "🎉 ERIKOISTARJOUS! 🎉",
+        "lifetime": "Elinikäinen käyttöoikeus",
+        "limited_time": "Rajoitetun ajan tarjous!",
+        "join": "🎉 Liity yli 50 000 käyttäjään, jotka hallitsevat sydäntään ja terveyttään jo tänään!",
+        "unlock": "✨ Avaa kaikki Premium-ominaisuudet jo tänään!"
+    },
+    "paywall": {
+        "title": "Avaa terveytesi voima!",
+        "subtitle": "Ota täysi hallinta sydämestäsi ja hyvinvointimatkastasi rajoittamattomalla pääsyllä.",
+        "text_1": "Täysi AI-terveysvalmentajan käyttö",
+        "text_2": "Sydämen sykkeen ja verenpaineen seuranta",
+        "text_3": "Verensokerin ja hapen seuranta",
+        "text_4": "BMI-näkemykset ja edistys",
+        "text_5": "Terveellisiä reseptejä ja ruokavinkkejä",
+        "text_6": "Edistyneet analyysit ja trendit",
+        "text_7": "Mainokseton kokemus",
+        "try": "Kokeile ilmaiseksi",
+        "try_text": "Kokeile 3 päivää",
+        "congratulation": "Onnittelut, olet nyt premium-käyttäjä!",
+        "subscribe": "Kokeile ilmaiseksi & tilaa",
+        "subscribe_now": "Tilaa"
+    },
     "how_to_measure": {
         "title": "Kuinka mitata",
         "instructions": {

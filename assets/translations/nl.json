@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Beperkt aanbod:",
+        "special_offer": "🎉 SPECIAAL AANBOD! 🎉",
+        "lifetime": "Levenslange toegang",
+        "limited_time": "Tijdelijk aanbod!",
+        "join": "🎉 Doe mee met meer dan 50.000 gebruikers die vandaag de controle over hun hart en gezondheid nemen!",
+        "unlock": "✨ Ontgrendel vandaag alle premiumfuncties!"
+    },
+    "paywall": {
+        "title": "Ontgrendel je gezondheidskracht!",
+        "subtitle": "Krijg volledige controle over je hart en welzijnsreis met onbeperkte toegang.",
+        "text_1": "Volledige toegang tot AI-gezondheidscoach",
+        "text_2": "Hartslag- en bloeddruktracking",
+        "text_3": "Bloedglucose- en zuurstofmonitoring",
+        "text_4": "BMI-inzichten en voortgang",
+        "text_5": "Gezonde recepten en maaltijdtips",
+        "text_6": "Geavanceerde analyses en trends",
+        "text_7": "Advertentievrije ervaring",
+        "try": "Gratis proberen",
+        "try_text": "Probeer 3 dagen",
+        "congratulation": "Gefeliciteerd, je bent nu premium!",
+        "subscribe": "Probeer gratis & abonneer",
+        "subscribe_now": "Abonneren"
+    },
     "how_to_measure": {
         "title": "Hoe te meten",
         "instructions": {

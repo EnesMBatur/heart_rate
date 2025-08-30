@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Oferta limitowana:",
+        "special_offer": "🎉 OFERTA SPECJALNA! 🎉",
+        "lifetime": "Dostęp na całe życie",
+        "limited_time": "Oferta ograniczona czasowo!",
+        "join": "🎉 Dołącz do ponad 50 000 użytkowników, którzy dziś przejmują kontrolę nad swoim sercem i zdrowiem!",
+        "unlock": "✨ Odblokuj wszystkie funkcje Premium już dziś!"
+    },
+    "paywall": {
+        "title": "Odblokuj swoją moc zdrowia!",
+        "subtitle": "Przejmij pełną kontrolę nad sercem i zdrowiem dzięki nieograniczonemu dostępowi.",
+        "text_1": "Pełny dostęp do AI trenera zdrowia",
+        "text_2": "Monitorowanie tętna i ciśnienia krwi",
+        "text_3": "Monitorowanie poziomu cukru i tlenu we krwi",
+        "text_4": "Wskaźnik BMI i postępy",
+        "text_5": "Zdrowe przepisy i porady żywieniowe",
+        "text_6": "Zaawansowane analizy i trendy",
+        "text_7": "Doświadczenie bez reklam",
+        "try": "Wypróbuj za darmo",
+        "try_text": "Wypróbuj przez 3 dni",
+        "congratulation": "Gratulacje, masz teraz premium!",
+        "subscribe": "Wypróbuj za darmo i subskrybuj",
+        "subscribe_now": "Subskrybuj"
+    },
     "how_to_measure": {
         "title": "Jak mierzyć",
         "instructions": {

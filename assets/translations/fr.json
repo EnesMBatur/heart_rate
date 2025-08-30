@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Offre limitée :",
+        "special_offer": "🎉 OFFRE SPÉCIALE ! 🎉",
+        "lifetime": "Accès à vie",
+        "limited_time": "Offre à durée limitée !",
+        "join": "🎉 Rejoignez plus de 50 000 utilisateurs qui prennent le contrôle de leur cœur et de leur santé dès aujourd'hui !",
+        "unlock": "✨ Débloquez toutes les fonctionnalités Premium dès aujourd'hui !"
+    },
+    "paywall": {
+        "title": "Débloquez votre pouvoir de santé !",
+        "subtitle": "Prenez le contrôle total de votre cœur et de votre bien-être avec un accès illimité.",
+        "text_1": "Accès complet au coach santé IA",
+        "text_2": "Suivi de la fréquence cardiaque et de la tension artérielle",
+        "text_3": "Surveillance du taux de sucre et de l'oxygène",
+        "text_4": "Aperçus de l'IMC et progression",
+        "text_5": "Recettes saines et conseils de repas",
+        "text_6": "Analyses avancées et tendances",
+        "text_7": "Expérience sans publicité",
+        "try": "Essayer gratuitement",
+        "try_text": "Essayez pendant 3 jours",
+        "congratulation": "Félicitations, vous êtes maintenant premium !",
+        "subscribe": "Essayez gratuitement & abonnez-vous",
+        "subscribe_now": "S'abonner"
+    },
     "how_to_measure": {
         "title": "Comment mesurer",
         "instructions": {

@@ -3,6 +3,28 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const offer_limited_offer = 'offer.limited_offer';
+  static const offer_special_offer = 'offer.special_offer';
+  static const offer_lifetime = 'offer.lifetime';
+  static const offer_limited_time = 'offer.limited_time';
+  static const offer_join = 'offer.join';
+  static const offer_unlock = 'offer.unlock';
+  static const offer = 'offer';
+  static const paywall_title = 'paywall.title';
+  static const paywall_subtitle = 'paywall.subtitle';
+  static const paywall_text_1 = 'paywall.text_1';
+  static const paywall_text_2 = 'paywall.text_2';
+  static const paywall_text_3 = 'paywall.text_3';
+  static const paywall_text_4 = 'paywall.text_4';
+  static const paywall_text_5 = 'paywall.text_5';
+  static const paywall_text_6 = 'paywall.text_6';
+  static const paywall_text_7 = 'paywall.text_7';
+  static const paywall_try = 'paywall.try';
+  static const paywall_try_text = 'paywall.try_text';
+  static const paywall_congratulation = 'paywall.congratulation';
+  static const paywall_subscribe = 'paywall.subscribe';
+  static const paywall_subscribe_now = 'paywall.subscribe_now';
+  static const paywall = 'paywall';
   static const how_to_measure_title = 'how_to_measure.title';
   static const how_to_measure_instructions_1 = 'how_to_measure.instructions.1';
   static const how_to_measure_instructions_1_text = 'how_to_measure.instructions.1_text';

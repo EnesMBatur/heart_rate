@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Begränsat erbjudande:",
+        "special_offer": "🎉 SPECIELLT ERBJUDANDE! 🎉",
+        "lifetime": "Livstidsåtkomst",
+        "limited_time": "Begränsat tids erbjudande!",
+        "join": "🎉 Gå med över 50 000 användare som tar kontroll över sitt hjärta och sin hälsa idag!",
+        "unlock": "✨ Lås upp alla premiumfunktioner idag!"
+    },
+    "paywall": {
+        "title": "Lås upp din hälsokraft!",
+        "subtitle": "Ta full kontroll över ditt hjärta och din hälsorresa med obegränsad åtkomst.",
+        "text_1": "Full tillgång till AI-hälsocoach",
+        "text_2": "Hjärtfrekvens- och blodtrycksspårning",
+        "text_3": "Blodsocker- och syreövervakning",
+        "text_4": "BMI-insikter och framsteg",
+        "text_5": "Hälsosamma recept och måltidstips",
+        "text_6": "Avancerad analys och trender",
+        "text_7": "Annonsfri upplevelse",
+        "try": "Prova gratis",
+        "try_text": "Prova i 3 dagar",
+        "congratulation": "Grattis, du är nu premium!",
+        "subscribe": "Prova gratis & prenumerera",
+        "subscribe_now": "Prenumerera"
+    },
     "how_to_measure": {
         "title": "Hur man mäter",
         "instructions": {

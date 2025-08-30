@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Offerta limitata:",
+        "special_offer": "🎉 OFFERTA SPECIALE! 🎉",
+        "lifetime": "Accesso a vita",
+        "limited_time": "Offerta a tempo limitato!",
+        "join": "🎉 Unisciti a oltre 50.000 utenti che oggi prendono il controllo del loro cuore e della loro salute!",
+        "unlock": "✨ Sblocca tutte le funzionalità Premium oggi!"
+    },
+    "paywall": {
+        "title": "Sblocca il tuo potere della salute!",
+        "subtitle": "Prendi il pieno controllo del tuo cuore e del tuo benessere con accesso illimitato.",
+        "text_1": "Accesso completo all'allenatore sanitario AI",
+        "text_2": "Monitoraggio della frequenza cardiaca e della pressione sanguigna",
+        "text_3": "Monitoraggio della glicemia e dell'ossigeno",
+        "text_4": "Approfondimenti BMI e progressi",
+        "text_5": "Ricette sane e consigli sui pasti",
+        "text_6": "Analisi e tendenze avanzate",
+        "text_7": "Esperienza senza pubblicità",
+        "try": "Prova gratis",
+        "try_text": "Prova per 3 giorni",
+        "congratulation": "Congratulazioni, ora sei premium!",
+        "subscribe": "Prova gratis e abbonati",
+        "subscribe_now": "Abbonati"
+    },
     "how_to_measure": {
         "title": "Come misurare",
         "instructions": {

@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Sınırlı Teklif:",
+        "special_offer": "🎉 ÖZEL TEKLİF! 🎉",
+        "lifetime": "Ömür Boyu Erişim",
+        "limited_time": "Süreli Teklif!",
+        "join": "🎉 Bugün kalbini ve sağlığını kontrol altına alan 50.000+ kullanıcıya katıl!",
+        "unlock": "✨ Tüm Premium Özelliklerin Kilidini Bugün Aç!"
+    },
+    "paywall": {
+        "title": "Sağlık Gücünü Keşfet!",
+        "subtitle": "Sınırsız erişimle kalbin ve sağlığın yolculuğunu tamamen kontrol altına al.",
+        "text_1": "Tam Yapay Zekâ Sağlık Koçu Erişimi",
+        "text_2": "Kalp Atış Hızı ve Tansiyon Takibi",
+        "text_3": "Kan Şekeri ve Oksijen İzleme",
+        "text_4": "BMI Analizleri ve İlerleme",
+        "text_5": "Sağlıklı Tarifler ve Yemek Önerileri",
+        "text_6": "Gelişmiş Analitik ve Trendler",
+        "text_7": "Reklamsız Deneyim",
+        "try": "Ücretsiz Dene",
+        "try_text": "3 gün dene",
+        "congratulation": "Tebrikler, artık premium oldunuz!",
+        "subscribe": "Ücretsiz Dene & Abone Ol",
+        "subscribe_now": "Abone Ol"
+    },
     "how_to_measure": {
         "title": "Nasıl Ölçülür",
         "instructions": {

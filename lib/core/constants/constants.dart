@@ -23,4 +23,7 @@ class AppConst {
   static const int kTrialValue = 1;
 
   static const spinkit = SpinKitFadingCircle(color: kPrimaryColor, size: 60);
+
+  static const String appleApiKey = 'appl_JDCqCuwGtkDvTUhPINVAPlxveYm';
+  static const String googleApiKey = 'goog_KxZXdDOCSAEQhtZjgeJxrPjdcgu';
 }

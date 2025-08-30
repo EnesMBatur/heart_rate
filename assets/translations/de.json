@@ -1,4 +1,28 @@
 {
+    "offer": {
+        "limited_offer": "Begrenztes Angebot:",
+        "special_offer": "🎉 SPEZIALANGEBOT! 🎉",
+        "lifetime": "Lebenslanger Zugang",
+        "limited_time": "Zeitlich begrenztes Angebot!",
+        "join": "🎉 Schließe dich über 50.000 Nutzern an, die heute ihre Gesundheit und ihr Herz in die Hand nehmen!",
+        "unlock": "✨ Schalte noch heute alle Premium-Funktionen frei!"
+    },
+    "paywall": {
+        "title": "Entfalte deine Gesundheitskraft!",
+        "subtitle": "Übernimm die volle Kontrolle über dein Herz und deine Gesundheitsreise mit unbegrenztem Zugang.",
+        "text_1": "Voller Zugang zum KI-Gesundheitscoach",
+        "text_2": "Herzfrequenz- & Blutdruck-Tracking",
+        "text_3": "Blutzucker- & Sauerstoffüberwachung",
+        "text_4": "BMI-Einblicke & Fortschritt",
+        "text_5": "Gesunde Rezepte & Ernährungstipps",
+        "text_6": "Erweiterte Analysen & Trends",
+        "text_7": "Werbefreie Erfahrung",
+        "try": "Kostenlos testen",
+        "try_text": "3 Tage ausprobieren",
+        "congratulation": "Glückwunsch, du bist jetzt Premium!",
+        "subscribe": "Kostenlos testen & abonnieren",
+        "subscribe_now": "Abonnieren"
+    },
     "how_to_measure": {
         "title": "So messen Sie",
         "instructions": {
